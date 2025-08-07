@@ -1,0 +1,16 @@
+"scparena"
+{
+    "base"          "sandbox"
+    "title"         "Boring FPS"
+    "version"       "0.0.1"
+    "category"      "pvp"
+    "menusystem"    "1"
+    //"workshopid"    ""
+
+    "author_name"   "MrMarrant"
+    "author_email"  ""
+    "author_url"    ""
+
+    "icon"  ""
+    "info"  ""
+}
