@@ -1,3 +1,9 @@
+function BoringFPS.StripPlayers(players)
+    for _, ply in ipairs(players) do
+        ply:StripWeapons()
+    end
+end
+
 function BoringFPS.PrintToAllPlayers(msg, typeMsg)
     for _, ply in ipairs(player.GetAll()) do
         ply:PrintMessage( typeMsg, msg )

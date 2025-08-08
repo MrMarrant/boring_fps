@@ -57,5 +57,5 @@ print("Boring FPS Config Loaded !")
 
 function GM:InitPostEntity()
 	-- Do stuff
-	BoringFPS.NewGame()
+	hook.Call( "OnGameLoaded" )
 end
