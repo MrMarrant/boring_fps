@@ -39,4 +39,8 @@ function meta:Play()
     self:SetRunSpeed( 200 )
     self:SetJumpPower( 200 )
     self:ChatPrint("Vous êtes en train de jouer.")
+    -- TODO : Tester pour calculer le nombres de pas limites
+    hook.Add( "PlayerFootstep", "CustomFootstep", function( ply, pos, foot, sound, volume, rf )
+        return false
+    end )
 end

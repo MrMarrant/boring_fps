@@ -13,6 +13,25 @@ BoringFPS_LANG = BoringFPS_LANG or {}
 SCP_1025_CONFIG.LangServer = GetConVar("gmod_language"):GetString()
 
 local root = GM.FolderName
+local prefixOrder = {
+    sh = 1,
+    sv = 2,
+    cl = 3
+}
+
+local function SortFiles(a, b)
+    local prefixA = string.sub(a, 1, 2)
+    local prefixB = string.sub(b, 1, 2)
+
+    local orderA = prefixOrder[prefixA] or 99
+    local orderB = prefixOrder[prefixB] or 99
+
+    if orderA ~= orderB then
+        return orderA < orderB
+    end
+
+    return a < b
+end
 
 local function AddFile( File, directory )
 	local prefix = string.lower( string.Left( File, 3 ) )
@@ -37,6 +56,7 @@ local function LoadDirectory( directory )
 	directory = directory .. "/"
 
 	local files, directories = file.Find( directory .. "*", "LUA" )
+	table.sort( files, SortFiles )
 
 	for _, v in ipairs( files ) do
 		if string.EndsWith( v, ".lua" ) then

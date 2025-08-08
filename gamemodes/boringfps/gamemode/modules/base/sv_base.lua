@@ -35,7 +35,7 @@ function BoringFPS.StartGame()
     BoringFPS.SpawnPlayersOnGameMap()
     BoringFPS.DefineDirectionTurnPlay()
     BoringFPS.SetTurnToWait(BoringFPS_CONFIG.PlayersAlive)
-    BoringFPS.SetTurnToPlay(BoringFPS_CONFIG.DirectionTurnPlayers[1])
+    BoringFPS.SetTurnToPlay(1)
 end
 
 function BoringFPS.SpawnPlayersOnGameMap()
