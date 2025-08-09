@@ -14,7 +14,7 @@ end
 
 function BoringFPS.StartTimerTurn()
     if (not timer.Exists("BoringFPS:TimerTurn")) then
-        net.Start(BoringFPS_CONFIG.NetVar.StartChronoTurn)
+        net.Start(BoringFPS_CONFIG.NetVar.StartClientTurn)
         net.Broadcast()
         timer.Create("BoringFPS:TimerTurn", BoringFPS_CONFIG.Settings.LimitTimeTurn, 1, function()
             BoringFPS.EndTurn()
@@ -25,7 +25,7 @@ end
 function BoringFPS.EndTurn()
     timer.Remove("BoringFPS:TimerTurn")
     local ply = BoringFPS_CONFIG.DirectionTurnPlayers[BoringFPS_CONFIG.CurrentPlayerTurn]
-    net.Start(BoringFPS_CONFIG.NetVar.StopChronoTurn)
+    net.Start(BoringFPS_CONFIG.NetVar.StopClientTurn)
     net.Broadcast()
 
     BoringFPS.PrintToAllPlayers(ply:GetName() .. "'s turn has ended!", HUD_PRINTCENTER)

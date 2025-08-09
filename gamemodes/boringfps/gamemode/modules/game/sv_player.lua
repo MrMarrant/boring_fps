@@ -1,7 +1,28 @@
 local meta = FindMetaTable("Player")
 
+--! Si ça fonctionne bien, faire de même avec le 'state'
+function meta:SetupDataTables()
+    self:NetworkVar("Int", 0, "StepLeft")
+end
+
+local TypePlay = {
+    ["play"] = true,
+    ["wait"] = true
+}
+
+function meta:UpdateStepLeft(step)
+    meta:SetStepLeft(step)
+    if (step <= 0) then
+        self:SetWalkSpeed( 1 )
+        self:SetRunSpeed( 1 )
+        self:SetJumpPower( 0 )
+        hook.Remove("PlayerFootstep:CountStep:Player-" .. self:EntIndex())
+        self:ChatPrint("Vous avez utilisez tout vos déplacements.")
+    end
+end
+
 function meta:SetState(type)
-    if (not BoringFPS_CONFIG.Vars.TypePlay[type]) then
+    if (not TypePlay[type]) then
         ErrorNoHaltWithStack("Invalid type for SetState: " .. tostring(type) .. "\n")
         return
     end
@@ -31,6 +52,7 @@ function meta:Wait()
     self:SetRunSpeed( 1 )
     self:SetJumpPower( 0 )
     self:ChatPrint("Vous êtes en attente.")
+    hook.Remove("PlayerFootstep:CountStep:Player-" .. self:EntIndex())
 end
 
 --! Le joueur peut : avancer / Tirer / Interagir
@@ -40,7 +62,9 @@ function meta:Play()
     self:SetJumpPower( 200 )
     self:ChatPrint("Vous êtes en train de jouer.")
     -- TODO : Tester pour calculer le nombres de pas limites
-    hook.Add( "PlayerFootstep", "CustomFootstep", function( ply, pos, foot, sound, volume, rf )
+    meta:SetStepLeft(BoringFPS_CONFIG.Settings.DefaultMaxStep)
+    hook.Add( "PlayerFootstep", "PlayerFootstep:CountStep:Player-" .. self:EntIndex(), function( ply )
+        if (ply == self) ply:UpdateStepLeft(ply:GetStepLeft() - 1)
         return false
     end )
 end
