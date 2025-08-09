@@ -3,11 +3,13 @@ local meta = FindMetaTable("Player")
 --! Si ça fonctionne bien, faire de même avec le 'state'
 function meta:SetupDataTables()
     self:NetworkVar("Int", 0, "StepLeft")
+    self:NetworkVar("Int", 1, "NumberTurn")
 end
 
 local TypePlay = {
-    ["play"] = true,
-    ["wait"] = true
+    ["play"] = function (ply) ply:Play() end,
+    ["wait"] = function (ply) ply:Wait() end,
+    ["free"] = function (ply) ply:Free() end
 }
 
 function meta:UpdateStepLeft(step)
@@ -21,19 +23,15 @@ function meta:UpdateStepLeft(step)
     end
 end
 
-function meta:SetState(type)
-    if (not TypePlay[type]) then
-        ErrorNoHaltWithStack("Invalid type for SetState: " .. tostring(type) .. "\n")
+function meta:SetState(typeState)
+    if (not TypePlay[typeState]) then
+        ErrorNoHaltWithStack("Invalid type for SetState: " .. tostring(typeState) .. "\n")
         return
     end
     BoringFPS_CONFIG.Vars.PlayersVars[self] = BoringFPS_CONFIG.Vars.PlayersVars[self] or {}
-    BoringFPS_CONFIG.Vars.PlayersVars[self]["State"] = type
+    BoringFPS_CONFIG.Vars.PlayersVars[self]["State"] = typeState
 
-    if (type == "play") then
-        self:Play()
-    else
-        self:Wait()
-    end
+    TypePlay[typeState](self)
 end
 
 function meta:GetState()
@@ -57,7 +55,7 @@ end
 
 --! Le joueur peut : avancer / Tirer / Interagir
 function meta:Play()
-    self:SetWalkSpeed( 200 )
+    self:SetWalkSpeed( 150 )
     self:SetRunSpeed( 200 )
     self:SetJumpPower( 200 )
     self:ChatPrint("Vous êtes en train de jouer.")
@@ -67,4 +65,11 @@ function meta:Play()
         if (ply == self) ply:UpdateStepLeft(ply:GetStepLeft() - 1)
         return false
     end )
+end
+
+function meta:Free()
+    self:SetWalkSpeed( 150 )
+    self:SetRunSpeed( 200 )
+    self:SetJumpPower( 200 )
+    hook.Remove("PlayerFootstep:CountStep:Player-" .. self:EntIndex())
 end

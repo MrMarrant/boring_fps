@@ -37,11 +37,31 @@ end
 
 function BoringFPS.GetNextPlayerTurn()
     local currentIndex = BoringFPS_CONFIG.CurrentPlayerTurn
-    local nextIndex = currentIndex + 1
+    local nextIteration = 1
+    local nextIndex = currentIndex
 
-    if nextIndex > #BoringFPS_CONFIG.DirectionTurnPlayers then
-        nextIndex = 1
+    while (nextIteration <= #BoringFPS_CONFIG.DirectionTurnPlayers) do -- We set a limit at the size of current players
+        nextIndex = currentIndex + 1
+        if nextIndex > #BoringFPS_CONFIG.DirectionTurnPlayers then
+            nextIndex = 1
+        end
+        if (BoringFPS_CONFIG.DirectionTurnPlayers[nextIndex]) then
+            return nextIndex -- Return the new index and exit this loop
+        else
+            nextIteration = nextIteration + 1
+        end
     end
+end
 
-    return nextIndex
+function BoringFPS.EndGame()
+    -- TODO: Finir la partie -> Respawn les joueurs dans la salle d'attente -> Lancer une nouvelle partie
+    BoringFPS.PrintToAllPlayers(BoringFPS_CONFIG.PlayersAlive[1]:GetName() .. "'s has won!", HUD_PRINTCENTER)
+    BoringFPS.ResetParams()
+    timer.Create("BoringFPS:TimerPostGame", BoringFPS_CONFIG.Settings.TimerPostGame, 1, function ()
+        for key, value in ipairs(player.GetAll()) do
+            value:Spawn()
+            value:SetState("free")
+        end
+        BoringFPS.NewGame()
+    end)
 end

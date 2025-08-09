@@ -6,6 +6,7 @@ BoringFPS_CONFIG.Settings.MinPlayerRequired = 2 -- Minimum players required to s
 BoringFPS_CONFIG.Settings.LimitTimeTurn = 8 -- Time limit for each player's turn
 BoringFPS_CONFIG.Settings.TimerBetweenTurns = 2 -- Time limit between each player's turn
 BoringFPS_CONFIG.Settings.DefaultMaxStep = 100 -- Default steps a player can do during his turn
+BoringFPS_CONFIG.Settings.TimerPostGame = 10 -- Duration before game restart
 
 -- NET VAR
 BoringFPS_CONFIG.NetVar = {}

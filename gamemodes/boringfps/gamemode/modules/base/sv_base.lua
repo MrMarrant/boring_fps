@@ -34,14 +34,14 @@ function BoringFPS.StartGame()
     -- Définir les autres joueurs dans l'état d'attente de leur tour
     BoringFPS.SpawnPlayersOnGameMap()
     BoringFPS.DefineDirectionTurnPlay()
-    BoringFPS.SetTurnToWait(BoringFPS_CONFIG.PlayersAlive)
+    BoringFPS.SetTurnToWait(BoringFPS_CONFIG.PlayersInGame)
     BoringFPS.SetTurnToPlay(1)
 end
 
 function BoringFPS.SpawnPlayersOnGameMap()
     local spawnPoints = ents.FindByClass("info_player_rebel")
     local players = player.GetAll()
-    BoringFPS_CONFIG.PlayersAlive = players
+    BoringFPS_CONFIG.PlayersInGame = players
     -- Spawn les joueurs sur la map de jeu
     for index, ply in ipairs(players) do
         if spawnPoints[index] then
@@ -63,20 +63,48 @@ end
 function BoringFPS.DefineDirectionTurnPlay()
     local players = {}
     local directionTurn = {}
-    table.CopyFromTo(BoringFPS_CONFIG.PlayersAlive, players)
+    local indexTurn = 1
+    table.CopyFromTo(BoringFPS_CONFIG.PlayersInGame, players)
     while (not table.IsEmpty(players)) do
-        local ply = players[ math.random( #players ) ]
-        table.insert(directionTurn, ply)
-        table.RemoveByValue(players, ply)
+        local index = math.random( #players )
+        local ply = players[ index ]
+        ply:SetNumberTurn(indexTurn)
+        table.insert(directionTurn, indexTurn, ply)
+        table.remove(players, index)
+        indexTurn = indexTurn + 1
     end
     BoringFPS_CONFIG.DirectionTurnPlayers = directionTurn
+    BoringFPS_CONFIG.PlayersAlive = directionTurn
 end
 
 function BoringFPS.ResetParams()
     BoringFPS_CONFIG.Vars.PlayersVars = {}
+    BoringFPS_CONFIG.PlayersInGame = {}
     BoringFPS_CONFIG.PlayersAlive = {}
     BoringFPS_CONFIG.CurrentPlayerTurn = nil
     BoringFPS_CONFIG.DirectionTurnPlayers = {}
     BoringFPS_CONFIG.GameInProgress = false
-    BoringFPS.StripPlayers(BoringFPS_CONFIG.PlayersAlive or player.GetAll())
+    BoringFPS.StripPlayers(player.GetAll())
+    hook.Remove("PlayerDeath:BoringFPS:ConditionEndGame")
+    hook.Remove("PlayerDisconnected:BoringFPS:ConditionEndGame")
+    timer.Remove("BoringFPS:TimerTurn")
+    timer.Remove("BoringFPS:NextTurn")
+    net.Start(BoringFPS_CONFIG.NetVar.StopClientTurn)
+    net.Broadcast()
+end
+
+function BoringFPS.StartConditionEndGame()
+    hook.Add("PlayerDeath", "PlayerDeath:BoringFPS:ConditionEndGame", BoringFPS.OnPlayerLeave)
+    hook.Add("PlayerDisconnected", "PlayerDisconnected:BoringFPS:ConditionEndGame", BoringFPS.OnPlayerLeave)
+end
+
+function BoringFPS.OnPlayerLeave(ply)
+    if (BoringFPS_CONFIG.DirectionTurnPlayers[ply:GetNumberTurn()]) then
+        BoringFPS_CONFIG.DirectionTurnPlayers[ply:GetNumberTurn()] = nil
+        table.RemoveByValue(BoringFPS_CONFIG.PlayersAlive, ply)
+        if (ply:IsConnected()) then GAMEMODE:PlayerSpawnAsSpectator( ply ) end
+    end
+    if (#BoringFPS_CONFIG.DirectionTurnPlayers <= 1) then
+        BoringFPS.EndGame()
+    end
 end
