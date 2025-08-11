@@ -1,12 +1,13 @@
 -- Game settings, edit as you wish
 BoringFPS_CONFIG.Settings = {}
-BoringFPS_CONFIG.Settings.TimerWait = 5 -- Time in seconds before the next round starts
+BoringFPS_CONFIG.Settings.TimerPreGame = 5 -- Time in seconds before the game starts
+BoringFPS_CONFIG.Settings.TimerPostGame = 5 -- Duration before game restart
+BoringFPS_CONFIG.Settings.TimerDelayNextGame = 10 -- Duration before next game starts
 BoringFPS_CONFIG.Settings.BaseHP = 100 -- Default health points for players
 BoringFPS_CONFIG.Settings.MinPlayerRequired = 2 -- Minimum players required to start a game
 BoringFPS_CONFIG.Settings.LimitTimeTurn = 8 -- Time limit for each player's turn
 BoringFPS_CONFIG.Settings.TimerBetweenTurns = 2 -- Time limit between each player's turn
-BoringFPS_CONFIG.Settings.DefaultMaxStep = 100 -- Default steps a player can do during his turn
-BoringFPS_CONFIG.Settings.TimerPostGame = 10 -- Duration before game restart
+BoringFPS_CONFIG.Settings.DefaultMaxStep = 10 -- Default steps a player can do during his turn
 
 -- NET VAR
 BoringFPS_CONFIG.NetVar = {}
