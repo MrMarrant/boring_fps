@@ -1,3 +1,3 @@
 -- AddNetworkString
-util.AddNetworkString(BoringFPS_CONFIG.NetVar.StartChronoTurn)
-util.AddNetworkString(BoringFPS_CONFIG.NetVar.StopChronoTurn)
+util.AddNetworkString(BoringFPS_CONFIG.NetVar.StartClientTurn)
+util.AddNetworkString(BoringFPS_CONFIG.NetVar.StopClientTurn)
