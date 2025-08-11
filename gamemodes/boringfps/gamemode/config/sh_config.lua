@@ -9,6 +9,11 @@ BoringFPS_CONFIG.Settings.LimitTimeTurn = 8 -- Time limit for each player's turn
 BoringFPS_CONFIG.Settings.TimerBetweenTurns = 2 -- Time limit between each player's turn
 BoringFPS_CONFIG.Settings.DefaultMaxStep = 10 -- Default steps a player can do during his turn
 
+BoringFPS_CONFIG.Settings.ListWeapons = {
+    "pistol_boring-gun",
+    "shootgun_boring-gun"
+}
+
 -- NET VAR
 BoringFPS_CONFIG.NetVar = {}
 BoringFPS_CONFIG.NetVar.StartClientTurn = "BoringFPS_CONFIG.StartClientTurn"

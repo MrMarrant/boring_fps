@@ -28,34 +28,40 @@ SWEP.Secondary.Ammo = "none"
 SWEP.Damage = 50
 SWEP.MaxStep = 10
 SWEP.MaxDash = 2
-
-function SWEP:Initialize()
-	self:SetHoldType( self.HoldType )
-end
+SWEP.Action = 1
 
 function SWEP:PrimaryAttack()
-    if (self:Canfire()) then
+    local owner = self:GetOwner()
+    if self:CanFire() and IsValid(owner) then
         self:Shoot()
         self:TakePrimaryAmmo(1)
-        -- TODO : Retirer une action au joueur
+        owner:SetNWInt("Action", owner:GetNWInt("Action", 0) - 1)
     end
 end
 
 function SWEP:SecondaryAttack()
 end
 
-function SWEP:Canfire()
-    --! Vérifier sur le joueur s'il a encore une action
-    return (self:Clip1() > 0)
-end
-
 function SWEP:Shoot()
 end
 
 function SWEP:Reload()
-    -- TODO : Vérifier sur le joueur s'il a encore une action
-    if self:Clip1() < self:GetMaxClip1() then
+    local owner = self:GetOwner()
+    if self:CanReload() and IsValid(owner) then
         self:DefaultReload(ACT_VM_RELOAD)
         self:SetClip1(self:GetMaxClip1())
+        owner:SetNWInt("Action", owner:GetNWInt("Action", 0) - 1)
     end
+end
+
+function SWEP:CanFire()
+    return (self:Clip1() > 0 and self:GetOwner():CanUseAction())
+end
+
+function SWEP:CanReload()
+    return (self:Clip1() < self:GetMaxClip1() and self:GetOwner():CanUseAction())
+end
+
+function SWEP:Initialize()
+	self:SetHoldType( self.HoldType )
 end

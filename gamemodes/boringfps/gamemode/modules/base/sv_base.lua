@@ -32,10 +32,6 @@ function BoringFPS.StartGame()
     BoringFPS.PrintToAllPlayers("Game is starting!", HUD_PRINTCENTER)
     BoringFPS_CONFIG.GameInProgress = true
     BoringFPS.StartConditionEndGame()
-
-    -- Set les armes des joueurs
-    -- lancer le tour du premier joueur
-    -- Définir les autres joueurs dans l'état d'attente de leur tour
     BoringFPS.SpawnPlayersOnGameMap()
     BoringFPS.DefineDirectionTurnPlay()
     BoringFPS.SetTurnToWait(BoringFPS_CONFIG.PlayersInGame)
@@ -49,6 +45,9 @@ function BoringFPS.SpawnPlayersOnGameMap()
     BoringFPS_CONFIG.PlayersAlive = players
     -- Spawn les joueurs sur la map de jeu
     for index, ply in ipairs(players) do
+        local weapon = ply:Give(table.Random(BoringFPS_CONFIG.Settings.ListWeapons))
+        ply:SetNWEntity( "WeaponGame", weapon)
+        weapon:SetClip1(weapon:GetMaxClip1())
         if spawnPoints[index] then
             ply:SetPos(spawnPoints[index]:GetPos())
             ply:SetAngles(spawnPoints[index]:GetAngles())
@@ -91,7 +90,6 @@ function BoringFPS.ResetParams()
     BoringFPS_CONFIG.DirectionTurnPlayers = {}
     BoringFPS_CONFIG.LastIndexDirectionTurn = nil
     BoringFPS_CONFIG.GameInProgress = false
-    BoringFPS.StripPlayers(player.GetAll())
     hook.Remove("PlayerDeath", "PlayerDeath:BoringFPS:ConditionEndGame")
     hook.Remove("PlayerDisconnected", "PlayerDisconnected:BoringFPS:ConditionEndGame")
     timer.Remove("BoringFPS:TimerTurn")
@@ -101,6 +99,8 @@ function BoringFPS.ResetParams()
     for key, value in ipairs(BoringFPS_CONFIG.PlayersInGame) do
         value:SetNWInt("NumberTurn", -1)
         value:SetNWInt("StepLeft", -1)
+        value:SetNWEntity( "WeaponGame", nil )
+        value:StripWeapons()
     end
 end
 

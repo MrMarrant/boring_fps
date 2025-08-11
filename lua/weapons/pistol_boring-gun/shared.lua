@@ -31,6 +31,7 @@ SWEP.MaxDash = 3
 SWEP.Damage = 30
 SWEP.MaxStep = 15
 SWEP.MaxDash = 3
+SWEP.Action = 2
 
 function SWEP:Shoot()
     local owner = self:GetOwner()
