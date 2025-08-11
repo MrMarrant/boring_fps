@@ -1,14 +1,15 @@
 AddCSLuaFile()
 AddCSLuaFile( "cl_init.lua" )
 
+SWEP.Base = "weapon_base"
 SWEP.Slot = 0
 SWEP.SlotPos = 1
 
 SWEP.Spawnable = false
 
 SWEP.Category = "Boring gun"
-SWEP.ViewModel = Model( "" )
-SWEP.WorldModel = Model( "" )
+SWEP.ViewModel = Model( "models/weapons/v_pistol.mdl" )
+SWEP.WorldModel = Model( "models/weapons/w_pistol.mdl" )
 
 SWEP.ViewModelFOV = 65
 SWEP.HoldType = "pistol"
@@ -23,10 +24,9 @@ SWEP.Secondary.ClipSize = -1
 SWEP.Secondary.DefaultClip = -1
 SWEP.Secondary.Automatic = false
 SWEP.Secondary.Ammo = "none"
-SWEP.DrawAmmo = true
 
 SWEP.Damage = 50
-SWEP.MaxStep = 200
+SWEP.MaxStep = 10
 SWEP.MaxDash = 2
 
 function SWEP:Initialize()

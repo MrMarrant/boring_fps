@@ -1,6 +1,6 @@
 include('shared.lua')
 
-SWEP.PrintName = "ShootGun"
+SWEP.PrintName = "Pistol"
 SWEP.Author = "MrMarrant"
 SWEP.Purpose = "It shoot & kill"
 SWEP.DrawCrosshair = true

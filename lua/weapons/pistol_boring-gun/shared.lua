@@ -8,15 +8,15 @@ SWEP.SlotPos = 1
 SWEP.Spawnable = true
 
 SWEP.Category = "Boring gun"
-SWEP.ViewModel = Model( "models/weapons/v_shotgun.mdl" )
-SWEP.WorldModel = Model( "models/weapons/w_shotgun.mdl" )
+SWEP.ViewModel = Model( "models/weapons/v_pistol.mdl" )
+SWEP.WorldModel = Model( "models/weapons/w_pistol.mdl" )
 
 SWEP.ViewModelFOV = 65
-SWEP.HoldType = "shotgun"
+SWEP.HoldType = "pistol"
 SWEP.UseHands = true
 
-SWEP.Primary.ClipSize = 5
-SWEP.Primary.DefaultClip = 5
+SWEP.Primary.ClipSize = 8
+SWEP.Primary.DefaultClip = 8
 SWEP.Primary.Automatic = false
 SWEP.Primary.Ammo = "none"
 
@@ -25,17 +25,18 @@ SWEP.Secondary.DefaultClip = -1
 SWEP.Secondary.Automatic = false
 SWEP.Secondary.Ammo = "none"
 
-SWEP.Pellets = 8          -- nombre de projectiles par tir
-SWEP.SpreadAngle = 0.08      -- dispersion en degrés
-SWEP.Damage = 15
-SWEP.MaxStep = 10
-SWEP.MaxDash = 2
+SWEP.MaxStep = 20
+SWEP.MaxDash = 3
+
+SWEP.Damage = 30
+SWEP.MaxStep = 15
+SWEP.MaxDash = 3
 
 function SWEP:Shoot()
     local owner = self:GetOwner()
     if not IsValid(owner) then return end
 
     owner:LagCompensation(true)
-    self:ShootBullet(self.Damage, self.Pellets, self.SpreadAngle)
+    self:ShootBullet(self.Damage, 1, 0)
     owner:LagCompensation(false)
 end
