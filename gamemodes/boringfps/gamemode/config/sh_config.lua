@@ -5,8 +5,8 @@ BoringFPS_CONFIG.Settings.TimerPostGame = 5 -- Duration before game restart
 BoringFPS_CONFIG.Settings.TimerDelayNextGame = 10 -- Duration before next game starts
 BoringFPS_CONFIG.Settings.BaseHP = 100 -- Default health points for players
 BoringFPS_CONFIG.Settings.MinPlayerRequired = 2 -- Minimum players required to start a game
-BoringFPS_CONFIG.Settings.LimitTimeTurn = 8 -- Time limit for each player's turn
-BoringFPS_CONFIG.Settings.TimerBetweenTurns = 2 -- Time limit between each player's turn
+BoringFPS_CONFIG.Settings.LimitTimeTurn = 5 -- Time limit for each player's turn
+BoringFPS_CONFIG.Settings.TimerBetweenTurns = 1 -- Time limit between each player's turn
 BoringFPS_CONFIG.Settings.DefaultMaxStep = 10 -- Default steps a player can do during his turn
 
 BoringFPS_CONFIG.Settings.ListWeapons = {
@@ -18,6 +18,8 @@ BoringFPS_CONFIG.Settings.ListWeapons = {
 BoringFPS_CONFIG.NetVar = {}
 BoringFPS_CONFIG.NetVar.StartClientTurn = "BoringFPS_CONFIG.StartClientTurn"
 BoringFPS_CONFIG.NetVar.StopClientTurn = "BoringFPS_CONFIG.StopClientTurn"
+BoringFPS_CONFIG.NetVar.PlayClientSound = "BoringFPS_CONFIG.PlayClientSound"
+BoringFPS_CONFIG.NetVar.StopPlayClientSound = "BoringFPS_CONFIG.StopPlayClientSound"
 
 -- Base vars, i really don't recommend to edit this section
 BoringFPS_CONFIG.Vars = {}

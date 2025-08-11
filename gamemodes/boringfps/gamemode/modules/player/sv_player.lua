@@ -37,7 +37,6 @@ function PLAYER:Wait()
     hook.Remove("PlayerFootstep", "PlayerFootstep:CountStep:Player-" .. self:EntIndex())
 end
 
---! Le joueur peut : avancer / Tirer / Interagir
 function PLAYER:Play()
     self:SetWalkSpeed( 150 )
     self:SetRunSpeed( 200 )

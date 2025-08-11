@@ -2,7 +2,7 @@ versioninfo
 {
 	"editorversion" "400"
 	"editorbuild" "8870"
-	"mapversion" "51"
+	"mapversion" "53"
 	"formatversion" "100"
 	"prefab" "0"
 }
@@ -14,7 +14,7 @@ viewsettings
 	"bSnapToGrid" "1"
 	"bShowGrid" "1"
 	"bShowLogicalGrid" "0"
-	"nGridSpacing" "64"
+	"nGridSpacing" "32"
 }
 palette_plus
 {
@@ -89,7 +89,7 @@ bgimages_plus
 world
 {
 	"id" "1"
-	"mapversion" "51"
+	"mapversion" "53"
 	"classname" "worldspawn"
 	"detailmaterial" "detail/detailsprites"
 	"detailvbsp" "detail.vbsp"
@@ -3945,27 +3945,14 @@ entity
 }
 entity
 {
-	"id" "545"
-	"classname" "info_player_rebel"
-	"angles" "0 180 0"
-	"origin" "-159.203 1469.97 513"
-	editor
-	{
-		"color" "0 255 0"
-		"visgroupshown" "1"
-		"visgroupautoshown" "1"
-		"logicalpos" "[0 500]"
-	}
-}
-entity
-{
-	"id" "547"
-	"classname" "info_player_rebel"
+	"id" "579"
+	"classname" "info_target"
 	"angles" "0 0 0"
-	"origin" "-1481.63 2495.93 513"
+	"targetname" "spawn_game"
+	"origin" "-160 1472 520"
 	editor
 	{
-		"color" "0 255 0"
+		"color" "220 30 220"
 		"visgroupshown" "1"
 		"visgroupautoshown" "1"
 		"logicalpos" "[0 1000]"
@@ -3973,30 +3960,47 @@ entity
 }
 entity
 {
-	"id" "549"
-	"classname" "info_player_rebel"
-	"angles" "0 180 0"
-	"origin" "-158.51 2496.92 513"
+	"id" "598"
+	"classname" "info_target"
+	"angles" "0 0 0"
+	"targetname" "spawn_game"
+	"origin" "-1472 2496 512"
 	editor
 	{
-		"color" "0 255 0"
+		"color" "220 30 220"
 		"visgroupshown" "1"
 		"visgroupautoshown" "1"
-		"logicalpos" "[0 1500]"
+		"logicalpos" "[0 1000]"
 	}
 }
 entity
 {
-	"id" "551"
-	"classname" "info_player_rebel"
+	"id" "604"
+	"classname" "info_target"
 	"angles" "0 0 0"
-	"origin" "-1512.48 1470.49 513"
+	"targetname" "spawn_game"
+	"origin" "-1472 1472 512"
 	editor
 	{
-		"color" "0 255 0"
+		"color" "220 30 220"
 		"visgroupshown" "1"
 		"visgroupautoshown" "1"
-		"logicalpos" "[0 2000]"
+		"logicalpos" "[0 1000]"
+	}
+}
+entity
+{
+	"id" "592"
+	"classname" "info_target"
+	"angles" "0 0 0"
+	"targetname" "spawn_game"
+	"origin" "-160 2496 521.191"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 1000]"
 	}
 }
 cameras
@@ -4004,8 +4008,8 @@ cameras
 	"activecamera" "0"
 	camera
 	{
-		"position" "[-1030.24 2133.45 600.19]"
-		"look" "[-1012.79 2082.19 601.702]"
+		"position" "[-177.189 2600.39 541.275]"
+		"look" "[-191.438 2549.35 530.012]"
 	}
 }
 cordons

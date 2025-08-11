@@ -65,7 +65,33 @@ function BoringFPS.EndGame()
         for key, value in ipairs(player.GetAll()) do
             value:Spawn()
             value:SetState("free")
+            value:SetNWInt("NumberTurn", -1)
+            value:SetNWInt("StepLeft", -1)
+            value:SetNWEntity( "WeaponGame", nil )
+            value:StripWeapons()
         end
+        BoringFPS.StopSound("boring_fps/music/theme_boringfps.wav")
         BoringFPS.NewGame()
     end)
+end
+
+function BoringFPS.PlaySound(sound, loop, ply)
+    net.Start(BoringFPS_CONFIG.NetVar.PlayClientSound)
+    net.WriteString(sound)
+    net.WriteBool(loop)
+    if (ply) then
+        net.Send(ply)
+    else
+        net.Broadcast()
+    end
+end
+
+function BoringFPS.StopSound(sound, ply)
+    net.Start(BoringFPS_CONFIG.NetVar.StopPlayClientSound)
+    net.WriteString(sound)
+    if (ply) then
+        net.Send(ply)
+    else
+        net.Broadcast()
+    end
 end

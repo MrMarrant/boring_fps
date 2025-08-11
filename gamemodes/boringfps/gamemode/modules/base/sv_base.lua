@@ -36,10 +36,11 @@ function BoringFPS.StartGame()
     BoringFPS.DefineDirectionTurnPlay()
     BoringFPS.SetTurnToWait(BoringFPS_CONFIG.PlayersInGame)
     BoringFPS.SetTurnToPlay(1)
+    BoringFPS.PlaySound("boring_fps/music/theme_boringfps.wav", true)
 end
 
 function BoringFPS.SpawnPlayersOnGameMap()
-    local spawnPoints = ents.FindByClass("info_player_rebel")
+    local spawnPoints = ents.FindByName("spawn_game")
     local players = player.GetAll()
     BoringFPS_CONFIG.PlayersInGame = players
     BoringFPS_CONFIG.PlayersAlive = players
@@ -96,12 +97,6 @@ function BoringFPS.ResetParams()
     timer.Remove("BoringFPS:NextTurn")
     net.Start(BoringFPS_CONFIG.NetVar.StopClientTurn)
     net.Broadcast()
-    for key, value in ipairs(BoringFPS_CONFIG.PlayersInGame) do
-        value:SetNWInt("NumberTurn", -1)
-        value:SetNWInt("StepLeft", -1)
-        value:SetNWEntity( "WeaponGame", nil )
-        value:StripWeapons()
-    end
 end
 
 function BoringFPS.StartConditionEndGame()
@@ -114,6 +109,7 @@ function BoringFPS.OnPlayerLeave(ply)
         BoringFPS_CONFIG.DirectionTurnPlayers[ply:GetNWInt("NumberTurn")] = nil
         table.remove(BoringFPS_CONFIG.PlayersAlive, table.KeyFromValue(BoringFPS_CONFIG.PlayersAlive, ply))
         if (ply:IsConnected()) then GAMEMODE:PlayerSpawnAsSpectator( ply ) end
+        EmitSound("boring_fps/sfx/ded.mp3", ply:GetPos(), 0, CHAN_AUTO, 1, 180, 0, math.random(90, 110))
     end
     if (table.Count(BoringFPS_CONFIG.PlayersAlive) <= 1) then
         BoringFPS.EndGame()

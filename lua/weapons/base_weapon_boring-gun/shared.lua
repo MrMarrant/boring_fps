@@ -51,6 +51,7 @@ function SWEP:Reload()
         self:DefaultReload(ACT_VM_RELOAD)
         self:SetClip1(self:GetMaxClip1())
         owner:SetNWInt("Action", owner:GetNWInt("Action", 0) - 1)
+        if SERVER then owner:EmitSound("weapons/smg1/smg1_reload.wav") end
     end
 end
 
