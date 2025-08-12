@@ -40,15 +40,14 @@ function BoringFPS.StartGame()
 end
 
 function BoringFPS.SpawnPlayersOnGameMap()
-    local spawnPoints = ents.FindByName("spawn_game")
+    local spawnPoints = BoringFPS.ShuffleTable(ents.FindByName("spawn_game"))
     local players = player.GetAll()
     BoringFPS_CONFIG.PlayersInGame = players
     BoringFPS_CONFIG.PlayersAlive = players
-    -- Spawn les joueurs sur la map de jeu
     for index, ply in ipairs(players) do
         local weapon = ply:Give(ply:GetNWString("ClassWeapon", BoringFPS_CONFIG.Settings.ClassWeapon[BoringFPS_CONFIG.Settings.ListClass[1]]))
         ply:SetNWEntity( "WeaponGame", weapon)
-        weapon:SetClip1(weapon:GetMaxClip1())
+        weapon:SetClip1(weapon:GetMaxClip1()) --? We set here bc weapon doesnt load itself for some reasons
         if spawnPoints[index] then
             ply:SetPos(spawnPoints[index]:GetPos())
             ply:SetAngles(spawnPoints[index]:GetAngles())

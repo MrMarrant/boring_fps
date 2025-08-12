@@ -54,6 +54,15 @@ function BoringFPS.GetWantedMoveDirection(ply)
     return moveDir:GetNormalized()
 end
 
+function BoringFPS.ShuffleTable(t)
+    local len = #t
+    for i = len, 2, -1 do
+        local j = math.random(i)
+        t[i], t[j] = t[j], t[i]
+    end
+    return t
+end
+
 hook.Add( "PlayerDeathThink", "PlayerDeathThink:BoringFPS:SpectatorNext", function( ply )
     if ply:GetObserverMode() == OBS_MODE_CHASE then
         if ply:KeyPressed( IN_ATTACK ) then
