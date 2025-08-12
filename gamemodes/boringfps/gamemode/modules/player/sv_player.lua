@@ -28,16 +28,22 @@ end
 
 --! Le joueur peut : tourner la caméra / dash
 function PLAYER:Wait()
+    local WeaponGame = self:GetNWEntity("WeaponGame")
     self:SetWalkSpeed( 1 )
     self:SetRunSpeed( 1 )
     self:SetJumpPower( 0 )
     self:SetNWInt("Action", 0)
     self:SetNWInt("StepLeft", 0)
+    self:SetNWInt("Dash", WeaponGame.MaxDash)
     self:ChatPrint("Vous êtes en attente.")
+    net.Start(BoringFPS_CONFIG.NetVar.StartClientWait)
+    net.Send(self)
     hook.Remove("PlayerFootstep", "PlayerFootstep:CountStep:Player-" .. self:EntIndex())
 end
 
 function PLAYER:Play()
+    net.Start(BoringFPS_CONFIG.NetVar.StopClientTurn)
+    net.Send(self)
     self:SetWalkSpeed( BoringFPS_CONFIG.Settings.DefaultWalkSpeed )
     self:SetRunSpeed( BoringFPS_CONFIG.Settings.DefaultRunSpeed )
     self:SetJumpPower( 200 )
@@ -46,6 +52,9 @@ function PLAYER:Play()
     local WeaponGame = self:GetNWEntity("WeaponGame")
     self:SetNWInt("StepLeft", WeaponGame.MaxStep)
     self:SetNWInt("Action", WeaponGame.Action)
+    self:SetNWInt("Dash", -1)
+    net.Start(BoringFPS_CONFIG.NetVar.StartClientPlay)
+    net.Send(self)
     hook.Add( "PlayerFootstep", "PlayerFootstep:CountStep:Player-" .. self:EntIndex(), function( ply )
         if (ply == self) then ply:UpdateStepLeft(ply:GetNWInt("StepLeft") - 1) end
         return false
@@ -63,5 +72,6 @@ hook.Add("PlayerInitialSpawn", "PlayerInitialSpawn:BoringFPS:SetupData", functio
     ply:SetNWInt("NumberTurn", -1)
     ply:SetNWInt("StepLeft", -1)
     ply:SetNWInt("Action", -1)
+    ply:SetNWInt("Dash", -1)
     ply:SetState("free")
 end)

@@ -110,6 +110,8 @@ function BoringFPS.OnPlayerLeave(ply)
         table.remove(BoringFPS_CONFIG.PlayersAlive, table.KeyFromValue(BoringFPS_CONFIG.PlayersAlive, ply))
         if (ply:IsConnected()) then BoringFPS.EnterSpectatorMode(ply) end
         ply:EmitSound("boring_fps/sfx/ded.mp3", 90, math.random(90, 110))
+        net.Start(BoringFPS_CONFIG.NetVar.StopClientTurn)
+        net.Send(ply)
     end
     if (table.Count(BoringFPS_CONFIG.PlayersAlive) <= 1) then
         BoringFPS.EndGame()

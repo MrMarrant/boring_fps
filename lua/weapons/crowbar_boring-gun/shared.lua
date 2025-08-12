@@ -27,9 +27,9 @@ SWEP.Secondary.Ammo = "none"
 
 SWEP.RangeAttack = 100
 
-SWEP.Damage = 25
+SWEP.Damage = 30
 SWEP.MaxStep = 15
-SWEP.MaxDash = 3
+SWEP.MaxDash = 2
 SWEP.Action = 2
 
 

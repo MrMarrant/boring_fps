@@ -45,6 +45,11 @@ function SWEP:PrimaryAttack()
 end
 
 function SWEP:SecondaryAttack()
+    if self:CanDash() and SERVER then
+        local owner = self:GetOwner()
+        owner:SetVelocity( BoringFPS.GetWantedMoveDirection(owner) * 1000 )
+        owner:SetNWInt("Dash", owner:GetNWInt("Dash", 0) - 1)
+    end
 end
 
 function SWEP:Shoot()
@@ -66,4 +71,9 @@ end
 
 function SWEP:CanReload()
     return (self:Clip1() < self:GetMaxClip1() and self:GetOwner():CanUseAction())
+end
+
+function SWEP:CanDash()
+    local owner = self:GetOwner()
+    return (owner:GetNWInt("Dash", 0) > 0 and owner:GetNWString("State", "") == "wait")
 end

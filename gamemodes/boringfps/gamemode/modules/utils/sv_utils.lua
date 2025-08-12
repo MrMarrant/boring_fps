@@ -33,6 +33,27 @@ function BoringFPS.FindNextAlivePlayer(ply, currentTarget)
     return players[newKey]
 end
 
+function BoringFPS.GetWantedMoveDirection(ply)
+    local moveDir = Vector(0, 0, 0)
+
+    if ply:KeyDown(IN_FORWARD) then
+        moveDir = moveDir + ply:GetForward()
+    end
+    if ply:KeyDown(IN_BACK) then
+        moveDir = moveDir - ply:GetForward()
+    end
+    if ply:KeyDown(IN_MOVELEFT) then
+        moveDir = moveDir - ply:GetRight()
+    end
+    if ply:KeyDown(IN_MOVERIGHT) then
+        moveDir = moveDir + ply:GetRight()
+    end
+
+    moveDir.z = 0
+
+    return moveDir:GetNormalized()
+end
+
 hook.Add( "PlayerDeathThink", "PlayerDeathThink:BoringFPS:SpectatorNext", function( ply )
     if ply:GetObserverMode() == OBS_MODE_CHASE and ply:KeyPressed( IN_ATTACK ) then
         local nextTarget = BoringFPS.FindNextAlivePlayer(ply, ply:GetObserverTarget())

@@ -15,8 +15,8 @@ SWEP.ViewModelFOV = 65
 SWEP.HoldType = "shotgun"
 SWEP.UseHands = true
 
-SWEP.Primary.ClipSize = 5
-SWEP.Primary.DefaultClip = 5
+SWEP.Primary.ClipSize = 3
+SWEP.Primary.DefaultClip = 3
 SWEP.Primary.Automatic = false
 SWEP.Primary.Ammo = "none"
 
@@ -25,11 +25,13 @@ SWEP.Secondary.DefaultClip = -1
 SWEP.Secondary.Automatic = false
 SWEP.Secondary.Ammo = "none"
 
-SWEP.Pellets = 8          -- nombre de projectiles par tir
-SWEP.SpreadAngle = 0.08      -- dispersion en degrés
+SWEP.Pellets = 7
+SWEP.SpreadAngle = 0.1
+
 SWEP.Damage = 15
 SWEP.MaxStep = 8
-SWEP.MaxDash = 2
+SWEP.MaxDash = 1
+SWEP.Action = 1
 
 function SWEP:Shoot()
     local owner = self:GetOwner()

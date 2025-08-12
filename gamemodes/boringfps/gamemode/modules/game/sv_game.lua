@@ -15,8 +15,6 @@ end
 
 function BoringFPS.StartTimerTurn()
     if (not timer.Exists("BoringFPS:TimerTurn")) then
-        net.Start(BoringFPS_CONFIG.NetVar.StartClientTurn)
-        net.Send(BoringFPS_CONFIG.CurrentPlayerTurn)
         timer.Create("BoringFPS:TimerTurn", BoringFPS_CONFIG.Settings.LimitTimeTurn, 1, function()
             BoringFPS.EndTurn()
         end)
@@ -27,9 +25,6 @@ function BoringFPS.EndTurn()
     timer.Remove("BoringFPS:TimerTurn")
     local ply = BoringFPS_CONFIG.CurrentPlayerTurn
     if (IsValid(ply)) then
-        net.Start(BoringFPS_CONFIG.NetVar.StopClientTurn)
-        net.Send(ply)
-
         BoringFPS.PrintToAllPlayers(ply:GetName() .. "'s turn has ended!", HUD_PRINTCENTER)
         BoringFPS.SetTurnToWait({ply})
     else
@@ -69,6 +64,7 @@ function BoringFPS.EndGame()
             value:SetNWInt("NumberTurn", -1)
             value:SetNWInt("StepLeft", -1)
             value:SetNWEntity( "WeaponGame", nil )
+            value:SetNWInt("Dash", -1)
             value:StripWeapons()
         end
         BoringFPS.StopSound("boring_fps/music/theme_boringfps.wav")

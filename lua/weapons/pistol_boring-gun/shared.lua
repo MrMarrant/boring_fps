@@ -15,8 +15,8 @@ SWEP.ViewModelFOV = 65
 SWEP.HoldType = "pistol"
 SWEP.UseHands = true
 
-SWEP.Primary.ClipSize = 8
-SWEP.Primary.DefaultClip = 8
+SWEP.Primary.ClipSize = 4
+SWEP.Primary.DefaultClip = 4
 SWEP.Primary.Automatic = false
 SWEP.Primary.Ammo = "none"
 
@@ -25,9 +25,9 @@ SWEP.Secondary.DefaultClip = -1
 SWEP.Secondary.Automatic = false
 SWEP.Secondary.Ammo = "none"
 
-SWEP.Damage = 30
+SWEP.Damage = 25
 SWEP.MaxStep = 10
-SWEP.MaxDash = 3
+SWEP.MaxDash = 2
 SWEP.Action = 2
 
 function SWEP:Shoot()

@@ -23,10 +23,11 @@ BoringFPS_CONFIG.Models.Rocket = Model("models/props_c17/doll01.mdl")
 
 -- NET VAR
 BoringFPS_CONFIG.NetVar = {}
-BoringFPS_CONFIG.NetVar.StartClientTurn = "BoringFPS_CONFIG.StartClientTurn"
+BoringFPS_CONFIG.NetVar.StartClientPlay = "BoringFPS_CONFIG.StartClientPlay"
 BoringFPS_CONFIG.NetVar.StopClientTurn = "BoringFPS_CONFIG.StopClientTurn"
 BoringFPS_CONFIG.NetVar.PlayClientSound = "BoringFPS_CONFIG.PlayClientSound"
 BoringFPS_CONFIG.NetVar.StopPlayClientSound = "BoringFPS_CONFIG.StopPlayClientSound"
+BoringFPS_CONFIG.NetVar.StartClientWait = "BoringFPS_CONFIG.StartClientWait"
 
 -- Base vars, i really don't recommend to edit this section
 BoringFPS_CONFIG.Vars = {}
