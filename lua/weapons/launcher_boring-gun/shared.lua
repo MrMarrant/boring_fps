@@ -15,8 +15,8 @@ SWEP.ViewModelFOV = 65
 SWEP.HoldType = "rpg"
 SWEP.UseHands = true
 
-SWEP.Primary.ClipSize = 1
-SWEP.Primary.DefaultClip = 1
+SWEP.Primary.ClipSize = 2
+SWEP.Primary.DefaultClip = 2
 SWEP.Primary.Automatic = false
 SWEP.Primary.Ammo = "none"
 
@@ -25,8 +25,8 @@ SWEP.Secondary.DefaultClip = -1
 SWEP.Secondary.Automatic = false
 SWEP.Secondary.Ammo = "none"
 
-SWEP.Damage = 105
-SWEP.MaxStep = 5
+SWEP.Damage = 120
+SWEP.MaxStep = 6
 SWEP.MaxDash = 1
 SWEP.Action = 1
 
