@@ -25,7 +25,7 @@ SWEP.Secondary.DefaultClip = -1
 SWEP.Secondary.Automatic = false
 SWEP.Secondary.Ammo = "none"
 
-SWEP.Damage = 25
+SWEP.Damage = 15
 SWEP.MaxStep = 10
 SWEP.MaxDash = 2
 SWEP.Action = 2

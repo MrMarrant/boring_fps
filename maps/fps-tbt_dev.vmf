@@ -2,7 +2,7 @@ versioninfo
 {
 	"editorversion" "400"
 	"editorbuild" "8870"
-	"mapversion" "53"
+	"mapversion" "54"
 	"formatversion" "100"
 	"prefab" "0"
 }
@@ -89,7 +89,7 @@ bgimages_plus
 world
 {
 	"id" "1"
-	"mapversion" "53"
+	"mapversion" "54"
 	"classname" "worldspawn"
 	"detailmaterial" "detail/detailsprites"
 	"detailvbsp" "detail.vbsp"
@@ -4003,13 +4003,43 @@ entity
 		"logicalpos" "[0 1000]"
 	}
 }
+entity
+{
+	"id" "629"
+	"classname" "info_target"
+	"angles" "0 0 0"
+	"targetname" "spawn_game"
+	"origin" "-192 1984 520"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 1000]"
+	}
+}
+entity
+{
+	"id" "635"
+	"classname" "info_target"
+	"angles" "0 0 0"
+	"targetname" "spawn_game"
+	"origin" "-1472 1984 512"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 1000]"
+	}
+}
 cameras
 {
 	"activecamera" "0"
 	camera
 	{
-		"position" "[-177.189 2600.39 541.275]"
-		"look" "[-191.438 2549.35 530.012]"
+		"position" "[-1447.62 1941.05 564.653]"
+		"look" "[-1501.79 1940.29 563.897]"
 	}
 }
 cordons

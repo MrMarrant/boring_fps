@@ -55,11 +55,13 @@ function BoringFPS.GetWantedMoveDirection(ply)
 end
 
 hook.Add( "PlayerDeathThink", "PlayerDeathThink:BoringFPS:SpectatorNext", function( ply )
-    if ply:GetObserverMode() == OBS_MODE_CHASE and ply:KeyPressed( IN_ATTACK ) then
-        local nextTarget = BoringFPS.FindNextAlivePlayer(ply, ply:GetObserverTarget())
-        if IsValid(nextTarget) then
-            ply:SpectateEntity(nextTarget)
-            return false
+    if ply:GetObserverMode() == OBS_MODE_CHASE then
+        if ply:KeyPressed( IN_ATTACK ) then
+            local nextTarget = BoringFPS.FindNextAlivePlayer(ply, ply:GetObserverTarget())
+            if IsValid(nextTarget) then
+                ply:SpectateEntity(nextTarget)
+            end
         end
+        return false
     end
 end )

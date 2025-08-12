@@ -46,7 +46,7 @@ function BoringFPS.SpawnPlayersOnGameMap()
     BoringFPS_CONFIG.PlayersAlive = players
     -- Spawn les joueurs sur la map de jeu
     for index, ply in ipairs(players) do
-        local weapon = ply:Give(table.Random(BoringFPS_CONFIG.Settings.ListWeapons))
+        local weapon = ply:Give(ply:GetNWString("ClassWeapon", BoringFPS_CONFIG.Settings.ClassWeapon[BoringFPS_CONFIG.Settings.ListClass[1]]))
         ply:SetNWEntity( "WeaponGame", weapon)
         weapon:SetClip1(weapon:GetMaxClip1())
         if spawnPoints[index] then
