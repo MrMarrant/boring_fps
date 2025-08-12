@@ -38,8 +38,8 @@ function PLAYER:Wait()
 end
 
 function PLAYER:Play()
-    self:SetWalkSpeed( 150 )
-    self:SetRunSpeed( 200 )
+    self:SetWalkSpeed( BoringFPS_CONFIG.Settings.DefaultWalkSpeed )
+    self:SetRunSpeed( BoringFPS_CONFIG.Settings.DefaultRunSpeed )
     self:SetJumpPower( 200 )
     self:ChatPrint("Vous êtes en train de jouer.")
 

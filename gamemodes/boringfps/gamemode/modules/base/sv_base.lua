@@ -109,7 +109,7 @@ function BoringFPS.OnPlayerLeave(ply)
         BoringFPS_CONFIG.DirectionTurnPlayers[ply:GetNWInt("NumberTurn")] = nil
         table.remove(BoringFPS_CONFIG.PlayersAlive, table.KeyFromValue(BoringFPS_CONFIG.PlayersAlive, ply))
         if (ply:IsConnected()) then BoringFPS.EnterSpectatorMode(ply) end
-        EmitSound("boring_fps/sfx/ded.mp3", ply:GetPos(), 0, CHAN_AUTO, 1, 180, 0, math.random(90, 110))
+        ply:EmitSound("boring_fps/sfx/ded.mp3", 90, math.random(90, 110))
     end
     if (table.Count(BoringFPS_CONFIG.PlayersAlive) <= 1) then
         BoringFPS.EndGame()

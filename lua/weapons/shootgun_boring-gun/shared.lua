@@ -28,7 +28,7 @@ SWEP.Secondary.Ammo = "none"
 SWEP.Pellets = 8          -- nombre de projectiles par tir
 SWEP.SpreadAngle = 0.08      -- dispersion en degrés
 SWEP.Damage = 15
-SWEP.MaxStep = 10
+SWEP.MaxStep = 8
 SWEP.MaxDash = 2
 
 function SWEP:Shoot()

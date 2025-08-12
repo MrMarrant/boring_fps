@@ -19,7 +19,7 @@ function BoringFPS.PlaySound(sound, loop)
     if (loop) then
         ply:StartLoopingSound(sound)
     else
-        ply:EmitSound(sound)
+        ply:EmitSound(sound, 40)
     end
 end
 

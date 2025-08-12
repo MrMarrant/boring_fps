@@ -8,11 +8,18 @@ BoringFPS_CONFIG.Settings.MinPlayerRequired = 2 -- Minimum players required to s
 BoringFPS_CONFIG.Settings.LimitTimeTurn = 5 -- Time limit for each player's turn
 BoringFPS_CONFIG.Settings.TimerBetweenTurns = 1 -- Time limit between each player's turn
 BoringFPS_CONFIG.Settings.DefaultMaxStep = 10 -- Default steps a player can do during his turn
-
+BoringFPS_CONFIG.Settings.DefaultWalkSpeed = 250 -- Default walk speed for players
+BoringFPS_CONFIG.Settings.DefaultRunSpeed = 320 -- Default run speed for players
 BoringFPS_CONFIG.Settings.ListWeapons = {
     "pistol_boring-gun",
-    "shootgun_boring-gun"
+    "shootgun_boring-gun",
+    "launcher_boring-gun",
+    "crowbar_boring-gun"
 }
+
+-- Models
+BoringFPS_CONFIG.Models = {}
+BoringFPS_CONFIG.Models.Rocket = Model("models/props_c17/doll01.mdl")
 
 -- NET VAR
 BoringFPS_CONFIG.NetVar = {}

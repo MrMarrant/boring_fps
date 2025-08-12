@@ -30,9 +30,14 @@ SWEP.MaxStep = 10
 SWEP.MaxDash = 2
 SWEP.Action = 1
 
+function SWEP:Initialize()
+	self:SetHoldType( self.HoldType )
+end
+
 function SWEP:PrimaryAttack()
     local owner = self:GetOwner()
     if self:CanFire() and IsValid(owner) then
+        self:SendWeaponAnim( ACT_VM_PRIMARYATTACK )
         self:Shoot()
         self:TakePrimaryAmmo(1)
         owner:SetNWInt("Action", owner:GetNWInt("Action", 0) - 1)
@@ -61,8 +66,4 @@ end
 
 function SWEP:CanReload()
     return (self:Clip1() < self:GetMaxClip1() and self:GetOwner():CanUseAction())
-end
-
-function SWEP:Initialize()
-	self:SetHoldType( self.HoldType )
 end
