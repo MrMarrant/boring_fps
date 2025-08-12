@@ -63,6 +63,7 @@ function BoringFPS.EndGame()
     BoringFPS.ResetParams()
     timer.Create("BoringFPS:TimerPostGame", BoringFPS_CONFIG.Settings.TimerPostGame, 1, function ()
         for key, value in ipairs(player.GetAll()) do
+            value:UnSpectate()
             value:Spawn()
             value:SetState("free")
             value:SetNWInt("NumberTurn", -1)
