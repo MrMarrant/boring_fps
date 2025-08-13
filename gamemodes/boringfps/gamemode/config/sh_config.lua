@@ -39,6 +39,7 @@ BoringFPS_CONFIG.Models.Rocket = Model("models/props_c17/doll01.mdl")
 
 BoringFPS_CONFIG.Icons = {}
 BoringFPS_CONFIG.Icons.StepLeftIcon = Material("boringfps/icons/step_icon.png")
+BoringFPS_CONFIG.Icons.ActionLeftIcon = Material("boringfps/icons/action_icon.png")
 
 -- NET VAR
 BoringFPS_CONFIG.NetVar = {}
