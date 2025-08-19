@@ -8,14 +8,19 @@ SWEP.AutoSwitchTo = true
 SWEP.DrawAmmo = true
 
 --? BoringFPS_CONFIG renvoie nil ici, va savoir pk
-local x, y = ScrW()* 0.2, ScrH() * 0.95
-local w, h = 200, 30
+local x, y = BoringFPS_CONFIG.Vars.ScrW * 0.8, BoringFPS_CONFIG.Vars.ScrH * 0.85
+local w, h = 30, 30
 
 function SWEP:DrawHUD()
-    -- Draw ammo
-    local clip1 = self:Clip1()
-    local maxClip1 = self:GetMaxClip1()
+    local owner = self:GetOwner()
+    if (owner:GetNWString("State", "free") == "play") then
+        local clip1 = self:Clip1()
+        local maxClip1 = self:GetMaxClip1()
+        local squareW = 20
+        local squareH = 20
 
-    draw.RoundedBox(1, x - w/2, y - h/2, w, h, Color(0, 0, 0, 150))
-    draw.SimpleText("Ammo: " .. clip1 .. " / " .. maxClip1, "Trebuchet24", x, y, Color(255, 255, 255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+        BoringFPS.DrawIconHud(x, y, BoringFPS_CONFIG.Icons.WeaponIcon)
+        draw.DrawText(clip1, "HudBoringFPS", x + 50, y - 10, Color(255, 255, 255), TEXT_ALIGN_CENTER)
+        BoringFPS.DrawSquare(x + 70, y, clip1, maxClip1, squareW, squareH, 5, 50)
+    end
 end

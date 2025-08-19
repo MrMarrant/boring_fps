@@ -25,7 +25,8 @@ function BoringFPS.StopHudTurn()
     hook.Remove( "HUDPaint", "HUDPaint:BoringFPS:HUDTurn" )
 end
 
-function BoringFPS.DrawSquare(x, y, value, maxValue, squareW, squareH, xMargin)
+function BoringFPS.DrawSquare(x, y, value, maxValue, squareW, squareH, xMargin, radius)
+    radius = radius or 0
     local maxX = BoringFPS_CONFIG.Vars.ScrW
     local startY = y
     local startX = x
@@ -34,7 +35,7 @@ function BoringFPS.DrawSquare(x, y, value, maxValue, squareW, squareH, xMargin)
 
     for i = 1, maxValue do
         colorSquare = i > value and Color(0, 0, 0) or Color(255, 255, 255)
-        draw.RoundedBox(0, startX, y, squareW, squareH, colorSquare)
+        draw.RoundedBox(radius, startX, startY, squareW, squareH, colorSquare)
         startX = startX + xMargin
         if (startX >= maxX - squareW) then
             startX = x
@@ -59,7 +60,7 @@ end
 
 function BoringFPS.DrawActionLeft(x, y, value, maxValue)
     local squareW = 30 * (4 / maxValue)
-    local squareH = 15 * (4 / maxValue)
+    local squareH = 25
     local startX = x + 50
 
     BoringFPS.DrawIconHud(x, y, BoringFPS_CONFIG.Icons.ActionLeftIcon)
@@ -71,7 +72,7 @@ end
 
 function BoringFPS.DrawStepLeftHUD(x, y, value, maxValue)
     local maxX = BoringFPS_CONFIG.Vars.ScrW
-    local squareSize = 22 * (12 / maxValue)
+    local squareSize = 20 * (10 / maxValue)
     local startX = x + 50
 
     BoringFPS.DrawIconHud(x, y, BoringFPS_CONFIG.Icons.StepLeftIcon)
