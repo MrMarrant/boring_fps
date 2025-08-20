@@ -8,12 +8,12 @@ SWEP.AutoSwitchTo = true
 SWEP.DrawAmmo = true
 
 --? BoringFPS_CONFIG renvoie nil ici, va savoir pk
-local x, y = BoringFPS_CONFIG.Vars.ScrW * 0.8, BoringFPS_CONFIG.Vars.ScrH * 0.85
 local w, h = 30, 30
 
 function SWEP:DrawHUD()
     local owner = self:GetOwner()
     if (owner:GetNWString("State", "free") == "play") then
+        local x, y = BoringFPS_CONFIG.Vars.ScrW * 0.8, BoringFPS_CONFIG.Vars.ScrH * 0.85
         local clip1 = self:Clip1()
         local maxClip1 = self:GetMaxClip1()
         local squareW = 20
