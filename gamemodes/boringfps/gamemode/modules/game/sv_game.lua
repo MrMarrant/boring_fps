@@ -6,7 +6,7 @@ end
 
 function BoringFPS.SetTurnToPlay(index)
     local ply = BoringFPS_CONFIG.DirectionTurnPlayers[index]
-    BoringFPS_CONFIG.CurrentIndexDirectionTurn = index
+    SetGlobalInt("CurrentIndexDirectionTurn", index)
     BoringFPS_CONFIG.CurrentPlayerTurn = ply
     BoringFPS.PrintToAllPlayers(ply:GetName() .. "'s turn to play!", HUD_PRINTCENTER)
     ply:SetState("play")
@@ -36,7 +36,7 @@ function BoringFPS.EndTurn()
 end
 
 function BoringFPS.GetNextPlayerTurn()
-    local nextIndex = BoringFPS_CONFIG.CurrentIndexDirectionTurn
+    local nextIndex = GetGlobalInt("CurrentIndexDirectionTurn", 0)
     local sizeTable = BoringFPS_CONFIG.LastIndexDirectionTurn
 
     for i = 1, sizeTable do
@@ -68,6 +68,8 @@ function BoringFPS.EndGame()
             value:StripWeapons()
         end
         BoringFPS.StopSound("boring_fps/music/theme_boringfps.wav")
+        net.Start(BoringFPS_CONFIG.NetVar.StopClientHUDGame)
+        net.Broadcast()
         BoringFPS.NewGame()
     end)
 end

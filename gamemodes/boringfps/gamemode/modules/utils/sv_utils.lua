@@ -33,6 +33,22 @@ function BoringFPS.FindNextAlivePlayer(ply, currentTarget)
     return players[newKey]
 end
 
+function BoringFPS.SetGlobalTable(tbl, key)
+    BoringFPS_CONFIG[key] = tbl
+    print("Liste des joueurs en jeu SERVER :")
+    PrintTable(tbl)
+    local ParsedTable = {}
+    for k, v in ipairs(player.GetAll()) do
+        ParsedTable[k] = { v }
+    end
+    print("JASON : ")
+    print(util.TableToJSON(ParsedTable)) -- TODO : Renvoie un tableau vide 
+    net.Start(BoringFPS_CONFIG.NetVar.SetGlobalTable)
+    net.WriteString(util.TableToJSON(ParsedTable))
+    net.WriteString(key)
+    net.Broadcast()
+end
+
 function BoringFPS.GetWantedMoveDirection(ply)
     local moveDir = Vector(0, 0, 0)
 

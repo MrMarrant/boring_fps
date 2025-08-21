@@ -37,12 +37,14 @@ function BoringFPS.StartGame()
     BoringFPS.SetTurnToWait(BoringFPS_CONFIG.PlayersInGame)
     BoringFPS.SetTurnToPlay(1)
     BoringFPS.PlaySound("boring_fps/music/theme_boringfps.wav", true)
+    net.Start(BoringFPS_CONFIG.NetVar.StartClientHUDGame)
+    net.Broadcast()
 end
 
 function BoringFPS.SpawnPlayersOnGameMap()
     local spawnPoints = BoringFPS.ShuffleTable(ents.FindByName("spawn_game"))
     local players = player.GetAll()
-    BoringFPS_CONFIG.PlayersInGame = players
+    BoringFPS.SetGlobalTable(players, "PlayersInGame")
     BoringFPS_CONFIG.PlayersAlive = players
     for index, ply in ipairs(players) do
         local weapon = ply:Give(ply:GetNWString("ClassWeapon", BoringFPS_CONFIG.Settings.ClassWeapon[BoringFPS_CONFIG.Settings.ListClass[1]]))
@@ -84,13 +86,13 @@ end
 
 function BoringFPS.ResetParams()
     BoringFPS_CONFIG.Vars.PlayersVars = {}
-    BoringFPS_CONFIG.PlayersInGame = {}
     BoringFPS_CONFIG.PlayersAlive = {}
-    BoringFPS_CONFIG.CurrentIndexDirectionTurn = nil
     BoringFPS_CONFIG.CurrentPlayerTurn = nil
     BoringFPS_CONFIG.DirectionTurnPlayers = {}
     BoringFPS_CONFIG.LastIndexDirectionTurn = nil
     BoringFPS_CONFIG.GameInProgress = false
+    BoringFPS.SetGlobalTable({}, "PlayersInGame")
+    SetGlobalInt("CurrentIndexDirectionTurn", -1)
     hook.Remove("PlayerDeath", "PlayerDeath:BoringFPS:ConditionEndGame")
     hook.Remove("PlayerDisconnected", "PlayerDisconnected:BoringFPS:ConditionEndGame")
     timer.Remove("BoringFPS:TimerTurn")
