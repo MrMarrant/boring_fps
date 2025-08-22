@@ -55,6 +55,8 @@ function BoringFPS.EndGame()
     local winner = BoringFPS_CONFIG.PlayersAlive[1]
     BoringFPS.PrintToAllPlayers(winner:GetName() .. "'s has won!", HUD_PRINTCENTER)
     winner:SetState("free")
+    net.Start(BoringFPS_CONFIG.NetVar.StopClientHUDGame)
+    net.Broadcast()
     BoringFPS.ResetParams()
     timer.Create("BoringFPS:TimerPostGame", BoringFPS_CONFIG.Settings.TimerPostGame, 1, function ()
         for key, value in ipairs(player.GetAll()) do
@@ -68,8 +70,6 @@ function BoringFPS.EndGame()
             value:StripWeapons()
         end
         BoringFPS.StopSound("boring_fps/music/theme_boringfps.wav")
-        net.Start(BoringFPS_CONFIG.NetVar.StopClientHUDGame)
-        net.Broadcast()
         BoringFPS.NewGame()
     end)
 end

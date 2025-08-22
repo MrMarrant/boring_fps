@@ -1,11 +1,5 @@
 net.Receive(BoringFPS_CONFIG.NetVar.SetGlobalTable, function()
-    local jason = net.ReadString()
-    print("JASON : ")
-    print(jason)
-    local tbl = util.JSONToTable(jason)
+    local tbl = net.ReadTable()
     local key = net.ReadString()
     BoringFPS_CONFIG[key] = tbl
-    print()
-    print("Liste des joueurs en jeu CLIENT :")
-    PrintTable(tbl)
 end)

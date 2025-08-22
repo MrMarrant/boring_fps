@@ -1,55 +1,53 @@
 -- TODO : Revoir le responsive sur petit écran, nottament la taille des éléments
 
+-- TODO : Les mettres dans des DPanel
 function BoringFPS.DisplayHUDGame()
     local plyList = BoringFPS_CONFIG.PlayersInGame
-    print("Liste des joueurs en jeu :")
-    PrintTable(plyList)
     hook.Add( "HUDPaint", "HUDPaint:BoringFPS:HUDGame", function()
         local scrW, scrH = BoringFPS_CONFIG.Vars.ScrW, BoringFPS_CONFIG.Vars.ScrH
         local indexDirectionTurn = GetGlobalInt("CurrentIndexDirectionTurn", 0)
         
-        -- Taille responsive : on calcule les dimensions en fonction de la résolution
-        local baseHeight = scrH * 0.06    -- hauteur de chaque ligne (6% de l'écran)
-        local baseWidth  = scrW * 0.25    -- largeur du bloc (25% de l'écran)
-        local spacing    = 10             -- espacement vertical entre chaque joueur
+        local baseHeight = scrH * 0.06
+        local baseWidth  = scrW * 0.1
+        local spacing    = 10
 
-        -- Position de départ (en haut à gauche avec un peu de marge)
-        local startX = scrW * 0.02
+        local startX = scrW * 0.8
         local startY = scrH * 0.1
 
         for i, ply in ipairs(plyList) do
-        local posY = startY + (i - 1) * (baseHeight + spacing)
+            local posY = startY + (i - 1) * (baseHeight + spacing)
+            local colorBG = i == indexDirectionTurn and Color(255, 255, 255) or Color(167, 167, 167, 50)
+            colorBG = ply:Alive() and colorBG or Color(160, 0, 0, 100)
 
-        -- Fond blanc semi-transparent
-        draw.RoundedBox(4, startX, posY, baseWidth, baseHeight, Color(255, 255, 255, 50))
+            draw.RoundedBox(4, startX, posY, baseWidth, baseHeight, colorBG)
 
-        -- Index du joueur
-        draw.SimpleText(i, "DermaDefaultBold", startX + 5, posY + baseHeight / 2, Color(0,0,0), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+            draw.SimpleText(i, "HudBoringFPS", startX + 5, posY + baseHeight / 2, Color(0,0,0), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
 
-        -- Avatar (carré, responsive)
-        local avatarSize = baseHeight * 0.8
-        local avatarX = startX + 25
-        local avatarY = posY + (baseHeight - avatarSize) / 2
+            local avatarSize = baseHeight * 0.8
+            local avatarX = startX + 25
+            local avatarY = posY + (baseHeight - avatarSize) / 2
 
-        -- Création du panel avatar pour chaque joueur
-        -- (On évite de le recréer en permanence en cacheant dans ply)
-        if not IsValid(ply.AvatarHUD) then
-            ply.AvatarHUD = vgui.Create("AvatarImage")
-            ply.AvatarHUD:SetPlayer(ply, 64)
+            if not IsValid(ply.AvatarHUD) then
+                ply.AvatarHUD = vgui.Create("AvatarImage")
+                ply.AvatarHUD:SetPlayer(ply, 64)
+                ply.AvatarHUD:SetSize(avatarSize, avatarSize)
+            end
+            ply.AvatarHUD:SetPos(avatarX, avatarY)
             ply.AvatarHUD:SetSize(avatarSize, avatarSize)
-        end
-        ply.AvatarHUD:SetPos(avatarX, avatarY)
-        ply.AvatarHUD:SetSize(avatarSize, avatarSize)
 
-        -- Nom du joueur
-        local nameX = avatarX + avatarSize + 10
-        draw.SimpleText(ply:Nick(), "DermaDefault", nameX, posY + baseHeight / 2, Color(0,0,0), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
-    end
+            local nameX = avatarX + avatarSize + 10
+            draw.SimpleText(ply:Nick(), "HudBoringFPS", nameX, posY + baseHeight / 2, Color(0,0,0), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+        end
     end)
 end
 
 function BoringFPS.StopHudGame()
     hook.Remove( "HUDPaint", "HUDPaint:BoringFPS:HUDGame" )
+    for _, ply in ipairs(BoringFPS_CONFIG.PlayersInGame) do
+        if IsValid(ply.AvatarHUD) then
+            ply.AvatarHUD:Remove()
+        end
+    end
 end
 
 function BoringFPS.DisplayHUDPlay()

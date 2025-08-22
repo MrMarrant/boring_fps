@@ -44,7 +44,6 @@ end
 function BoringFPS.SpawnPlayersOnGameMap()
     local spawnPoints = BoringFPS.ShuffleTable(ents.FindByName("spawn_game"))
     local players = player.GetAll()
-    BoringFPS.SetGlobalTable(players, "PlayersInGame")
     BoringFPS_CONFIG.PlayersAlive = players
     for index, ply in ipairs(players) do
         local weapon = ply:Give(ply:GetNWString("ClassWeapon", BoringFPS_CONFIG.Settings.ClassWeapon[BoringFPS_CONFIG.Settings.ListClass[1]]))
@@ -71,7 +70,7 @@ function BoringFPS.DefineDirectionTurnPlay()
     local players = {}
     local directionTurn = {}
     local indexTurn = 1
-    table.CopyFromTo(BoringFPS_CONFIG.PlayersInGame, players)
+    table.CopyFromTo(BoringFPS_CONFIG.PlayersAlive, players)
     while (not table.IsEmpty(players)) do
         local index = math.random( #players )
         local ply = players[ index ]
@@ -82,6 +81,7 @@ function BoringFPS.DefineDirectionTurnPlay()
     end
     BoringFPS_CONFIG.DirectionTurnPlayers = directionTurn
     BoringFPS_CONFIG.LastIndexDirectionTurn = #directionTurn
+    BoringFPS.SetGlobalTable(directionTurn, "PlayersInGame")
 end
 
 function BoringFPS.ResetParams()
