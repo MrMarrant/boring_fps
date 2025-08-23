@@ -11,7 +11,7 @@ function BoringFPS.DisplayHUDGame()
         local baseWidth  = scrW * 0.1
         local spacing    = 10
 
-        local startX = scrW * 0.8
+        local startX = scrW * 0.88
         local startY = scrH * 0.1
 
         for i, ply in ipairs(plyList) do
@@ -21,10 +21,10 @@ function BoringFPS.DisplayHUDGame()
 
             draw.RoundedBox(4, startX, posY, baseWidth, baseHeight, colorBG)
 
-            draw.SimpleText(i, "HudBoringFPS", startX + 5, posY + baseHeight / 2, Color(0,0,0), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+            draw.SimpleText(i, "NickAnton", startX + 10, posY + baseHeight / 2, Color(0,0,0), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
 
-            local avatarSize = baseHeight * 0.8
-            local avatarX = startX + 25
+            local avatarSize = baseHeight * 0.7
+            local avatarX = startX + 30
             local avatarY = posY + (baseHeight - avatarSize) / 2
 
             if not IsValid(ply.AvatarHUD) then
@@ -36,7 +36,25 @@ function BoringFPS.DisplayHUDGame()
             ply.AvatarHUD:SetSize(avatarSize, avatarSize)
 
             local nameX = avatarX + avatarSize + 10
-            draw.SimpleText(ply:Nick(), "HudBoringFPS", nameX, posY + baseHeight / 2, Color(0,0,0), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+            local maxWidth = baseWidth - (nameX - startX) - 5
+
+            local playerName = ply:Nick()
+            surface.SetFont("NickAnton")
+            local textW, _ = surface.GetTextSize(playerName)
+
+            if textW > maxWidth then
+                local truncated = playerName
+                while string.len(truncated) > 0 do
+                    truncated = string.sub(truncated, 1, -2)
+                    local newW, _ = surface.GetTextSize(truncated .. "…")
+                    if newW <= maxWidth then
+                        playerName = truncated .. "…"
+                        break
+                    end
+                end
+            end
+
+            draw.SimpleText(playerName, "NickAnton", nameX, posY + baseHeight / 2, Color(0,0,0), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
         end
     end)
 end
