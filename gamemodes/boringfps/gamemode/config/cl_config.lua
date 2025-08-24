@@ -11,6 +11,11 @@ surface.CreateFont( "NickAnton", {
     size = 30
 } )
 
+surface.CreateFont( "AnnouncerTurn", {
+    font = "Anton",
+    size = 1200
+} )
+
 surface.CreateFont( "HudTimerLeft", {
     font = "Anton",
     size = 80

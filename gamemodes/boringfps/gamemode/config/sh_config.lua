@@ -10,13 +10,13 @@ BoringFPS_CONFIG.Settings.TimerBetweenTurns = 1 -- Time limit between each playe
 BoringFPS_CONFIG.Settings.DefaultMaxStep = 10 -- Default steps a player can do during his turn
 BoringFPS_CONFIG.Settings.DefaultWalkSpeed = 250 -- Default walk speed for players
 BoringFPS_CONFIG.Settings.DefaultRunSpeed = 320 -- Default run speed for players
+BoringFPS_CONFIG.Settings.DurationAnnouncerTurn = 3 -- Define how much time announcer turn stay on screen
 BoringFPS_CONFIG.Settings.ListClass = {
     "pistol",
     "shootgun",
     "launcher",
     "crowbar"
 }
-
 BoringFPS_CONFIG.Settings.ClassWeapon = {
     ["pistol"] = "pistol_boring-gun",
     ["shootgun"] = "shootgun_boring-gun",
@@ -37,6 +37,15 @@ BoringFPS_CONFIG.Models.Characters = {
 }
 BoringFPS_CONFIG.Models.Rocket = Model("models/props_c17/doll01.mdl")
 
+BoringFPS_CONFIG.Sounds = {}
+BoringFPS_CONFIG.Sounds.TurnStart = Sound("boring_fps/sfx/turn/turn_start.mp3")
+BoringFPS_CONFIG.Sounds.TurnEnd = Sound("boring_fps/sfx/turn/turn_end.mp3")
+BoringFPS_CONFIG.Sounds.WinGame = Sound("boring_fps/sfx/turn/win_game.mp3")
+BoringFPS_CONFIG.Sounds.GameMusic = {
+    "boring_fps/music/theme_boringfps.wav"
+}
+
+
 BoringFPS_CONFIG.Icons = {}
 BoringFPS_CONFIG.Icons.StepIcon = Material("boringfps/icons/step_icon.png")
 BoringFPS_CONFIG.Icons.ActionIcon = Material("boringfps/icons/action_icon.png")
@@ -51,7 +60,7 @@ BoringFPS_CONFIG.NetVar.PlayClientSound = "BoringFPS_CONFIG.PlayClientSound"
 BoringFPS_CONFIG.NetVar.StopPlayClientSound = "BoringFPS_CONFIG.StopPlayClientSound"
 BoringFPS_CONFIG.NetVar.StartClientWait = "BoringFPS_CONFIG.StartClientWait"
 BoringFPS_CONFIG.NetVar.StartClientHUDGame = "BoringFPS_CONFIG.StartClientHUDGame"
-BoringFPS_CONFIG.NetVar.StopClientHUDGame = "BoringFPS_CONFIG.StopClientHUDGame"
+BoringFPS_CONFIG.NetVar.EndGame = "BoringFPS_CONFIG.StopClientHUDGame"
 BoringFPS_CONFIG.NetVar.SetGlobalTable = "BoringFPS_CONFIG.SetGlobalTable"
 
 -- Base vars, i really don't recommend to edit this section

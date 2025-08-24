@@ -8,7 +8,7 @@ function BoringFPS.SetTurnToPlay(index)
     local ply = BoringFPS_CONFIG.DirectionTurnPlayers[index]
     SetGlobalInt("CurrentIndexDirectionTurn", index)
     BoringFPS_CONFIG.CurrentPlayerTurn = ply
-    BoringFPS.PrintToAllPlayers(ply:GetName() .. "'s turn to play!", HUD_PRINTCENTER)
+    PrintMessage(HUD_PRINTTALK, ply:GetName() .. "'s turn to play!")
     ply:SetState("play")
     BoringFPS.StartTimerTurn()
 end
@@ -25,10 +25,10 @@ function BoringFPS.EndTurn()
     timer.Remove("BoringFPS:TimerTurn")
     local ply = BoringFPS_CONFIG.CurrentPlayerTurn
     if (IsValid(ply)) then
-        BoringFPS.PrintToAllPlayers(ply:GetName() .. "'s turn has ended!", HUD_PRINTCENTER)
+        PrintMessage(HUD_PRINTTALK, ply:GetName() .. "'s turn has ended!")
         BoringFPS.SetTurnToWait({ply})
     else
-        BoringFPS.PrintToAllPlayers("Turn has ended!", HUD_PRINTCENTER)
+        PrintMessage(HUD_PRINTTALK, "Turn has ended!")
     end
     timer.Create("BoringFPS:NextTurn", BoringFPS_CONFIG.Settings.TimerBetweenTurns, 1, function()
         BoringFPS.SetTurnToPlay(BoringFPS.GetNextPlayerTurn())
@@ -53,9 +53,11 @@ end
 
 function BoringFPS.EndGame()
     local winner = BoringFPS_CONFIG.PlayersAlive[1]
-    BoringFPS.PrintToAllPlayers(winner:GetName() .. "'s has won!", HUD_PRINTCENTER)
+    PrintMessage(HUD_PRINTTALK, winner:GetName() .. "'s has won!")
+    BoringFPS.PlaySound(BoringFPS_CONFIG.Sounds.WinGame)
     winner:SetState("free")
-    net.Start(BoringFPS_CONFIG.NetVar.StopClientHUDGame)
+    net.Start(BoringFPS_CONFIG.NetVar.EndGame)
+    net.WriteString(winner:GetName())
     net.Broadcast()
     BoringFPS.ResetParams()
     timer.Create("BoringFPS:TimerPostGame", BoringFPS_CONFIG.Settings.TimerPostGame, 1, function ()
@@ -69,12 +71,13 @@ function BoringFPS.EndGame()
             value:SetNWInt("Dash", -1)
             value:StripWeapons()
         end
-        BoringFPS.StopSound("boring_fps/music/theme_boringfps.wav")
+        BoringFPS.StopSound(BoringFPS_CONFIG.CurrentMusic)
         BoringFPS.NewGame()
     end)
 end
 
 function BoringFPS.PlaySound(sound, loop, ply)
+    loop = loop or false
     net.Start(BoringFPS_CONFIG.NetVar.PlayClientSound)
     net.WriteString(sound)
     net.WriteBool(loop)

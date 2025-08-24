@@ -58,6 +58,7 @@ function BoringFPS.GetWantedMoveDirection(ply)
         moveDir = moveDir + ply:GetRight()
     end
 
+    moveDir = moveDir == Vector(0, 0, 0) and ply:GetForward() or moveDir
     moveDir.z = 0
 
     return moveDir:GetNormalized()

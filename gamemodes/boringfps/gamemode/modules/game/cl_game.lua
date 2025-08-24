@@ -1,6 +1,5 @@
 -- TODO : Revoir le responsive sur petit écran, nottament la taille des éléments
 
--- TODO : Les mettres dans des DPanel
 function BoringFPS.DisplayHUDGame()
     local plyList = BoringFPS_CONFIG.PlayersInGame
     hook.Add( "HUDPaint", "HUDPaint:BoringFPS:HUDGame", function()
@@ -19,7 +18,7 @@ function BoringFPS.DisplayHUDGame()
             local colorBG = i == indexDirectionTurn and Color(255, 255, 255) or Color(167, 167, 167, 50)
             colorBG = ply:Alive() and colorBG or Color(160, 0, 0, 100)
 
-            draw.RoundedBox(4, startX, posY, baseWidth, baseHeight, colorBG)
+            draw.RoundedBox(0, startX, posY, baseWidth, baseHeight, colorBG)
 
             draw.SimpleText(i, "NickAnton", startX + 10, posY + baseHeight / 2, Color(0,0,0), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
 
@@ -68,6 +67,7 @@ function BoringFPS.StopHudGame()
     end
 end
 
+-- TODO : Ne s'affiche pas correctement durant le premier tour uniquement
 function BoringFPS.DisplayHUDPlay()
     local timeLimit = BoringFPS_CONFIG.Settings.LimitTimeTurn
     local startTime = CurTime() + timeLimit
@@ -81,6 +81,17 @@ function BoringFPS.DisplayHUDPlay()
         BoringFPS.DrawStepLeftHUD(BoringFPS_CONFIG.Vars.ScrW * 0.8, BoringFPS_CONFIG.Vars.ScrH * 0.9, ply:GetNWInt("StepLeft", 0), stepMax)
         BoringFPS.DrawActionLeft(BoringFPS_CONFIG.Vars.ScrW * 0.8, BoringFPS_CONFIG.Vars.ScrH * 0.95, ply:GetNWInt("Action", 0), actionMax)
     end )
+end
+
+function BoringFPS.DisplayAnnouncerTurn(text)
+    local w, h = BoringFPS_CONFIG.Vars.ScrW, BoringFPS_CONFIG.Vars.ScrH
+
+    hook.Add( "HUDPaint", "HUDPaint:BoringFPS:HUDAnnouncerTurn", function()
+        draw.DrawText(text, "AnnouncerTurn", w * 0.5, h * 0.3, Color(255, 255, 255), TEXT_ALIGN_CENTER)
+    end )
+    timer.Create("BoringFPS:TimerAnnouncerTurn", BoringFPS_CONFIG.Settings.DurationAnnouncerTurn, 1, function()
+        hook.Remove( "HUDPaint", "HUDPaint:BoringFPS:HUDAnnouncerTurn" )
+    end)
 end
 
 function BoringFPS.DisplayHUDWait()
@@ -148,11 +159,12 @@ function BoringFPS.DrawIconHud(x, y, icon)
 end
 
 function BoringFPS.DrawTimerLeft(x, y, timeLeft)
+    local colorTimer = timeLeft > 3 and Color(255, 255, 255) or Color(255, 0, 0)
     surface.SetDrawColor( 255, 255, 255)
 	draw.Circle( x, y, 50, 100 )
     surface.SetDrawColor( 0, 0, 0)
 	draw.Circle( x, y, 45, 100 )
-    draw.DrawText(timeLeft, "HudTimerLeft", x, y - 45, Color(255, 255, 255), TEXT_ALIGN_CENTER)
+    draw.DrawText(timeLeft, "HudTimerLeft", x, y - 45, colorTimer, TEXT_ALIGN_CENTER)
 end
 
 function BoringFPS.DrawDashHud(x, y, value, maxValue)
@@ -230,16 +242,22 @@ net.Receive(BoringFPS_CONFIG.NetVar.StartClientHUDGame, function()
     BoringFPS.DisplayHUDGame()
 end)
 
-net.Receive(BoringFPS_CONFIG.NetVar.StopClientHUDGame, function()
+net.Receive(BoringFPS_CONFIG.NetVar.EndGame, function()
+    local winner = net.ReadString()
     BoringFPS.StopHudGame()
+    BoringFPS.DisplayAnnouncerTurn(winner .. " WINS!")
 end)
 
 net.Receive(BoringFPS_CONFIG.NetVar.StartClientWait, function()
+    LocalPlayer():EmitSound(BoringFPS_CONFIG.Sounds.TurnEnd)
     BoringFPS.DisplayHUDWait()
+    BoringFPS.DisplayAnnouncerTurn("TURN END")
 end)
 
 net.Receive(BoringFPS_CONFIG.NetVar.StartClientPlay, function()
+    LocalPlayer():EmitSound(BoringFPS_CONFIG.Sounds.TurnStart)
     BoringFPS.DisplayHUDPlay()
+    BoringFPS.DisplayAnnouncerTurn("YOUR TURN")
 end)
 
 net.Receive(BoringFPS_CONFIG.NetVar.StopClientTurn, function()
