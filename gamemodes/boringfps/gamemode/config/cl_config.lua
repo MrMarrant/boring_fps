@@ -8,7 +8,7 @@ surface.CreateFont( "HudBoringFPS", {
 
 surface.CreateFont( "NickAnton", {
     font = "Anton",
-    size = 30
+    size = 35
 } )
 
 surface.CreateFont( "AnnouncerTurn", {

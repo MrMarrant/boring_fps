@@ -11,63 +11,97 @@ function BoringFPS.DisplayHUDGame()
 end
 
 function BoringFPS.DrawListPlayerTurn(scrW, scrH, plyList)
+    for index, ply in ipairs(plyList) do
+        if (IsValid(ply)) then
+            BoringFPS.DrawPlayerTurn(ply, index, scrH, scrW)
+        else
+            BoringFPS.DrawEmptyPlayer(index, scrH, scrW)
+        end
+    end
+end
+
+function BoringFPS.DrawPlayerTurn(ply, index, scrH, scrW)
     local indexDirectionTurn = GetGlobalInt("CurrentIndexDirectionTurn", 0)
     local baseHeight = scrH * 0.06
-    local baseWidth  = scrW * 0.1
+    local baseWidth  = scrW * 0.15
     local spacing    = 10
-    local startX = scrW * 0.88
+    local startX = scrW * 0.82
     local startY = scrH * 0.1
     local colorTxt = Color(255, 255, 255)
+    local wIcon, hIcon = baseHeight * 0.6, baseHeight * 0.6
+    local posY = startY + (index - 1) * (baseHeight + spacing)
+    local colorBG = index == indexDirectionTurn and Color(83, 109, 213, 230) or Color(10, 10, 10, 150)
+    local clientPly = LocalPlayer()
+    clientPly.ListAvatar = clientPly.ListAvatar or {}
+    colorBG = ply:Alive() and colorBG or Color(160, 0, 0, 150)
 
-    for i, ply in ipairs(plyList) do
-        local posY = startY + (i - 1) * (baseHeight + spacing)
-        local colorBG = i == indexDirectionTurn and Color(83, 109, 213, 230) or Color(10, 10, 10, 150)
-        colorBG = ply:Alive() and colorBG or Color(160, 0, 0, 150)
+    draw.RoundedBox(0, startX, posY, baseWidth, baseHeight, colorBG)
+    draw.SimpleText(index, "NickAnton", startX + 10, posY + baseHeight / 2, colorTxt, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
 
-        draw.RoundedBox(0, startX, posY, baseWidth, baseHeight, colorBG)
+    local avatarSize = baseHeight * 0.7
+    local avatarX = startX + baseWidth * 0.1
+    local avatarY = posY + (baseHeight - avatarSize) / 2
 
-        draw.SimpleText(i, "NickAnton", startX + 10, posY + baseHeight / 2, colorTxt, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+    if not IsValid(clientPly.ListAvatar[index]) then
+        clientPly.ListAvatar[index] = vgui.Create("AvatarImage")
+        clientPly.ListAvatar[index]:SetPlayer(ply, 64)
+        clientPly.ListAvatar[index]:SetSize(avatarSize, avatarSize)
+    end
+    clientPly.ListAvatar[index]:SetPos(avatarX, avatarY)
+    clientPly.ListAvatar[index]:SetSize(avatarSize, avatarSize)
 
-        local avatarSize = baseHeight * 0.7
-        local avatarX = startX + 30
-        local avatarY = posY + (baseHeight - avatarSize) / 2
+    local nameX = avatarX + avatarSize + 10
+    local maxWidthName = baseWidth * 0.7 - (nameX - startX) - 5
+    local maxWidth = baseWidth - (nameX - startX) - 5
 
-        if not IsValid(ply.AvatarHUD) then
-            ply.AvatarHUD = vgui.Create("AvatarImage")
-            ply.AvatarHUD:SetPlayer(ply, 64)
-            ply.AvatarHUD:SetSize(avatarSize, avatarSize)
-        end
-        ply.AvatarHUD:SetPos(avatarX, avatarY)
-        ply.AvatarHUD:SetSize(avatarSize, avatarSize)
+    local playerName = ply:Nick()
+    surface.SetFont("NickAnton")
+    local textW, _ = surface.GetTextSize(playerName)
 
-        local nameX = avatarX + avatarSize + 10
-        local maxWidth = baseWidth - (nameX - startX) - 5
-
-        local playerName = ply:Nick()
-        surface.SetFont("NickAnton")
-        local textW, _ = surface.GetTextSize(playerName)
-
-        if textW > maxWidth then
-            local truncated = playerName
-            while string.len(truncated) > 0 do
-                truncated = string.sub(truncated, 1, -2)
-                local newW, _ = surface.GetTextSize(truncated .. "…")
-                if newW <= maxWidth then
-                    playerName = truncated .. "…"
-                    break
-                end
+    if textW > maxWidthName then
+        local truncated = playerName
+        while string.len(truncated) > 0 do
+            truncated = string.sub(truncated, 1, -2)
+            local newW, _ = surface.GetTextSize(truncated .. "…")
+            if newW <= maxWidthName then
+                playerName = truncated .. "…"
+                break
             end
         end
-
-        draw.SimpleText(playerName, "NickAnton", nameX, posY + baseHeight / 2, colorTxt, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
     end
+    draw.SimpleText(playerName, "NickAnton", nameX, posY + baseHeight / 2, colorTxt, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+    nameX = nameX + maxWidth - baseWidth * 0.3
+    surface.SetDrawColor(255, 255, 255, 255)
+    surface.SetMaterial(BoringFPS_CONFIG.Icons.HeartFillIcon)
+    surface.DrawTexturedRect(nameX, posY + baseHeight * 0.25, wIcon, hIcon)
+    nameX = nameX + wIcon + baseWidth * 0.03
+    draw.SimpleText(ply:Health(), "NickAnton", nameX, posY + baseHeight / 2, colorTxt, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+end
+
+function BoringFPS.DrawEmptyPlayer(index, scrH, scrW)
+    local baseHeight = scrH * 0.06
+    local baseWidth  = scrW * 0.15
+    local spacing    = 10
+    local startX = scrW * 0.82
+    local startY = scrH * 0.1
+    local colorTxt = Color(255, 255, 255)
+    local wIcon, hIcon = baseHeight * 0.6, baseHeight * 0.6
+    local posY = startY + (index - 1) * (baseHeight + spacing)
+    local colorBG = Color(160, 0, 0, 150)
+
+    draw.RoundedBox(0, startX, posY, baseWidth, baseHeight, colorBG)
+    draw.SimpleText(index, "NickAnton", startX + 10, posY + baseHeight / 2, colorTxt, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+    surface.SetDrawColor(255, 255, 255, 255)
+    surface.SetMaterial(BoringFPS_CONFIG.Icons.DisconnectedIcon)
+    surface.DrawTexturedRect(startX + baseWidth * 0.5, posY + baseHeight * 0.25, wIcon, hIcon)
 end
 
 function BoringFPS.StopHudGame()
     hook.Remove( "HUDPaint", "HUDPaint:BoringFPS:HUDGame" )
-    for _, ply in ipairs(BoringFPS_CONFIG.PlayersInGame) do
-        if IsValid(ply.AvatarHUD) then
-            ply.AvatarHUD:Remove()
+    local ply = LocalPlayer()
+    for _, avatar in ipairs(ply.ListAvatar) do
+        if IsValid(avatar) then
+            avatar:Remove()
         end
     end
 end
@@ -187,7 +221,7 @@ function BoringFPS.DrawHealth(x, y)
 
         render.SetScissorRect(x, yIcon + (h - fillHeight), x + w, yIcon + h, true)
             surface.SetDrawColor(255, 0, 0, 180)
-            surface.SetMaterial(BoringFPS_CONFIG.Icons.HeartIconFill)
+            surface.SetMaterial(BoringFPS_CONFIG.Icons.HeartFillIcon)
             surface.DrawTexturedRect(x, yIcon, w, h)
         render.SetScissorRect(0, 0, 0, 0, false)
     end
