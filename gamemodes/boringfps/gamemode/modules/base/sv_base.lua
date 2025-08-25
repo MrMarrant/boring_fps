@@ -36,13 +36,15 @@ function BoringFPS.StartGame()
     BoringFPS.DefineDirectionTurnPlay()
     BoringFPS.SetTurnToWait(BoringFPS_CONFIG.PlayersInGame)
     BoringFPS.SetTurnToPlay(1)
-    BoringFPS.PlaySound("boring_fps/music/theme_boringfps.wav", true)
+    BoringFPS_CONFIG.CurrentMusic = table.Random(BoringFPS_CONFIG.Sounds.GameMusic)
+    BoringFPS.PlaySound(BoringFPS_CONFIG.CurrentMusic, true)
+    net.Start(BoringFPS_CONFIG.NetVar.StartClientHUDGame)
+    net.Broadcast()
 end
 
 function BoringFPS.SpawnPlayersOnGameMap()
     local spawnPoints = BoringFPS.ShuffleTable(ents.FindByName("spawn_game"))
     local players = player.GetAll()
-    BoringFPS_CONFIG.PlayersInGame = players
     BoringFPS_CONFIG.PlayersAlive = players
     for index, ply in ipairs(players) do
         local weapon = ply:Give(ply:GetNWString("ClassWeapon", BoringFPS_CONFIG.Settings.ClassWeapon[BoringFPS_CONFIG.Settings.ListClass[1]]))
@@ -69,7 +71,7 @@ function BoringFPS.DefineDirectionTurnPlay()
     local players = {}
     local directionTurn = {}
     local indexTurn = 1
-    table.CopyFromTo(BoringFPS_CONFIG.PlayersInGame, players)
+    table.CopyFromTo(BoringFPS_CONFIG.PlayersAlive, players)
     while (not table.IsEmpty(players)) do
         local index = math.random( #players )
         local ply = players[ index ]
@@ -80,17 +82,18 @@ function BoringFPS.DefineDirectionTurnPlay()
     end
     BoringFPS_CONFIG.DirectionTurnPlayers = directionTurn
     BoringFPS_CONFIG.LastIndexDirectionTurn = #directionTurn
+    BoringFPS.SetGlobalTable(directionTurn, "PlayersInGame")
 end
 
 function BoringFPS.ResetParams()
     BoringFPS_CONFIG.Vars.PlayersVars = {}
-    BoringFPS_CONFIG.PlayersInGame = {}
     BoringFPS_CONFIG.PlayersAlive = {}
-    BoringFPS_CONFIG.CurrentIndexDirectionTurn = nil
     BoringFPS_CONFIG.CurrentPlayerTurn = nil
     BoringFPS_CONFIG.DirectionTurnPlayers = {}
     BoringFPS_CONFIG.LastIndexDirectionTurn = nil
     BoringFPS_CONFIG.GameInProgress = false
+    BoringFPS.SetGlobalTable({}, "PlayersInGame")
+    SetGlobalInt("CurrentIndexDirectionTurn", -1)
     hook.Remove("PlayerDeath", "PlayerDeath:BoringFPS:ConditionEndGame")
     hook.Remove("PlayerDisconnected", "PlayerDisconnected:BoringFPS:ConditionEndGame")
     timer.Remove("BoringFPS:TimerTurn")

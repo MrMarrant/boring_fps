@@ -33,6 +33,15 @@ function BoringFPS.FindNextAlivePlayer(ply, currentTarget)
     return players[newKey]
 end
 
+function BoringFPS.SetGlobalTable(tbl, key)
+    BoringFPS_CONFIG[key] = tbl
+
+    net.Start(BoringFPS_CONFIG.NetVar.SetGlobalTable)
+    net.WriteTable(tbl)
+    net.WriteString(key)
+    net.Broadcast()
+end
+
 function BoringFPS.GetWantedMoveDirection(ply)
     local moveDir = Vector(0, 0, 0)
 
@@ -49,6 +58,7 @@ function BoringFPS.GetWantedMoveDirection(ply)
         moveDir = moveDir + ply:GetRight()
     end
 
+    moveDir = moveDir == Vector(0, 0, 0) and ply:GetForward() or moveDir
     moveDir.z = 0
 
     return moveDir:GetNormalized()

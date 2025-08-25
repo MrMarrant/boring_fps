@@ -1,5 +1,78 @@
 -- TODO : Revoir le responsive sur petit écran, nottament la taille des éléments
 
+function BoringFPS.DisplayHUDGame()
+    local plyList = BoringFPS_CONFIG.PlayersInGame
+    hook.Add( "HUDPaint", "HUDPaint:BoringFPS:HUDGame", function()
+        local scrW, scrH = BoringFPS_CONFIG.Vars.ScrW, BoringFPS_CONFIG.Vars.ScrH
+
+        BoringFPS.DrawListPlayerTurn(scrW, scrH, plyList)
+        BoringFPS.DrawHealth(scrW * 0.45, scrH * 0.9)
+    end)
+end
+
+function BoringFPS.DrawListPlayerTurn(scrW, scrH, plyList)
+    local indexDirectionTurn = GetGlobalInt("CurrentIndexDirectionTurn", 0)
+    local baseHeight = scrH * 0.06
+    local baseWidth  = scrW * 0.1
+    local spacing    = 10
+    local startX = scrW * 0.88
+    local startY = scrH * 0.1
+    local colorTxt = Color(255, 255, 255)
+
+    for i, ply in ipairs(plyList) do
+        local posY = startY + (i - 1) * (baseHeight + spacing)
+        local colorBG = i == indexDirectionTurn and Color(83, 109, 213, 230) or Color(10, 10, 10, 150)
+        colorBG = ply:Alive() and colorBG or Color(160, 0, 0, 150)
+
+        draw.RoundedBox(0, startX, posY, baseWidth, baseHeight, colorBG)
+
+        draw.SimpleText(i, "NickAnton", startX + 10, posY + baseHeight / 2, colorTxt, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+
+        local avatarSize = baseHeight * 0.7
+        local avatarX = startX + 30
+        local avatarY = posY + (baseHeight - avatarSize) / 2
+
+        if not IsValid(ply.AvatarHUD) then
+            ply.AvatarHUD = vgui.Create("AvatarImage")
+            ply.AvatarHUD:SetPlayer(ply, 64)
+            ply.AvatarHUD:SetSize(avatarSize, avatarSize)
+        end
+        ply.AvatarHUD:SetPos(avatarX, avatarY)
+        ply.AvatarHUD:SetSize(avatarSize, avatarSize)
+
+        local nameX = avatarX + avatarSize + 10
+        local maxWidth = baseWidth - (nameX - startX) - 5
+
+        local playerName = ply:Nick()
+        surface.SetFont("NickAnton")
+        local textW, _ = surface.GetTextSize(playerName)
+
+        if textW > maxWidth then
+            local truncated = playerName
+            while string.len(truncated) > 0 do
+                truncated = string.sub(truncated, 1, -2)
+                local newW, _ = surface.GetTextSize(truncated .. "…")
+                if newW <= maxWidth then
+                    playerName = truncated .. "…"
+                    break
+                end
+            end
+        end
+
+        draw.SimpleText(playerName, "NickAnton", nameX, posY + baseHeight / 2, colorTxt, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+    end
+end
+
+function BoringFPS.StopHudGame()
+    hook.Remove( "HUDPaint", "HUDPaint:BoringFPS:HUDGame" )
+    for _, ply in ipairs(BoringFPS_CONFIG.PlayersInGame) do
+        if IsValid(ply.AvatarHUD) then
+            ply.AvatarHUD:Remove()
+        end
+    end
+end
+
+-- TODO : Ne s'affiche pas correctement durant le premier tour uniquement
 function BoringFPS.DisplayHUDPlay()
     local timeLimit = BoringFPS_CONFIG.Settings.LimitTimeTurn
     local startTime = CurTime() + timeLimit
@@ -13,6 +86,17 @@ function BoringFPS.DisplayHUDPlay()
         BoringFPS.DrawStepLeftHUD(BoringFPS_CONFIG.Vars.ScrW * 0.8, BoringFPS_CONFIG.Vars.ScrH * 0.9, ply:GetNWInt("StepLeft", 0), stepMax)
         BoringFPS.DrawActionLeft(BoringFPS_CONFIG.Vars.ScrW * 0.8, BoringFPS_CONFIG.Vars.ScrH * 0.95, ply:GetNWInt("Action", 0), actionMax)
     end )
+end
+
+function BoringFPS.DisplayAnnouncerTurn(text)
+    local w, h = BoringFPS_CONFIG.Vars.ScrW, BoringFPS_CONFIG.Vars.ScrH
+
+    hook.Add( "HUDPaint", "HUDPaint:BoringFPS:HUDAnnouncerTurn", function()
+        draw.DrawText(text, "AnnouncerTurn", w * 0.5, h * 0.3, Color(255, 255, 255), TEXT_ALIGN_CENTER)
+    end )
+    timer.Create("BoringFPS:TimerAnnouncerTurn", BoringFPS_CONFIG.Settings.DurationAnnouncerTurn, 1, function()
+        hook.Remove( "HUDPaint", "HUDPaint:BoringFPS:HUDAnnouncerTurn" )
+    end)
 end
 
 function BoringFPS.DisplayHUDWait()
@@ -80,11 +164,34 @@ function BoringFPS.DrawIconHud(x, y, icon)
 end
 
 function BoringFPS.DrawTimerLeft(x, y, timeLeft)
+    local colorTimer = timeLeft > 3 and Color(255, 255, 255) or Color(255, 0, 0)
     surface.SetDrawColor( 255, 255, 255)
 	draw.Circle( x, y, 50, 100 )
     surface.SetDrawColor( 0, 0, 0)
 	draw.Circle( x, y, 45, 100 )
-    draw.DrawText(timeLeft, "HudTimerLeft", x, y - 45, Color(255, 255, 255), TEXT_ALIGN_CENTER)
+    draw.DrawText(timeLeft, "HudTimerLeft", x, y - 45, colorTimer, TEXT_ALIGN_CENTER)
+end
+
+function BoringFPS.DrawHealth(x, y)
+    local health = LocalPlayer():Health()
+    local w, h = 64, 64
+    local yIcon = y + 15
+
+    surface.SetDrawColor(255, 255, 255, 255)
+    surface.SetMaterial(BoringFPS_CONFIG.Icons.HeartIcon)
+    surface.DrawTexturedRect(x, yIcon, w, h)
+
+    if health > 0 then
+        local percent = math.Clamp(health, 0, 100) / 100
+        local fillHeight = h * percent
+
+        render.SetScissorRect(x, yIcon + (h - fillHeight), x + w, yIcon + h, true)
+            surface.SetDrawColor(255, 0, 0, 180)
+            surface.SetMaterial(BoringFPS_CONFIG.Icons.HeartIconFill)
+            surface.DrawTexturedRect(x, yIcon, w, h)
+        render.SetScissorRect(0, 0, 0, 0, false)
+    end
+    draw.DrawText(health, "HudTimerLeft", x + 100, y, Color(255, 255, 255), TEXT_ALIGN_CENTER)
 end
 
 function BoringFPS.DrawDashHud(x, y, value, maxValue)
@@ -128,7 +235,7 @@ function BoringFPS.PlaySound(sound, loop)
     if (loop) then
         ply:StartLoopingSound(sound)
     else
-        ply:EmitSound(sound, 40)
+        ply:EmitSound(sound, 150)
     end
 end
 
@@ -158,12 +265,26 @@ function draw.Circle( x, y, radius, seg )
 end
 
 -- Net Receive
+net.Receive(BoringFPS_CONFIG.NetVar.StartClientHUDGame, function()
+    BoringFPS.DisplayHUDGame()
+end)
+
+net.Receive(BoringFPS_CONFIG.NetVar.EndGame, function()
+    local winner = net.ReadString()
+    BoringFPS.StopHudGame()
+    BoringFPS.DisplayAnnouncerTurn(winner .. " WINS!")
+end)
+
 net.Receive(BoringFPS_CONFIG.NetVar.StartClientWait, function()
+    LocalPlayer():EmitSound(BoringFPS_CONFIG.Sounds.TurnEnd)
     BoringFPS.DisplayHUDWait()
+    BoringFPS.DisplayAnnouncerTurn("TURN END")
 end)
 
 net.Receive(BoringFPS_CONFIG.NetVar.StartClientPlay, function()
+    LocalPlayer():EmitSound(BoringFPS_CONFIG.Sounds.TurnStart)
     BoringFPS.DisplayHUDPlay()
+    BoringFPS.DisplayAnnouncerTurn("YOUR TURN")
 end)
 
 net.Receive(BoringFPS_CONFIG.NetVar.StopClientTurn, function()
@@ -180,3 +301,15 @@ net.Receive(BoringFPS_CONFIG.NetVar.StopPlayClientSound, function()
     local soundToStop = net.ReadString()
     BoringFPS.StopSound(soundToStop)
 end)
+
+-- Hide Base HUD
+local hide = {
+	["CHudHealth"] = true,
+	["CHudBattery"] = true
+}
+
+hook.Add( "HUDShouldDraw", "HUDShouldDraw:BoringFPS:HideHUD", function( name )
+	if ( hide[ name ] ) then
+		return false
+	end
+end )

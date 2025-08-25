@@ -6,6 +6,16 @@ surface.CreateFont( "HudBoringFPS", {
     size = 40
 } )
 
+surface.CreateFont( "NickAnton", {
+    font = "Anton",
+    size = 30
+} )
+
+surface.CreateFont( "AnnouncerTurn", {
+    font = "Anton",
+    size = 1200
+} )
+
 surface.CreateFont( "HudTimerLeft", {
     font = "Anton",
     size = 80
