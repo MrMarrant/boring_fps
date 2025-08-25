@@ -51,6 +51,8 @@ BoringFPS_CONFIG.Icons.StepIcon = Material("boringfps/icons/step_icon.png")
 BoringFPS_CONFIG.Icons.ActionIcon = Material("boringfps/icons/action_icon.png")
 BoringFPS_CONFIG.Icons.WeaponIcon = Material("boringfps/icons/weapon_icon.png")
 BoringFPS_CONFIG.Icons.DashIcon = Material("boringfps/icons/dash_icon.png")
+BoringFPS_CONFIG.Icons.HeartIcon = Material("boringfps/icons/heart_icon.png")
+BoringFPS_CONFIG.Icons.HeartIconFill = Material("boringfps/icons/heart_fill_icon.png")
 
 -- NET VAR
 BoringFPS_CONFIG.NetVar = {}
