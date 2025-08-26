@@ -23,6 +23,12 @@ BoringFPS_CONFIG.Settings.ClassWeapon = {
     ["launcher"] = "launcher_boring-gun",
     ["crowbar"] = "crowbar_boring-gun"
 }
+BoringFPS_CONFIG.Settings.HideHUD = {
+	["CHudHealth"] = true,
+	["CHudBattery"] = true,
+	["CHudChat"] = true,
+    ["CHudDeathNotice"] = true
+}
 
 -- Models
 BoringFPS_CONFIG.Models = {}
@@ -65,7 +71,9 @@ BoringFPS_CONFIG.NetVar.StartClientWait = "BoringFPS_CONFIG.StartClientWait"
 BoringFPS_CONFIG.NetVar.StartClientHUDGame = "BoringFPS_CONFIG.StartClientHUDGame"
 BoringFPS_CONFIG.NetVar.EndGame = "BoringFPS_CONFIG.StopClientHUDGame"
 BoringFPS_CONFIG.NetVar.SetGlobalTable = "BoringFPS_CONFIG.SetGlobalTable"
+BoringFPS_CONFIG.NetVar.InsertLogs = "BoringFPS_CONFIG.InsertLogs"
 
 -- Base vars, i really don't recommend to edit this section
 BoringFPS_CONFIG.Vars = {}
-BoringFPS_CONFIG.Vars.PlayersVars = {}
+BoringFPS_CONFIG.Vars.PlayersInGame = {}
+BoringFPS_CONFIG.Vars.GameLogs = {}

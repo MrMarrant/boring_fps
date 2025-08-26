@@ -34,7 +34,7 @@ function BoringFPS.StartGame()
     BoringFPS.StartConditionEndGame()
     BoringFPS.SpawnPlayersOnGameMap()
     BoringFPS.DefineDirectionTurnPlay()
-    BoringFPS.SetTurnToWait(BoringFPS_CONFIG.PlayersInGame)
+    BoringFPS.SetTurnToWait(BoringFPS_CONFIG.Vars.PlayersInGame)
     BoringFPS.SetTurnToPlay(1)
     BoringFPS_CONFIG.CurrentMusic = table.Random(BoringFPS_CONFIG.Sounds.GameMusic)
     BoringFPS.PlaySound(BoringFPS_CONFIG.CurrentMusic, true)
@@ -86,16 +86,17 @@ function BoringFPS.DefineDirectionTurnPlay()
 end
 
 function BoringFPS.ResetParams()
-    BoringFPS_CONFIG.Vars.PlayersVars = {}
     BoringFPS_CONFIG.PlayersAlive = {}
     BoringFPS_CONFIG.CurrentPlayerTurn = nil
     BoringFPS_CONFIG.DirectionTurnPlayers = {}
     BoringFPS_CONFIG.LastIndexDirectionTurn = nil
     BoringFPS_CONFIG.GameInProgress = false
     BoringFPS.SetGlobalTable({}, "PlayersInGame")
+    BoringFPS.SetGlobalTable({}, "GameLogs")
     SetGlobalInt("CurrentIndexDirectionTurn", -1)
     hook.Remove("PlayerDeath", "PlayerDeath:BoringFPS:ConditionEndGame")
     hook.Remove("PlayerDisconnected", "PlayerDisconnected:BoringFPS:ConditionEndGame")
+    hook.Remove("EntityTakeDamage", "EntityTakeDamage:BoringFPS:NotifyPlayerHit")
     timer.Remove("BoringFPS:TimerTurn")
     timer.Remove("BoringFPS:NextTurn")
     net.Start(BoringFPS_CONFIG.NetVar.StopClientTurn)
@@ -105,18 +106,35 @@ end
 function BoringFPS.StartConditionEndGame()
     hook.Add("PlayerDeath", "PlayerDeath:BoringFPS:ConditionEndGame", BoringFPS.OnPlayerLeave)
     hook.Add("PlayerDisconnected", "PlayerDisconnected:BoringFPS:ConditionEndGame", BoringFPS.OnPlayerLeave)
+    hook.Add( "EntityTakeDamage", "EntityTakeDamage:BoringFPS:NotifyPlayerHit", BoringFPS.OnPlayerHit)
 end
 
-function BoringFPS.OnPlayerLeave(ply)
+function BoringFPS.OnPlayerLeave(ply, inflictor, attacker)
     if (BoringFPS_CONFIG.DirectionTurnPlayers[ply:GetNWInt("NumberTurn")]) then
         BoringFPS_CONFIG.DirectionTurnPlayers[ply:GetNWInt("NumberTurn")] = nil
         table.remove(BoringFPS_CONFIG.PlayersAlive, table.KeyFromValue(BoringFPS_CONFIG.PlayersAlive, ply))
-        if (ply:IsConnected()) then BoringFPS.EnterSpectatorMode(ply) end
+        if (ply:IsConnected()) then
+            BoringFPS.EnterSpectatorMode(ply)
+        end
+        if (IsValid(attacker)) then
+            BoringFPS.InsertLogs(ply:Nick() .. " was killed by " .. attacker:Nick() .. ".")
+        else
+            BoringFPS.InsertLogs(ply:Nick() .. " has died.")
+        end
         ply:EmitSound("boring_fps/sfx/ded.mp3", 90, math.random(90, 110))
         net.Start(BoringFPS_CONFIG.NetVar.StopClientTurn)
         net.Send(ply)
     end
     if (table.Count(BoringFPS_CONFIG.PlayersAlive) <= 1) then
         BoringFPS.EndGame()
+    end
+end
+
+function BoringFPS.OnPlayerHit(target, dmginfo)
+    local attacker = dmginfo:GetAttacker()
+    if (IsValid(attacker) and attacker:IsPlayer() and table.HasValue(BoringFPS_CONFIG.PlayersAlive, target) ) then
+        BoringFPS.InsertLogs(target:Nick() .. " was hit by " .. attacker:Nick() .. " and received\n" .. dmginfo:GetDamage() .. " damage.")
+    else
+        BoringFPS.InsertLogs(target:Nick() .. " received " .. dmginfo:GetDamage() .. " damage.")
     end
 end
