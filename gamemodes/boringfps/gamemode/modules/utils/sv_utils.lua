@@ -34,7 +34,7 @@ function BoringFPS.FindNextAlivePlayer(ply, currentTarget)
 end
 
 function BoringFPS.SetGlobalTable(tbl, key)
-    BoringFPS_CONFIG[key] = tbl
+    BoringFPS_CONFIG.Vars[key] = tbl
 
     net.Start(BoringFPS_CONFIG.NetVar.SetGlobalTable)
     net.WriteTable(tbl)
@@ -73,6 +73,16 @@ function BoringFPS.ShuffleTable(t)
     return t
 end
 
+function BoringFPS.InsertLogs(txt)
+    table.insert(BoringFPS_CONFIG.Vars.GameLogs, 1, txt)
+    net.Start(BoringFPS_CONFIG.NetVar.InsertLogs)
+    net.WriteString(txt)
+    net.Broadcast()
+    if (#BoringFPS_CONFIG.Vars.GameLogs > 100) then
+        table.remove(BoringFPS_CONFIG.Vars.GameLogs)
+    end
+end
+
 hook.Add( "PlayerDeathThink", "PlayerDeathThink:BoringFPS:SpectatorNext", function( ply )
     if ply:GetObserverMode() == OBS_MODE_CHASE then
         if ply:KeyPressed( IN_ATTACK ) then
@@ -83,4 +93,16 @@ hook.Add( "PlayerDeathThink", "PlayerDeathThink:BoringFPS:SpectatorNext", functi
         end
         return false
     end
+end )
+
+-- TODO : Notifier quand un joueur meurt/touché
+
+hook.Add( "EntityTakeDamage", "EntityTakeDamage:BoringFPS:NotifyPlayerHit", function( target, dmginfo )
+	if ( BoringFPS_CONFIG.GameInProgress and table.HasValue(BoringFPS_CONFIG.PlayersAlive, target) ) then
+        if (IsValid(dmginfo:GetAttacker()) and dmginfo:GetAttacker():IsPlayer()) then
+			BoringFPS.InsertLogs(target:Nick() .. " was hit by " .. dmginfo:GetAttacker():Nick() .. " and received\n" .. dmginfo:GetDamage() .. " damage.")
+        else
+            BoringFPS.InsertLogs(target:Nick() .. " received " .. dmginfo:GetDamage() .. " damage.")
+		end
+	end
 end )

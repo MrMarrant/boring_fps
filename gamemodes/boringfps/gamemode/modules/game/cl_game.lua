@@ -1,12 +1,13 @@
 -- TODO : Revoir le responsive sur petit écran, nottament la taille des éléments
 
 function BoringFPS.DisplayHUDGame()
-    local plyList = BoringFPS_CONFIG.PlayersInGame
+    local plyList = BoringFPS_CONFIG.Vars.PlayersInGame
     hook.Add( "HUDPaint", "HUDPaint:BoringFPS:HUDGame", function()
         local scrW, scrH = BoringFPS_CONFIG.Vars.ScrW, BoringFPS_CONFIG.Vars.ScrH
 
         BoringFPS.DrawListPlayerTurn(scrW, scrH, plyList)
         BoringFPS.DrawHealth(scrW * 0.45, scrH * 0.9)
+        BoringFPS.DrawLogs(scrW, scrH)
     end)
 end
 
@@ -75,7 +76,7 @@ function BoringFPS.DrawPlayerTurn(ply, index, scrH, scrW)
     surface.SetMaterial(BoringFPS_CONFIG.Icons.HeartFillIcon)
     surface.DrawTexturedRect(nameX, posY + baseHeight * 0.25, wIcon, hIcon)
     nameX = nameX + wIcon + baseWidth * 0.03
-    draw.SimpleText(ply:Health(), "NickAnton", nameX, posY + baseHeight / 2, colorTxt, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+    draw.SimpleText(math.Clamp(ply:Health(), 0, ply:GetMaxHealth()), "NickAnton", nameX, posY + baseHeight / 2, colorTxt, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
 end
 
 function BoringFPS.DrawEmptyPlayer(index, scrH, scrW)
@@ -228,6 +229,28 @@ function BoringFPS.DrawHealth(x, y)
     draw.DrawText(health, "HudTimerLeft", x + 100, y, Color(255, 255, 255), TEXT_ALIGN_CENTER)
 end
 
+function BoringFPS.DrawLogs(scrW, scrH)
+    local x, y = scrW * 0.02, scrH * 0.65
+    local baseW, baseH = scrW * 0.15, scrH * 0.31
+    local lineHeight = scrH * 0.025
+    local marginX, marginY = scrW * 0.01, scrH * 0.01
+
+    draw.RoundedBox(0, x, y, baseW, baseH, Color(0, 0, 0, 200))
+    surface.SetDrawColor(255, 255, 255)
+    surface.DrawOutlinedRect(x, y, baseW, baseH)
+
+    render.SetScissorRect(x, y, x + baseW, y + baseH, true)
+
+    surface.SetFont("Default")
+    local yOffset = y + marginY
+    for i, txt in ipairs(BoringFPS_CONFIG.Vars.GameLogs) do
+        draw.DrawText( txt, "Default", x + marginX, yOffset, Color(255, 255, 255), TEXT_ALIGN_LEFT )
+        yOffset = yOffset + lineHeight
+    end
+
+    render.SetScissorRect(0, 0, 0, 0, false)
+end
+
 function BoringFPS.DrawDashHud(x, y, value, maxValue)
     local sizeTriangle = 20
     local startX = x + 50
@@ -337,13 +360,8 @@ net.Receive(BoringFPS_CONFIG.NetVar.StopPlayClientSound, function()
 end)
 
 -- Hide Base HUD
-local hide = {
-	["CHudHealth"] = true,
-	["CHudBattery"] = true
-}
-
 hook.Add( "HUDShouldDraw", "HUDShouldDraw:BoringFPS:HideHUD", function( name )
-	if ( hide[ name ] ) then
+	if ( BoringFPS_CONFIG.Settings.HideHUD[ name ] ) then
 		return false
 	end
 end )
