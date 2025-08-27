@@ -42,11 +42,13 @@ BoringFPS_CONFIG.Models.Characters = {
     "models/Humans/Group02/male_07.mdl"
 }
 BoringFPS_CONFIG.Models.Rocket = Model("models/props_c17/doll01.mdl")
+BoringFPS_CONFIG.Models.SelectionClass = Model("models/props_borealis/bluebarrel001.mdl") --? Default model of the entity if none was set from hammer param
 
 BoringFPS_CONFIG.Sounds = {}
 BoringFPS_CONFIG.Sounds.TurnStart = Sound("boring_fps/sfx/turn/turn_start.mp3")
 BoringFPS_CONFIG.Sounds.TurnEnd = Sound("boring_fps/sfx/turn/turn_end.mp3")
 BoringFPS_CONFIG.Sounds.WinGame = Sound("boring_fps/sfx/turn/win_game.mp3")
+BoringFPS_CONFIG.Sounds.OnUse = Sound("boring_fps/sfx/ui/on_use.mp3")
 BoringFPS_CONFIG.Sounds.GameMusic = {
     "boring_fps/music/theme_boringfps.wav"
 }
