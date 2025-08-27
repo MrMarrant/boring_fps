@@ -5,7 +5,7 @@ net.Receive(BoringFPS_CONFIG.NetVar.SetGlobalTable, function()
 end)
 
 net.Receive(BoringFPS_CONFIG.NetVar.InsertLogs, function()
-    local txt = net.ReadString()
+    local txt = "> " .. net.ReadString()
     table.insert(BoringFPS_CONFIG.Vars.GameLogs, 1, txt)
     if (#BoringFPS_CONFIG.Vars.GameLogs > 100) then
         table.remove(BoringFPS_CONFIG.Vars.GameLogs)

@@ -94,15 +94,3 @@ hook.Add( "PlayerDeathThink", "PlayerDeathThink:BoringFPS:SpectatorNext", functi
         return false
     end
 end )
-
--- TODO : Notifier quand un joueur meurt/touché
-
-hook.Add( "EntityTakeDamage", "EntityTakeDamage:BoringFPS:NotifyPlayerHit", function( target, dmginfo )
-	if ( BoringFPS_CONFIG.GameInProgress and table.HasValue(BoringFPS_CONFIG.PlayersAlive, target) ) then
-        if (IsValid(dmginfo:GetAttacker()) and dmginfo:GetAttacker():IsPlayer()) then
-			BoringFPS.InsertLogs(target:Nick() .. " was hit by " .. dmginfo:GetAttacker():Nick() .. " and received\n" .. dmginfo:GetDamage() .. " damage.")
-        else
-            BoringFPS.InsertLogs(target:Nick() .. " received " .. dmginfo:GetDamage() .. " damage.")
-		end
-	end
-end )
