@@ -62,6 +62,7 @@ BoringFPS_CONFIG.Icons.DashIcon = Material("boringfps/icons/dash_icon.png")
 BoringFPS_CONFIG.Icons.HeartIcon = Material("boringfps/icons/heart_icon.png")
 BoringFPS_CONFIG.Icons.HeartFillIcon = Material("boringfps/icons/heart_fill_icon.png")
 BoringFPS_CONFIG.Icons.DisconnectedIcon = Material("boringfps/icons/skull_icon.png")
+BoringFPS_CONFIG.Icons.InfiniteIcon = Material("boringfps/icons/infinite_icon.png")
 
 -- NET VAR
 BoringFPS_CONFIG.NetVar = {}
