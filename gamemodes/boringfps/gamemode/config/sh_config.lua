@@ -11,6 +11,7 @@ BoringFPS_CONFIG.Settings.DefaultMaxStep = 10 -- Default steps a player can do d
 BoringFPS_CONFIG.Settings.DefaultWalkSpeed = 250 -- Default walk speed for players
 BoringFPS_CONFIG.Settings.DefaultRunSpeed = 320 -- Default run speed for players
 BoringFPS_CONFIG.Settings.DurationAnnouncerTurn = 3 -- Define how much time announcer turn stay on screen
+BoringFPS_CONFIG.Settings.MessageLifetimeChatBox = 8 -- Define how much time messages chatbox history are displayed.
 BoringFPS_CONFIG.Settings.ListClass = {
     "pistol",
     "shootgun",
@@ -23,6 +24,7 @@ BoringFPS_CONFIG.Settings.ClassWeapon = {
     ["launcher"] = "launcher_boring-gun",
     ["crowbar"] = "crowbar_boring-gun"
 }
+-- TODO : Déplacer la chat box si possible
 BoringFPS_CONFIG.Settings.HideHUD = {
 	["CHudHealth"] = true,
 	["CHudBattery"] = true,

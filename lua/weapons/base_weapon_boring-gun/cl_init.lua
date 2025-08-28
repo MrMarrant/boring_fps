@@ -7,9 +7,6 @@ SWEP.DrawCrosshair = true
 SWEP.AutoSwitchTo = true
 SWEP.DrawAmmo = true
 
---? BoringFPS_CONFIG renvoie nil ici, va savoir pk
-local w, h = 30, 30
-
 function SWEP:DrawHUD()
     local owner = self:GetOwner()
     if (owner:GetNWString("State", "free") == "play") then

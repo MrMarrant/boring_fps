@@ -198,6 +198,7 @@ function BoringFPS.DrawIconHud(x, y, icon)
     surface.DrawTexturedRect(x, y - 5, 30, 30)
 end
 
+-- TODO : Affiche l'image du coeur à la place, à vérifier (désative l'icon pour voir si àa persiste)
 function BoringFPS.DrawTimerLeft(x, y, timeLeft)
     local colorTimer = timeLeft > 3 and Color(255, 255, 255) or Color(255, 0, 0)
     surface.SetDrawColor( 255, 255, 255)
