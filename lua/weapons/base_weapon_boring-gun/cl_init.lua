@@ -17,11 +17,11 @@ function SWEP:DrawHUD()
         local squareH = 20
 
         if (maxClip1 > 0) then
-            BoringFPS.DrawIconHud(x, y, BoringFPS_CONFIG.Icons.WeaponIcon)
+            BoringFPS.DrawIconHud(BoringFPS_CONFIG.Icons.WeaponIcon, x, y)
             draw.DrawText(clip1, "HudBoringFPS", x + 50, y - 10, Color(255, 255, 255), TEXT_ALIGN_CENTER)
             BoringFPS.DrawSquare(x + 70, y, clip1, maxClip1, squareW, squareH, 5, 50)
         else
-            BoringFPS.DrawIconHud(x, y, BoringFPS_CONFIG.Icons.InfiniteIcon)
+            BoringFPS.DrawIconHud(BoringFPS_CONFIG.Icons.InfiniteIcon, x, y)
         end
     end
 end

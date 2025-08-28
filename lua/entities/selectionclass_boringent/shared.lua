@@ -9,8 +9,8 @@ ENT.DelayUse = 1
 ENT.NextUse = CurTime()
 
 ENT.IconsClass = {
-    ["pistol"] = "boringfps/icons/weapon_icon.png",
-    ["shootgun"] = "boringfps/icons/dash_icon.png",
-    ["launcher"] = "boringfps/icons/action_icon.png",
-    ["crowbar"] = "boringfps/icons/step_icon.png"
+    ["pistol"] = BoringFPS_CONFIG.Icons.WeaponIcon,
+    ["shootgun"] = BoringFPS_CONFIG.Icons.ActionIcon,
+    ["launcher"] = BoringFPS_CONFIG.Icons.StepIcon,
+    ["crowbar"] = BoringFPS_CONFIG.Icons.DashIcon
 }

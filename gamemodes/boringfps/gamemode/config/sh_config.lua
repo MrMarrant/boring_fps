@@ -24,7 +24,6 @@ BoringFPS_CONFIG.Settings.ClassWeapon = {
     ["launcher"] = "launcher_boring-gun",
     ["crowbar"] = "crowbar_boring-gun"
 }
--- TODO : Déplacer la chat box si possible
 BoringFPS_CONFIG.Settings.HideHUD = {
 	["CHudHealth"] = true,
 	["CHudBattery"] = true,
@@ -65,6 +64,7 @@ BoringFPS_CONFIG.Icons.HeartIcon = Material("boringfps/icons/heart_icon.png")
 BoringFPS_CONFIG.Icons.HeartFillIcon = Material("boringfps/icons/heart_fill_icon.png")
 BoringFPS_CONFIG.Icons.DisconnectedIcon = Material("boringfps/icons/skull_icon.png")
 BoringFPS_CONFIG.Icons.InfiniteIcon = Material("boringfps/icons/infinite_icon.png")
+BoringFPS_CONFIG.Icons.CircleIcon = Material("boringfps/ui/circle_ui.png")
 
 -- NET VAR
 BoringFPS_CONFIG.NetVar = {}

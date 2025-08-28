@@ -117,7 +117,7 @@ function BoringFPS.DisplayHUDPlay()
     local actionMax = weapon and weapon.Action or 0
 
     hook.Add( "HUDPaint", "HUDPaint:BoringFPS:HUDTurn", function()
-        BoringFPS.DrawTimerLeft(BoringFPS_CONFIG.Vars.ScrW * 0.5, BoringFPS_CONFIG.Vars.ScrH * 0.08, math.Round(startTime - CurTime()) + 1)
+        BoringFPS.DrawTimerLeft(BoringFPS_CONFIG.Vars.ScrW, BoringFPS_CONFIG.Vars.ScrH, math.Round(startTime - CurTime()) + 1)
         BoringFPS.DrawStepLeftHUD(BoringFPS_CONFIG.Vars.ScrW * 0.8, BoringFPS_CONFIG.Vars.ScrH * 0.9, ply:GetNWInt("StepLeft", 0), stepMax)
         BoringFPS.DrawActionLeft(BoringFPS_CONFIG.Vars.ScrW * 0.8, BoringFPS_CONFIG.Vars.ScrH * 0.95, ply:GetNWInt("Action", 0), actionMax)
     end )
@@ -192,19 +192,21 @@ function BoringFPS.DrawTriangle(x, y, value, maxValue, size, xMargin)
     end
 end
 
-function BoringFPS.DrawIconHud(x, y, icon)
+function BoringFPS.DrawIconHud(icon, x, y, col, w, h)
+    w = w or 30
+    h = h or 30
+    col = col or Color(255, 255, 255)
     surface.SetMaterial(icon)
-    surface.SetDrawColor(255, 255, 255)
-    surface.DrawTexturedRect(x, y - 5, 30, 30)
+    surface.SetDrawColor(col:Unpack())
+    surface.DrawTexturedRect(x, y - 5, w, h)
 end
 
--- TODO : Affiche l'image du coeur à la place, à vérifier (désative l'icon pour voir si àa persiste)
-function BoringFPS.DrawTimerLeft(x, y, timeLeft)
+function BoringFPS.DrawTimerLeft(scrW, scrH, timeLeft)
+    local x , y = BoringFPS_CONFIG.Vars.ScrW * 0.5, BoringFPS_CONFIG.Vars.ScrH * 0.08
     local colorTimer = timeLeft > 3 and Color(255, 255, 255) or Color(255, 0, 0)
-    surface.SetDrawColor( 255, 255, 255)
-	draw.Circle( x, y, 50, 100 )
-    surface.SetDrawColor( 0, 0, 0)
-	draw.Circle( x, y, 45, 100 )
+    local xIcon, yIcon = x - scrW * 0.023, y - scrH * 0.023
+    BoringFPS.DrawIconHud(BoringFPS_CONFIG.Icons.CircleIcon, xIcon - scrW * 0.011, yIcon - scrH * 0.033, Color(255, 255, 255), scrW * 0.07, scrW * 0.07)
+    BoringFPS.DrawIconHud(BoringFPS_CONFIG.Icons.CircleIcon, xIcon - scrW * 0.0065, yIcon - scrH * 0.023, Color(0, 0, 0), scrW * 0.06, scrW * 0.06)
     draw.DrawText(timeLeft, "HudTimerLeft", x, y - 45, colorTimer, TEXT_ALIGN_CENTER)
 end
 
@@ -256,7 +258,7 @@ function BoringFPS.DrawDashHud(x, y, value, maxValue)
     local sizeTriangle = 20
     local startX = x + 50
 
-    BoringFPS.DrawIconHud(x, y, BoringFPS_CONFIG.Icons.DashIcon)
+    BoringFPS.DrawIconHud(BoringFPS_CONFIG.Icons.DashIcon, x, y)
     draw.DrawText(value, "HudBoringFPS", startX, y - 10, Color(255, 255, 255), TEXT_ALIGN_CENTER)
 
     startX = startX + 50
@@ -269,7 +271,7 @@ function BoringFPS.DrawActionLeft(x, y, value, maxValue)
     local squareH = 25
     local startX = x + 50
 
-    BoringFPS.DrawIconHud(x, y, BoringFPS_CONFIG.Icons.ActionIcon)
+    BoringFPS.DrawIconHud(BoringFPS_CONFIG.Icons.ActionIcon, x, y)
     draw.DrawText(value, "HudBoringFPS", startX, y - 10, Color(255, 255, 255), TEXT_ALIGN_CENTER)
 
     startX = startX + 25
@@ -281,7 +283,7 @@ function BoringFPS.DrawStepLeftHUD(x, y, value, maxValue)
     local squareSize = 20 * (10 / maxValue)
     local startX = x + 50
 
-    BoringFPS.DrawIconHud(x, y, BoringFPS_CONFIG.Icons.StepIcon)
+    BoringFPS.DrawIconHud(BoringFPS_CONFIG.Icons.StepIcon, x, y)
     draw.DrawText(value, "HudBoringFPS", startX, y - 10, Color(255, 255, 255), TEXT_ALIGN_CENTER)
 
     startX = startX + 25
@@ -305,21 +307,6 @@ end
 function BoringFPS.StopSound(sound)
     local ply = LocalPlayer()
     ply:StopSound(sound)
-end
-
-function draw.Circle( x, y, radius, seg )
-	local cir = {}
-
-	table.insert( cir, { x = x, y = y, u = 0.5, v = 0.5 } )
-	for i = 0, seg do
-		local a = math.rad( ( i / seg ) * -360 )
-		table.insert( cir, { x = x + math.sin( a ) * radius, y = y + math.cos( a ) * radius, u = math.sin( a ) / 2 + 0.5, v = math.cos( a ) / 2 + 0.5 } )
-	end
-
-	local a = math.rad( 0 ) -- This is needed for non absolute segment counts
-	table.insert( cir, { x = x + math.sin( a ) * radius, y = y + math.cos( a ) * radius, u = math.sin( a ) / 2 + 0.5, v = math.cos( a ) / 2 + 0.5 } )
-
-	surface.DrawPoly( cir )
 end
 
 -- Net Receive
