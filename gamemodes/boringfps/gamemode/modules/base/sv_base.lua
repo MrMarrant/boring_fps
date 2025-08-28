@@ -33,7 +33,7 @@ function BoringFPS.StartGame()
     BoringFPS.StopHUDPreGame()
     BoringFPS.PrintToAllPlayers("Game is starting!", HUD_PRINTCENTER)
     BoringFPS_CONFIG.GameInProgress = true
-    BoringFPS.StartConditionEndGame()
+    BoringFPS.StartConditionEndGame(false)
     BoringFPS.SpawnPlayersOnGameMap()
     BoringFPS.DefineDirectionTurnPlay()
     BoringFPS.SetTurnToWait(BoringFPS_CONFIG.Vars.PlayersInGame)
@@ -128,7 +128,7 @@ function BoringFPS.OnPlayerLeave(ply, inflictor, attacker)
         net.Send(ply)
     end
     if (table.Count(BoringFPS_CONFIG.PlayersAlive) <= 1) then
-        BoringFPS.EndGame()
+        BoringFPS.EndGame(false)
     end
 end
 

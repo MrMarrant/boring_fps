@@ -315,9 +315,9 @@ net.Receive(BoringFPS_CONFIG.NetVar.StartClientHUDGame, function()
 end)
 
 net.Receive(BoringFPS_CONFIG.NetVar.EndGame, function()
-    local winner = net.ReadString()
+    local congratsMsg = net.ReadString()
     BoringFPS.StopHudGame()
-    BoringFPS.DisplayAnnouncerTurn(winner .. " WINS!")
+    BoringFPS.DisplayAnnouncerTurn(congratsMsg)
 end)
 
 net.Receive(BoringFPS_CONFIG.NetVar.StartClientWait, function()
