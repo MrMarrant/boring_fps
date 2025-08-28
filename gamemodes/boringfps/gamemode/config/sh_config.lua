@@ -1,3 +1,37 @@
+-- Models
+BoringFPS_CONFIG.Models = {}
+BoringFPS_CONFIG.Models.Characters = {
+    "models/alyx.mdl",
+    "models/Eli.mdl",
+    "models/gman_high.mdl",
+    "models/Kleiner.mdl",
+    "models/monk.mdl",
+    "models/vortigaunt.mdl",
+    "models/Humans/Group02/male_07.mdl"
+}
+BoringFPS_CONFIG.Models.Rocket = Model("models/props_c17/doll01.mdl")
+BoringFPS_CONFIG.Models.SelectionClass = Model("models/props_borealis/bluebarrel001.mdl") --? Default model of the entity if none was set from hammer param
+
+BoringFPS_CONFIG.Sounds = {}
+BoringFPS_CONFIG.Sounds.TurnStart = Sound("boring_fps/sfx/turn/turn_start.mp3")
+BoringFPS_CONFIG.Sounds.TurnEnd = Sound("boring_fps/sfx/turn/turn_end.mp3")
+BoringFPS_CONFIG.Sounds.WinGame = Sound("boring_fps/sfx/turn/win_game.mp3")
+BoringFPS_CONFIG.Sounds.OnUse = Sound("boring_fps/sfx/ui/on_use.mp3")
+BoringFPS_CONFIG.Sounds.GameMusic = {
+    "boring_fps/music/theme_boringfps.wav"
+}
+
+BoringFPS_CONFIG.Icons = {}
+BoringFPS_CONFIG.Icons.StepIcon = Material("boringfps/icons/step_icon.png")
+BoringFPS_CONFIG.Icons.ActionIcon = Material("boringfps/icons/action_icon.png")
+BoringFPS_CONFIG.Icons.WeaponIcon = Material("boringfps/icons/weapon_icon.png")
+BoringFPS_CONFIG.Icons.DashIcon = Material("boringfps/icons/dash_icon.png")
+BoringFPS_CONFIG.Icons.HeartIcon = Material("boringfps/icons/heart_icon.png")
+BoringFPS_CONFIG.Icons.HeartFillIcon = Material("boringfps/icons/heart_fill_icon.png")
+BoringFPS_CONFIG.Icons.DisconnectedIcon = Material("boringfps/icons/skull_icon.png")
+BoringFPS_CONFIG.Icons.InfiniteIcon = Material("boringfps/icons/infinite_icon.png")
+BoringFPS_CONFIG.Icons.CircleIcon = Material("boringfps/ui/circle_ui.png")
+
 -- Game settings, edit as you wish
 BoringFPS_CONFIG.Settings = {}
 BoringFPS_CONFIG.Settings.TimerPreGame = 5 -- Time in seconds before the game starts
@@ -30,41 +64,12 @@ BoringFPS_CONFIG.Settings.HideHUD = {
 	["CHudChat"] = true,
     ["CHudDeathNotice"] = true
 }
-
--- Models
-BoringFPS_CONFIG.Models = {}
-BoringFPS_CONFIG.Models.Characters = {
-    "models/alyx.mdl",
-    "models/Eli.mdl",
-    "models/gman_high.mdl",
-    "models/Kleiner.mdl",
-    "models/monk.mdl",
-    "models/vortigaunt.mdl",
-    "models/Humans/Group02/male_07.mdl"
+BoringFPS_CONFIG.Settings.IconsClass = {
+    ["pistol"] = BoringFPS_CONFIG.Icons.WeaponIcon,
+    ["shootgun"] = BoringFPS_CONFIG.Icons.ActionIcon,
+    ["launcher"] = BoringFPS_CONFIG.Icons.StepIcon,
+    ["crowbar"] = BoringFPS_CONFIG.Icons.DashIcon
 }
-BoringFPS_CONFIG.Models.Rocket = Model("models/props_c17/doll01.mdl")
-BoringFPS_CONFIG.Models.SelectionClass = Model("models/props_borealis/bluebarrel001.mdl") --? Default model of the entity if none was set from hammer param
-
-BoringFPS_CONFIG.Sounds = {}
-BoringFPS_CONFIG.Sounds.TurnStart = Sound("boring_fps/sfx/turn/turn_start.mp3")
-BoringFPS_CONFIG.Sounds.TurnEnd = Sound("boring_fps/sfx/turn/turn_end.mp3")
-BoringFPS_CONFIG.Sounds.WinGame = Sound("boring_fps/sfx/turn/win_game.mp3")
-BoringFPS_CONFIG.Sounds.OnUse = Sound("boring_fps/sfx/ui/on_use.mp3")
-BoringFPS_CONFIG.Sounds.GameMusic = {
-    "boring_fps/music/theme_boringfps.wav"
-}
-
-
-BoringFPS_CONFIG.Icons = {}
-BoringFPS_CONFIG.Icons.StepIcon = Material("boringfps/icons/step_icon.png")
-BoringFPS_CONFIG.Icons.ActionIcon = Material("boringfps/icons/action_icon.png")
-BoringFPS_CONFIG.Icons.WeaponIcon = Material("boringfps/icons/weapon_icon.png")
-BoringFPS_CONFIG.Icons.DashIcon = Material("boringfps/icons/dash_icon.png")
-BoringFPS_CONFIG.Icons.HeartIcon = Material("boringfps/icons/heart_icon.png")
-BoringFPS_CONFIG.Icons.HeartFillIcon = Material("boringfps/icons/heart_fill_icon.png")
-BoringFPS_CONFIG.Icons.DisconnectedIcon = Material("boringfps/icons/skull_icon.png")
-BoringFPS_CONFIG.Icons.InfiniteIcon = Material("boringfps/icons/infinite_icon.png")
-BoringFPS_CONFIG.Icons.CircleIcon = Material("boringfps/ui/circle_ui.png")
 
 -- NET VAR
 BoringFPS_CONFIG.NetVar = {}
@@ -77,6 +82,8 @@ BoringFPS_CONFIG.NetVar.StartClientHUDGame = "BoringFPS_CONFIG.StartClientHUDGam
 BoringFPS_CONFIG.NetVar.EndGame = "BoringFPS_CONFIG.StopClientHUDGame"
 BoringFPS_CONFIG.NetVar.SetGlobalTable = "BoringFPS_CONFIG.SetGlobalTable"
 BoringFPS_CONFIG.NetVar.InsertLogs = "BoringFPS_CONFIG.InsertLogs"
+BoringFPS_CONFIG.NetVar.StartClientPreGame = "BoringFPS_CONFIG.StartClientPreGame"
+BoringFPS_CONFIG.NetVar.StopClientPreGame = "BoringFPS_CONFIG.StopClientPreGame"
 
 -- Base vars, i really don't recommend to edit this section
 BoringFPS_CONFIG.Vars = {}

@@ -17,7 +17,7 @@ function ENT:Draw()
 
     cam.Start3D2D(pos, ang, 0.1)
         surface.SetDrawColor(255, 255, 255, 255)
-        surface.SetMaterial( self.IconsClass[self:GetNWString( "classgun", "pistol" )] )
+        surface.SetMaterial( BoringFPS_CONFIG.Settings.IconsClass[self:GetNWString( "classgun", "pistol" )] )
         local size = 64
         surface.DrawTexturedRect(-size/2, -size/2, size, size)
     cam.End3D2D()

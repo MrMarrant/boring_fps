@@ -1,5 +1,6 @@
 function BoringFPS.NewGame()
     BoringFPS.PrintToAllPlayers("Starting a new game in " .. BoringFPS_CONFIG.Settings.TimerDelayNextGame .. " seconds...", HUD_PRINTCENTER)
+    BoringFPS.DisplayHUDPreGame()
     timer.Create("BoringFPS:TimerDelayNextGame", BoringFPS_CONFIG.Settings.TimerDelayNextGame, 1, function()
         BoringFPS.PrintToAllPlayers("Waiting for players to join...", HUD_PRINTCENTER)
         BoringFPS.ResetParams()
@@ -29,6 +30,7 @@ end
 function BoringFPS.StartGame()
     -- Démarrer le jeu
     hook.Remove( "Think", "GM:BoringFPS:Think:CanStartNewGame" )
+    BoringFPS.StopHUDPreGame()
     BoringFPS.PrintToAllPlayers("Game is starting!", HUD_PRINTCENTER)
     BoringFPS_CONFIG.GameInProgress = true
     BoringFPS.StartConditionEndGame()
@@ -47,7 +49,7 @@ function BoringFPS.SpawnPlayersOnGameMap()
     local players = player.GetAll()
     BoringFPS_CONFIG.PlayersAlive = players
     for index, ply in ipairs(players) do
-        local weapon = ply:Give(ply:GetNWString("ClassWeapon", BoringFPS_CONFIG.Settings.ClassWeapon[BoringFPS_CONFIG.Settings.ListClass[1]]))
+        local weapon = ply:Give(BoringFPS_CONFIG.Settings.ClassWeapon[ply:GetNWString("ClassWeapon", BoringFPS_CONFIG.Settings.ListClass[1])])
         ply:SetNWEntity( "WeaponGame", weapon)
         weapon:SetClip1(weapon:GetMaxClip1()) --? We set here bc weapon doesnt load itself for some reasons
         local location = spawnPoints[index]

@@ -1,3 +1,13 @@
+function BoringFPS.DisplayHUDPreGame()
+    net.Start(BoringFPS_CONFIG.NetVar.StartClientPreGame)
+    net.Broadcast()
+end
+
+function BoringFPS.StopHUDPreGame()
+    net.Start(BoringFPS_CONFIG.NetVar.StopClientPreGame)
+    net.Broadcast()
+end
+
 function BoringFPS.SetTurnToWait(players)
     for key, value in ipairs(players) do
         value:SetState("wait")
