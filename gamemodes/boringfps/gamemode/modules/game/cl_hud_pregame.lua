@@ -1,7 +1,18 @@
 function BoringFPS.DisplayHUDPreGame()
+    local timerPreGame = BoringFPS_CONFIG.Settings.TimerPreGame
+    local timerStart = false
+    local startTimer
     hook.Add( "HUDPaint", "HUDPaint:BoringFPS:HUDPreGame", function()
         local scrW, scrH = BoringFPS_CONFIG.Vars.ScrW, BoringFPS_CONFIG.Vars.ScrH
         BoringFPS.DrawClassSelect(scrW, scrH)
+        if (GetGlobalBool("IsStartTimerPreGame")) then
+            ct = CurTime()
+            startTimer = timerStart and startTimer or (ct + timerPreGame)
+            timerStart = true
+            BoringFPS.DrawTimerLeft(scrW, scrH, math.Round(startTimer - ct))
+        else
+            timerStart = false --? Pas ouf mais flemme
+        end
     end)
 end
 

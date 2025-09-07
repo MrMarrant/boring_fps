@@ -20,7 +20,7 @@ function BoringFPS.StartTimerPreGame()
     -- Démarrer le timer avant le début du jeu
     if (not timer.Exists("BoringFPS:PreGameTimer")) then
         BoringFPS.PrintToAllPlayers("Game will start soon...", HUD_PRINTCENTER)
-        BoringFPS.CountdownTimer(BoringFPS_CONFIG.Settings.TimerPreGame)
+        SetGlobalBool("IsStartTimerPreGame", true)
         timer.Create( "BoringFPS:PreGameTimer", BoringFPS_CONFIG.Settings.TimerPreGame, 1, function()
             BoringFPS.StartGame()
         end )
@@ -30,6 +30,7 @@ end
 function BoringFPS.StartGame()
     -- Démarrer le jeu
     hook.Remove( "Think", "GM:BoringFPS:Think:CanStartNewGame" )
+    SetGlobalBool("IsStartTimerPreGame", false)
     BoringFPS.StopHUDPreGame()
     BoringFPS.PrintToAllPlayers("Game is starting!", HUD_PRINTCENTER)
     BoringFPS_CONFIG.GameInProgress = true
