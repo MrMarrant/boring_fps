@@ -1,7 +1,7 @@
 concommand.Add("restart_game", function(ply, cmd, args, argStr)
     if (ply:IsAdmin() or ply:IsSuperAdmin()) then
         if (BoringFPS_CONFIG.GameInProgress) then
-            BoringFPS.EndGame()
+            BoringFPS.EndGame(true)
         else
             BoringFPS.NewGame()
         end

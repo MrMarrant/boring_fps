@@ -1,3 +1,13 @@
+function BoringFPS.DisplayHUDPreGame()
+    net.Start(BoringFPS_CONFIG.NetVar.StartClientPreGame)
+    net.Broadcast()
+end
+
+function BoringFPS.StopHUDPreGame()
+    net.Start(BoringFPS_CONFIG.NetVar.StopClientPreGame)
+    net.Broadcast()
+end
+
 function BoringFPS.SetTurnToWait(players)
     for key, value in ipairs(players) do
         value:SetState("wait")
@@ -51,13 +61,18 @@ function BoringFPS.GetNextPlayerTurn()
     return -1
 end
 
-function BoringFPS.EndGame()
+function BoringFPS.EndGame(reset)
     local winner = BoringFPS_CONFIG.PlayersAlive[1]
-    BoringFPS.InsertLogs(winner:GetName() .. "'s has won!")
+    local name = IsValid(winner) and winner:GetName() or "MrMarrant"
+    local congratMsg = reset and "DRAW" or name .. "'s has won!"
+
+    BoringFPS.InsertLogs(congratMsg)
     BoringFPS.PlaySound(BoringFPS_CONFIG.Sounds.WinGame)
-    winner:SetState("free")
+    for k, survivor in ipairs(BoringFPS_CONFIG.PlayersAlive) do
+        survivor:SetState("free")
+    end
     net.Start(BoringFPS_CONFIG.NetVar.EndGame)
-    net.WriteString(winner:GetName())
+    net.WriteString(congratMsg)
     net.Broadcast()
     BoringFPS.ResetParams()
     timer.Create("BoringFPS:TimerPostGame", BoringFPS_CONFIG.Settings.TimerPostGame, 1, function ()

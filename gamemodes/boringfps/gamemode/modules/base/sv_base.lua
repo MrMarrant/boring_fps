@@ -1,7 +1,8 @@
 function BoringFPS.NewGame()
-    BoringFPS.PrintToAllPlayers("Starting a new game in " .. BoringFPS_CONFIG.Settings.TimerDelayNextGame .. " seconds...", HUD_PRINTCENTER)
+    SetGlobalString("CurrentGameState", "Starting a new game in " .. BoringFPS_CONFIG.Settings.TimerDelayNextGame .. " seconds...")
+    BoringFPS.DisplayHUDPreGame()
     timer.Create("BoringFPS:TimerDelayNextGame", BoringFPS_CONFIG.Settings.TimerDelayNextGame, 1, function()
-        BoringFPS.PrintToAllPlayers("Waiting for players to join...", HUD_PRINTCENTER)
+        SetGlobalString("CurrentGameState", "Waiting for players to join...")
         BoringFPS.ResetParams()
         hook.Add( "Think", "GM:BoringFPS:Think:CanStartNewGame", function()
             -- Vérifie si les conditions de partie sont remplies
@@ -18,8 +19,8 @@ end
 function BoringFPS.StartTimerPreGame()
     -- Démarrer le timer avant le début du jeu
     if (not timer.Exists("BoringFPS:PreGameTimer")) then
-        BoringFPS.PrintToAllPlayers("Game will start soon...", HUD_PRINTCENTER)
-        BoringFPS.CountdownTimer(BoringFPS_CONFIG.Settings.TimerPreGame)
+        SetGlobalString("CurrentGameState", "Game will start soon...")
+        SetGlobalBool("IsStartTimerPreGame", true)
         timer.Create( "BoringFPS:PreGameTimer", BoringFPS_CONFIG.Settings.TimerPreGame, 1, function()
             BoringFPS.StartGame()
         end )
@@ -29,9 +30,10 @@ end
 function BoringFPS.StartGame()
     -- Démarrer le jeu
     hook.Remove( "Think", "GM:BoringFPS:Think:CanStartNewGame" )
-    BoringFPS.PrintToAllPlayers("Game is starting!", HUD_PRINTCENTER)
+    SetGlobalBool("IsStartTimerPreGame", false)
+    BoringFPS.StopHUDPreGame()
     BoringFPS_CONFIG.GameInProgress = true
-    BoringFPS.StartConditionEndGame()
+    BoringFPS.StartConditionEndGame(false)
     BoringFPS.SpawnPlayersOnGameMap()
     BoringFPS.DefineDirectionTurnPlay()
     BoringFPS.SetTurnToWait(BoringFPS_CONFIG.Vars.PlayersInGame)
@@ -47,7 +49,7 @@ function BoringFPS.SpawnPlayersOnGameMap()
     local players = player.GetAll()
     BoringFPS_CONFIG.PlayersAlive = players
     for index, ply in ipairs(players) do
-        local weapon = ply:Give(ply:GetNWString("ClassWeapon", BoringFPS_CONFIG.Settings.ClassWeapon[BoringFPS_CONFIG.Settings.ListClass[1]]))
+        local weapon = ply:Give(BoringFPS_CONFIG.Settings.ClassWeapon[ply:GetNWString("ClassWeapon", BoringFPS_CONFIG.Settings.ListClass[1])])
         ply:SetNWEntity( "WeaponGame", weapon)
         weapon:SetClip1(weapon:GetMaxClip1()) --? We set here bc weapon doesnt load itself for some reasons
         local location = spawnPoints[index]
@@ -126,7 +128,7 @@ function BoringFPS.OnPlayerLeave(ply, inflictor, attacker)
         net.Send(ply)
     end
     if (table.Count(BoringFPS_CONFIG.PlayersAlive) <= 1) then
-        BoringFPS.EndGame()
+        BoringFPS.EndGame(false)
     end
 end
 
