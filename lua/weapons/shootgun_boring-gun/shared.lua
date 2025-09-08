@@ -27,6 +27,8 @@ SWEP.Secondary.Ammo = "none"
 
 SWEP.Pellets = 6
 SWEP.SpreadAngle = 0.1
+SWEP.ForceBullet = 1
+SWEP.Tracer = 1
 
 SWEP.Damage = 18
 SWEP.MaxStep = 8
@@ -38,6 +40,6 @@ function SWEP:Shoot()
     if not IsValid(owner) then return end
 
     owner:LagCompensation(true)
-    self:ShootBullet(self.Damage, self.Pellets, self.SpreadAngle)
+    self:ShootBullet(self.Damage, self.Pellets, self.SpreadAngle, "self.Primary.Ammo", self.ForceBullet, self.Tracer)
     owner:LagCompensation(false)
 end

@@ -83,6 +83,19 @@ function BoringFPS.InsertLogs(txt)
     end
 end
 
+function BoringFPS.KnockBack(attacker, target, strength)
+    strength = strength or 300
+    local forceDir
+
+    if attacker:IsPlayer() then
+        forceDir = (target:GetPos() - attacker:GetPos()):GetNormalized()
+    else
+        forceDir = dmginfo:GetDamageForce():GetNormalized()
+    end
+
+    target:SetVelocity(forceDir * strength)
+end
+
 hook.Add( "PlayerDeathThink", "PlayerDeathThink:BoringFPS:SpectatorNext", function( ply )
     if ply:GetObserverMode() == OBS_MODE_CHASE then
         if ply:KeyPressed( IN_ATTACK ) then

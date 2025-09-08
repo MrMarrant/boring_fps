@@ -25,7 +25,7 @@ SWEP.Secondary.DefaultClip = -1
 SWEP.Secondary.Automatic = false
 SWEP.Secondary.Ammo = "none"
 
-SWEP.Damage = 120
+SWEP.Damage = 100
 SWEP.MaxStep = 6
 SWEP.MaxDash = 1
 SWEP.Action = 1
@@ -54,6 +54,7 @@ function SWEP:Shoot()
     if IsValid(phys) then
         phys:SetVelocity(aimDir * self.VelocityRocket)
     end
-
+    
+    owner:SetVelocity( owner:GetForward() * -700 )
     owner:EmitSound("weapons/rpg/rocketfire1.wav")
 end

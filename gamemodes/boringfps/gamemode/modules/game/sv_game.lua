@@ -21,6 +21,7 @@ function BoringFPS.SetTurnToPlay(index)
     BoringFPS.InsertLogs(ply:GetName() .. "'s turn to play!")
     ply:SetState("play")
     BoringFPS.StartTimerTurn()
+    hook.Call("PlayerTurnChanged", nil, ply)
 end
 
 function BoringFPS.StartTimerTurn()
@@ -112,3 +113,9 @@ function BoringFPS.StopSound(sound, ply)
         net.Broadcast()
     end
 end
+
+hook.Add( "EntityTakeDamage", "BoringFPS:EntityTakeDamage", function( target, dmginfo )
+    if (IsValid(dmginfo:GetWeapon()) and dmginfo:GetWeapon():GetClass() == "shootgun_boring-gun") then
+        BoringFPS.KnockBack(dmginfo:GetAttacker(), target, 2000)
+    end
+end )

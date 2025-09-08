@@ -26,9 +26,24 @@ SWEP.Secondary.Automatic = false
 SWEP.Secondary.Ammo = "none"
 
 SWEP.Damage = 15
-SWEP.MaxStep = 10
+SWEP.MaxStep = 7
 SWEP.MaxDash = 2
 SWEP.Action = 2
+
+SWEP.LocationStart = Vector(0,0,0)
+
+function SWEP:Initialize()
+	self:SetHoldType( self.HoldType )
+    hook.Add("PlayerTurnChanged", "BoringFPS:PlayerTurnChanged_Pistol_"..self:EntIndex(), function(ply)
+        if IsValid(ply) and ply == self:GetOwner() then
+            self.LocationStart = ply:GetPos()
+        end
+    end)
+end
+
+function SWEP:OnRemove()
+    hook.Remove("PlayerTurnChanged", "BoringFPS:PlayerTurnChanged_Pistol_"..self:EntIndex())
+end
 
 function SWEP:Shoot()
     local owner = self:GetOwner()
@@ -37,4 +52,10 @@ function SWEP:Shoot()
     owner:LagCompensation(true)
     self:ShootBullet(self.Damage, 1, 0)
     owner:LagCompensation(false)
+end
+
+function SWEP:SecondaryShoot()
+    local owner = self:GetOwner()
+    owner:SetPos(self.LocationStart)
+    owner:SetNWInt("Action", owner:GetNWInt("Action", 0) - 1)
 end
