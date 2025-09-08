@@ -1,8 +1,8 @@
 function BoringFPS.NewGame()
-    BoringFPS.PrintToAllPlayers("Starting a new game in " .. BoringFPS_CONFIG.Settings.TimerDelayNextGame .. " seconds...", HUD_PRINTCENTER)
+    SetGlobalString("CurrentGameState", "Starting a new game in " .. BoringFPS_CONFIG.Settings.TimerDelayNextGame .. " seconds...")
     BoringFPS.DisplayHUDPreGame()
     timer.Create("BoringFPS:TimerDelayNextGame", BoringFPS_CONFIG.Settings.TimerDelayNextGame, 1, function()
-        BoringFPS.PrintToAllPlayers("Waiting for players to join...", HUD_PRINTCENTER)
+        SetGlobalString("CurrentGameState", "Waiting for players to join...")
         BoringFPS.ResetParams()
         hook.Add( "Think", "GM:BoringFPS:Think:CanStartNewGame", function()
             -- Vérifie si les conditions de partie sont remplies
@@ -19,7 +19,7 @@ end
 function BoringFPS.StartTimerPreGame()
     -- Démarrer le timer avant le début du jeu
     if (not timer.Exists("BoringFPS:PreGameTimer")) then
-        BoringFPS.PrintToAllPlayers("Game will start soon...", HUD_PRINTCENTER)
+        SetGlobalString("CurrentGameState", "Game will start soon...")
         SetGlobalBool("IsStartTimerPreGame", true)
         timer.Create( "BoringFPS:PreGameTimer", BoringFPS_CONFIG.Settings.TimerPreGame, 1, function()
             BoringFPS.StartGame()
@@ -32,7 +32,6 @@ function BoringFPS.StartGame()
     hook.Remove( "Think", "GM:BoringFPS:Think:CanStartNewGame" )
     SetGlobalBool("IsStartTimerPreGame", false)
     BoringFPS.StopHUDPreGame()
-    BoringFPS.PrintToAllPlayers("Game is starting!", HUD_PRINTCENTER)
     BoringFPS_CONFIG.GameInProgress = true
     BoringFPS.StartConditionEndGame(false)
     BoringFPS.SpawnPlayersOnGameMap()
