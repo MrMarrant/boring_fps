@@ -27,10 +27,10 @@ SWEP.Secondary.Ammo = "none"
 
 SWEP.Pellets = 6
 SWEP.SpreadAngle = 0.1
-SWEP.ForceBullet = 1
+SWEP.ForceBullet = 100
 SWEP.Tracer = 1
 
-SWEP.Damage = 18
+SWEP.Damage = 13
 SWEP.MaxStep = 8
 SWEP.MaxDash = 1
 SWEP.Action = 1

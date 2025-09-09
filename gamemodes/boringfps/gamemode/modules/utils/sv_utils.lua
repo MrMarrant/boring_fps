@@ -93,8 +93,60 @@ function BoringFPS.KnockBack(attacker, target, strength)
         forceDir = dmginfo:GetDamageForce():GetNormalized()
     end
 
-    target:SetVelocity(forceDir * strength)
+    local velocityApplied = forceDir * strength
+    target:SetVelocity(velocityApplied)
+    BoringFPS.AddKnockBackHook(target, velocityApplied)
 end
+
+function BoringFPS.AddKnockBackHook(target, velocityApplied)
+    local minVelocity = BoringFPS_CONFIG.Settings.MinVelocityKnockBackDamage or 500
+    if (velocityApplied:Length() < minVelocity) then return end
+
+    local velocityMaxReached = 0
+    local minVelocityToReach = velocityApplied:Length() * 0.8 --? Velocity applied will never be reached, so we define a minimum velocity to reach to apply damage
+    hook.Add( "Think", "BoringFPS:KnockBackThink-" .. target:EntIndex(), function()
+        if (IsValid(target)) then
+            local vel = Vector( target:GetVelocity().x, target:GetVelocity().y, 0 )
+            local tr = BoringFPS.CollideEvent(target, vel)
+            local velLength = vel:Length()
+
+            velocityMaxReached = velLength > velocityMaxReached and velLength or velocityMaxReached
+            if (tr.Hit) then
+                velLength = velocityMaxReached < minVelocityToReach and minVelocityToReach or velLength
+                BoringFPS.AppliedKnockBackDamage(target, velLength)
+            end
+            if (velLength <= 10) then
+                hook.Remove("Think", "BoringFPS:KnockBackThink-" .. target:EntIndex())
+            end
+        end
+    end )
+end
+
+function BoringFPS.AppliedKnockBackDamage(target, velLength)
+    target:SetVelocity( Vector(0, 0, 0) )
+    local maxVelocity = BoringFPS_CONFIG.Settings.MaxVelocityKnockBackDamage or 1000
+    local minVelocity = BoringFPS_CONFIG.Settings.MinVelocityKnockBackDamage or 500
+    local t = (math.Clamp(velLength, minVelocity, maxVelocity) - minVelocity) / (maxVelocity - minVelocity)
+    local dmg = Lerp(t, BoringFPS_CONFIG.Settings.MinDamageKnockBack, BoringFPS_CONFIG.Settings.MaxDamageKnockBack)
+
+    target:TakeDamage(dmg, game.GetWorld(), game.GetWorld())
+    hook.Remove("Think", "BoringFPS:KnockBackThink-" .. target:EntIndex())
+end
+
+function BoringFPS.CollideEvent(target, velocity)
+    local div = velocity * 0.1
+
+    local tr = util.TraceHull( {
+        start = target:GetPos() + Vector( 0, 0, 30 ),
+        endpos = target:GetPos() + Vector( 0, 0, 30 ) + div,
+        mins = Vector( -20, -20, -20 ),
+        maxs = Vector( 20, 20, 20 ),
+        filter = function(ent) if ( ent:IsPlayer() ) then return false end return true end,
+    })
+
+    return tr
+end
+
 
 hook.Add( "PlayerDeathThink", "PlayerDeathThink:BoringFPS:SpectatorNext", function( ply )
     if ply:GetObserverMode() == OBS_MODE_CHASE then
