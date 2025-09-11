@@ -55,13 +55,15 @@ BoringFPS_CONFIG.Settings.ListClass = {
     "pistol",
     "shootgun",
     "launcher",
-    "crowbar"
+    "crowbar",
+    "touch"
 }
 BoringFPS_CONFIG.Settings.ClassWeapon = {
     ["pistol"] = "pistol_boring-gun",
     ["shootgun"] = "shootgun_boring-gun",
     ["launcher"] = "launcher_boring-gun",
-    ["crowbar"] = "crowbar_boring-gun"
+    ["crowbar"] = "crowbar_boring-gun",
+    ["touch"] = "touch_touch_boring-gun"
 }
 BoringFPS_CONFIG.Settings.HideHUD = {
 	["CHudHealth"] = true,
@@ -73,7 +75,8 @@ BoringFPS_CONFIG.Settings.IconsClass = {
     ["pistol"] = BoringFPS_CONFIG.Icons.WeaponIcon,
     ["shootgun"] = BoringFPS_CONFIG.Icons.ActionIcon,
     ["launcher"] = BoringFPS_CONFIG.Icons.StepIcon,
-    ["crowbar"] = BoringFPS_CONFIG.Icons.DashIcon
+    ["crowbar"] = BoringFPS_CONFIG.Icons.DashIcon,
+    ["touch"] = BoringFPS_CONFIG.Icons.HeartIcon
 }
 
 -- NET VAR
@@ -94,3 +97,4 @@ BoringFPS_CONFIG.NetVar.StopClientPreGame = "BoringFPS_CONFIG.StopClientPreGame"
 BoringFPS_CONFIG.Vars = {}
 BoringFPS_CONFIG.Vars.PlayersInGame = {}
 BoringFPS_CONFIG.Vars.GameLogs = {}
+BoringFPS_CONFIG.Vars.PlayersAlive = {}

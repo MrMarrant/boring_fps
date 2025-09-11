@@ -38,6 +38,7 @@ net.Receive(BoringFPS_CONFIG.NetVar.StartClientPlay, function()
     LocalPlayer():EmitSound(BoringFPS_CONFIG.Sounds.TurnStart)
     BoringFPS.DisplayHUDPlay()
     BoringFPS.DisplayAnnouncerTurn("YOUR TURN")
+    hook.Call("PlayerTurnChanged", nil, LocalPlayer())
 end)
 
 net.Receive(BoringFPS_CONFIG.NetVar.StopClientTurn, function()

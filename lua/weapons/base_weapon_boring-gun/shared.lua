@@ -29,6 +29,8 @@ SWEP.Damage = 50
 SWEP.MaxStep = 10
 SWEP.MaxDash = 2
 SWEP.Action = 1
+SWEP.WalkSpeed = BoringFPS_CONFIG.Settings.DefaultWalkSpeed
+SWEP.RunSpeed = BoringFPS_CONFIG.Settings.DefaultRunSpeed
 
 function SWEP:Initialize()
 	self:SetHoldType( self.HoldType )

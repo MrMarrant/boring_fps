@@ -23,7 +23,7 @@ function BoringFPS.EnterSpectatorMode(ply)
 end
 
 function BoringFPS.FindNextAlivePlayer(ply, currentTarget)
-    local players = BoringFPS_CONFIG.PlayersAlive
+    local players = BoringFPS_CONFIG.Vars.PlayersAlive
     local currentKey = currentTarget and table.KeyFromValue(players, currentTarget) or 0
     local newKey = currentKey + 1
 

@@ -16,12 +16,12 @@ end
 
 function BoringFPS.SetTurnToPlay(index)
     local ply = BoringFPS_CONFIG.DirectionTurnPlayers[index]
+    hook.Call("PlayerTurnChanged", nil, ply)
     SetGlobalInt("CurrentIndexDirectionTurn", index)
     BoringFPS_CONFIG.CurrentPlayerTurn = ply
     BoringFPS.InsertLogs(ply:GetName() .. "'s turn to play!")
     ply:SetState("play")
     BoringFPS.StartTimerTurn()
-    hook.Call("PlayerTurnChanged", nil, ply)
 end
 
 function BoringFPS.StartTimerTurn()
@@ -63,13 +63,13 @@ function BoringFPS.GetNextPlayerTurn()
 end
 
 function BoringFPS.EndGame(reset)
-    local winner = BoringFPS_CONFIG.PlayersAlive[1]
+    local winner = BoringFPS_CONFIG.Vars.PlayersAlive[1]
     local name = IsValid(winner) and winner:GetName() or "MrMarrant"
     local congratMsg = reset and "DRAW" or name .. "'s has won!"
 
     BoringFPS.InsertLogs(congratMsg)
     BoringFPS.PlaySound(BoringFPS_CONFIG.Sounds.WinGame)
-    for k, survivor in ipairs(BoringFPS_CONFIG.PlayersAlive) do
+    for k, survivor in ipairs(BoringFPS_CONFIG.Vars.PlayersAlive) do
         survivor:SetState("free")
     end
     net.Start(BoringFPS_CONFIG.NetVar.EndGame)

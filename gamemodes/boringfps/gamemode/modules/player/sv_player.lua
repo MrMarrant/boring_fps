@@ -44,12 +44,13 @@ end
 function PLAYER:Play()
     net.Start(BoringFPS_CONFIG.NetVar.StopClientTurn)
     net.Send(self)
-    self:SetWalkSpeed( BoringFPS_CONFIG.Settings.DefaultWalkSpeed )
-    self:SetRunSpeed( BoringFPS_CONFIG.Settings.DefaultRunSpeed )
+    local WeaponGame = self:GetNWEntity("WeaponGame")
+
+    self:SetWalkSpeed( WeaponGame.WalkSpeed )
+    self:SetRunSpeed( WeaponGame.RunSpeed )
     self:SetJumpPower( 200 )
     self:ChatPrint("Vous êtes en train de jouer.")
 
-    local WeaponGame = self:GetNWEntity("WeaponGame")
     self:SetNWInt("StepLeft", WeaponGame.MaxStep)
     self:SetNWInt("Action", WeaponGame.Action)
     self:SetNWInt("Dash", -1)

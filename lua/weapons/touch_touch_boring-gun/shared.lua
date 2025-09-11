@@ -1,0 +1,91 @@
+AddCSLuaFile()
+AddCSLuaFile( "cl_init.lua" )
+
+SWEP.Base = "base_weapon_boring-gun"
+SWEP.Slot = 0
+SWEP.SlotPos = 1
+
+SWEP.Spawnable = true
+
+SWEP.Category = "Boring gun"
+SWEP.ViewModel = Model( "" )
+SWEP.WorldModel = Model( "models/maxofs2d/camera.mdl" )
+
+SWEP.ViewModelFOV = 65
+SWEP.HoldType = "camera"
+SWEP.UseHands = true
+
+SWEP.Primary.ClipSize = 0
+SWEP.Primary.DefaultClip = 0
+SWEP.Primary.Automatic = false
+SWEP.Primary.Ammo = "none"
+
+SWEP.Secondary.ClipSize = -1
+SWEP.Secondary.DefaultClip = -1
+SWEP.Secondary.Automatic = false
+SWEP.Secondary.Ammo = "none"
+
+SWEP.RangeAttack = 100
+SWEP.PlayersHit = {}
+
+SWEP.Damage = 30
+SWEP.MaxStep = 40
+SWEP.MaxDash = 2
+SWEP.Action = 99
+SWEP.WalkSpeed = 650
+SWEP.RunSpeed = 720
+
+function SWEP:Initialize()
+	self:SetHoldType( self.HoldType )
+    self.Action = #BoringFPS_CONFIG.Vars.PlayersAlive
+    hook.Add("PlayerTurnChanged", "BoringFPS:PlayerTurnChanged_Touch_"..self:EntIndex(), function(ply)
+        if IsValid(ply) and ply == self:GetOwner() then
+            self.PlayersHit = {}
+            self.Action = #BoringFPS_CONFIG.Vars.PlayersAlive
+        end
+    end)
+end
+
+
+function SWEP:Shoot()
+    if CLIENT then return end
+
+    local owner = self:GetOwner()
+    if not IsValid(owner) then return end
+
+    local dir = owner:GetAimVector()
+
+    local traceData = {}
+    traceData.start = owner:GetShootPos()
+    traceData.endpos = traceData.start + dir * self.RangeAttack
+    traceData.filter = owner
+
+    local trace = util.TraceLine(traceData)
+
+    if trace.Hit and IsValid(trace.Entity) and trace.Entity:IsPlayer() and not self.PlayersHit[trace.Entity] then
+        self.PlayersHit[trace.Entity] = true
+        local plyAlive = BoringFPS_CONFIG.Vars.PlayersAlive
+        if (table.Count(self.PlayersHit) == #plyAlive - 1) then
+            for ply, k in pairs(self.PlayersHit) do
+                ply:TakeDamage(self.Damage, owner, self)
+            end
+            owner:SetNWInt("Action", 0)
+            owner:EmitSound("npc/zombie_poison/pz_alert1.wav")
+        else
+            owner:EmitSound("physics/flesh/flesh_impact_hard5.wav")
+        end
+    else
+        owner:EmitSound("npc/zombie/claw_miss1.wav")
+    end
+end
+
+function SWEP:Reload()
+end
+
+function SWEP:CanFire()
+    return (self:GetOwner():CanUseAction())
+end
+
+function SWEP:OnRemove()
+    hook.Remove("PlayerTurnChanged", "BoringFPS:PlayerTurnChanged_Touch_"..self:EntIndex())
+end

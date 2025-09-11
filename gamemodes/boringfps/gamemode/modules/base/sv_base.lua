@@ -47,7 +47,7 @@ end
 function BoringFPS.SpawnPlayersOnGameMap()
     local spawnPoints = BoringFPS.ShuffleTable(ents.FindByName("spawn_game"))
     local players = player.GetAll()
-    BoringFPS_CONFIG.PlayersAlive = players
+    BoringFPS.SetGlobalTable(players, "PlayersAlive")
     for index, ply in ipairs(players) do
         local weapon = ply:Give(BoringFPS_CONFIG.Settings.ClassWeapon[ply:GetNWString("ClassWeapon", BoringFPS_CONFIG.Settings.ListClass[1])])
         ply:SetNWEntity( "WeaponGame", weapon)
@@ -73,7 +73,7 @@ function BoringFPS.DefineDirectionTurnPlay()
     local players = {}
     local directionTurn = {}
     local indexTurn = 1
-    table.CopyFromTo(BoringFPS_CONFIG.PlayersAlive, players)
+    table.CopyFromTo(BoringFPS_CONFIG.Vars.PlayersAlive, players)
     while (not table.IsEmpty(players)) do
         local index = math.random( #players )
         local ply = players[ index ]
@@ -88,12 +88,12 @@ function BoringFPS.DefineDirectionTurnPlay()
 end
 
 function BoringFPS.ResetParams()
-    BoringFPS_CONFIG.PlayersAlive = {}
     BoringFPS_CONFIG.CurrentPlayerTurn = nil
     BoringFPS_CONFIG.DirectionTurnPlayers = {}
     BoringFPS_CONFIG.LastIndexDirectionTurn = nil
     BoringFPS_CONFIG.GameInProgress = false
     BoringFPS.SetGlobalTable({}, "PlayersInGame")
+    BoringFPS.SetGlobalTable({}, "PlayersAlive")
     BoringFPS.SetGlobalTable({}, "GameLogs")
     SetGlobalInt("CurrentIndexDirectionTurn", -1)
     hook.Remove("PlayerDeath", "PlayerDeath:BoringFPS:ConditionEndGame")
@@ -114,7 +114,7 @@ end
 function BoringFPS.OnPlayerLeave(ply, inflictor, attacker)
     if (BoringFPS_CONFIG.DirectionTurnPlayers[ply:GetNWInt("NumberTurn")]) then
         BoringFPS_CONFIG.DirectionTurnPlayers[ply:GetNWInt("NumberTurn")] = nil
-        table.remove(BoringFPS_CONFIG.PlayersAlive, table.KeyFromValue(BoringFPS_CONFIG.PlayersAlive, ply))
+        table.remove(BoringFPS_CONFIG.Vars.PlayersAlive, table.KeyFromValue(BoringFPS_CONFIG.Vars.PlayersAlive, ply))
         if (ply:IsConnected()) then
             BoringFPS.EnterSpectatorMode(ply)
         end
@@ -127,14 +127,14 @@ function BoringFPS.OnPlayerLeave(ply, inflictor, attacker)
         net.Start(BoringFPS_CONFIG.NetVar.StopClientTurn)
         net.Send(ply)
     end
-    if (table.Count(BoringFPS_CONFIG.PlayersAlive) <= 1) then
+    if (table.Count(BoringFPS_CONFIG.Vars.PlayersAlive) <= 1) then
         BoringFPS.EndGame(false)
     end
 end
 
 function BoringFPS.OnPlayerHit(target, dmginfo)
     local attacker = dmginfo:GetAttacker()
-    if (IsValid(attacker) and attacker:IsPlayer() and table.HasValue(BoringFPS_CONFIG.PlayersAlive, target) ) then
+    if (IsValid(attacker) and attacker:IsPlayer() and table.HasValue(BoringFPS_CONFIG.Vars.PlayersAlive, target) ) then
         BoringFPS.InsertLogs(target:Nick() .. " was hit by " .. attacker:Nick() .. " and received\n" .. math.Round( dmginfo:GetDamage() ) .. " damage.")
     else
         BoringFPS.InsertLogs(target:Nick() .. " received " .. math.Round( dmginfo:GetDamage() ) .. " damage.")
