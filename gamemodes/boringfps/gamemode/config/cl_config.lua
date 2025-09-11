@@ -26,6 +26,18 @@ surface.CreateFont( "HudTimerLeft", {
     size = 80
 } )
 
+surface.CreateFont( "TabHUDLarge", {
+    font = "DefaultFixed",
+    size = 30
+} )
+
+surface.CreateFont( "TabHUDSmall", {
+    font = "DefaultFixed",
+    size = 25
+} )
+
+
+
 hook.Add( "OnScreenSizeChanged", "OnScreenSizeChanged.BoringFPS", function( oldWidth, oldHeight )
     BoringFPS_CONFIG.Vars.ScrW = ScrW()
     BoringFPS_CONFIG.Vars.ScrH = ScrH()
