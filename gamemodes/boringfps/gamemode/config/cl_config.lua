@@ -26,9 +26,14 @@ surface.CreateFont( "HudTimerLeft", {
     size = 80
 } )
 
-surface.CreateFont( "TabHUD", {
+surface.CreateFont( "TabHUDLarge", {
     font = "DefaultFixed",
     size = 30
+} )
+
+surface.CreateFont( "TabHUDSmall", {
+    font = "DefaultFixed",
+    size = 25
 } )
 
 
