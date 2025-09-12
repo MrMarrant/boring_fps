@@ -1,6 +1,10 @@
-function BoringFPS.DisplayHUDPreGame()
+function BoringFPS.DisplayHUDPreGame(ply)
     net.Start(BoringFPS_CONFIG.NetVar.StartClientPreGame)
-    net.Broadcast()
+    if (IsValid(ply)) then
+        net.Send(ply)
+    else
+        net.Broadcast()
+    end
 end
 
 function BoringFPS.StopHUDPreGame()

@@ -31,17 +31,22 @@ function BoringFPS.StartGame()
     -- Démarrer le jeu
     hook.Remove( "Think", "GM:BoringFPS:Think:CanStartNewGame" )
     SetGlobalBool("IsStartTimerPreGame", false)
+    SetGlobalString("CurrentGameState", "Game in progress...")
     BoringFPS.StopHUDPreGame()
     BoringFPS_CONFIG.GameInProgress = true
     BoringFPS.StartConditionEndGame(false)
     BoringFPS.SpawnPlayersOnGameMap()
     BoringFPS.DefineDirectionTurnPlay()
-    BoringFPS.SetTurnToWait(BoringFPS_CONFIG.Vars.PlayersInGame)
-    BoringFPS.SetTurnToPlay(1)
-    BoringFPS_CONFIG.CurrentMusic = table.Random(BoringFPS_CONFIG.Sounds.GameMusic)
-    BoringFPS.PlaySound(BoringFPS_CONFIG.CurrentMusic, true)
-    net.Start(BoringFPS_CONFIG.NetVar.StartClientHUDGame)
-    net.Broadcast()
+    timer.Simple(0.1, function() --? Weapon is null client side, so we are forced to wait until it's valid
+    -- TODO : J'ai mis ça en place pour récupérer correctement les valeurs max (step, action, dash) des armes pour les HUD
+    -- TODO : mais peut être il faudrait mieux set des variables cotés serveur (NW) et les récup coté client, ça éviterait d'utiliser ce timer.
+        BoringFPS.SetTurnToWait(BoringFPS_CONFIG.Vars.PlayersInGame)
+        BoringFPS.SetTurnToPlay(1)
+        BoringFPS_CONFIG.CurrentMusic = table.Random(BoringFPS_CONFIG.Sounds.GameMusic)
+        BoringFPS.PlaySound(BoringFPS_CONFIG.CurrentMusic, true)
+        net.Start(BoringFPS_CONFIG.NetVar.StartClientHUDGame)
+        net.Broadcast()
+    end)
 end
 
 function BoringFPS.SpawnPlayersOnGameMap()

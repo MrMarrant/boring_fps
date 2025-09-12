@@ -1,3 +1,5 @@
+if (engine.ActiveGamemode() != "boringfps") then return end
+
 AddCSLuaFile()
 AddCSLuaFile( "cl_init.lua" )
 

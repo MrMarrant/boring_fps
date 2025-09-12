@@ -77,6 +77,7 @@ hook.Add("PlayerInitialSpawn", "PlayerInitialSpawn:BoringFPS:SetupData", functio
     ply:SetState("free")
     ply:SetNWString("ClassWeapon", "pistol")
     ply:SetModel(table.Random(BoringFPS_CONFIG.Models.Characters))
+    BoringFPS.DisplayHUDPreGame(ply)
 end)
 
 concommand.Add("changeclass", function(ply, cmd, args, argStr)
