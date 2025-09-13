@@ -34,7 +34,7 @@ SWEP.LocationStart = Vector(0,0,0)
 
 function SWEP:Initialize()
 	self:SetHoldType( self.HoldType )
-    hook.Add("PlayerTurnChanged", "BoringFPS:PlayerTurnChanged_Pistol_"..self:EntIndex(), function(ply)
+    hook.Add("PlayerTurnStart", "BoringFPS:PlayerTurnStart_Pistol_"..self:EntIndex(), function(ply)
         if IsValid(ply) and ply == self:GetOwner() then
             self.LocationStart = ply:GetPos()
         end
@@ -42,7 +42,7 @@ function SWEP:Initialize()
 end
 
 function SWEP:OnRemove()
-    hook.Remove("PlayerTurnChanged", "BoringFPS:PlayerTurnChanged_Pistol_"..self:EntIndex())
+    hook.Remove("PlayerTurnStart", "BoringFPS:PlayerTurnStart_Pistol_"..self:EntIndex())
 end
 
 function SWEP:Shoot()
