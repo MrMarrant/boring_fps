@@ -205,7 +205,7 @@ function BoringFPS.DrawDashHud(x, y, value, maxValue)
     local startX = x + 50
 
     BoringFPS.DrawIconHud(BoringFPS_CONFIG.Icons.DashIcon, x, y)
-    draw.DrawText(value, "HudBoringFPS", startX, y - 10, Color(255, 255, 255), TEXT_ALIGN_CENTER)
+    draw.DrawText(math.Clamp(value, 0, maxValue), "HudBoringFPS", startX, y - 10, Color(255, 255, 255), TEXT_ALIGN_CENTER)
 
     startX = startX + 50
     BoringFPS.DrawTriangle(startX, y, value, maxValue, sizeTriangle, 30)
@@ -217,7 +217,7 @@ function BoringFPS.DrawActionLeft(x, y, value, maxValue)
     local startX = x + 50
 
     BoringFPS.DrawIconHud(BoringFPS_CONFIG.Icons.ActionIcon, x, y)
-    draw.DrawText(value, "HudBoringFPS", startX, y - 10, Color(255, 255, 255), TEXT_ALIGN_CENTER)
+    draw.DrawText(math.Clamp(value, 0, maxValue), "HudBoringFPS", startX, y - 10, Color(255, 255, 255), TEXT_ALIGN_CENTER)
 
     startX = startX + 25
     BoringFPS.DrawSquare(startX, y, value, maxValue, squareW, squareH, 20)
@@ -229,7 +229,7 @@ function BoringFPS.DrawStepLeftHUD(x, y, value, maxValue)
     local startX = x + 50
 
     BoringFPS.DrawIconHud(BoringFPS_CONFIG.Icons.StepIcon, x, y)
-    draw.DrawText(value, "HudBoringFPS", startX, y - 10, Color(255, 255, 255), TEXT_ALIGN_CENTER)
+    draw.DrawText(math.Clamp(value, 0, maxValue), "HudBoringFPS", startX, y - 10, Color(255, 255, 255), TEXT_ALIGN_CENTER)
 
     startX = startX + 25
     BoringFPS.DrawSquare(startX, y, value, maxValue, squareSize, squareSize, 1)
