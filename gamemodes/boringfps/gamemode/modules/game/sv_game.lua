@@ -20,7 +20,7 @@ end
 
 function BoringFPS.SetTurnToPlay(index)
     local ply = BoringFPS_CONFIG.DirectionTurnPlayers[index]
-    hook.Call("PlayerTurnChanged", nil, ply)
+    hook.Call("PlayerTurnStart", nil, ply)
     SetGlobalInt("CurrentIndexDirectionTurn", index)
     BoringFPS_CONFIG.CurrentPlayerTurn = ply
     BoringFPS.InsertLogs(ply:GetName() .. "'s turn to play!")
@@ -39,6 +39,7 @@ end
 function BoringFPS.EndTurn()
     timer.Remove("BoringFPS:TimerTurn")
     local ply = BoringFPS_CONFIG.CurrentPlayerTurn
+    hook.Call("PlayerTurnEnd", nil, ply)
     if (IsValid(ply)) then
         BoringFPS.InsertLogs(ply:GetName() .. "'s turn has ended!")
         BoringFPS.SetTurnToWait({ply})

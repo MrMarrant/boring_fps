@@ -29,23 +29,32 @@ SWEP.RangeAttack = 100
 SWEP.PlayersHit = {}
 
 SWEP.Damage = 30
-SWEP.MaxStep = 40
+SWEP.MaxStep = 25
 SWEP.MaxDash = 2
 SWEP.Action = 99
-SWEP.WalkSpeed = 650
-SWEP.RunSpeed = 720
+SWEP.WalkSpeed = 400
+SWEP.RunSpeed = 470
 
 function SWEP:Initialize()
 	self:SetHoldType( self.HoldType )
-    self.Action = #BoringFPS_CONFIG.Vars.PlayersAlive
-    hook.Add("PlayerTurnChanged", "BoringFPS:PlayerTurnChanged_Touch_"..self:EntIndex(), function(ply)
+    self.Action = #BoringFPS_CONFIG.Vars.PlayersAlive - 1
+    hook.Add("PlayerTurnStart", "BoringFPS:PlayerTurnStart_Touch_"..self:EntIndex(), function(ply)
         if IsValid(ply) and ply == self:GetOwner() then
-            self.PlayersHit = {}
-            self.Action = #BoringFPS_CONFIG.Vars.PlayersAlive
+            self.Action = #BoringFPS_CONFIG.Vars.PlayersAlive - 1
         end
     end)
+    hook.Add("PlayerTurnEnd", "BoringFPS:PlayerTurnEnd_Touch_"..self:EntIndex(), function(ply)
+        if IsValid(ply) and ply == self:GetOwner() then
+            ply:SetVisibilityRender(true)
+        end
+    end)
+    hook.Add("PlayerDeath", "BoringFPS:CheckTouchDeath_"..self:EntIndex(),function(ply)
+        self:OnPlayerLeave(ply)
+    end)
+    hook.Add("PlayerDisconnect", "BoringFPS:CheckTouchDisconnect_"..self:EntIndex(), function(ply)
+        self:OnPlayerLeave(ply)
+    end)
 end
-
 
 function SWEP:Shoot()
     if CLIENT then return end
@@ -64,13 +73,9 @@ function SWEP:Shoot()
 
     if trace.Hit and IsValid(trace.Entity) and trace.Entity:IsPlayer() and not self.PlayersHit[trace.Entity] then
         self.PlayersHit[trace.Entity] = true
-        local plyAlive = BoringFPS_CONFIG.Vars.PlayersAlive
-        if (table.Count(self.PlayersHit) == #plyAlive - 1) then
-            for ply, k in pairs(self.PlayersHit) do
-                ply:TakeDamage(self.Damage, owner, self)
-            end
-            owner:SetNWInt("Action", 0)
-            owner:EmitSound("npc/zombie_poison/pz_alert1.wav")
+        -- TODO : Faire un affichage dès joueurs déjà touché ?
+        if (self:TouchComplete(1)) then
+            owner:SetVisibilityRender(false)
         else
             owner:EmitSound("physics/flesh/flesh_impact_hard5.wav")
         end
@@ -86,6 +91,34 @@ function SWEP:CanFire()
     return (self:GetOwner():CanUseAction())
 end
 
+function SWEP:TouchComplete(decrement)
+    local owner = self:GetOwner()
+    if (table.Count(self.PlayersHit) >= #BoringFPS_CONFIG.Vars.PlayersAlive - decrement) then
+        for ply, k in pairs(self.PlayersHit) do
+            ply:TakeDamage(self.Damage, owner, self)
+        end
+        self.PlayersHit = {}
+        owner:SetNWInt("Action", 0)
+        owner:EmitSound("npc/zombie_poison/pz_alert1.wav")
+        owner:ChatPrint("Vous avez touchés tout les joueurs.")
+        return true
+    end
+    return false
+end
+
 function SWEP:OnRemove()
-    hook.Remove("PlayerTurnChanged", "BoringFPS:PlayerTurnChanged_Touch_"..self:EntIndex())
+    hook.Remove("PlayerTurnStart", "BoringFPS:PlayerTurnStart_Touch_"..self:EntIndex())
+    hook.Remove("PlayerTurnEnd", "BoringFPS:PlayerTurnEnd_Touch_"..self:EntIndex())
+    hook.Remove("PlayerDeath", "BoringFPS:CheckTouchDeath_"..self:EntIndex())
+    hook.Remove("PlayerDisconnect", "BoringFPS:CheckTouchDisconnect_"..self:EntIndex())
+end
+
+function SWEP:OnPlayerLeave(ply)
+    print("OnPlayerLeave touch")
+    if IsValid(ply) then
+        self.PlayersHit[ply] = nil
+        if (table.HasValue(BoringFPS_CONFIG.Vars.PlayersInGame, ply)) then
+            self:TouchComplete(2)
+        end
+    end
 end
