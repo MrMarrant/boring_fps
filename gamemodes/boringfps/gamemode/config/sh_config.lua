@@ -1,26 +1,4 @@
--- Models
-BoringFPS_CONFIG.Models = {}
-BoringFPS_CONFIG.Models.Characters = {
-    "models/alyx.mdl",
-    "models/Eli.mdl",
-    "models/gman_high.mdl",
-    "models/Kleiner.mdl",
-    "models/monk.mdl",
-    "models/vortigaunt.mdl",
-    "models/Humans/Group02/male_07.mdl"
-}
-BoringFPS_CONFIG.Models.Rocket = Model("models/props_c17/doll01.mdl")
-BoringFPS_CONFIG.Models.SelectionClass = Model("models/props_borealis/bluebarrel001.mdl") --? Default model of the entity if none was set from hammer param
-
-BoringFPS_CONFIG.Sounds = {}
-BoringFPS_CONFIG.Sounds.TurnStart = Sound("boring_fps/sfx/turn/turn_start.mp3")
-BoringFPS_CONFIG.Sounds.TurnEnd = Sound("boring_fps/sfx/turn/turn_end.mp3")
-BoringFPS_CONFIG.Sounds.WinGame = Sound("boring_fps/sfx/turn/win_game.mp3")
-BoringFPS_CONFIG.Sounds.OnUse = Sound("boring_fps/sfx/ui/on_use.mp3")
-BoringFPS_CONFIG.Sounds.GameMusic = {
-    "boring_fps/music/theme_boringfps.wav"
-}
-
+-- Icons Material
 BoringFPS_CONFIG.Icons = {}
 BoringFPS_CONFIG.Icons.StepIcon = Material("boringfps/icons/step_icon.png")
 BoringFPS_CONFIG.Icons.ActionIcon = Material("boringfps/icons/action_icon.png")
@@ -50,20 +28,22 @@ BoringFPS_CONFIG.Settings.MinVelocityKnockBackDamage = 500 -- Define the minimum
 BoringFPS_CONFIG.Settings.MaxVelocityKnockBackDamage = 1000 -- Define the maximum velocity for knockback damage
 BoringFPS_CONFIG.Settings.MinDamageKnockBack = 10 -- Define the minimum damage that can be applied from knockback
 BoringFPS_CONFIG.Settings.MaxDamageKnockBack = 30 -- Define the maximum damage that can be applied from knockback
-
 BoringFPS_CONFIG.Settings.ListClass = {
     "pistol",
     "shootgun",
     "launcher",
     "crowbar",
-    "touch"
+    "touch",
+    "stalker"
 }
 BoringFPS_CONFIG.Settings.ClassWeapon = {
     ["pistol"] = "pistol_boring-gun",
     ["shootgun"] = "shootgun_boring-gun",
     ["launcher"] = "launcher_boring-gun",
     ["crowbar"] = "crowbar_boring-gun",
-    ["touch"] = "touch_touch_boring-gun"
+    ["touch"] = "touch_touch_boring-gun",
+    ["stalker"] = "stalker_boring-gun"
+
 }
 BoringFPS_CONFIG.Settings.HideHUD = {
 	["CHudHealth"] = true,
@@ -76,7 +56,33 @@ BoringFPS_CONFIG.Settings.IconsClass = {
     ["shootgun"] = BoringFPS_CONFIG.Icons.ActionIcon,
     ["launcher"] = BoringFPS_CONFIG.Icons.StepIcon,
     ["crowbar"] = BoringFPS_CONFIG.Icons.DashIcon,
-    ["touch"] = BoringFPS_CONFIG.Icons.HeartIcon
+    ["touch"] = BoringFPS_CONFIG.Icons.HeartIcon,
+    ["stalker"] = BoringFPS_CONFIG.Icons.InfiniteIcon
+}
+
+-- Models
+BoringFPS_CONFIG.Models = {}
+BoringFPS_CONFIG.Models.Characters = {
+    "models/alyx.mdl",
+    "models/Eli.mdl",
+    "models/gman_high.mdl",
+    "models/Kleiner.mdl",
+    "models/monk.mdl",
+    "models/vortigaunt.mdl",
+    "models/Humans/Group02/male_07.mdl"
+}
+BoringFPS_CONFIG.Models.Rocket = Model("models/props_c17/doll01.mdl")
+BoringFPS_CONFIG.Models.SelectionClass = Model("models/props_borealis/bluebarrel001.mdl") --? Default model of the entity if none was set from hammer param
+
+-- Sounds
+BoringFPS_CONFIG.Sounds = {}
+BoringFPS_CONFIG.Sounds.TurnStart = Sound("boring_fps/sfx/turn/turn_start.mp3")
+BoringFPS_CONFIG.Sounds.TurnEnd = Sound("boring_fps/sfx/turn/turn_end.mp3")
+BoringFPS_CONFIG.Sounds.WinGame = Sound("boring_fps/sfx/turn/win_game.mp3")
+BoringFPS_CONFIG.Sounds.OnUse = Sound("boring_fps/sfx/ui/on_use.mp3")
+BoringFPS_CONFIG.Sounds.RevealAura = Sound("") --TODO : définir le son
+BoringFPS_CONFIG.Sounds.GameMusic = {
+    "boring_fps/music/theme_boringfps.wav"
 }
 
 -- NET VAR
