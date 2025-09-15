@@ -49,14 +49,12 @@ function SWEP:PrimaryAttack()
 end
 
 function SWEP:SecondaryAttack()
-    if (SERVER) then
-        if (self:GetOwner():CanUseAction()) then
-            self:SecondaryShoot()
-        elseif self:CanDash() then
-            local owner = self:GetOwner()
-            owner:SetVelocity( BoringFPS.GetWantedMoveDirection(owner) * 1000 )
-            owner:SetNWInt("Dash", owner:GetNWInt("Dash", 0) - 1)
-        end
+    if (self:GetOwner():CanUseAction()) then
+        self:SecondaryShoot()
+    elseif self:CanDash() and SERVER then
+        local owner = self:GetOwner()
+        owner:SetVelocity( BoringFPS.GetWantedMoveDirection(owner) * 1000 )
+        owner:SetNWInt("Dash", owner:GetNWInt("Dash", 0) - 1)
     end
 end
 

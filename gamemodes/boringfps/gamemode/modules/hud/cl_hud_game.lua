@@ -106,7 +106,6 @@ function BoringFPS.StopHudGame()
     end
 end
 
--- TODO : Ne s'affiche pas correctement durant le premier tour uniquement
 function BoringFPS.DisplayHUDPlay()
     local timeLimit = BoringFPS_CONFIG.Settings.LimitTimeTurn
     local startTime = CurTime() + timeLimit

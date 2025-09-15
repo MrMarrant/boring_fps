@@ -1,3 +1,15 @@
+function BoringFPS.RevealAura(duration, tableEnt, colorAura)
+    timer.Remove("BoringFPS:TimerDurationRevealAura")
+
+    colorAura = colorAura or Color( 255, 0, 0 )
+    hook.Add( "PreDrawHalos", "BoringFPS:PreDrawHalos:RevealAuraStalker", function()
+	    halo.Add(tableEnt, colorAura, 5, 5, 2, true, true)
+    end )
+    timer.Create("BoringFPS:TimerDurationRevealAura", duration, 1, function()
+        hook.Remove("PreDrawHalos", "BoringFPS:PreDrawHalos:RevealAuraStalker")
+    end)
+end
+
 net.Receive(BoringFPS_CONFIG.NetVar.SetGlobalTable, function()
     local tbl = net.ReadTable()
     local key = net.ReadString()
