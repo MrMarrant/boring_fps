@@ -80,7 +80,7 @@ BoringFPS_CONFIG.Sounds.TurnStart = Sound("boring_fps/sfx/turn/turn_start.mp3")
 BoringFPS_CONFIG.Sounds.TurnEnd = Sound("boring_fps/sfx/turn/turn_end.mp3")
 BoringFPS_CONFIG.Sounds.WinGame = Sound("boring_fps/sfx/turn/win_game.mp3")
 BoringFPS_CONFIG.Sounds.OnUse = Sound("boring_fps/sfx/ui/on_use.mp3")
-BoringFPS_CONFIG.Sounds.RevealAura = Sound("") --TODO : définir le son
+BoringFPS_CONFIG.Sounds.RevealAura = Sound("boring_fps/sfx/game/reveal_aura.mp3")
 BoringFPS_CONFIG.Sounds.GameMusic = {
     "boring_fps/music/theme_boringfps.wav"
 }

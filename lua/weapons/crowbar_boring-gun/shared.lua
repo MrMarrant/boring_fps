@@ -35,10 +35,8 @@ SWEP.Action = 2
 
 
 function SWEP:Shoot()
-    if CLIENT then return end
-
     local owner = self:GetOwner()
-    if not IsValid(owner) then return end
+    if not IsValid(owner) or CLIENT then return end
 
     local dir = owner:GetAimVector()
 

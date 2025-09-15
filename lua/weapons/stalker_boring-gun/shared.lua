@@ -8,8 +8,8 @@ SWEP.SlotPos = 1
 SWEP.Spawnable = true
 
 SWEP.Category = "Boring gun"
-SWEP.ViewModel = Model( "" )
-SWEP.WorldModel = Model( "" ) -- TODO : Model de revolver
+SWEP.ViewModel = Model( "models/weapons/c_357.mdl" )
+SWEP.WorldModel = Model( "models/weapons/w_357.mdl" )
 
 SWEP.ViewModelFOV = 65
 SWEP.HoldType = "revolver"
@@ -25,7 +25,7 @@ SWEP.Secondary.DefaultClip = -1
 SWEP.Secondary.Automatic = false
 SWEP.Secondary.Ammo = "none"
 
-SWEP.DurationRevealAura = 0.5
+SWEP.DurationRevealAura = 1
 
 SWEP.Damage = 40
 SWEP.MaxStep = 5
@@ -34,7 +34,7 @@ SWEP.Action = 2
 
 function SWEP:Shoot()
     local owner = self:GetOwner()
-    if not IsValid(owner) then return end
+    if not IsValid(owner) or CLIENT then return end
 
     local dir = owner:GetAimVector()
     local start = owner:GetShootPos()
@@ -42,14 +42,14 @@ function SWEP:Shoot()
 
     local trace = ents.FindAlongRay(start, start + dir * range) 
     for key, ply in ipairs(trace) do
-        if (ply:IsPlayer() and table.HasValue(BoringFPS_CONFIG.Vars.PlayersAlive, ply)) then
+        if (ply:IsPlayer() and ply != owner and table.HasValue(BoringFPS_CONFIG.Vars.PlayersAlive, ply)) then
             local dmginfo = DamageInfo()
             dmginfo:SetDamage(self.Damage)
             dmginfo:SetDamageType(DMG_BULLET)
             dmginfo:SetAttacker(self:GetOwner() or self)
             dmginfo:SetInflictor(self:GetOwner() or self)
 
-            ply:TakeDamage(dmginfo)
+            ply:TakeDamageInfo(dmginfo)
         end
     end
 end
@@ -63,11 +63,4 @@ function SWEP:SecondaryShoot()
         BoringFPS.PlaySound(BoringFPS_CONFIG.Sounds.RevealAura, false)
         owner:SetNWInt("Action", owner:GetNWInt("Action", 0) - 1)
     end
-end
-
-function SWEP:Reload()
-end
-
-function SWEP:CanFire()
-    return (self:GetOwner():CanUseAction())
 end

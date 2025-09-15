@@ -1,13 +1,12 @@
 function BoringFPS.RevealAura(duration, tableEnt, colorAura)
-    local entIndex = LocalPlayer():EntIndex()
-    timer.Remove("BoringFPS:TimerDurationRevealAura_" .. entIndex)
+    timer.Remove("BoringFPS:TimerDurationRevealAura")
 
     colorAura = colorAura or Color( 255, 0, 0 )
-    hook.Add( "PreDrawHalos", "BoringFPS:PreDrawHalos:RevealAuraStalker_" .. entIndex, function()
-	    halo.Add(tableEnt, colorAura, 5, 5, 2)
+    hook.Add( "PreDrawHalos", "BoringFPS:PreDrawHalos:RevealAuraStalker", function()
+	    halo.Add(tableEnt, colorAura, 5, 5, 2, true, true)
     end )
-    timer.Create("BoringFPS:TimerDurationRevealAura_" .. entIndex, duration, 1, function()
-        hook.Remove("BoringFPS:PreDrawHalos:RevealAuraStalker_" .. entIndex)
+    timer.Create("BoringFPS:TimerDurationRevealAura", duration, 1, function()
+        hook.Remove("PreDrawHalos", "BoringFPS:PreDrawHalos:RevealAuraStalker")
     end)
 end
 
