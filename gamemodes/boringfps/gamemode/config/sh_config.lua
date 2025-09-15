@@ -56,7 +56,7 @@ BoringFPS_CONFIG.Settings.IconsClass = {
     ["shootgun"] = BoringFPS_CONFIG.Icons.ActionIcon,
     ["launcher"] = BoringFPS_CONFIG.Icons.StepIcon,
     ["crowbar"] = BoringFPS_CONFIG.Icons.DashIcon,
-    ["touch"] = BoringFPS_CONFIG.Icons.HeartIcon,
+    ["touch"] = BoringFPS_CONFIG.Icons.HeartFillIcon,
     ["stalker"] = BoringFPS_CONFIG.Icons.InfiniteIcon
 }
 
@@ -82,7 +82,10 @@ BoringFPS_CONFIG.Sounds.WinGame = Sound("boring_fps/sfx/turn/win_game.mp3")
 BoringFPS_CONFIG.Sounds.OnUse = Sound("boring_fps/sfx/ui/on_use.mp3")
 BoringFPS_CONFIG.Sounds.RevealAura = Sound("boring_fps/sfx/game/reveal_aura.mp3")
 BoringFPS_CONFIG.Sounds.GameMusic = {
-    "boring_fps/music/theme_boringfps.wav"
+    "boring_fps/music/theme_boringfps_1.wav",
+    "boring_fps/music/theme_boringfps_2.wav",
+    "boring_fps/music/theme_boringfps_3.wav",
+    "boring_fps/music/theme_boringfps_4.wav"
 }
 
 -- NET VAR

@@ -92,7 +92,7 @@ function BoringFPS.EndGame(reset)
             value:SetNWInt("Dash", -1)
             value:StripWeapons()
         end
-        BoringFPS.StopSound(BoringFPS_CONFIG.CurrentMusic)
+        BoringFPS.StopSound(BoringFPS_CONFIG.Vars.CurrentMusic)
         BoringFPS.NewGame()
     end)
 end

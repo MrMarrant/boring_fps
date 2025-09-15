@@ -28,7 +28,9 @@ SWEP.Secondary.Ammo = "none"
 SWEP.RangeAttack = 100
 SWEP.PlayersHit = {}
 
-SWEP.Damage = 30
+SWEP.Damage = 30 
+-- TODO : Définir les dégats en fonction du nombre de joueurs ? 
+-- TODO : OU Le joueur doit toucher un nombre max de joueur ?
 SWEP.MaxStep = 25
 SWEP.MaxDash = 2
 SWEP.Action = 99
@@ -77,7 +79,7 @@ function SWEP:Shoot()
         if (self:TouchComplete(1)) then
             owner:SetVisibilityRender(false)
         else
-            owner:EmitSound("physics/flesh/flesh_impact_hard5.wav")
+            owner:EmitSound("physics/flesh/flesh_squishy_impact_hard1.wav")
         end
     else
         owner:EmitSound("npc/zombie/claw_miss1.wav")
@@ -99,7 +101,7 @@ function SWEP:TouchComplete(decrement)
         end
         self.PlayersHit = {}
         owner:SetNWInt("Action", 0)
-        owner:EmitSound("npc/zombie_poison/pz_alert1.wav")
+        BoringFPS.PlaySound("weapons/physcannon/energy_sing_explosion2.wav")
         owner:ChatPrint("Vous avez touchés tout les joueurs.")
         return true
     end
