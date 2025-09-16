@@ -1,3 +1,5 @@
+if (engine.ActiveGamemode() != "boringfps") then return end
+
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 
@@ -5,6 +7,8 @@ function ENT:Initialize()
 	self:SetModel(BoringFPS_CONFIG.Models.Rocket)
 	self:RebuildPhysics()
 	self.SpawnTime = CurTime() + self.DurationRocket
+    self.StartPos = self:GetPos()
+    self.MinDamage = self.MaxDamage * self.MinDamageMultiplier
 end
 
 -- Initialise the physic of the entity
@@ -17,10 +21,10 @@ function ENT:RebuildPhysics()
 end
 
 function ENT:PhysicsCollide( data, physobj )
-    self:Explode(data.HitPos)
+    self:Explode(data.HitPos, data.HitEntity)
 end
 
-function ENT:Explode(hitPos)
+function ENT:Explode(hitPos, hitEntity)
     if self.Exploded then return end
     self.Exploded = true
 
@@ -30,8 +34,11 @@ function ENT:Explode(hitPos)
 
     for _, ent in ipairs(ents.FindInSphere(hitPos, self.ExplosionRadius)) do
         if ent:IsPlayer() or ent:IsNPC() then
-            local dist = hitPos:Distance(ent:GetPos())
-            local dmg = math.Clamp(self.MaxDamage * (1 - dist / self.ExplosionRadius), 0, self.MaxDamage)
+            local dist = math.Clamp(self.StartPos:Distance(ent:GetPos()), 0, self.DistanceMax)
+            local t = dist / self.DistanceMax
+            local maxDamage = (IsValid(hitEntity) and hitEntity == ent) and self.MaxDamage or self.MaxDamage * self.SplashDamageMultiplier
+            local dmg = dist > self.DistanceMin and Lerp(1 - t, self.MinDamage, maxDamage) or maxDamage
+            dmg = self:GetOwner() == ent and dmg * self.SelfDamageMultiplier or dmg --? reduce self damage
 
             local dmginfo = DamageInfo()
             dmginfo:SetDamage(dmg)

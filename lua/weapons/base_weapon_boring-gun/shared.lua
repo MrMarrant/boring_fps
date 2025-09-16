@@ -1,3 +1,5 @@
+if (engine.ActiveGamemode() != "boringfps") then return end
+
 AddCSLuaFile()
 AddCSLuaFile( "cl_init.lua" )
 
@@ -29,6 +31,8 @@ SWEP.Damage = 50
 SWEP.MaxStep = 10
 SWEP.MaxDash = 2
 SWEP.Action = 1
+SWEP.WalkSpeed = BoringFPS_CONFIG.Settings.DefaultWalkSpeed
+SWEP.RunSpeed = BoringFPS_CONFIG.Settings.DefaultRunSpeed
 
 function SWEP:Initialize()
 	self:SetHoldType( self.HoldType )
@@ -45,7 +49,9 @@ function SWEP:PrimaryAttack()
 end
 
 function SWEP:SecondaryAttack()
-    if self:CanDash() and SERVER then
+    if (self:GetOwner():CanUseAction()) then
+        self:SecondaryShoot()
+    elseif self:CanDash() and SERVER then
         local owner = self:GetOwner()
         owner:SetVelocity( BoringFPS.GetWantedMoveDirection(owner) * 1000 )
         owner:SetNWInt("Dash", owner:GetNWInt("Dash", 0) - 1)
@@ -53,6 +59,9 @@ function SWEP:SecondaryAttack()
 end
 
 function SWEP:Shoot()
+end
+
+function SWEP:SecondaryShoot()
 end
 
 function SWEP:Reload()

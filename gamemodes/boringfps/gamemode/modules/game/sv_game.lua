@@ -1,3 +1,17 @@
+function BoringFPS.DisplayHUDPreGame(ply)
+    net.Start(BoringFPS_CONFIG.NetVar.StartClientPreGame)
+    if (IsValid(ply)) then
+        net.Send(ply)
+    else
+        net.Broadcast()
+    end
+end
+
+function BoringFPS.StopHUDPreGame()
+    net.Start(BoringFPS_CONFIG.NetVar.StopClientPreGame)
+    net.Broadcast()
+end
+
 function BoringFPS.SetTurnToWait(players)
     for key, value in ipairs(players) do
         value:SetState("wait")
@@ -6,9 +20,10 @@ end
 
 function BoringFPS.SetTurnToPlay(index)
     local ply = BoringFPS_CONFIG.DirectionTurnPlayers[index]
-    BoringFPS_CONFIG.CurrentIndexDirectionTurn = index
+    hook.Call("PlayerTurnStart", nil, ply)
+    SetGlobalInt("CurrentIndexDirectionTurn", index)
     BoringFPS_CONFIG.CurrentPlayerTurn = ply
-    BoringFPS.PrintToAllPlayers(ply:GetName() .. "'s turn to play!", HUD_PRINTCENTER)
+    BoringFPS.InsertLogs(ply:GetName() .. "'s turn to play!")
     ply:SetState("play")
     BoringFPS.StartTimerTurn()
 end
@@ -24,11 +39,12 @@ end
 function BoringFPS.EndTurn()
     timer.Remove("BoringFPS:TimerTurn")
     local ply = BoringFPS_CONFIG.CurrentPlayerTurn
+    hook.Call("PlayerTurnEnd", nil, ply)
     if (IsValid(ply)) then
-        BoringFPS.PrintToAllPlayers(ply:GetName() .. "'s turn has ended!", HUD_PRINTCENTER)
+        BoringFPS.InsertLogs(ply:GetName() .. "'s turn has ended!")
         BoringFPS.SetTurnToWait({ply})
     else
-        BoringFPS.PrintToAllPlayers("Turn has ended!", HUD_PRINTCENTER)
+        BoringFPS.InsertLogs("Turn has ended!")
     end
     timer.Create("BoringFPS:NextTurn", BoringFPS_CONFIG.Settings.TimerBetweenTurns, 1, function()
         BoringFPS.SetTurnToPlay(BoringFPS.GetNextPlayerTurn())
@@ -36,7 +52,7 @@ function BoringFPS.EndTurn()
 end
 
 function BoringFPS.GetNextPlayerTurn()
-    local nextIndex = BoringFPS_CONFIG.CurrentIndexDirectionTurn
+    local nextIndex = GetGlobalInt("CurrentIndexDirectionTurn", 0)
     local sizeTable = BoringFPS_CONFIG.LastIndexDirectionTurn
 
     for i = 1, sizeTable do
@@ -51,10 +67,19 @@ function BoringFPS.GetNextPlayerTurn()
     return -1
 end
 
-function BoringFPS.EndGame()
-    local winner = BoringFPS_CONFIG.PlayersAlive[1]
-    BoringFPS.PrintToAllPlayers(winner:GetName() .. "'s has won!", HUD_PRINTCENTER)
-    winner:SetState("free")
+function BoringFPS.EndGame(reset)
+    local winner = BoringFPS_CONFIG.Vars.PlayersAlive[1]
+    local name = IsValid(winner) and winner:GetName() or "MrMarrant"
+    local congratMsg = reset and "DRAW" or name .. "'s has won!"
+
+    BoringFPS.InsertLogs(congratMsg)
+    BoringFPS.PlaySound(BoringFPS_CONFIG.Sounds.WinGame)
+    for k, survivor in ipairs(BoringFPS_CONFIG.Vars.PlayersAlive) do
+        survivor:SetState("free")
+    end
+    net.Start(BoringFPS_CONFIG.NetVar.EndGame)
+    net.WriteString(congratMsg)
+    net.Broadcast()
     BoringFPS.ResetParams()
     timer.Create("BoringFPS:TimerPostGame", BoringFPS_CONFIG.Settings.TimerPostGame, 1, function ()
         for key, value in ipairs(player.GetAll()) do
@@ -67,12 +92,13 @@ function BoringFPS.EndGame()
             value:SetNWInt("Dash", -1)
             value:StripWeapons()
         end
-        BoringFPS.StopSound("boring_fps/music/theme_boringfps.wav")
+        BoringFPS.StopSound(BoringFPS_CONFIG.Vars.CurrentMusic)
         BoringFPS.NewGame()
     end)
 end
 
 function BoringFPS.PlaySound(sound, loop, ply)
+    loop = loop or false
     net.Start(BoringFPS_CONFIG.NetVar.PlayClientSound)
     net.WriteString(sound)
     net.WriteBool(loop)
@@ -92,3 +118,9 @@ function BoringFPS.StopSound(sound, ply)
         net.Broadcast()
     end
 end
+
+hook.Add( "EntityTakeDamage", "BoringFPS:EntityTakeDamage", function( target, dmginfo )
+    if (IsValid(dmginfo:GetWeapon()) and dmginfo:GetWeapon():GetClass() == "shootgun_boring-gun") then
+        BoringFPS.KnockBack(dmginfo:GetAttacker(), target, 2000)
+    end
+end )

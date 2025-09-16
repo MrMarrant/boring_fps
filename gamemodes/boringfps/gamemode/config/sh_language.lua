@@ -1,5 +1,3 @@
-local selectedLanguage = GetConVar("gmod_language"):GetString() -- Switch language by setting gmod_language to another language
-
 --[[
 * Returns the element to be translated according to the server language.
 * @string langName Language name (ex : en, fr)

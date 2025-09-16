@@ -44,12 +44,13 @@ end
 function PLAYER:Play()
     net.Start(BoringFPS_CONFIG.NetVar.StopClientTurn)
     net.Send(self)
-    self:SetWalkSpeed( BoringFPS_CONFIG.Settings.DefaultWalkSpeed )
-    self:SetRunSpeed( BoringFPS_CONFIG.Settings.DefaultRunSpeed )
+    local WeaponGame = self:GetNWEntity("WeaponGame")
+
+    self:SetWalkSpeed( WeaponGame.WalkSpeed )
+    self:SetRunSpeed( WeaponGame.RunSpeed )
     self:SetJumpPower( 200 )
     self:ChatPrint("Vous êtes en train de jouer.")
 
-    local WeaponGame = self:GetNWEntity("WeaponGame")
     self:SetNWInt("StepLeft", WeaponGame.MaxStep)
     self:SetNWInt("Action", WeaponGame.Action)
     self:SetNWInt("Dash", -1)
@@ -74,14 +75,15 @@ hook.Add("PlayerInitialSpawn", "PlayerInitialSpawn:BoringFPS:SetupData", functio
     ply:SetNWInt("Action", -1)
     ply:SetNWInt("Dash", -1)
     ply:SetState("free")
-    ply:SetNWString("ClassWeapon", "pistol_boring-gun")
+    ply:SetNWString("ClassWeapon", "pistol")
     ply:SetModel(table.Random(BoringFPS_CONFIG.Models.Characters))
+    BoringFPS.DisplayHUDPreGame(ply)
 end)
 
 concommand.Add("changeclass", function(ply, cmd, args, argStr)
     local weapon = BoringFPS_CONFIG.Settings.ClassWeapon[args[1]]
     if (weapon) then
-        ply:SetNWString("ClassWeapon", weapon)
+        ply:SetNWString("ClassWeapon", args[1])
         ply:ChatPrint("Vous avez changé votre classe d'arme en : " .. args[1])
     else
         ply:ChatPrint("Classe d'arme invalide.")
