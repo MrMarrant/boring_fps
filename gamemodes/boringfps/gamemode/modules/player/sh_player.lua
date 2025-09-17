@@ -11,3 +11,7 @@ function PLAYER:SetVisibilityRender(isVisible)
     self:SetRenderMode(renderMode)
     self:SetColor(renderColor)
 end
+
+function PLAYER:HasAccess()
+    return (self:IsAdmin() or self:IsSuperAdmin())
+end

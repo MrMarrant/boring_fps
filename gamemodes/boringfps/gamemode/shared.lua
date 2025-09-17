@@ -3,6 +3,10 @@ GM.Author = "MrMarrant"
 GM.Email = "N/A"
 GM.Website = "https://mrmarrant.fr"
 
+DeriveGamemode("sandbox")
+DEFINE_BASECLASS("gamemode_sandbox")
+GM.Sandbox = BaseClass
+
 -- Functions
 BoringFPS = BoringFPS or {}
 -- Global Variable

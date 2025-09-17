@@ -69,16 +69,31 @@ function PLAYER:Free()
     hook.Remove("PlayerFootstep", "PlayerFootstep:CountStep:Player-" .. self:EntIndex())
 end
 
+-- ============================
+-- HOOKS
+-- ============================
+
 hook.Add("PlayerInitialSpawn", "PlayerInitialSpawn:BoringFPS:SetupData", function(ply)
     ply:SetNWInt("NumberTurn", -1)
     ply:SetNWInt("StepLeft", -1)
     ply:SetNWInt("Action", -1)
     ply:SetNWInt("Dash", -1)
-    ply:SetState("free")
     ply:SetNWString("ClassWeapon", "pistol")
     ply:SetModel(table.Random(BoringFPS_CONFIG.Models.Characters))
     BoringFPS.DisplayHUDPreGame(ply)
 end)
+
+-- When a player login, strip all weapons
+gameevent.Listen( "player_activate" )
+hook.Add("player_activate", "player_activate.BoringFPS:OnActivate", function( data )
+    local ply = Player(data.userid)
+    ply:StripWeapons()
+    ply:SetState("free")
+end)
+
+-- ============================
+-- Concommands
+-- ============================
 
 concommand.Add("changeclass", function(ply, cmd, args, argStr)
     local weapon = BoringFPS_CONFIG.Settings.ClassWeapon[args[1]]
@@ -87,5 +102,14 @@ concommand.Add("changeclass", function(ply, cmd, args, argStr)
         ply:ChatPrint("Vous avez changé votre classe d'arme en : " .. args[1])
     else
         ply:ChatPrint("Classe d'arme invalide.")
+    end
+end)
+
+concommand.Add("ff", function(ply, cmd, args, argStr)
+    if (BoringFPS_CONFIG.GameInProgress and table.HasValue(BoringFPS_CONFIG.Vars.PlayersAlive, ply)) then
+        BoringFPS.InsertLogs(ply:GetName() .. " has forfeited.")
+        ply:Kill()
+    else
+        ply:ChatPrint("Les conditions ne sont pas remplies ...")
     end
 end)
