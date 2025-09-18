@@ -5,6 +5,7 @@
     "version"       "0.0.1"
     "category"      "pvp"
     "menusystem"    "1"
+    "maps"          "^bfps_"
     //"workshopid"    ""
 
     "author_name"   "MrMarrant"
