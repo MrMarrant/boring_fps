@@ -10,6 +10,13 @@ BoringFPS_CONFIG.Icons.DisconnectedIcon = Material("boringfps/icons/skull_icon.p
 BoringFPS_CONFIG.Icons.InfiniteIcon = Material("boringfps/icons/infinite_icon.png")
 BoringFPS_CONFIG.Icons.CircleIcon = Material("boringfps/ui/circle_ui.png")
 
+BoringFPS_CONFIG.Icons.PistolClass = Material("boringfps/class/pistol.png")
+BoringFPS_CONFIG.Icons.ShotGunClass = Material("boringfps/class/shotgun.png")
+BoringFPS_CONFIG.Icons.LauncherClass = Material("boringfps/class/rocket-launcher.png")
+BoringFPS_CONFIG.Icons.CrowbarClass = Material("boringfps/class/crowbar.png")
+BoringFPS_CONFIG.Icons.TouchClass = Material("boringfps/class/touch.png")
+BoringFPS_CONFIG.Icons.StalkerClass = Material("boringfps/class/stalker.png")
+
 -- Game settings, edit as you wish
 BoringFPS_CONFIG.Settings = {}
 BoringFPS_CONFIG.Settings.TimerPreGame = 5 -- Time in seconds before the game starts
@@ -52,12 +59,12 @@ BoringFPS_CONFIG.Settings.HideHUD = {
     ["CHudDeathNotice"] = true
 }
 BoringFPS_CONFIG.Settings.IconsClass = {
-    ["pistol"] = BoringFPS_CONFIG.Icons.WeaponIcon,
-    ["shootgun"] = BoringFPS_CONFIG.Icons.ActionIcon,
-    ["launcher"] = BoringFPS_CONFIG.Icons.StepIcon,
-    ["crowbar"] = BoringFPS_CONFIG.Icons.DashIcon,
-    ["touch"] = BoringFPS_CONFIG.Icons.HeartFillIcon,
-    ["stalker"] = BoringFPS_CONFIG.Icons.InfiniteIcon
+    ["pistol"] = BoringFPS_CONFIG.Icons.PistolClass,
+    ["shootgun"] = BoringFPS_CONFIG.Icons.ShotGunClass,
+    ["launcher"] = BoringFPS_CONFIG.Icons.LauncherClass,
+    ["crowbar"] = BoringFPS_CONFIG.Icons.CrowbarClass,
+    ["touch"] = BoringFPS_CONFIG.Icons.TouchClass,
+    ["stalker"] = BoringFPS_CONFIG.Icons.StalkerClass
 }
 
 -- Models

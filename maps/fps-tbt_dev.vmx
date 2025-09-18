@@ -2,7 +2,7 @@ versioninfo
 {
 	"editorversion" "400"
 	"editorbuild" "8870"
-	"mapversion" "61"
+	"mapversion" "62"
 	"formatversion" "100"
 	"prefab" "0"
 }
@@ -89,7 +89,7 @@ bgimages_plus
 world
 {
 	"id" "1"
-	"mapversion" "61"
+	"mapversion" "62"
 	"classname" "worldspawn"
 	"detailmaterial" "detail/detailsprites"
 	"detailvbsp" "detail.vbsp"
@@ -4175,13 +4175,28 @@ entity
 		"logicalpos" "[0 0]"
 	}
 }
+entity
+{
+	"id" "845"
+	"classname" "selectionclass_boringent"
+	"classgun" "stalker"
+	"model" "models/props_borealis/bluebarrel001.mdl"
+	"origin" "3872 1952 474.935"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 0]"
+	}
+}
 cameras
 {
 	"activecamera" "0"
 	camera
 	{
-		"position" "[3580.3 1600.17 532.845]"
-		"look" "[3631.92 1614.58 524.931]"
+		"position" "[3577.39 1575.23 525.357]"
+		"look" "[3617.53 1611.37 521.201]"
 	}
 }
 cordons

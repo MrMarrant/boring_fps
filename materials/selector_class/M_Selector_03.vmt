@@ -1,0 +1,5 @@
+"VertexlitGeneric"
+{
+	"$basetexture" "selector_class/M_Selector_03"
+	$phong 1
+}

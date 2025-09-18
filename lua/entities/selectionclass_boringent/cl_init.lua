@@ -9,16 +9,19 @@ function ENT:Draw()
     ang:RotateAroundAxis( ang:Forward(), 90 )
 
     local basePos = self:GetPos()
-    basePos.z = basePos.z + 40 * self:GetModelScale()
+    basePos.z = basePos.z + 70 * self:GetModelScale()
 
     local cycle = math.sin(CurTime() * (2 * math.pi / 3))
-    local offset = cycle * 2
-    local pos = basePos + Vector(0, 0, offset)
+    local offset = cycle * 0.1
+    local pos = basePos + Vector(-17, 0, offset)
 
-    cam.Start3D2D(pos, ang, 0.1)
+    cam.Start3D2D(pos, Angle(0, -90, 82), 0.1)
         surface.SetDrawColor(255, 255, 255, 255)
         surface.SetMaterial( BoringFPS_CONFIG.Settings.IconsClass[self:GetNWString( "classgun", "pistol" )] )
-        local size = 64
+        local size = 120
         surface.DrawTexturedRect(-size/2, -size/2, size, size)
+        surface.SetFont( "NickAnton" )
+        surface.SetTextPos( -30, 60 ) 
+        surface.DrawText(string.upper(self:GetNWString( "classgun", "pistol" )))
     cam.End3D2D()
 end

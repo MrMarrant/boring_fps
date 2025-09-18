@@ -51,6 +51,7 @@ function SWEP:Shoot()
 
     owner:LagCompensation(true)
     self:ShootBullet(self.Damage, 1, 0)
+    if SERVER then owner:EmitSound("weapons/pistol/pistol_fire2.wav", 75, math.random(95, 105)) end
     owner:LagCompensation(false)
 end
 

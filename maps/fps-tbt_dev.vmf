@@ -2,7 +2,7 @@ versioninfo
 {
 	"editorversion" "400"
 	"editorbuild" "8870"
-	"mapversion" "62"
+	"mapversion" "63"
 	"formatversion" "100"
 	"prefab" "0"
 }
@@ -89,7 +89,7 @@ bgimages_plus
 world
 {
 	"id" "1"
-	"mapversion" "62"
+	"mapversion" "63"
 	"classname" "worldspawn"
 	"detailmaterial" "detail/detailsprites"
 	"detailvbsp" "detail.vbsp"
@@ -3905,7 +3905,7 @@ entity
 	"angles" "0 0 0"
 	"classgun" "pistol"
 	"model" "models/props_borealis/bluebarrel001.mdl"
-	"origin" "3872 1695.99 474.935"
+	"origin" "3872 1695.99 448"
 	editor
 	{
 		"color" "220 30 220"
@@ -4119,7 +4119,7 @@ entity
 	"angles" "0 0 0"
 	"classgun" "crowbar"
 	"model" "models/props_borealis/bluebarrel001.mdl"
-	"origin" "3872 1759.99 474.935"
+	"origin" "3872 1759.99 448"
 	editor
 	{
 		"color" "220 30 220"
@@ -4135,7 +4135,7 @@ entity
 	"angles" "0 0 0"
 	"classgun" "shootgun"
 	"model" "models/props_borealis/bluebarrel001.mdl"
-	"origin" "3872 1823.99 474.935"
+	"origin" "3872 1823.99 448"
 	editor
 	{
 		"color" "220 30 220"
@@ -4151,7 +4151,7 @@ entity
 	"angles" "0 0 0"
 	"classgun" "launcher"
 	"model" "models/props_borealis/bluebarrel001.mdl"
-	"origin" "3872 1887.99 474.935"
+	"origin" "3872 1887.99 448"
 	editor
 	{
 		"color" "220 30 220"
@@ -4164,9 +4164,10 @@ entity
 {
 	"id" "809"
 	"classname" "selectionclass_boringent"
+	"angles" "0 0 0"
 	"classgun" "touch"
 	"model" "models/props_borealis/bluebarrel001.mdl"
-	"origin" "3872 1632 474.935"
+	"origin" "3872 1632 448"
 	editor
 	{
 		"color" "220 30 220"
@@ -4179,9 +4180,10 @@ entity
 {
 	"id" "845"
 	"classname" "selectionclass_boringent"
+	"angles" "0 0 0"
 	"classgun" "stalker"
 	"model" "models/props_borealis/bluebarrel001.mdl"
-	"origin" "3872 1952 474.935"
+	"origin" "3872 1952 448"
 	editor
 	{
 		"color" "220 30 220"
@@ -4195,8 +4197,8 @@ cameras
 	"activecamera" "0"
 	camera
 	{
-		"position" "[3577.39 1575.23 525.357]"
-		"look" "[3617.53 1611.37 521.201]"
+		"position" "[3491.85 1690.56 549.279]"
+		"look" "[3543.96 1701.64 539.5]"
 	}
 }
 cordons

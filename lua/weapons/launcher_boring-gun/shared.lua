@@ -33,9 +33,10 @@ SWEP.Action = 1
 SWEP.VelocityRocket = 4000
 
 function SWEP:Shoot()
-    if CLIENT then return end
-
     local owner = self:GetOwner()
+    owner:SetAnimation( PLAYER_ATTACK1 )
+    if not IsValid(owner) or CLIENT then return end
+
     if not IsValid(owner) then return end
 
     local rocket = ents.Create("rocket_boring-gun")

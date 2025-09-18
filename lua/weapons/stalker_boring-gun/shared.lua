@@ -8,7 +8,7 @@ SWEP.SlotPos = 1
 SWEP.Spawnable = true
 
 SWEP.Category = "Boring gun"
-SWEP.ViewModel = Model( "models/weapons/c_357.mdl" )
+SWEP.ViewModel = Model( "models/weapons/v_357.mdl" )
 SWEP.WorldModel = Model( "models/weapons/w_357.mdl" )
 
 SWEP.ViewModelFOV = 65
@@ -34,12 +34,14 @@ SWEP.Action = 2
 
 function SWEP:Shoot()
     local owner = self:GetOwner()
+    self:ShootBullet(0, 0, 0) --? Animation de tir s'active via cette méthode à prioris
     if not IsValid(owner) or CLIENT then return end
 
     local dir = owner:GetAimVector()
     local start = owner:GetShootPos()
     local range = 10000 --? Should reach the whole map
 
+    owner:EmitSound("weapons/crossbow/fire1.wav")
     local trace = ents.FindAlongRay(start, start + dir * range) 
     for key, ply in ipairs(trace) do
         if (ply:IsPlayer() and ply != owner and table.HasValue(BoringFPS_CONFIG.Vars.PlayersAlive, ply)) then
