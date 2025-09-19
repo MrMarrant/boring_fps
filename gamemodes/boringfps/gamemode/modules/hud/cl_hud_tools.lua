@@ -73,3 +73,9 @@ function BoringFPS.DrawIconHud(icon, x, y, col, w, h)
     surface.SetDrawColor(col:Unpack())
     surface.DrawTexturedRect(x, y - 5, w, h)
 end
+
+function BoringFPS.DrawRoundedOutlinedBox(r, x, y, w, h, bgColor, borderColor)
+    draw.RoundedBox(r, x, y, w, h, bgColor)
+    surface.SetDrawColor(borderColor)
+    surface.DrawOutlinedRect(x, y, w, h, 2)
+end

@@ -66,6 +66,18 @@ BoringFPS_CONFIG.Settings.IconsClass = {
     ["touch"] = BoringFPS_CONFIG.Icons.TouchClass,
     ["stalker"] = BoringFPS_CONFIG.Icons.StalkerClass
 }
+BoringFPS_CONFIG.Settings.ColorPlayer = {
+    Color(255, 85, 85),
+    Color(85, 255, 85),
+    Color(85, 85, 255),
+    Color(255, 255, 85),
+    Color(255, 85, 255),
+    Color(85, 255, 255),
+    Color(255, 170, 0),
+    Color(170, 0, 255),
+    Color(0, 170, 255),
+    Color(0, 255, 170),
+}
 
 -- Models
 BoringFPS_CONFIG.Models = {}
@@ -114,3 +126,4 @@ BoringFPS_CONFIG.Vars = {}
 BoringFPS_CONFIG.Vars.PlayersInGame = {}
 BoringFPS_CONFIG.Vars.GameLogs = {}
 BoringFPS_CONFIG.Vars.PlayersAlive = {}
+BoringFPS_CONFIG.Vars.ColorBox = {}

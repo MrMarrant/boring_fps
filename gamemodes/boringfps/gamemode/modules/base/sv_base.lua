@@ -52,10 +52,13 @@ end
 function BoringFPS.SpawnPlayersOnGameMap()
     local spawnPoints = BoringFPS.ShuffleTable(ents.FindByName("spawn_game"))
     local players = player.GetAll()
+    local colorAvailable = BoringFPS_CONFIG.Settings.ColorPlayer
+    local colorPlayer = {}
     BoringFPS.SetGlobalTable(players, "PlayersAlive")
     for index, ply in ipairs(players) do
         local weapon = ply:Give(BoringFPS_CONFIG.Settings.ClassWeapon[ply:GetNWString("ClassWeapon", BoringFPS_CONFIG.Settings.ListClass[1])])
         ply:SetNWEntity( "WeaponGame", weapon)
+        colorPlayer[ply] = colorAvailable[index] or Color(0, 0, 0)
         weapon:SetClip1(weapon:GetMaxClip1()) --? We set here bc weapon doesnt load itself for some reasons
         local location = spawnPoints[index]
         if location then
@@ -63,6 +66,7 @@ function BoringFPS.SpawnPlayersOnGameMap()
             ply:SetAngles(location:GetAngles())
         end
     end
+    BoringFPS.SetGlobalTable(colorPlayer, "ColorBox")
 end
 
 function BoringFPS.IsConditionMetNewGame()
