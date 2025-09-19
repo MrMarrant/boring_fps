@@ -145,7 +145,5 @@ function BoringFPS.OnPlayerHit(target, dmginfo)
     local attacker = dmginfo:GetAttacker()
     if (IsValid(attacker) and attacker:IsPlayer() and table.HasValue(BoringFPS_CONFIG.Vars.PlayersAlive, target) ) then
         BoringFPS.InsertLogs(target:Nick() .. " was hit by " .. attacker:Nick() .. " and received\n" .. math.Round( dmginfo:GetDamage() ) .. " damage.")
-    else
-        BoringFPS.InsertLogs(target:Nick() .. " received " .. math.Round( dmginfo:GetDamage() ) .. " damage.")
     end
 end

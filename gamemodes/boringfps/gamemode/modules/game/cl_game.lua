@@ -62,3 +62,8 @@ hook.Add( "HUDShouldDraw", "HUDShouldDraw:BoringFPS:HideHUD", function( name )
 		return false
 	end
 end )
+
+-- Hide Base DrawTarget
+hook.Add( "HUDDrawTargetID", "BoringFPS:HUDDrawTargetID", function()
+	return false
+end )
