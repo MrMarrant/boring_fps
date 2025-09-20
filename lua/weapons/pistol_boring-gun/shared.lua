@@ -26,7 +26,7 @@ SWEP.Secondary.Automatic = false
 SWEP.Secondary.Ammo = "none"
 
 SWEP.Damage = 15
-SWEP.MaxStep = 7
+SWEP.MaxStep = 10
 SWEP.MaxDash = 2
 SWEP.Action = 2
 

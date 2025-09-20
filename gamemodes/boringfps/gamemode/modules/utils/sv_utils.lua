@@ -147,6 +147,28 @@ function BoringFPS.CollideEvent(target, velocity)
     return tr
 end
 
+function BoringFPS.SetVisibilityRender(ent, isVisible)
+    local renderMode = isVisible and RENDERMODE_TRANSCOLOR or RENDERMODE_TRANSALPHA
+    local renderColor = isVisible and Color(255, 255, 255, 255) or Color(0, 0, 0, 0)
+
+    ent:SetRenderMode(renderMode)
+    ent:SetColor(renderColor)
+end
+
+function BoringFPS.RevealAura(duration, tableEnt, colorAura, ply)
+    colorAura = colorAura or Color( 255, 0, 0 )
+    net.Start(BoringFPS_CONFIG.NetVar.RevealAura)
+    net.WriteFloat(duration)
+    net.WriteTable(tableEnt)
+    net.WriteColor(colorAura)
+
+    if (IsValid(ply)) then
+        net.Send(ply)
+    else
+        net.Broadcast()
+    end
+end
+
 
 hook.Add( "PlayerDeathThink", "PlayerDeathThink:BoringFPS:SpectatorNext", function( ply )
     if ply:GetObserverMode() == OBS_MODE_CHASE then

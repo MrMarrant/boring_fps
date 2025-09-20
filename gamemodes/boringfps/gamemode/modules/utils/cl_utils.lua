@@ -10,6 +10,14 @@ function BoringFPS.RevealAura(duration, tableEnt, colorAura)
     end)
 end
 
+net.Receive(BoringFPS_CONFIG.NetVar.RevealAura, function()
+    local duration = net.ReadFloat()
+    local tableEnt = net.ReadTable()
+    local colorAura = net.ReadColor()
+
+    BoringFPS.RevealAura(duration, tableEnt, colorAura)
+end)
+
 net.Receive(BoringFPS_CONFIG.NetVar.SetGlobalTable, function()
     local tbl = net.ReadTable()
     local key = net.ReadString()

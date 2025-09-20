@@ -23,7 +23,7 @@ BoringFPS_CONFIG.Settings.TimerPreGame = 5 -- Time in seconds before the game st
 BoringFPS_CONFIG.Settings.TimerPostGame = 5 -- Duration before game restart
 BoringFPS_CONFIG.Settings.TimerDelayNextGame = 10 -- Duration before next game starts
 BoringFPS_CONFIG.Settings.BaseHP = 100 -- Default health points for players
-BoringFPS_CONFIG.Settings.MinPlayerRequired = 2 -- Minimum players required to start a game
+BoringFPS_CONFIG.Settings.MinPlayerRequired = 3 -- Minimum players required to start a game
 BoringFPS_CONFIG.Settings.LimitTimeTurn = 10 -- Time limit for each player's turn
 BoringFPS_CONFIG.Settings.TimerBetweenTurns = 1 -- Time limit between each player's turn
 BoringFPS_CONFIG.Settings.DefaultMaxStep = 10 -- Default steps a player can do during his turn
@@ -100,6 +100,7 @@ BoringFPS_CONFIG.Sounds.TurnEnd = Sound("boring_fps/sfx/turn/turn_end.mp3")
 BoringFPS_CONFIG.Sounds.WinGame = Sound("boring_fps/sfx/turn/win_game.mp3")
 BoringFPS_CONFIG.Sounds.OnUse = Sound("boring_fps/sfx/ui/on_use.mp3")
 BoringFPS_CONFIG.Sounds.RevealAura = Sound("boring_fps/sfx/game/reveal_aura.mp3")
+BoringFPS_CONFIG.Sounds.Detonate = Sound("boring_fps/sfx/game/detonate.mp3")
 BoringFPS_CONFIG.Sounds.GameMusic = {
     "boring_fps/music/theme_boringfps_1.wav",
     "boring_fps/music/theme_boringfps_2.wav",
@@ -120,6 +121,7 @@ BoringFPS_CONFIG.NetVar.SetGlobalTable = "BoringFPS_CONFIG.SetGlobalTable"
 BoringFPS_CONFIG.NetVar.InsertLogs = "BoringFPS_CONFIG.InsertLogs"
 BoringFPS_CONFIG.NetVar.StartClientPreGame = "BoringFPS_CONFIG.StartClientPreGame"
 BoringFPS_CONFIG.NetVar.StopClientPreGame = "BoringFPS_CONFIG.StopClientPreGame"
+BoringFPS_CONFIG.NetVar.RevealAura = "BoringFPS_CONFIG.RevealAura"
 
 -- Base vars, i really don't recommend to edit this section
 BoringFPS_CONFIG.Vars = {}
