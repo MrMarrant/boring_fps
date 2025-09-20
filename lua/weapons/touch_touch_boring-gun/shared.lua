@@ -8,7 +8,7 @@ SWEP.SlotPos = 1
 SWEP.Spawnable = true
 
 SWEP.Category = "Boring gun"
-SWEP.ViewModel = Model( "" )
+SWEP.ViewModel = ""
 SWEP.WorldModel = Model( "models/maxofs2d/camera.mdl" )
 
 SWEP.ViewModelFOV = 65

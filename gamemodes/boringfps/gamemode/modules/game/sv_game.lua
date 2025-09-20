@@ -119,8 +119,11 @@ function BoringFPS.StopSound(sound, ply)
     end
 end
 
-hook.Add( "EntityTakeDamage", "BoringFPS:EntityTakeDamage", function( target, dmginfo )
-    if (IsValid(dmginfo:GetWeapon()) and dmginfo:GetWeapon():GetClass() == "shootgun_boring-gun") then
-        BoringFPS.KnockBack(dmginfo:GetAttacker(), target, 2000)
+hook.Add( "EntityTakeDamage", "BoringFPS:EntityTakeDamage:ShootGunKnockBack", function( target, dmginfo )
+    if (IsValid(dmginfo:GetInflictor()) and dmginfo:GetInflictor():GetClass() == "shootgun_boring-gun") then
+        local damage = dmginfo:GetDamage()
+        local force = Lerp(math.Clamp(damage, 0, 80) / 80, 0 , 300)
+
+        BoringFPS.KnockBack(dmginfo:GetInflictor(), target, force)
     end
 end )

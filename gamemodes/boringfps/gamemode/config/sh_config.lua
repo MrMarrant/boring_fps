@@ -31,10 +31,10 @@ BoringFPS_CONFIG.Settings.DefaultWalkSpeed = 250 -- Default walk speed for playe
 BoringFPS_CONFIG.Settings.DefaultRunSpeed = 320 -- Default run speed for players
 BoringFPS_CONFIG.Settings.DurationAnnouncerTurn = 3 -- Define how much time announcer turn stay on screen
 BoringFPS_CONFIG.Settings.MessageLifetimeChatBox = 8 -- Define how much time messages chatbox history are displayed.
-BoringFPS_CONFIG.Settings.MinVelocityKnockBackDamage = 500 -- Define the minimum velocity for knockback damage
-BoringFPS_CONFIG.Settings.MaxVelocityKnockBackDamage = 1000 -- Define the maximum velocity for knockback damage
-BoringFPS_CONFIG.Settings.MinDamageKnockBack = 10 -- Define the minimum damage that can be applied from knockback
-BoringFPS_CONFIG.Settings.MaxDamageKnockBack = 30 -- Define the maximum damage that can be applied from knockback
+BoringFPS_CONFIG.Settings.MinVelocityKnockBackDamage = 100 -- Define the minimum velocity for knockback damage
+BoringFPS_CONFIG.Settings.MaxVelocityKnockBackDamage = 350 -- Define the maximum velocity for knockback damage
+BoringFPS_CONFIG.Settings.MinDamageKnockBack = 5 -- Define the minimum damage that can be applied from knockback
+BoringFPS_CONFIG.Settings.MaxDamageKnockBack = 40 -- Define the maximum damage that can be applied from knockback
 BoringFPS_CONFIG.Settings.ListClass = {
     "pistol",
     "shootgun",

@@ -85,15 +85,9 @@ end
 
 function BoringFPS.KnockBack(attacker, target, strength)
     strength = strength or 300
-    local forceDir
+    local forceDir = (target:GetPos() - attacker:GetPos()):GetNormalized()
+    local velocityApplied = forceDir * strength + target:GetVelocity()
 
-    if attacker:IsPlayer() then
-        forceDir = (target:GetPos() - attacker:GetPos()):GetNormalized()
-    else
-        forceDir = dmginfo:GetDamageForce():GetNormalized()
-    end
-
-    local velocityApplied = forceDir * strength
     target:SetVelocity(velocityApplied)
     BoringFPS.AddKnockBackHook(target, velocityApplied)
 end
@@ -129,8 +123,11 @@ function BoringFPS.AppliedKnockBackDamage(target, velLength)
     local t = (math.Clamp(velLength, minVelocity, maxVelocity) - minVelocity) / (maxVelocity - minVelocity)
     local dmg = Lerp(t, BoringFPS_CONFIG.Settings.MinDamageKnockBack, BoringFPS_CONFIG.Settings.MaxDamageKnockBack)
 
-    target:TakeDamage(dmg, game.GetWorld(), game.GetWorld())
     hook.Remove("Think", "BoringFPS:KnockBackThink-" .. target:EntIndex())
+    timer.Simple(0.2, function() --? Avoid instant kill without force applied
+        if (not IsValid(target)) then return end
+        target:TakeDamage(dmg, game.GetWorld(), game.GetWorld())
+    end)
 end
 
 function BoringFPS.CollideEvent(target, velocity)
