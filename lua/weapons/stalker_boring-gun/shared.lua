@@ -8,12 +8,11 @@ SWEP.SlotPos = 1
 SWEP.Spawnable = true
 
 SWEP.Category = "Boring gun"
-SWEP.ViewModel = Model( "models/weapons/v_357.mdl" )
+SWEP.ViewModel = Model( "models/weapons/c_357.mdl" )
 SWEP.WorldModel = Model( "models/weapons/w_357.mdl" )
 
 SWEP.ViewModelFOV = 65
 SWEP.HoldType = "revolver"
-SWEP.UseHands = true
 
 SWEP.Primary.ClipSize = 2
 SWEP.Primary.DefaultClip = 2
@@ -27,7 +26,7 @@ SWEP.Secondary.Ammo = "none"
 
 SWEP.DurationRevealAura = 1
 
-SWEP.Damage = 40
+SWEP.Damage = 30
 SWEP.MaxStep = 5
 SWEP.MaxDash = 1
 SWEP.Action = 2
@@ -59,9 +58,10 @@ end
 function SWEP:SecondaryShoot()
     local owner = self:GetOwner()
 
-    if (CLIENT) then 
-        BoringFPS.RevealAura(self.DurationRevealAura, BoringFPS_CONFIG.Vars.PlayersAlive, Color(255, 39, 39))
+    if (CLIENT) then
+        BoringFPS.RevealAura(self.DurationRevealAura, BoringFPS_CONFIG.Vars.PlayersAlive, Color(255, 0, 0))
     else
+        BoringFPS.RevealAura(2, {owner}, Color(255, 0, 0))
         BoringFPS.PlaySound(BoringFPS_CONFIG.Sounds.RevealAura, false)
         owner:SetNWInt("Action", owner:GetNWInt("Action", 0) - 1)
     end

@@ -79,3 +79,21 @@ function BoringFPS.DrawRoundedOutlinedBox(r, x, y, w, h, bgColor, borderColor)
     surface.SetDrawColor(borderColor)
     surface.DrawOutlinedRect(x, y, w, h, 2)
 end
+
+function BoringFPS.TruncatedText(text, font, maxWidth)
+    surface.SetFont(font)
+    local textW, _ = surface.GetTextSize(text)
+
+    if textW > maxWidth then
+        local truncated = text
+        while string.len(truncated) > 0 do
+            truncated = string.sub(truncated, 1, -2)
+            local newW, _ = surface.GetTextSize(truncated .. "…")
+            if newW <= maxWidth then
+                text = truncated .. "…"
+                break
+            end
+        end
+    end
+    return text
+end

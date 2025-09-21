@@ -7,6 +7,7 @@ function BoringFPS.DisplayHUDGame()
         BoringFPS.DrawListPlayerTurn(scrW, scrH, plyList)
         BoringFPS.DrawHealth(scrW * 0.45, scrH * 0.9)
         BoringFPS.DrawLogs(scrW, scrH)
+        BoringFPS.DrawGlobalTurn(scrW, scrH)
     end)
 end
 
@@ -18,6 +19,10 @@ function BoringFPS.DrawListPlayerTurn(scrW, scrH, plyList)
             BoringFPS.DrawEmptyPlayer(index, scrH, scrW)
         end
     end
+end
+
+function BoringFPS.DrawGlobalTurn(scrW, scrH)
+    draw.SimpleText("Tour : " .. GetGlobalInt("GlobalTurn", 1), "NickAnton", scrW * 0.82, scrH * 0.08, colorTxt, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
 end
 
 function BoringFPS.DrawPlayerTurn(ply, index, scrH, scrW)
@@ -54,21 +59,8 @@ function BoringFPS.DrawPlayerTurn(ply, index, scrH, scrW)
     local maxWidthName = baseWidth * 0.7 - (nameX - startX) - 5
     local maxWidth = baseWidth - (nameX - startX) - 5
 
-    local playerName = ply:Nick()
-    surface.SetFont("NickAnton")
-    local textW, _ = surface.GetTextSize(playerName)
+    local playerName = BoringFPS.TruncatedText(ply:Nick(), "NickAnton", maxWidth)
 
-    if textW > maxWidthName then
-        local truncated = playerName
-        while string.len(truncated) > 0 do
-            truncated = string.sub(truncated, 1, -2)
-            local newW, _ = surface.GetTextSize(truncated .. "…")
-            if newW <= maxWidthName then
-                playerName = truncated .. "…"
-                break
-            end
-        end
-    end
     draw.SimpleText(playerName, "NickAnton", nameX, posY + baseHeight / 2, colorTxt, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
     nameX = nameX + maxWidth - baseWidth * 0.3
     surface.SetDrawColor(255, 255, 255, 255)

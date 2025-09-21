@@ -15,7 +15,7 @@ SWEP.WorldModel = Model( "models/weapons/w_pistol.mdl" )
 
 SWEP.ViewModelFOV = 65
 SWEP.HoldType = "pistol"
-SWEP.UseHands = true
+SWEP.UseHands = false
 
 SWEP.Primary.ClipSize = 1
 SWEP.Primary.DefaultClip = 1
@@ -67,7 +67,7 @@ end
 function SWEP:Reload()
     local owner = self:GetOwner()
     if self:CanReload() and IsValid(owner) then
-        self:DefaultReload(ACT_VM_RELOAD)
+        self:ReloadAnimation(owner)
         self:SetClip1(self:GetMaxClip1())
         owner:SetNWInt("Action", owner:GetNWInt("Action", 0) - 1)
         if SERVER then owner:EmitSound("weapons/smg1/smg1_reload.wav") end
@@ -85,4 +85,9 @@ end
 function SWEP:CanDash()
     local owner = self:GetOwner()
     return (owner:GetNWInt("Dash", 0) > 0 and owner:GetNWString("State", "") == "wait")
+end
+
+function SWEP:ReloadAnimation(owner)
+    owner:DoReloadEvent()
+    self:SendWeaponAnim(ACT_VM_RELOAD)
 end

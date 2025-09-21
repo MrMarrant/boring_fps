@@ -26,8 +26,9 @@ hook.Add( "PostPlayerDraw", "PostPlayerDraw:BoringFPS:PaintPlayerTags", function
     BoringFPS.DrawRoundedOutlinedBox(cornerRadius, rectX, rectY, rectW, rectH, colorBox, color_white)
 
     local centerY = rectY + rectH / 2
+    local playerName = BoringFPS.TruncatedText(ply:Nick(), "DermaLarge", rectW - margin * 2.7 - iconSize)
 
-    draw.SimpleText(ply:Nick(), "DermaLarge", rectX + margin, centerY, color_white, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+    draw.SimpleText(playerName, "DermaLarge", rectX + margin, centerY, color_white, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
 
     local rightX = rectX + rectW - margin
     local health = math.Clamp(ply:Health(), 0, ply:GetMaxHealth())

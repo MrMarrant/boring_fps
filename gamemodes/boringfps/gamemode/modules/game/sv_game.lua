@@ -12,9 +12,12 @@ function BoringFPS.StopHUDPreGame()
     net.Broadcast()
 end
 
-function BoringFPS.SetTurnToWait(players)
+function BoringFPS.SetTurnToWait(players, firstTurn)
     for key, value in ipairs(players) do
         value:SetState("wait")
+        net.Start(BoringFPS_CONFIG.NetVar.StartClientWait)
+        net.WriteBool(firstTurn or false)
+        net.Send(value)
     end
 end
 
@@ -59,6 +62,7 @@ function BoringFPS.GetNextPlayerTurn()
         nextIndex = nextIndex + 1
         if nextIndex > sizeTable then
             nextIndex = 1
+            SetGlobalInt("GlobalTurn", GetGlobalInt("GlobalTurn", 1) + 1)
         end
         if (BoringFPS_CONFIG.DirectionTurnPlayers[nextIndex]) then
             return nextIndex -- Return the new index and exit this loop
@@ -119,8 +123,24 @@ function BoringFPS.StopSound(sound, ply)
     end
 end
 
-hook.Add( "EntityTakeDamage", "BoringFPS:EntityTakeDamage", function( target, dmginfo )
-    if (IsValid(dmginfo:GetWeapon()) and dmginfo:GetWeapon():GetClass() == "shootgun_boring-gun") then
-        BoringFPS.KnockBack(dmginfo:GetAttacker(), target, 2000)
+hook.Add( "EntityTakeDamage", "BoringFPS:EntityTakeDamage:ShootGunKnockBack", function( target, dmginfo )
+    if (IsValid(dmginfo:GetInflictor()) and dmginfo:GetInflictor():GetClass() == "shootgun_boring-gun") then
+        local damage = dmginfo:GetDamage()
+        local force = Lerp(math.Clamp(damage, 0, 80) / 80, 0 , 300)
+
+        BoringFPS.KnockBack(dmginfo:GetInflictor(), target, force)
     end
-end )
+end)
+
+hook.Add("PlayerSelectSpawn", "BoringFPS:PlayerSelectSpawn:SelectSpawn", function(ply)
+	local spawns = ents.FindByClass("info_player_start")
+    local spawnSelect = spawns[ math.random( #spawns ) ]
+    for key, value in ipairs(spawns) do
+        local posInfo = value:GetPos()
+        if (BoringFPS.IsLocationFree(posInfo, ply)) then
+            return value
+        end
+    end
+
+	return spawnSelect
+end)

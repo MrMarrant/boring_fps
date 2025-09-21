@@ -13,7 +13,6 @@ SWEP.WorldModel = Model( "models/weapons/w_crowbar.mdl" )
 
 SWEP.ViewModelFOV = 65
 SWEP.HoldType = "melee"
-SWEP.UseHands = true
 
 SWEP.Primary.ClipSize = 0
 SWEP.Primary.DefaultClip = 0
@@ -27,7 +26,7 @@ SWEP.Secondary.Ammo = "none"
 
 SWEP.RangeAttack = 100
 
-SWEP.Damage = 30
+SWEP.Damage = 20
 SWEP.MaxStep = 18
 SWEP.MaxDash = 2
 SWEP.Action = 2

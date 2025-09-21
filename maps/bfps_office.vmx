@@ -2,7 +2,7 @@ versioninfo
 {
 	"editorversion" "400"
 	"editorbuild" "8870"
-	"mapversion" "13"
+	"mapversion" "12"
 	"formatversion" "100"
 	"prefab" "0"
 }
@@ -89,7 +89,7 @@ bgimages_plus
 world
 {
 	"id" "1"
-	"mapversion" "13"
+	"mapversion" "12"
 	"classname" "worldspawn"
 	"comment" "Decompiled by VMEX v0.98g from C:"
 	"detailmaterial" "detail/detailsprites"
@@ -383803,6 +383803,20 @@ entity
 }
 entity
 {
+	"id" "7866"
+	"classname" "info_player_start"
+	"angles" "0 0 0"
+	"origin" "7827 -657 -93.8737"
+	editor
+	{
+		"color" "0 255 0"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 5500]"
+	}
+}
+entity
+{
 	"id" "7868"
 	"classname" "info_player_start"
 	"angles" "0 0 0"
@@ -383813,6 +383827,20 @@ entity
 		"visgroupshown" "1"
 		"visgroupautoshown" "1"
 		"logicalpos" "[0 5000]"
+	}
+}
+entity
+{
+	"id" "7870"
+	"classname" "info_player_start"
+	"angles" "0 0 0"
+	"origin" "7827 -721 -93.8737"
+	editor
+	{
+		"color" "0 255 0"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 4500]"
 	}
 }
 entity
@@ -383831,6 +383859,20 @@ entity
 }
 entity
 {
+	"id" "7874"
+	"classname" "info_player_start"
+	"angles" "0 0 0"
+	"origin" "7827 -785 -93.8737"
+	editor
+	{
+		"color" "0 255 0"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 3500]"
+	}
+}
+entity
+{
 	"id" "7876"
 	"classname" "info_player_start"
 	"angles" "0 0 0"
@@ -383841,6 +383883,20 @@ entity
 		"visgroupshown" "1"
 		"visgroupautoshown" "1"
 		"logicalpos" "[0 3000]"
+	}
+}
+entity
+{
+	"id" "7878"
+	"classname" "info_player_start"
+	"angles" "0 0 0"
+	"origin" "7827 -849 -93.8737"
+	editor
+	{
+		"color" "0 255 0"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 2500]"
 	}
 }
 entity
@@ -383859,11 +383915,40 @@ entity
 }
 entity
 {
+	"id" "7884"
+	"classname" "info_player_start"
+	"angles" "0 0 0"
+	"origin" "7827 -913 -93.8737"
+	editor
+	{
+		"color" "0 255 0"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 1000]"
+	}
+}
+entity
+{
 	"id" "7886"
 	"classname" "info_player_start"
 	"angles" "0 0 0"
 	"spawnflags" "0"
 	"origin" "7827 -945 -95.8737"
+	editor
+	{
+		"color" "0 255 0"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 2500]"
+	}
+}
+entity
+{
+	"id" "7888"
+	"classname" "info_player_start"
+	"angles" "0 0 0"
+	"spawnflags" "0"
+	"origin" "7828.78 -977 -94.8737"
 	editor
 	{
 		"color" "0 255 0"
@@ -384534,116 +384619,16 @@ entity
 }
 entity
 {
-	"id" "15045"
+	"id" "7882"
 	"classname" "info_player_start"
 	"angles" "0 0 0"
-	"origin" "7747 -1073 -93.8737"
+	"origin" "7827 -1041 -93.8737"
 	editor
 	{
 		"color" "0 255 0"
 		"visgroupshown" "1"
 		"visgroupautoshown" "1"
-		"logicalpos" "[0 6500]"
-	}
-}
-entity
-{
-	"id" "15047"
-	"classname" "info_player_start"
-	"angles" "0 0 0"
-	"spawnflags" "0"
-	"origin" "7747 -1009 -93.8737"
-	editor
-	{
-		"color" "0 255 0"
-		"visgroupshown" "1"
-		"visgroupautoshown" "1"
-		"logicalpos" "[0 2500]"
-	}
-}
-entity
-{
-	"id" "15049"
-	"classname" "info_player_start"
-	"angles" "0 0 0"
-	"spawnflags" "0"
-	"origin" "7747 -945 -95.8737"
-	editor
-	{
-		"color" "0 255 0"
-		"visgroupshown" "1"
-		"visgroupautoshown" "1"
-		"logicalpos" "[0 2500]"
-	}
-}
-entity
-{
-	"id" "15051"
-	"classname" "info_player_start"
-	"angles" "0 0 0"
-	"origin" "7747 -881 -93.8737"
-	editor
-	{
-		"color" "0 255 0"
-		"visgroupshown" "1"
-		"visgroupautoshown" "1"
-		"logicalpos" "[0 2000]"
-	}
-}
-entity
-{
-	"id" "15053"
-	"classname" "info_player_start"
-	"angles" "0 0 0"
-	"origin" "7747 -817 -93.8737"
-	editor
-	{
-		"color" "0 255 0"
-		"visgroupshown" "1"
-		"visgroupautoshown" "1"
-		"logicalpos" "[0 3000]"
-	}
-}
-entity
-{
-	"id" "15055"
-	"classname" "info_player_start"
-	"angles" "0 0 0"
-	"origin" "7747 -753 -93.8737"
-	editor
-	{
-		"color" "0 255 0"
-		"visgroupshown" "1"
-		"visgroupautoshown" "1"
-		"logicalpos" "[0 4000]"
-	}
-}
-entity
-{
-	"id" "15057"
-	"classname" "info_player_start"
-	"angles" "0 0 0"
-	"origin" "7747 -689 -93.8737"
-	editor
-	{
-		"color" "0 255 0"
-		"visgroupshown" "1"
-		"visgroupautoshown" "1"
-		"logicalpos" "[0 5000]"
-	}
-}
-entity
-{
-	"id" "15059"
-	"classname" "info_player_start"
-	"angles" "0 0 0"
-	"origin" "7747 -625 -93.8737"
-	editor
-	{
-		"color" "0 255 0"
-		"visgroupshown" "1"
-		"visgroupautoshown" "1"
-		"logicalpos" "[0 6000]"
+		"logicalpos" "[0 1500]"
 	}
 }
 cameras
