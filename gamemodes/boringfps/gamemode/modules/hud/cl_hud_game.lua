@@ -7,6 +7,7 @@ function BoringFPS.DisplayHUDGame()
         BoringFPS.DrawListPlayerTurn(scrW, scrH, plyList)
         BoringFPS.DrawHealth(scrW * 0.45, scrH * 0.9)
         BoringFPS.DrawLogs(scrW, scrH)
+        BoringFPS.DrawGlobalTurn(scrW, scrH)
     end)
 end
 
@@ -18,6 +19,10 @@ function BoringFPS.DrawListPlayerTurn(scrW, scrH, plyList)
             BoringFPS.DrawEmptyPlayer(index, scrH, scrW)
         end
     end
+end
+
+function BoringFPS.DrawGlobalTurn(scrW, scrH)
+    draw.SimpleText("Tour : " .. GetGlobalInt("GlobalTurn", 1), "NickAnton", scrW * 0.82, scrH * 0.08, colorTxt, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
 end
 
 function BoringFPS.DrawPlayerTurn(ply, index, scrH, scrW)

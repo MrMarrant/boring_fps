@@ -12,9 +12,12 @@ function BoringFPS.StopHUDPreGame()
     net.Broadcast()
 end
 
-function BoringFPS.SetTurnToWait(players)
+function BoringFPS.SetTurnToWait(players, firstTurn)
     for key, value in ipairs(players) do
         value:SetState("wait")
+        net.Start(BoringFPS_CONFIG.NetVar.StartClientWait)
+        net.WriteBool(firstTurn or false)
+        net.Send(value)
     end
 end
 
@@ -59,6 +62,7 @@ function BoringFPS.GetNextPlayerTurn()
         nextIndex = nextIndex + 1
         if nextIndex > sizeTable then
             nextIndex = 1
+            SetGlobalInt("GlobalTurn", GetGlobalInt("GlobalTurn", 1) + 1)
         end
         if (BoringFPS_CONFIG.DirectionTurnPlayers[nextIndex]) then
             return nextIndex -- Return the new index and exit this loop
@@ -126,4 +130,4 @@ hook.Add( "EntityTakeDamage", "BoringFPS:EntityTakeDamage:ShootGunKnockBack", fu
 
         BoringFPS.KnockBack(dmginfo:GetInflictor(), target, force)
     end
-end )
+end)

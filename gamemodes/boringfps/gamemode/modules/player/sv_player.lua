@@ -36,8 +36,6 @@ function PLAYER:Wait()
     self:SetNWInt("StepLeft", 0)
     self:SetNWInt("Dash", WeaponGame.MaxDash)
     self:ChatPrint("Vous êtes en attente.")
-    net.Start(BoringFPS_CONFIG.NetVar.StartClientWait)
-    net.Send(self)
     hook.Remove("PlayerFootstep", "PlayerFootstep:CountStep:Player-" .. self:EntIndex())
 end
 

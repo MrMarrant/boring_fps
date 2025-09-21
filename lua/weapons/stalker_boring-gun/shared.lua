@@ -59,7 +59,7 @@ end
 function SWEP:SecondaryShoot()
     local owner = self:GetOwner()
 
-    if (CLIENT) then 
+    if (CLIENT) then
         BoringFPS.RevealAura(self.DurationRevealAura, BoringFPS_CONFIG.Vars.PlayersAlive, Color(255, 0, 0))
     else
         BoringFPS.RevealAura(2, {owner}, Color(255, 0, 0))

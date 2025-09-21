@@ -165,3 +165,10 @@ hook.Add("HUDPaint", "HUDPaint:BoringFPS:CustomChatboxHUDPaint", function()
         end
     end
 end)
+
+--[[
+* Close chatbox when pause menu is open
+--]]
+hook.Add( "OnPauseMenuShow", "OnPauseMenuShow:BoringFPS:HideChatBox", function()
+    CloseChat()
+end )

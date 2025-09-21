@@ -29,9 +29,10 @@ net.Receive(BoringFPS_CONFIG.NetVar.EndGame, function()
 end)
 
 net.Receive(BoringFPS_CONFIG.NetVar.StartClientWait, function()
+    local firstTurn = net.ReadBool()
     LocalPlayer():EmitSound(BoringFPS_CONFIG.Sounds.TurnEnd)
     BoringFPS.DisplayHUDWait()
-    BoringFPS.DisplayAnnouncerTurn("TURN END")
+    BoringFPS.DisplayAnnouncerTurn(firstTurn and "Game Start" or "TURN END")
 end)
 
 net.Receive(BoringFPS_CONFIG.NetVar.StartClientPlay, function()
