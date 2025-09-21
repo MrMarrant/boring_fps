@@ -131,3 +131,16 @@ hook.Add( "EntityTakeDamage", "BoringFPS:EntityTakeDamage:ShootGunKnockBack", fu
         BoringFPS.KnockBack(dmginfo:GetInflictor(), target, force)
     end
 end)
+
+hook.Add("PlayerSelectSpawn", "BoringFPS:PlayerSelectSpawn:SelectSpawn", function(ply)
+	local spawns = ents.FindByClass("info_player_start")
+    local spawnSelect = spawns[ math.random( #spawns ) ]
+    for key, value in ipairs(spawns) do
+        local posInfo = value:GetPos()
+        if (BoringFPS.IsLocationFree(posInfo, ply)) then
+            return value
+        end
+    end
+
+	return spawnSelect
+end)

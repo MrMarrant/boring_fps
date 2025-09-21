@@ -166,6 +166,32 @@ function BoringFPS.RevealAura(duration, tableEnt, colorAura, ply)
     end
 end
 
+function BoringFPS.IsLocationFree(pos, ply)
+    -- Default hull
+    local hullMin = Vector(-16, -16, 0)
+    local hullMax = Vector(16, 16, 72)
+
+    if IsValid(ply) then
+        hullMin, hullMax = ply:GetHull()
+    end
+
+    local tr = util.TraceHull({
+        start = pos,
+        endpos = pos + Vector(0, 0, hullMax.z),
+        mins = hullMin,
+        maxs = hullMax,
+        ignoreworld = true,
+        filter = function(ent)
+            if not IsValid(ent) then return false end
+            if (ent == ply) then return false end
+            if ent:GetMoveType() == MOVETYPE_NOCLIP then return false end
+            return true
+        end
+    })
+
+    return not tr.Hit
+end
+
 
 hook.Add( "PlayerDeathThink", "PlayerDeathThink:BoringFPS:SpectatorNext", function( ply )
     if ply:GetObserverMode() == OBS_MODE_CHASE then

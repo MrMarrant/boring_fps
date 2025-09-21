@@ -9,6 +9,7 @@ function BoringFPS.NewGame()
             if BoringFPS.IsConditionMetNewGame() then
                 BoringFPS.StartTimerPreGame()
             else
+                SetGlobalBool("IsStartTimerPreGame", false)
                 timer.Remove("BoringFPS:PreGameTimer")
                 timer.Remove("BoringFPS:CountdownTimer")
             end
