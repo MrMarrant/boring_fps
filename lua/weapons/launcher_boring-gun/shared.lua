@@ -8,12 +8,11 @@ SWEP.SlotPos = 1
 SWEP.Spawnable = true
 
 SWEP.Category = "Boring gun"
-SWEP.ViewModel = Model( "models/weapons/v_rpg.mdl" )
+SWEP.ViewModel = Model( "models/weapons/c_rpg.mdl" )
 SWEP.WorldModel = Model( "models/weapons/w_rocket_launcher.mdl" )
 
 SWEP.ViewModelFOV = 65
 SWEP.HoldType = "rpg"
-SWEP.UseHands = true
 
 SWEP.Primary.ClipSize = 2
 SWEP.Primary.DefaultClip = 2

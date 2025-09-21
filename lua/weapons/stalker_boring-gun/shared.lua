@@ -8,12 +8,11 @@ SWEP.SlotPos = 1
 SWEP.Spawnable = true
 
 SWEP.Category = "Boring gun"
-SWEP.ViewModel = Model( "models/weapons/v_357.mdl" )
+SWEP.ViewModel = Model( "models/weapons/c_357.mdl" )
 SWEP.WorldModel = Model( "models/weapons/w_357.mdl" )
 
 SWEP.ViewModelFOV = 65
 SWEP.HoldType = "revolver"
-SWEP.UseHands = true
 
 SWEP.Primary.ClipSize = 2
 SWEP.Primary.DefaultClip = 2

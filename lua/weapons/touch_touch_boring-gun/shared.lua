@@ -13,7 +13,6 @@ SWEP.WorldModel = Model( "models/maxofs2d/camera.mdl" )
 
 SWEP.ViewModelFOV = 65
 SWEP.HoldType = "camera"
-SWEP.UseHands = true
 
 SWEP.Primary.ClipSize = 0
 SWEP.Primary.DefaultClip = 0

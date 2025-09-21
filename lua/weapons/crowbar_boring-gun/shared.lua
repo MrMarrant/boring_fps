@@ -13,7 +13,6 @@ SWEP.WorldModel = Model( "models/weapons/w_crowbar.mdl" )
 
 SWEP.ViewModelFOV = 65
 SWEP.HoldType = "melee"
-SWEP.UseHands = true
 
 SWEP.Primary.ClipSize = 0
 SWEP.Primary.DefaultClip = 0
