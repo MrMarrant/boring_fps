@@ -45,8 +45,6 @@ function SWEP:Initialize()
 end
 
 function SWEP:Shoot()
-    if CLIENT then return end
-
     local owner = self:GetOwner()
     if not IsValid(owner) then return end
 
@@ -58,14 +56,15 @@ function SWEP:Shoot()
     traceData.filter = owner
 
     local trace = util.TraceLine(traceData)
+    local sfx
 
     if trace.Hit and IsValid(trace.Entity) and trace.Entity:IsPlayer() and not self.PlayersHit[trace.Entity] then
         self.PlayersHit[trace.Entity] = true
-        owner:EmitSound("physics/flesh/flesh_squishy_impact_hard1.wav")
-        -- TODO : Faire un affichage dès joueurs déjà touché ?
+        sfx = "physics/flesh/flesh_squishy_impact_hard1.wav"
     else
-        owner:EmitSound("npc/zombie/claw_miss1.wav")
+        sfx = "npc/zombie/claw_miss1.wav"
     end
+    if (SERVER) then owner:EmitSound(sfx) end
 end
 
 function SWEP:SecondaryShoot()
@@ -78,8 +77,10 @@ function SWEP:SecondaryShoot()
     BoringFPS.PlaySound("weapons/physcannon/energy_sing_explosion2.wav")
     owner:ChatPrint("Vous avez fait exploser les joueurs touchés.")
     owner:SetNWInt("Action", 0)
-    BoringFPS.SetVisibilityRender(owner, false)
-    BoringFPS.SetVisibilityRender(self, false)
+    if (SERVER) then
+        BoringFPS.SetVisibilityRender(owner, false)
+        BoringFPS.SetVisibilityRender(self, false)
+    end
 end
 
 function SWEP:Reload()
@@ -94,8 +95,10 @@ function SWEP:OnRemove()
 end
 
 function SWEP:Detonate(owner)
-    for ply, k in pairs(self.PlayersHit) do
-        ply:TakeDamage(self.Damage, owner, self)
+    if SERVER then
+        for ply, k in pairs(self.PlayersHit) do
+            ply:TakeDamage(self.Damage, owner, self)
+        end
     end
     self.PlayersHit = {}
 end
