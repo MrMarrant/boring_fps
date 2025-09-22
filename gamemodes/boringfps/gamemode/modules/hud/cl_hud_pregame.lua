@@ -3,6 +3,8 @@ function BoringFPS.DisplayHUDPreGame()
     local timerStart = false
     local startTimer
     hook.Add( "HUDPaint", "HUDPaint:BoringFPS:HUDPreGame", function()
+        if (IsValid(LocalPlayer().TabMenu)) then return end
+
         local scrW, scrH = BoringFPS_CONFIG.Vars.ScrW, BoringFPS_CONFIG.Vars.ScrH
         BoringFPS.DrawClassSelect(scrW, scrH)
         BoringFPS.DrawInfoPreGame(scrW, scrH)
@@ -31,36 +33,24 @@ function BoringFPS.DrawClassSelect(scrW, scrH)
 end
 
 function BoringFPS.DrawInfoPreGame(scrW, scrH)
-    -- Dimensions rectangle
     local rectW, rectH = scrW * 0.10, scrH * 0.07
-    local rectX, rectY = scrW - rectW - 10, 10 -- marge de 10px du bord
+    local rectX, rectY = scrW - rectW - 10, 10
+    local bgColor = Color(0, 0, 0, 200)
 
-    -- Couleur de fond (noir avec 10% d'opacité)
-    local bgColor = Color(0, 0, 0, 200) -- 25/255 ≈ 10%
-
-    -- Dessiner le fond
     draw.RoundedBox(0, rectX, rectY, rectW, rectH, bgColor)
-
-    -- Dessiner la bordure blanche
     surface.SetDrawColor(255, 255, 255, 255)
     surface.DrawOutlinedRect(rectX, rectY, rectW, rectH, 1)
 
-    -- Texte à afficher
     local text = GetGlobalString("CurrentGameState", "")
     local font = "StateGame"
+    local lines = BoringFPS.WrapText(text, font, rectW - 8)
 
-    -- Découper le texte en lignes si trop large
-    local lines = BoringFPS.WrapText(text, font, rectW - 8) -- -8 pour marges intérieures
-
-    -- Calcul de la hauteur totale du texte
     surface.SetFont(font)
-    local _, lineHeight = surface.GetTextSize("Ay") -- hauteur approx d'une ligne
-    local totalTextHeight = #lines * lineHeight
 
-    -- Point de départ pour centrer verticalement
+    local _, lineHeight = surface.GetTextSize("Ay")
+    local totalTextHeight = #lines * lineHeight
     local startY = rectY + (rectH / 2) - (totalTextHeight / 2)
 
-    -- Dessiner chaque ligne centrée
     for i, line in ipairs(lines) do
         local y = startY + (i - 1) * lineHeight
         draw.DrawText(line, font, rectX + rectW / 2, y, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)

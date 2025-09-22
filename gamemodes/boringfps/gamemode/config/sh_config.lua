@@ -8,6 +8,7 @@ BoringFPS_CONFIG.Icons.HeartIcon = Material("boringfps/icons/heart_icon.png")
 BoringFPS_CONFIG.Icons.HeartFillIcon = Material("boringfps/icons/heart_fill_icon.png")
 BoringFPS_CONFIG.Icons.DisconnectedIcon = Material("boringfps/icons/skull_icon.png")
 BoringFPS_CONFIG.Icons.InfiniteIcon = Material("boringfps/icons/infinite_icon.png")
+
 BoringFPS_CONFIG.Icons.CircleIcon = Material("boringfps/ui/circle_ui.png")
 
 BoringFPS_CONFIG.Icons.PistolClass = Material("boringfps/class/pistol.png")

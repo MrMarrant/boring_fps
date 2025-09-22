@@ -1,9 +1,20 @@
 -- TODO : Revoir le responsive sur petit écran, nottament la taille des éléments
+local function RemoveAvatar()
+    local ply = LocalPlayer()
+    if (table.IsEmpty(ply.ListAvatar)) then return end
+    for _, avatar in ipairs(ply.ListAvatar) do
+        if IsValid(avatar) then
+            avatar:Remove()
+        end
+    end
+end
+
 function BoringFPS.DisplayHUDGame()
     local plyList = BoringFPS_CONFIG.Vars.PlayersInGame
     hook.Add( "HUDPaint", "HUDPaint:BoringFPS:HUDGame", function()
-        local scrW, scrH = BoringFPS_CONFIG.Vars.ScrW, BoringFPS_CONFIG.Vars.ScrH
+        if (IsValid(LocalPlayer().TabMenu)) then RemoveAvatar() return end
 
+        local scrW, scrH = BoringFPS_CONFIG.Vars.ScrW, BoringFPS_CONFIG.Vars.ScrH
         BoringFPS.DrawListPlayerTurn(scrW, scrH, plyList)
         BoringFPS.DrawHealth(scrW * 0.45, scrH * 0.9)
         BoringFPS.DrawLogs(scrW, scrH)
@@ -90,12 +101,7 @@ end
 
 function BoringFPS.StopHudGame()
     hook.Remove( "HUDPaint", "HUDPaint:BoringFPS:HUDGame" )
-    local ply = LocalPlayer()
-    for _, avatar in ipairs(ply.ListAvatar) do
-        if IsValid(avatar) then
-            avatar:Remove()
-        end
-    end
+    RemoveAvatar()
 end
 
 function BoringFPS.DisplayHUDPlay()

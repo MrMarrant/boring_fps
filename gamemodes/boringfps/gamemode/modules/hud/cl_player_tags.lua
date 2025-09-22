@@ -19,7 +19,7 @@ hook.Add( "PostPlayerDraw", "PostPlayerDraw:BoringFPS:PaintPlayerTags", function
 
 	cam.Start3D2D( pos, angle, 0.05 )
 
-    local scrW, scrH = ScrW(), ScrH()
+    local scrW, scrH = BoringFPS_CONFIG.Vars.ScrW, BoringFPS_CONFIG.Vars.ScrH
     local rectX = -rectW / 2
     local rectY = -rectH / 2
 
