@@ -36,12 +36,12 @@ function BoringFPS.StartGame()
     SetGlobalInt("GlobalTurn", 1)
     BoringFPS.StopHUDPreGame()
     BoringFPS_CONFIG.GameInProgress = true
-    BoringFPS.StartConditionEndGame(false)
     BoringFPS.SpawnPlayersOnGameMap()
     BoringFPS.DefineDirectionTurnPlay()
     timer.Simple(0.1, function() --? Weapon is null client side, so we are forced to wait until it's valid
     -- TODO : J'ai mis ça en place pour récupérer correctement les valeurs max (step, action, dash) des armes pour les HUD
     -- TODO : mais peut être il faudrait mieux set des variables cotés serveur (NW) et les récup coté client, ça éviterait d'utiliser ce timer.
+        BoringFPS.StartConditionEndGame()
         BoringFPS.SetTurnToWait(BoringFPS_CONFIG.Vars.PlayersInGame, true)
         BoringFPS.SetTurnToPlay(1)
         BoringFPS_CONFIG.Vars.CurrentMusic = table.Random(BoringFPS_CONFIG.Sounds.GameMusic)
@@ -53,21 +53,26 @@ end
 
 function BoringFPS.SpawnPlayersOnGameMap()
     local spawnPoints = BoringFPS.ShuffleTable(ents.FindByName("spawn_game"))
-    local players = player.GetAll()
+    local playersGet = table.ShuffleSequential( player.GetAll() )
     local colorAvailable = BoringFPS_CONFIG.Settings.ColorPlayer
     local colorPlayer = {}
-    BoringFPS.SetGlobalTable(players, "PlayersAlive")
-    for index, ply in ipairs(players) do
-        local weapon = ply:Give(BoringFPS_CONFIG.Settings.ClassWeapon[ply:GetNWString("ClassWeapon", BoringFPS_CONFIG.Settings.ListClass[1])])
-        ply:SetNWEntity( "WeaponGame", weapon)
-        colorPlayer[ply] = colorAvailable[index] or Color(0, 0, 0)
-        weapon:SetClip1(weapon:GetMaxClip1()) --? We set here bc weapon doesnt load itself for some reasons
+
+    for index, ply in ipairs(playersGet) do
         local location = spawnPoints[index]
         if location then
+            local weapon = ply:Give(BoringFPS_CONFIG.Settings.ClassWeapon[ply:GetNWString("ClassWeapon", BoringFPS_CONFIG.Settings.ListClass[1])])
             ply:SetPos(location:GetPos())
             ply:SetAngles(location:GetAngles())
+            ply:SetNWEntity( "WeaponGame", weapon)
+            weapon:SetClip1(weapon:GetMaxClip1()) --? We set here bc weapon doesnt load itself for some reasons
+            colorPlayer[ply] = colorAvailable[index] or Color(0, 0, 0)
+        else
+            ply:KillSilent()
+            BoringFPS.EnterSpectatorMode(ply)
         end
     end
+    local players = table.Count(playersGet) > #spawnPoints and BoringFPS.TableShrink(playersGet, table.Count(playersGet) - #spawnPoints) or playersGet
+    BoringFPS.SetGlobalTable(players, "PlayersAlive")
     BoringFPS.SetGlobalTable(colorPlayer, "ColorBox")
 end
 

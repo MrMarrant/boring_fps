@@ -82,13 +82,16 @@ BoringFPS_CONFIG.Settings.ColorPlayer = {
 -- Models
 BoringFPS_CONFIG.Models = {}
 BoringFPS_CONFIG.Models.Characters = {
-    "models/alyx.mdl",
-    "models/Eli.mdl",
-    "models/gman_high.mdl",
-    "models/Kleiner.mdl",
-    "models/monk.mdl",
-    "models/vortigaunt.mdl",
-    "models/Humans/Group02/male_07.mdl"
+    "models/player/breen.mdl",
+    "models/player/barney.mdl",
+    "models/player/Group01/male_07.mdl",
+    "models/player/gman_high.mdl",
+    "models/player/alyx.mdl",
+    "models/player/combine_super_soldier.mdl",
+    "models/player/police.mdl",
+    "models/player/monk.mdl",
+    "models/player/corpse1.mdl",
+    "models/player/soldier_stripped.mdl"
 }
 BoringFPS_CONFIG.Models.Rocket = Model("models/props_c17/doll01.mdl")
 BoringFPS_CONFIG.Models.SelectionClass = Model("models/props_borealis/bluebarrel001.mdl") --? Default model of the entity if none was set from hammer param

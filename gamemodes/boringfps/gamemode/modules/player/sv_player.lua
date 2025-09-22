@@ -77,7 +77,6 @@ hook.Add("PlayerInitialSpawn", "PlayerInitialSpawn:BoringFPS:SetupData", functio
     ply:SetNWInt("Action", -1)
     ply:SetNWInt("Dash", -1)
     ply:SetNWString("ClassWeapon", "pistol")
-    ply:SetModel(table.Random(BoringFPS_CONFIG.Models.Characters))
     BoringFPS.DisplayHUDPreGame(ply)
 end)
 
@@ -85,8 +84,16 @@ end)
 gameevent.Listen( "player_activate" )
 hook.Add("player_activate", "player_activate.BoringFPS:OnActivate", function( data )
     local ply = Player(data.userid)
-    ply:StripWeapons()
     ply:SetState("free")
+end)
+
+hook.Add("PlayerSetModel", "BoringFPS:PlayerSetModel:SetModelSpawn", function( ply )
+    ply:SetModel(table.Random(BoringFPS_CONFIG.Models.Characters))
+    return true
+end)
+
+hook.Add("PlayerLoadout", "BoringFPS:PlayerLoadout:PlayerSetWeapon", function( ply )
+    return true
 end)
 
 -- ============================
