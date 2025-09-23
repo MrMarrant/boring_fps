@@ -14,7 +14,8 @@ BoringFPS_CONFIG = BoringFPS_CONFIG or {}
 -- Lang
 BoringFPS_LANG = BoringFPS_LANG or {}
 -- Actual lang server
-SCP_1025_CONFIG.LangServer = GetConVar("gmod_language"):GetString()
+BoringFPS_CONFIG.LangServer = GetConVar("gmod_language"):GetString()
+BoringFPS.Version = "v0.1.2"
 
 local root = GM.FolderName
 local prefixOrder = {

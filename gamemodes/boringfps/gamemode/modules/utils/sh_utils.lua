@@ -31,3 +31,18 @@ function table.ShuffleSequential(t)
     end
     return t
 end
+
+function BoringFPS.FetchData(link, callback)
+    http.Fetch(link,
+        function(body, len, headers, code)
+            if callback then
+                callback(true, body, code, headers)
+            end
+        end,
+        function(error)
+            if callback then
+                callback(false, error)
+            end
+        end
+    )
+end

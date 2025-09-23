@@ -11,6 +11,11 @@ surface.CreateFont( "NickAnton", {
     size = 35
 } )
 
+surface.CreateFont( "Version", {
+    font = "Anton",
+    size = 20
+} )
+
 surface.CreateFont( "StateGame", {
     font = "Anton",
     size = 30
@@ -35,8 +40,6 @@ surface.CreateFont( "TabHUDSmall", {
     font = "DefaultFixed",
     size = 25
 } )
-
-
 
 hook.Add( "OnScreenSizeChanged", "OnScreenSizeChanged.BoringFPS", function( oldWidth, oldHeight )
     BoringFPS_CONFIG.Vars.ScrW = ScrW()

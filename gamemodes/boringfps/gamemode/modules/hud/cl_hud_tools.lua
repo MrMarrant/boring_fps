@@ -97,3 +97,7 @@ function BoringFPS.TruncatedText(text, font, maxWidth)
     end
     return text
 end
+
+function BoringFPS.DrawVersionGamemode(scrW, scrH)
+    draw.SimpleText(BoringFPS.Version, "Version", scrW * 0.001, scrH * 0.98, Color(255, 255, 255))
+end

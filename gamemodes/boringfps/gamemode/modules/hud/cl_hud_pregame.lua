@@ -8,6 +8,7 @@ function BoringFPS.DisplayHUDPreGame()
         local scrW, scrH = BoringFPS_CONFIG.Vars.ScrW, BoringFPS_CONFIG.Vars.ScrH
         BoringFPS.DrawClassSelect(scrW, scrH)
         BoringFPS.DrawInfoPreGame(scrW, scrH)
+        BoringFPS.DrawVersionGamemode(scrW, scrH)
         if (GetGlobalBool("IsStartTimerPreGame")) then
             ct = CurTime()
             startTimer = timerStart and startTimer or (ct + timerPreGame)

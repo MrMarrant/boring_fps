@@ -112,6 +112,10 @@ BoringFPS_CONFIG.Sounds.GameMusic = {
     "boring_fps/music/theme_boringfps_4.wav"
 }
 
+-- Links
+BoringFPS_CONFIG.Links = {}
+BoringFPS_CONFIG.Links.PatchNote = "https://pastebin.com/raw/TfVkDPqP"
+
 -- NET VAR
 BoringFPS_CONFIG.NetVar = {}
 BoringFPS_CONFIG.NetVar.StartClientPlay = "BoringFPS_CONFIG.StartClientPlay"

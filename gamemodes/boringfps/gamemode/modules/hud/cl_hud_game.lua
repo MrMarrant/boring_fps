@@ -19,6 +19,7 @@ function BoringFPS.DisplayHUDGame()
         BoringFPS.DrawHealth(scrW * 0.45, scrH * 0.9)
         BoringFPS.DrawLogs(scrW, scrH)
         BoringFPS.DrawGlobalTurn(scrW, scrH)
+        BoringFPS.DrawVersionGamemode(scrW, scrH)
     end)
 end
 
