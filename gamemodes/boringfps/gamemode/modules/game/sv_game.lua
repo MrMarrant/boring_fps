@@ -33,7 +33,7 @@ end
 
 function BoringFPS.StartTimerTurn()
     if (not timer.Exists("BoringFPS:TimerTurn")) then
-        timer.Create("BoringFPS:TimerTurn", BoringFPS_CONFIG.Settings.LimitTimeTurn, 1, function()
+        timer.Create("BoringFPS:TimerTurn", GetGlobalInt("CurrentLimitTimer", BoringFPS_CONFIG.Settings.LimitTimeTurn), 1, function()
             BoringFPS.EndTurn()
         end)
     end
@@ -62,13 +62,22 @@ function BoringFPS.GetNextPlayerTurn()
         nextIndex = nextIndex + 1
         if nextIndex > sizeTable then
             nextIndex = 1
-            SetGlobalInt("GlobalTurn", GetGlobalInt("GlobalTurn", 1) + 1)
+            BoringFPS.NewGlobalTurn()
         end
         if (BoringFPS_CONFIG.DirectionTurnPlayers[nextIndex]) then
             return nextIndex -- Return the new index and exit this loop
         end
     end
     return -1
+end
+
+function BoringFPS.NewGlobalTurn()
+    local currentGlobalTurn = GetGlobalInt("GlobalTurn", 1) + 1
+    SetGlobalInt("GlobalTurn", currentGlobalTurn)
+    hook.Call("NewGlobalTurn")
+    if (currentGlobalTurn >= BoringFPS_CONFIG.Settings.GlobalTurnEndGame) then
+        BoringFPS.CheckEndGameEvent()
+    end
 end
 
 function BoringFPS.EndGame(reset)
@@ -121,6 +130,35 @@ function BoringFPS.StopSound(sound, ply)
     else
         net.Broadcast()
     end
+end
+
+function BoringFPS.CheckEndGameEvent()
+    if (BoringFPS_CONFIG.Vars.EndGameEnabled) then return end
+
+    local playersAlive = #BoringFPS_CONFIG.Vars.PlayersAlive
+    local playersInGame = BoringFPS_CONFIG.Vars.NumberOfPlayers
+    local currentTurn = GetGlobalInt("GlobalTurn", 0)
+
+    if ((playersAlive <= math.ceil(playersInGame / 2)) and currentTurn >= BoringFPS_CONFIG.Settings.GlobalTurnEndGame) then
+        BoringFPS.StartEndGameEvent()
+    end
+end
+
+function BoringFPS.StartEndGameEvent()
+    -- TODO : l'afficher au joueurs coté client ? via un élément hud
+    BoringFPS_CONFIG.Vars.EndGameEnabled = true -- TODO : définir coté client ? -> donc la définir via globalbool
+    BoringFPS.InsertLogs("Starting end game event!")
+    hook.Add("NewGlobalTurn", "BoringFPS:NewGlobalTurn:HitPlayers", function ()
+        local playersAlive = BoringFPS_CONFIG.Vars.PlayersAlive
+        local defaultLimitTimer = BoringFPS_CONFIG.Settings.LimitTimeTurn
+        local damageTurn = BoringFPS_CONFIG.Settings.DamageEndGame
+        for key, survivor in ipairs(playersAlive) do
+            BoringFPS.InsertLogs(survivor:Nick() .. " received " .. math.Round(damageTurn) .. " damage\n from end game event!")
+            survivor:TakeDamage(damageTurn, game.GetWorld(), game.GetWorld())
+        end
+        BoringFPS.RevealAura(BoringFPS_CONFIG.Settings.DurationRevealEndGame, playersAlive, Color(153, 0, 0))
+        SetGlobalInt("CurrentLimitTimer", math.Clamp(GetGlobalInt("CurrentLimitTimer", defaultLimitTimer) - 1, defaultLimitTimer / 2, defaultLimitTimer))
+    end)
 end
 
 hook.Add( "EntityTakeDamage", "BoringFPS:EntityTakeDamage:ShootGunKnockBack", function( target, dmginfo )

@@ -30,10 +30,11 @@ end
 
 function BoringFPS.StartGame()
     -- Démarrer le jeu
-    hook.Remove( "Think", "GM:BoringFPS:Think:CanStartNewGame" )
+    hook.Remove("Think", "GM:BoringFPS:Think:CanStartNewGame")
     SetGlobalBool("IsStartTimerPreGame", false)
     SetGlobalString("CurrentGameState", "Game in progress...")
     SetGlobalInt("GlobalTurn", 1)
+    SetGlobalInt("CurrentLimitTimer", BoringFPS_CONFIG.Settings.LimitTimeTurn)
     BoringFPS.StopHUDPreGame()
     BoringFPS_CONFIG.GameInProgress = true
     BoringFPS.SpawnPlayersOnGameMap()
@@ -101,6 +102,7 @@ function BoringFPS.DefineDirectionTurnPlay()
     BoringFPS_CONFIG.DirectionTurnPlayers = directionTurn
     BoringFPS_CONFIG.LastIndexDirectionTurn = #directionTurn
     BoringFPS.SetGlobalTable(directionTurn, "PlayersInGame")
+    BoringFPS_CONFIG.Vars.NumberOfPlayers = #directionTurn
 end
 
 function BoringFPS.ResetParams()
@@ -108,11 +110,13 @@ function BoringFPS.ResetParams()
     BoringFPS_CONFIG.DirectionTurnPlayers = {}
     BoringFPS_CONFIG.LastIndexDirectionTurn = nil
     BoringFPS_CONFIG.GameInProgress = false
+    BoringFPS_CONFIG.Vars.EndGameEnabled = false
     BoringFPS.SetGlobalTable({}, "PlayersInGame")
     BoringFPS.SetGlobalTable({}, "PlayersAlive")
     BoringFPS.SetGlobalTable({}, "GameLogs")
     SetGlobalInt("GlobalTurn", 0)
     SetGlobalInt("CurrentIndexDirectionTurn", -1)
+    hook.Remove("NewGlobalTurn", "BoringFPS:NewGlobalTurn:HitPlayers")
     hook.Remove("PlayerDeath", "PlayerDeath:BoringFPS:ConditionEndGame")
     hook.Remove("PlayerDisconnected", "PlayerDisconnected:BoringFPS:ConditionEndGame")
     hook.Remove("EntityTakeDamage", "EntityTakeDamage:BoringFPS:NotifyPlayerHit")
@@ -147,6 +151,8 @@ function BoringFPS.OnPlayerLeave(ply, inflictor, attacker)
         ply:EmitSound("boring_fps/sfx/ded.mp3", 90, math.random(90, 110))
         net.Start(BoringFPS_CONFIG.NetVar.StopClientTurn)
         net.Send(ply)
+
+        BoringFPS.CheckEndGameEvent()
     end
     if (table.Count(BoringFPS_CONFIG.Vars.PlayersAlive) <= 1) then
         BoringFPS.EndGame(false)

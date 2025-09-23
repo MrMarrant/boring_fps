@@ -36,6 +36,9 @@ BoringFPS_CONFIG.Settings.MinVelocityKnockBackDamage = 100 -- Define the minimum
 BoringFPS_CONFIG.Settings.MaxVelocityKnockBackDamage = 350 -- Define the maximum velocity for knockback damage
 BoringFPS_CONFIG.Settings.MinDamageKnockBack = 5 -- Define the minimum damage that can be applied from knockback
 BoringFPS_CONFIG.Settings.MaxDamageKnockBack = 40 -- Define the maximum damage that can be applied from knockback
+BoringFPS_CONFIG.Settings.GlobalTurnEndGame = 10 -- Define the global turn where endgame can start
+BoringFPS_CONFIG.Settings.DamageEndGame = 10 -- Define the damage to deal to player when end game event is enabled
+BoringFPS_CONFIG.Settings.DurationRevealEndGame = 3 -- Define how long players are reveal when endgame event is enabled
 BoringFPS_CONFIG.Settings.ListClass = {
     "pistol",
     "shootgun",
@@ -137,3 +140,5 @@ BoringFPS_CONFIG.Vars.PlayersInGame = {}
 BoringFPS_CONFIG.Vars.GameLogs = {}
 BoringFPS_CONFIG.Vars.PlayersAlive = {}
 BoringFPS_CONFIG.Vars.ColorBox = {}
+BoringFPS_CONFIG.Vars.EndGameEnabled = false
+BoringFPS_CONFIG.Vars.NumberOfPlayers = 0

@@ -106,7 +106,7 @@ function BoringFPS.StopHudGame()
 end
 
 function BoringFPS.DisplayHUDPlay()
-    local timeLimit = BoringFPS_CONFIG.Settings.LimitTimeTurn
+    local timeLimit = GetGlobalInt("CurrentLimitTimer", BoringFPS_CONFIG.Settings.LimitTimeTurn)
     local startTime = CurTime() + timeLimit
     local ply = LocalPlayer()
     local weapon = ply:GetNWEntity("WeaponGame", nil)
@@ -114,7 +114,7 @@ function BoringFPS.DisplayHUDPlay()
     local actionMax = weapon and weapon.Action or 0
 
     hook.Add( "HUDPaint", "HUDPaint:BoringFPS:HUDTurn", function()
-        BoringFPS.DrawTimerLeft(BoringFPS_CONFIG.Vars.ScrW, BoringFPS_CONFIG.Vars.ScrH, math.Round(startTime - CurTime()) + 1)
+        BoringFPS.DrawTimerLeft(BoringFPS_CONFIG.Vars.ScrW, BoringFPS_CONFIG.Vars.ScrH, math.Round(startTime - CurTime()))
         BoringFPS.DrawStepLeftHUD(BoringFPS_CONFIG.Vars.ScrW * 0.8, BoringFPS_CONFIG.Vars.ScrH * 0.9, ply:GetNWInt("StepLeft", 0), stepMax)
         BoringFPS.DrawActionLeft(BoringFPS_CONFIG.Vars.ScrW * 0.8, BoringFPS_CONFIG.Vars.ScrH * 0.95, ply:GetNWInt("Action", 0), actionMax)
     end )
