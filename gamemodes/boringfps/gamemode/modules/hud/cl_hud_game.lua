@@ -20,6 +20,10 @@ function BoringFPS.DisplayHUDGame()
         BoringFPS.DrawLogs(scrW, scrH)
         BoringFPS.DrawGlobalTurn(scrW, scrH)
         BoringFPS.DrawVersionGamemode(scrW, scrH)
+        if (GetGlobalBool("EndGameEnabled", false)) then
+            local cycle = BoringFPS.Oscillate(1.5, 5, 8)
+            BoringFPS.DrawRoundedOutlinedBox(0, 0, 0, scrW, scrH, cycle, Color(0, 0, 0, 0), Color(63, 0, 0))
+        end
     end)
 end
 

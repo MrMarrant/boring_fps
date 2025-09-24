@@ -74,10 +74,10 @@ function BoringFPS.DrawIconHud(icon, x, y, col, w, h)
     surface.DrawTexturedRect(x, y - 5, w, h)
 end
 
-function BoringFPS.DrawRoundedOutlinedBox(r, x, y, w, h, bgColor, borderColor)
+function BoringFPS.DrawRoundedOutlinedBox(r, x, y, w, h, thickBorder, bgColor, borderColor)
     draw.RoundedBox(r, x, y, w, h, bgColor)
     surface.SetDrawColor(borderColor)
-    surface.DrawOutlinedRect(x, y, w, h, 2)
+    surface.DrawOutlinedRect(x, y, w, h, thickBorder)
 end
 
 function BoringFPS.TruncatedText(text, font, maxWidth)

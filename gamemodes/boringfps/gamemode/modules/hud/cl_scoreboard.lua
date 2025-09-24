@@ -11,7 +11,7 @@ local function CreatePatchContainer(frame, scrW, scrH, x, y)
     local html = vgui.Create("DHTML", frame)
     html:SetPos(x, y)
     html:SetSize(sizePatchW, sizePatchH)
-    html:SetHTML(BoringFPS_CONFIG.Vars.LastPatch)
+    html:SetHTML(BoringFPS_CONFIG.Vars.LastPatch or "")
 end
 
 local function CreatePlayerListContainer(frame, scrW, scrH, x, y)
@@ -72,8 +72,8 @@ local function CreateScoreBoardHUD()
     frame.Paint = function(self, w, h)
         surface.SetDrawColor(0, 0, 0, 100)
         surface.DrawRect(0, 0, w, h)
-        BoringFPS.DrawRoundedOutlinedBox(cornerRadius, plyListX, plyListY, scrW * plyListW, scrH * plyListH, Color(0, 0, 0, 150), color_white)
-        BoringFPS.DrawRoundedOutlinedBox(cornerRadius, patchX, patchY, scrW * patchW, scrH * patchH, Color(0, 0, 0, 206), color_white)
+        BoringFPS.DrawRoundedOutlinedBox(cornerRadius, plyListX, plyListY, scrW * plyListW, scrH * plyListH, 2, Color(0, 0, 0, 150), color_white)
+        BoringFPS.DrawRoundedOutlinedBox(cornerRadius, patchX, patchY, scrW * patchW, scrH * patchH, 2, Color(0, 0, 0, 206), color_white)
     end
 
     CreatePatchContainer(frame, scrW, scrH, patchX, patchY)

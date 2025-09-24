@@ -23,6 +23,8 @@ end
 
 function BoringFPS.SetTurnToPlay(index)
     local ply = BoringFPS_CONFIG.DirectionTurnPlayers[index]
+    if (not IsValid(ply)) then return end
+
     hook.Call("PlayerTurnStart", nil, ply)
     SetGlobalInt("CurrentIndexDirectionTurn", index)
     BoringFPS_CONFIG.CurrentPlayerTurn = ply
@@ -80,13 +82,13 @@ function BoringFPS.NewGlobalTurn()
     end
 end
 
-function BoringFPS.EndGame(reset)
+function BoringFPS.GameFinish(reset)
     local winner = BoringFPS_CONFIG.Vars.PlayersAlive[1]
     local name = IsValid(winner) and winner:GetName() or "MrMarrant"
     local congratMsg = reset and "DRAW" or name .. "'s has won!"
 
     BoringFPS.InsertLogs(congratMsg)
-    BoringFPS.PlaySound(BoringFPS_CONFIG.Sounds.WinGame)
+    BoringFPS.ReadSound(BoringFPS_CONFIG.Sounds.WinGame, game.GetWorld(), 0 )
     for k, survivor in ipairs(BoringFPS_CONFIG.Vars.PlayersAlive) do
         survivor:SetState("free")
     end
@@ -105,35 +107,13 @@ function BoringFPS.EndGame(reset)
             value:SetNWInt("Dash", -1)
             value:StripWeapons()
         end
-        BoringFPS.StopSound(BoringFPS_CONFIG.Vars.CurrentMusic)
+        BoringFPS_CONFIG.Vars.CurrentMusic:Stop()
         BoringFPS.NewGame()
     end)
 end
 
-function BoringFPS.PlaySound(sound, loop, ply)
-    loop = loop or false
-    net.Start(BoringFPS_CONFIG.NetVar.PlayClientSound)
-    net.WriteString(sound)
-    net.WriteBool(loop)
-    if (ply) then
-        net.Send(ply)
-    else
-        net.Broadcast()
-    end
-end
-
-function BoringFPS.StopSound(sound, ply)
-    net.Start(BoringFPS_CONFIG.NetVar.StopPlayClientSound)
-    net.WriteString(sound)
-    if (ply) then
-        net.Send(ply)
-    else
-        net.Broadcast()
-    end
-end
-
 function BoringFPS.CheckEndGameEvent()
-    if (BoringFPS_CONFIG.Vars.EndGameEnabled) then return end
+    if (GetGlobalBool("EndGameEnabled", false)) then return end
 
     local playersAlive = #BoringFPS_CONFIG.Vars.PlayersAlive
     local playersInGame = BoringFPS_CONFIG.Vars.NumberOfPlayers
@@ -145,9 +125,10 @@ function BoringFPS.CheckEndGameEvent()
 end
 
 function BoringFPS.StartEndGameEvent()
-    -- TODO : l'afficher au joueurs coté client ? via un élément hud
-    BoringFPS_CONFIG.Vars.EndGameEnabled = true -- TODO : définir coté client ? -> donc la définir via globalbool
+    SetGlobalBool("EndGameEnabled", true)
     BoringFPS.InsertLogs("Starting end game event!")
+    BoringFPS_CONFIG.Vars.CurrentMusic:FadeOut(4)
+    BoringFPS_CONFIG.Vars.CurrentMusic = BoringFPS.ReadSound(BoringFPS_CONFIG.Sounds.EndEventMusic, game.GetWorld(), 0, 10)
     hook.Add("NewGlobalTurn", "BoringFPS:NewGlobalTurn:HitPlayers", function ()
         local playersAlive = BoringFPS_CONFIG.Vars.PlayersAlive
         local defaultLimitTimer = BoringFPS_CONFIG.Settings.LimitTimeTurn

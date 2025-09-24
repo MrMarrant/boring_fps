@@ -108,6 +108,8 @@ BoringFPS_CONFIG.Sounds.WinGame = Sound("boring_fps/sfx/turn/win_game.mp3")
 BoringFPS_CONFIG.Sounds.OnUse = Sound("boring_fps/sfx/ui/on_use.mp3")
 BoringFPS_CONFIG.Sounds.RevealAura = Sound("boring_fps/sfx/game/reveal_aura.mp3")
 BoringFPS_CONFIG.Sounds.Detonate = Sound("boring_fps/sfx/game/detonate.mp3")
+BoringFPS_CONFIG.Sounds.DeathSound = Sound("boring_fps/sfx/ded.mp3")
+BoringFPS_CONFIG.Sounds.EndEventMusic = Sound("boring_fps/music/end_music.wav")
 BoringFPS_CONFIG.Sounds.GameMusic = {
     "boring_fps/music/theme_boringfps_1.wav",
     "boring_fps/music/theme_boringfps_2.wav",
@@ -123,8 +125,6 @@ BoringFPS_CONFIG.Links.PatchNote = "https://pastebin.com/raw/TfVkDPqP"
 BoringFPS_CONFIG.NetVar = {}
 BoringFPS_CONFIG.NetVar.StartClientPlay = "BoringFPS_CONFIG.StartClientPlay"
 BoringFPS_CONFIG.NetVar.StopClientTurn = "BoringFPS_CONFIG.StopClientTurn"
-BoringFPS_CONFIG.NetVar.PlayClientSound = "BoringFPS_CONFIG.PlayClientSound"
-BoringFPS_CONFIG.NetVar.StopPlayClientSound = "BoringFPS_CONFIG.StopPlayClientSound"
 BoringFPS_CONFIG.NetVar.StartClientWait = "BoringFPS_CONFIG.StartClientWait"
 BoringFPS_CONFIG.NetVar.StartClientHUDGame = "BoringFPS_CONFIG.StartClientHUDGame"
 BoringFPS_CONFIG.NetVar.EndGame = "BoringFPS_CONFIG.StopClientHUDGame"
@@ -140,5 +140,4 @@ BoringFPS_CONFIG.Vars.PlayersInGame = {}
 BoringFPS_CONFIG.Vars.GameLogs = {}
 BoringFPS_CONFIG.Vars.PlayersAlive = {}
 BoringFPS_CONFIG.Vars.ColorBox = {}
-BoringFPS_CONFIG.Vars.EndGameEnabled = false
 BoringFPS_CONFIG.Vars.NumberOfPlayers = 0

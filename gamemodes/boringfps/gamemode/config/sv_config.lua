@@ -1,8 +1,6 @@
 -- AddNetworkString
 util.AddNetworkString(BoringFPS_CONFIG.NetVar.StartClientPlay)
 util.AddNetworkString(BoringFPS_CONFIG.NetVar.StopClientTurn)
-util.AddNetworkString(BoringFPS_CONFIG.NetVar.PlayClientSound)
-util.AddNetworkString(BoringFPS_CONFIG.NetVar.StopPlayClientSound)
 util.AddNetworkString(BoringFPS_CONFIG.NetVar.StartClientWait)
 util.AddNetworkString(BoringFPS_CONFIG.NetVar.StartClientHUDGame)
 util.AddNetworkString(BoringFPS_CONFIG.NetVar.EndGame)

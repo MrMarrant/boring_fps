@@ -45,8 +45,7 @@ function BoringFPS.StartGame()
         BoringFPS.StartConditionEndGame()
         BoringFPS.SetTurnToWait(BoringFPS_CONFIG.Vars.PlayersInGame, true)
         BoringFPS.SetTurnToPlay(1)
-        BoringFPS_CONFIG.Vars.CurrentMusic = table.Random(BoringFPS_CONFIG.Sounds.GameMusic)
-        BoringFPS.PlaySound(BoringFPS_CONFIG.Vars.CurrentMusic, true)
+        BoringFPS_CONFIG.Vars.CurrentMusic = BoringFPS.ReadSound(table.Random(BoringFPS_CONFIG.Sounds.GameMusic), game.GetWorld(), 0)
         net.Start(BoringFPS_CONFIG.NetVar.StartClientHUDGame)
         net.Broadcast()
     end)
@@ -110,10 +109,10 @@ function BoringFPS.ResetParams()
     BoringFPS_CONFIG.DirectionTurnPlayers = {}
     BoringFPS_CONFIG.LastIndexDirectionTurn = nil
     BoringFPS_CONFIG.GameInProgress = false
-    BoringFPS_CONFIG.Vars.EndGameEnabled = false
     BoringFPS.SetGlobalTable({}, "PlayersInGame")
     BoringFPS.SetGlobalTable({}, "PlayersAlive")
     BoringFPS.SetGlobalTable({}, "GameLogs")
+    SetGlobalBool("EndGameEnabled", false)
     SetGlobalInt("GlobalTurn", 0)
     SetGlobalInt("CurrentIndexDirectionTurn", -1)
     hook.Remove("NewGlobalTurn", "BoringFPS:NewGlobalTurn:HitPlayers")
@@ -148,14 +147,14 @@ function BoringFPS.OnPlayerLeave(ply, inflictor, attacker)
         if (ply == BoringFPS_CONFIG.CurrentPlayerTurn) then
             BoringFPS.EndTurn()
         end
-        ply:EmitSound("boring_fps/sfx/ded.mp3", 90, math.random(90, 110))
+        BoringFPS.ReadSound( BoringFPS_CONFIG.Sounds.DeathSound, ply, 120 )
         net.Start(BoringFPS_CONFIG.NetVar.StopClientTurn)
         net.Send(ply)
 
         BoringFPS.CheckEndGameEvent()
     end
     if (table.Count(BoringFPS_CONFIG.Vars.PlayersAlive) <= 1) then
-        BoringFPS.EndGame(false)
+        BoringFPS.GameFinish(false)
     end
 end
 

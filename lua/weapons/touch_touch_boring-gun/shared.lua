@@ -74,7 +74,7 @@ function SWEP:SecondaryShoot()
     if not IsValid(owner) or table.IsEmpty(self.PlayersHit) then return end
 
     self:Detonate(owner)
-    BoringFPS.PlaySound("weapons/physcannon/energy_sing_explosion2.wav")
+    BoringFPS.ReadSound("weapons/physcannon/energy_sing_explosion2.wav", game.GetWorld(), 0)
     owner:ChatPrint("Vous avez fait exploser les joueurs touchés.")
     owner:SetNWInt("Action", 0)
     if (SERVER) then

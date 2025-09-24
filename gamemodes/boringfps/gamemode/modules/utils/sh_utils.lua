@@ -41,8 +41,54 @@ function BoringFPS.FetchData(link, callback)
         end,
         function(error)
             if callback then
+                print(error)
                 callback(false, error)
             end
         end
     )
+end
+
+function BoringFPS.Oscillate(duration, minVal, maxVal)
+    local progress = (CurTime() % duration) / duration
+    local sinVal = math.sin(progress * math.pi * 2) * 0.5 + 0.5
+    
+    return Lerp(sinVal, minVal, maxVal)
+end
+
+local LoadedSounds
+if CLIENT then
+	LoadedSounds = {} -- this table caches existing CSoundPatches
+end
+
+function BoringFPS.ReadSound( FileName, ent, volume, fadeInDuration )
+	local sound
+	local filter
+	if SERVER then
+		filter = RecipientFilter()
+		filter:AddAllPlayers()
+	end
+	if SERVER or !LoadedSounds[FileName] then
+		-- The sound is always re-created serverside because of the RecipientFilter.
+		sound = CreateSound( ent, FileName, filter ) -- create the new sound, parented to the worldspawn (which always exists)
+		if sound then
+			sound:SetSoundLevel( volume )
+			if CLIENT then
+				LoadedSounds[FileName] = { sound, filter } -- cache the CSoundPatch
+			end
+		end
+	else
+		sound = LoadedSounds[FileName][1]
+		filter = LoadedSounds[FileName][2]
+	end
+	if sound then
+		if CLIENT then
+			sound:Stop() -- it won't play again otherwise
+		end
+		sound:Play()
+	end
+    if (fadeInDuration) then
+        sound:ChangeVolume(0, 0)
+        sound:ChangeVolume(1, fadeInDuration)
+    end
+	return sound -- useful if you want to stop the sound yourself
 end

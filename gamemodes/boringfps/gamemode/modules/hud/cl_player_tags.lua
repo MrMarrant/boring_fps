@@ -23,7 +23,7 @@ hook.Add( "PostPlayerDraw", "PostPlayerDraw:BoringFPS:PaintPlayerTags", function
     local rectX = -rectW / 2
     local rectY = -rectH / 2
 
-    BoringFPS.DrawRoundedOutlinedBox(cornerRadius, rectX, rectY, rectW, rectH, colorBox, color_white)
+    BoringFPS.DrawRoundedOutlinedBox(cornerRadius, rectX, rectY, rectW, rectH, 2, colorBox, color_white)
 
     local centerY = rectY + rectH / 2
     local playerName = BoringFPS.TruncatedText(ply:Nick(), "DermaLarge", rectW - margin * 2.7 - iconSize)
