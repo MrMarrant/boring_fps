@@ -60,12 +60,16 @@ if CLIENT then
 	LoadedSounds = {} -- this table caches existing CSoundPatches
 end
 
-function BoringFPS.ReadSound( FileName, ent, volume, fadeInDuration )
+function BoringFPS.ReadSound( FileName, ent, volume, filterTable, fadeInDuration )
 	local sound
 	local filter
 	if SERVER then
-		filter = RecipientFilter()
-		filter:AddAllPlayers()
+        filter = RecipientFilter()
+        if (filterTable and not table.IsEmpty(filterTable)) then
+            filter:AddPlayers(filterTable)
+        else
+            filter:AddAllPlayers()
+        end
 	end
 	if SERVER or !LoadedSounds[FileName] then
 		-- The sound is always re-created serverside because of the RecipientFilter.

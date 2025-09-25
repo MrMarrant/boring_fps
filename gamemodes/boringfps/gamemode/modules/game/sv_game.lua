@@ -48,8 +48,12 @@ function BoringFPS.EndTurn()
     if (IsValid(ply)) then
         BoringFPS.InsertLogs(ply:GetName() .. "'s turn has ended!")
         BoringFPS.SetTurnToWait({ply})
+        local players = table.Copy(BoringFPS_CONFIG.DirectionTurnPlayers)
+        players[ply:GetNWInt("NumberTurn")] = nil
+        BoringFPS.ReadSound(BoringFPS_CONFIG.Sounds.NotifTurnEnd, game.GetWorld(), 0, players)
     else
         BoringFPS.InsertLogs("Turn has ended!")
+        BoringFPS.ReadSound(BoringFPS_CONFIG.Sounds.NotifTurnEnd, game.GetWorld(), 0)
     end
     timer.Create("BoringFPS:NextTurn", BoringFPS_CONFIG.Settings.TimerBetweenTurns, 1, function()
         BoringFPS.SetTurnToPlay(BoringFPS.GetNextPlayerTurn())
@@ -128,7 +132,7 @@ function BoringFPS.StartEndGameEvent()
     SetGlobalBool("EndGameEnabled", true)
     BoringFPS.InsertLogs("Starting end game event!")
     BoringFPS_CONFIG.Vars.CurrentMusic:FadeOut(4)
-    BoringFPS_CONFIG.Vars.CurrentMusic = BoringFPS.ReadSound(BoringFPS_CONFIG.Sounds.EndEventMusic, game.GetWorld(), 0, 10)
+    BoringFPS_CONFIG.Vars.CurrentMusic = BoringFPS.ReadSound(BoringFPS_CONFIG.Sounds.EndEventMusic, game.GetWorld(), 0, nil, 10)
     hook.Add("NewGlobalTurn", "BoringFPS:NewGlobalTurn:HitPlayers", function ()
         local playersAlive = BoringFPS_CONFIG.Vars.PlayersAlive
         local defaultLimitTimer = BoringFPS_CONFIG.Settings.LimitTimeTurn
