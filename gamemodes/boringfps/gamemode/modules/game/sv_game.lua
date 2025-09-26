@@ -49,7 +49,7 @@ function BoringFPS.EndTurn()
         BoringFPS.InsertLogs(ply:GetName() .. "'s turn has ended!")
         BoringFPS.SetTurnToWait({ply})
         local players = table.Copy(BoringFPS_CONFIG.DirectionTurnPlayers)
-        players[ply:GetNWInt("NumberTurn")] = nil
+        table.remove(players, ply:GetNWInt("NumberTurn"))
         BoringFPS.ReadSound(BoringFPS_CONFIG.Sounds.NotifTurnEnd, game.GetWorld(), 0, players)
     else
         BoringFPS.InsertLogs("Turn has ended!")

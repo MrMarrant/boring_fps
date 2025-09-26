@@ -112,15 +112,9 @@ end
 function BoringFPS.DisplayHUDPlay()
     local timeLimit = GetGlobalInt("CurrentLimitTimer", BoringFPS_CONFIG.Settings.LimitTimeTurn)
     local startTime = CurTime() + timeLimit
-    local ply = LocalPlayer()
-    local weapon = ply:GetNWEntity("WeaponGame", nil)
-    local stepMax = weapon and weapon.MaxStep or 0
-    local actionMax = weapon and weapon.Action or 0
 
     hook.Add( "HUDPaint", "HUDPaint:BoringFPS:HUDTurn", function()
         BoringFPS.DrawTimerLeft(BoringFPS_CONFIG.Vars.ScrW, BoringFPS_CONFIG.Vars.ScrH, math.Round(startTime - CurTime()))
-        BoringFPS.DrawStepLeftHUD(BoringFPS_CONFIG.Vars.ScrW * 0.8, BoringFPS_CONFIG.Vars.ScrH * 0.9, ply:GetNWInt("StepLeft", 0), stepMax)
-        BoringFPS.DrawActionLeft(BoringFPS_CONFIG.Vars.ScrW * 0.8, BoringFPS_CONFIG.Vars.ScrH * 0.95, ply:GetNWInt("Action", 0), actionMax)
     end )
 end
 
@@ -133,16 +127,6 @@ function BoringFPS.DisplayAnnouncerTurn(text)
     timer.Create("BoringFPS:TimerAnnouncerTurn", BoringFPS_CONFIG.Settings.DurationAnnouncerTurn, 1, function()
         hook.Remove( "HUDPaint", "HUDPaint:BoringFPS:HUDAnnouncerTurn" )
     end)
-end
-
-function BoringFPS.DisplayHUDWait()
-    local ply = LocalPlayer()
-    local weapon = ply:GetNWEntity("WeaponGame", nil)
-    local dashMax = weapon and weapon.MaxDash or 0
-
-    hook.Add( "HUDPaint", "HUDPaint:BoringFPS:HUDTurn", function()
-        BoringFPS.DrawDashHud(BoringFPS_CONFIG.Vars.ScrW * 0.8, BoringFPS_CONFIG.Vars.ScrH * 0.9, ply:GetNWInt("Dash", 0), dashMax)
-    end )
 end
 
 function BoringFPS.StopHudTurn()

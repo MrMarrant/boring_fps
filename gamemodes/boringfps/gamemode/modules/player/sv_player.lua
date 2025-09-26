@@ -28,6 +28,8 @@ end
 
 --! Le joueur peut : tourner la caméra / dash
 function PLAYER:Wait()
+    net.Start(BoringFPS_CONFIG.NetVar.StopClientTurn)
+    net.Send(self)
     local WeaponGame = self:GetNWEntity("WeaponGame")
     self:SetWalkSpeed( 1 )
     self:SetRunSpeed( 1 )
