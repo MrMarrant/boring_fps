@@ -1,5 +1,7 @@
 include("shared.lua")
 
+local size = 120
+
 function ENT:Draw()
     self:DrawModel()
 
@@ -18,10 +20,7 @@ function ENT:Draw()
     cam.Start3D2D(pos, Angle(0, -90, 82), 0.1)
         surface.SetDrawColor(255, 255, 255, 255)
         surface.SetMaterial( BoringFPS_CONFIG.Settings.IconsClass[self:GetNWString( "classgun", "pistol" )] )
-        local size = 120
         surface.DrawTexturedRect(-size/2, -size/2, size, size)
-        surface.SetFont( "NickAnton" )
-        surface.SetTextPos( -30, 60 ) 
-        surface.DrawText(string.upper(self:GetNWString( "classgun", "pistol" )))
+        draw.DrawText(string.upper(self:GetNWString( "classgun", "pistol" )), "NickAnton", 0, 60, Color(255, 255, 255), TEXT_ALIGN_CENTER)
     cam.End3D2D()
 end
