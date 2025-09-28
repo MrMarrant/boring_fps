@@ -83,6 +83,11 @@ BoringFPS_CONFIG.Settings.ColorPlayer = {
     Color(0, 255, 170),
 }
 
+-- SQL Settings
+BoringFPS_CONFIG.SQL = {}
+BoringFPS_CONFIG.SQL.TablePlayer = "boringfps_player"
+BoringFPS_CONFIG.SQL.TableClassStat = "boringfps_classstat"
+
 -- Models
 BoringFPS_CONFIG.Models = {}
 BoringFPS_CONFIG.Models.Characters = {

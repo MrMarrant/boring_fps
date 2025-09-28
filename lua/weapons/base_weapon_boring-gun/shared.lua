@@ -44,7 +44,8 @@ function SWEP:PrimaryAttack()
         self:SendWeaponAnim( ACT_VM_PRIMARYATTACK )
         self:Shoot()
         self:TakePrimaryAmmo(1)
-        owner:SetNWInt("Action", owner:GetNWInt("Action", 0) - 1)
+        owner:SetAction(owner:GetNWInt("Action", 0) - 1, true)
+        hook.Call("OnNewDataPlayer", nil, owner, "action_done")
     end
 end
 
@@ -55,6 +56,7 @@ function SWEP:SecondaryAttack()
         local owner = self:GetOwner()
         owner:SetVelocity( BoringFPS.GetWantedMoveDirection(owner) * 1000 )
         owner:SetNWInt("Dash", owner:GetNWInt("Dash", 0) - 1)
+        hook.Call("OnNewDataPlayer", nil, owner, "dash_done")
     end
 end
 
@@ -69,7 +71,7 @@ function SWEP:Reload()
     if self:CanReload() and IsValid(owner) then
         self:ReloadAnimation(owner)
         self:SetClip1(self:GetMaxClip1())
-        owner:SetNWInt("Action", owner:GetNWInt("Action", 0) - 1)
+        owner:SetAction(owner:GetNWInt("Action", 0) - 1, true)
         if SERVER then owner:EmitSound("weapons/smg1/smg1_reload.wav") end
     end
 end

@@ -88,6 +88,9 @@ end
 
 function BoringFPS.GameFinish(reset)
     local winner = BoringFPS_CONFIG.Vars.PlayersAlive[1]
+    if (not reset) then
+        hook.Call("OnNewDataPlayer", nil, winner, "win")
+    end
     local name = IsValid(winner) and winner:GetName() or "MrMarrant"
     local congratMsg = reset and "DRAW" or name .. "'s has won!"
 
@@ -100,6 +103,7 @@ function BoringFPS.GameFinish(reset)
     net.WriteString(congratMsg)
     net.Broadcast()
     BoringFPS.ResetParams()
+    -- TODO : Save les données des joueurs ici aussi ?
     timer.Create("BoringFPS:TimerPostGame", BoringFPS_CONFIG.Settings.TimerPostGame, 1, function ()
         for key, value in ipairs(player.GetAll()) do
             value:UnSpectate()
@@ -111,7 +115,9 @@ function BoringFPS.GameFinish(reset)
             value:SetNWInt("Dash", -1)
             value:StripWeapons()
         end
-        BoringFPS_CONFIG.Vars.CurrentMusic:Stop()
+        if (BoringFPS_CONFIG.Vars.CurrentMusic) then
+            BoringFPS_CONFIG.Vars.CurrentMusic:Stop()
+        end
         BoringFPS.NewGame()
     end)
 end
@@ -131,7 +137,9 @@ end
 function BoringFPS.StartEndGameEvent()
     SetGlobalBool("EndGameEnabled", true)
     BoringFPS.InsertLogs("Starting end game event!")
-    BoringFPS_CONFIG.Vars.CurrentMusic:FadeOut(4)
+    if (BoringFPS_CONFIG.Vars.CurrentMusic) then
+        BoringFPS_CONFIG.Vars.CurrentMusic:FadeOut(4)
+    end
     BoringFPS_CONFIG.Vars.CurrentMusic = BoringFPS.ReadSound(BoringFPS_CONFIG.Sounds.EndEventMusic, game.GetWorld(), 0, nil, 10)
     hook.Add("NewGlobalTurn", "BoringFPS:NewGlobalTurn:HitPlayers", function ()
         local playersAlive = BoringFPS_CONFIG.Vars.PlayersAlive
