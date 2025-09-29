@@ -45,7 +45,6 @@ function SWEP:PrimaryAttack()
         self:Shoot()
         self:TakePrimaryAmmo(1)
         owner:SetAction(owner:GetNWInt("Action", 0) - 1, true)
-        hook.Call("OnNewDataPlayer", nil, owner, "action_done")
     end
 end
 

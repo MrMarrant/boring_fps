@@ -83,7 +83,6 @@ function PLAYER:SaveDataPlayer()
             death = ]] .. tonumber(data["death"]) .. [[,
             kill = ]] .. tonumber(data["kill"]) .. [[,
             damage = ]] .. tonumber(data["damage"]) .. [[,
-            bullet_shot = ]] .. tonumber(data["bullet_shot"]) .. [[,
             movement_done = ]] .. tonumber(data["movement_done"]) .. [[,
             action_done = ]] .. tonumber(data["action_done"]) .. [[,
             dash_done = ]] .. tonumber(data["dash_done"]) .. [[,
@@ -127,14 +126,49 @@ function PLAYER:GetDataPlayer()
     else
         if self:CreateDataPlayer() then self:GetDataPlayer() end
     end
-    return nil
+end
+
+function PLAYER:GetDataStats()
+    if (self:IsBot()) then return end
+    print("Getting data for stats: " .. self:Nick())
+    local query = [[
+        SELECT * FROM ]] .. BoringFPS_CONFIG.SQL.TableClassStat .. [[ WHERE steamID = ']] .. self:SteamID64() .. [[';
+    ]]
+    local result = BoringFPS.CreateQuery(query)
+
+    if result == false then
+        print("[BORINGFPS] Error during get data stats")
+    elseif istable(result) then
+        self.BFPS_DataStats = result
+    else
+        if (self:CreateDataStats()) then self:GetDataStats() end
+    end
+end
+
+function PLAYER:CreateDataStats()
+    local sucess = true
+    for key, class in ipairs(BoringFPS_CONFIG.Settings.ListClass) do
+        local query = [[
+        INSERT INTO ]].. BoringFPS_CONFIG.SQL.TableClassStat .. [[ (
+            steamID, class_type, death, kill, damage, count_select
+        ) VALUES ( ']].. self:SteamID64() ..[[', ']].. class ..[[', 0, 0, 0, 0 );
+        ]]
+        local result = BoringFPS.CreateQuery(query)
+        if result == false then
+            print("[BORINGFPS] Error during create data class '" .. class .. "' stats")
+            sucess = false
+        else
+            print("[BORINGFPS] Data stats class '" .. class .. "' created for " .. self:Nick())
+        end
+    end
+    return sucess
 end
 
 function PLAYER:CreateDataPlayer()
     local query = [[
         INSERT INTO ]].. BoringFPS_CONFIG.SQL.TablePlayer .. [[ (
-            id, level, exp, death, kill, damage, bullet_shot, movement_done, action_done, dash_done, turn_done, win, defeat
-        ) VALUES ( ']].. self:SteamID64() ..[[', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 );
+            id, level, exp, death, kill, damage, movement_done, action_done, dash_done, turn_done, win, defeat
+        ) VALUES ( ']].. self:SteamID64() ..[[', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 );
     ]]
     local result = BoringFPS.CreateQuery(query)
     if result == false then
@@ -165,6 +199,7 @@ hook.Add("player_activate", "player_activate.BoringFPS:OnActivate", function( da
     local ply = Player(data.userid)
     ply:SetState("free")
     ply:GetDataPlayer()
+    ply:GetDataStats()
 end)
 
 hook.Add("PlayerSetModel", "BoringFPS:PlayerSetModel:SetModelSpawn", function( ply )
@@ -200,7 +235,7 @@ hook.Add("EntityTakeDamage", "EntityTakeDamage:BoringFPS:Stats", function(target
     if (BoringFPS_CONFIG.GameInProgress) then
         local attacker = dmginfo:GetAttacker()
         if (attacker:IsPlayer() and attacker != target and BoringFPS_CONFIG.Vars.PlayersInGame[attacker:GetNWInt("NumberTurn")]) then
-            attacker:SetDataPlayer("damage", (attacker.BFPS_DataPlayer["damage"] or 0) + dmginfo:GetDamage())
+            attacker:SetDataPlayer("damage", (attacker.BFPS_DataPlayer["damage"] or 0) + math.Round(dmginfo:GetDamage()))
         end
     end
 end)
@@ -210,9 +245,6 @@ hook.Add("OnNewDataPlayer", "OnNewDataPlayer:BoringFPS:Stats", function(ply, dat
         ply:SetDataPlayer(dataName, (ply.BFPS_DataPlayer[dataName] or 0) + 1)
     end
 end)
-
--- TODO : Call bullet_shot au bon endroits
--- TODO : Ajouté le nombre de tour joué
 
 -- ============================
 -- Concommands

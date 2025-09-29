@@ -45,6 +45,7 @@ function BoringFPS.EndTurn()
     timer.Remove("BoringFPS:TimerTurn")
     local ply = BoringFPS_CONFIG.CurrentPlayerTurn
     hook.Call("PlayerTurnEnd", nil, ply)
+    hook.Call("OnNewDataPlayer", nil, ply, "turn_done")
     if (IsValid(ply)) then
         BoringFPS.InsertLogs(ply:GetName() .. "'s turn has ended!")
         BoringFPS.SetTurnToWait({ply})

@@ -23,7 +23,9 @@ end
 
 -- Init SQL Data Base
 local TablePlayer = BoringFPS_CONFIG.SQL.TablePlayer
-if not sql.TableExists(BoringFPS_CONFIG.SQL.TablePlayer) then
+local TableClassStat = BoringFPS_CONFIG.SQL.TableClassStat
+
+if not sql.TableExists(TablePlayer) then
     print("[BORINGFPS] Begin create '" .. TablePlayer .. "' table ...")
     local query = [[
         CREATE TABLE ]] .. TablePlayer .. [[ (
@@ -33,7 +35,6 @@ if not sql.TableExists(BoringFPS_CONFIG.SQL.TablePlayer) then
             death INTEGER NOT NULL DEFAULT 0,
             kill INTEGER NOT NULL DEFAULT 0,
             damage INTEGER NOT NULL DEFAULT 0,
-            bullet_shot INTEGER NOT NULL DEFAULT 0,
             movement_done INTEGER NOT NULL DEFAULT 0,
             action_done INTEGER NOT NULL DEFAULT 0,
             dash_done INTEGER NOT NULL DEFAULT 0,
@@ -48,5 +49,28 @@ if not sql.TableExists(BoringFPS_CONFIG.SQL.TablePlayer) then
         print("[BORINGFPS] Error during creation table '" .. TablePlayer .. "'")
     else
         print("[BORINGFPS] Table '" .. TablePlayer .. "' was created.")
+    end
+end
+
+if not sql.TableExists(TableClassStat) then
+    print("[BORINGFPS] Begin create '" .. TableClassStat .. "' table ...")
+    local query = [[
+        CREATE TABLE ]] .. TableClassStat .. [[ (
+            id INTEGER PRIMARY KEY NOT NULL,
+            steamID VARCHAR NOT NULL,
+            class_type VARCHAR NOT NULL,
+            death INTEGER NOT NULL DEFAULT 0,
+            kill INTEGER NOT NULL DEFAULT 0,
+            damage INTEGER NOT NULL DEFAULT 0,
+            count_select INTEGER NOT NULL DEFAULT 0,
+            FOREIGN KEY(steamID) REFERENCES ]] .. TablePlayer .. [[(id)
+        );
+    ]]
+
+    local result = BoringFPS.CreateQuery(query)
+    if result == false then
+        print("[BORINGFPS] Error during creation table '" .. TableClassStat .. "'")
+    else
+        print("[BORINGFPS] Table '" .. TableClassStat .. "' was created.")
     end
 end
