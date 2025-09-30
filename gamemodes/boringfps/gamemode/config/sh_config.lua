@@ -54,7 +54,6 @@ BoringFPS_CONFIG.Settings.ClassWeapon = {
     ["crowbar"] = "crowbar_boring-gun",
     ["touch"] = "touch_touch_boring-gun",
     ["stalker"] = "stalker_boring-gun"
-
 }
 BoringFPS_CONFIG.Settings.HideHUD = {
 	["CHudHealth"] = true,

@@ -56,12 +56,14 @@ function BoringFPS.SpawnPlayersOnGameMap()
     for index, ply in ipairs(playersGet) do
         local location = spawnPoints[index]
         if location then
-            local weapon = ply:Give(BoringFPS_CONFIG.Settings.ClassWeapon[ply:GetNWString("ClassWeapon", BoringFPS_CONFIG.Settings.ListClass[1])])
+            local class = ply:GetNWString("ClassWeapon", BoringFPS_CONFIG.Settings.ListClass[1])
+            local weapon = ply:Give(BoringFPS_CONFIG.Settings.ClassWeapon[class])
             ply:SetPos(location:GetPos())
             ply:SetAngles(location:GetAngles())
             ply:SetNWEntity( "WeaponGame", weapon)
             weapon:SetClip1(weapon:GetMaxClip1()) --? We set here bc weapon doesnt load itself for some reasons
             colorPlayer[ply] = colorAvailable[index] or Color(0, 0, 0)
+            ply:SetDataStats(class, "count_select", 1)
         else
             ply:KillSilent()
             BoringFPS.EnterSpectatorMode(ply)

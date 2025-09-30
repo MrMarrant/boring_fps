@@ -39,8 +39,7 @@ if not sql.TableExists(TablePlayer) then
             action_done INTEGER NOT NULL DEFAULT 0,
             dash_done INTEGER NOT NULL DEFAULT 0,
             turn_done INTEGER NOT NULL DEFAULT 0,
-            win INTEGER NOT NULL DEFAULT 0,
-            defeat INTEGER NOT NULL DEFAULT 0
+            win INTEGER NOT NULL DEFAULT 0
         );
     ]]
 
@@ -63,6 +62,7 @@ if not sql.TableExists(TableClassStat) then
             kill INTEGER NOT NULL DEFAULT 0,
             damage INTEGER NOT NULL DEFAULT 0,
             count_select INTEGER NOT NULL DEFAULT 0,
+            win INTEGER NOT NULL DEFAULT 0,
             FOREIGN KEY(steamID) REFERENCES ]] .. TablePlayer .. [[(id)
         );
     ]]
