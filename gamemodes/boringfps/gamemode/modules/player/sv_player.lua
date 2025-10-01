@@ -235,8 +235,10 @@ gameevent.Listen( "player_activate" )
 hook.Add("player_activate", "player_activate.BoringFPS:OnActivate", function( data )
     local ply = Player(data.userid)
     ply:SetState("free")
-    ply:GetDataPlayer()
-    ply:GetDataStats()
+    if (BoringFPS_CONFIG.SQL.UseDatabase) then
+        ply:GetDataPlayer()
+        ply:GetDataStats()
+    end
 end)
 
 hook.Add("PlayerSetModel", "BoringFPS:PlayerSetModel:SetModelSpawn", function( ply )
@@ -249,53 +251,18 @@ hook.Add("PlayerLoadout", "BoringFPS:PlayerLoadout:PlayerSetWeapon", function( p
 end)
 
 hook.Add("PlayerDisconnected", "PlayerDisconnected:BoringFPS:OnDisconnect", function(ply)
-    ply:SaveDataPlayer()
-    ply:SaveDataStats()
-end)
-
-hook.Add( "ShutDown", "BoringFPS:ShutDown:ServerShuttingDown", function()
-    for key, ply in ipairs(player.GetAll()) do
+    if (BoringFPS_CONFIG.SQL.UseDatabase) then
         ply:SaveDataPlayer()
         ply:SaveDataStats()
     end
 end)
 
--- ============================
--- Hooks for stats
--- ============================
-hook.Add("PlayerDeath", "PlayerDeath:BoringFPS:Stats", function(ply, inflictor, attacker)
-    if (GetGlobalBool("GameInProgress") and BoringFPS_CONFIG.Vars.PlayersInGame[ply:GetNWInt("NumberTurn")]) then
-        if (istable(ply.BFPS_DataStats)) then
-            local class = ply:GetNWString("ClassWeapon", "pistol")
-            ply:SetDataPlayer("death", (ply.BFPS_DataPlayer["death"] or 0) + 1)
-            ply:SetDataStats(class, "death", 1)
+hook.Add( "ShutDown", "BoringFPS:ShutDown:ServerShuttingDown", function()
+    if (BoringFPS_CONFIG.SQL.UseDatabase) then
+        for key, ply in ipairs(player.GetAll()) do
+            ply:SaveDataPlayer()
+            ply:SaveDataStats()
         end
-        if (istable(attacker.BFPS_DataStats) and BoringFPS_CONFIG.Vars.PlayersInGame[attacker:GetNWInt("NumberTurn")]) then
-            local class = attacker:GetNWString("ClassWeapon", "pistol")
-            attacker:SetDataPlayer("kill", (attacker.BFPS_DataPlayer["kill"] or 0) + 1)
-            attacker:SetDataStats(class, "kill", 1)
-            attacker:AddExperience(BoringFPS_CONFIG.Settings.ExperienceGainByKill)
-        end
-    end
-end)
-
-hook.Add("EntityTakeDamage", "EntityTakeDamage:BoringFPS:Stats", function(target, dmginfo)
-    local attacker = dmginfo:GetAttacker()
-    if (istable(attacker.BFPS_DataStats) and GetGlobalBool("GameInProgress")) then
-        if (attacker:IsPlayer() and attacker != target and BoringFPS_CONFIG.Vars.PlayersInGame[attacker:GetNWInt("NumberTurn")]) then
-            local damage = math.Round(dmginfo:GetDamage())
-            local class = attacker:GetNWString("ClassWeapon", "pistol")
-            attacker:SetDataPlayer("damage", (attacker.BFPS_DataPlayer["damage"] or 0) + damage)
-            attacker:SetDataStats(class, "damage", damage)
-        end
-    end
-end)
-
-hook.Add("OnNewDataPlayer", "OnNewDataPlayer:BoringFPS:Stats", function(ply, dataName)
-    if (istable(ply.BFPS_DataStats) and GetGlobalBool("GameInProgress") and BoringFPS_CONFIG.Vars.PlayersInGame[ply:GetNWInt("NumberTurn")]) then
-        local class = ply:GetNWString("ClassWeapon", "pistol")
-        ply:SetDataPlayer(dataName, (ply.BFPS_DataPlayer[dataName] or 0) + 1)
-        ply:SetDataStats(class, dataName, 1)
     end
 end)
 

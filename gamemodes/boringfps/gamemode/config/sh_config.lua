@@ -92,6 +92,7 @@ BoringFPS_CONFIG.Settings.DifferenceExperienceBetweenLevels = 100 -- The experie
 BoringFPS_CONFIG.SQL = {}
 BoringFPS_CONFIG.SQL.TablePlayer = "boringfps_player"
 BoringFPS_CONFIG.SQL.TableClassStat = "boringfps_classstat"
+BoringFPS_CONFIG.SQL.UseDatabase = true
 
 -- Models
 BoringFPS_CONFIG.Models = {}
