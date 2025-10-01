@@ -77,7 +77,7 @@ function PLAYER:SaveDataStats()
                 kill = ]] .. tonumber(stats["kill"]) .. [[,
                 damage = ]] .. tonumber(stats["damage"]) .. [[,
                 count_select = ]] .. tonumber(stats["count_select"]) .. [[,
-                win = ]] .. tonumber(stats["win"]) .. [[,
+                win = ]] .. tonumber(stats["win"]) .. [[
             WHERE steamID = ']] .. id .. [[' AND class_type = ']] .. class .. [[';
         ]]
         local result = BoringFPS.CreateQuery(query)
@@ -103,14 +103,10 @@ function PLAYER:SaveDataPlayer()
             action_done = ]] .. tonumber(data["action_done"]) .. [[,
             dash_done = ]] .. tonumber(data["dash_done"]) .. [[,
             turn_done = ]] .. tonumber(data["turn_done"]) .. [[,
-            win = ]] .. tonumber(data["win"]) .. [[,
+            win = ]] .. tonumber(data["win"]) .. [[
         WHERE id = ']] .. self:SteamID64() .. [[';
     ]]
     local result = BoringFPS.CreateQuery(query)
-
-    if result == false then
-        print("[BORINGFPS] Error during set data player")
-    end
     return nil
 end
 
@@ -204,6 +200,23 @@ function PLAYER:CreateDataPlayer()
     end
 end
 
+function PLAYER:AddExperience(amountExp)
+    if (istable(self.BFPS_DataPlayer)) then
+        local currentExp = self.BFPS_DataPlayer["exp"] or 0
+        local currentLevel = self.BFPS_DataPlayer["level"] or 1
+        local newExp = currentExp + amountExp
+        local nextLevel = currentLevel + 1
+        local expToNextLevel = (differenceExp / 2) * currentLevel * (nextLevel)
+
+        self:SetDataPlayer("exp", newExp)
+        self:ChatPrint("You have gained " .. amountExp .. " experience points.")
+        if (newExp >= expToNextLevel) then
+            self:SetDataPlayer("level", nextLevel)
+            self:ChatPrint("Congratulations! You have leveled up to level " .. nextLevel .. "!")
+        end
+    end
+end
+
 -- ============================
 -- HOOKS
 -- ============================
@@ -261,6 +274,7 @@ hook.Add("PlayerDeath", "PlayerDeath:BoringFPS:Stats", function(ply, inflictor, 
             local class = attacker:GetNWString("ClassWeapon", "pistol")
             attacker:SetDataPlayer("kill", (attacker.BFPS_DataPlayer["kill"] or 0) + 1)
             attacker:SetDataStats(class, "kill", 1)
+            attacker:AddExperience(BoringFPS_CONFIG.Settings.ExperienceGainByKill)
         end
     end
 end)

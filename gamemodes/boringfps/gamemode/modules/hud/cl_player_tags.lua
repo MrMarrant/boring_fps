@@ -9,7 +9,6 @@ hook.Add( "PostPlayerDraw", "PostPlayerDraw:BoringFPS:PaintPlayerTags", function
 	if ( ply == LocalPlayer() or not ply:Alive() ) then return end
 
     local colorPlayers = BoringFPS_CONFIG.Vars.ColorBox -- Color box for each player
-    local playersInGame = BoringFPS_CONFIG.Vars.PlayersInGame
     local colorBox = colorPlayers[ply] or Color(0, 0, 0)
 	local pos = ply:GetPos() + ply:GetUp() * ( ply:OBBMaxs().z + 4 )
 	local angle = ( pos - EyePos() ):GetNormalized():Angle()

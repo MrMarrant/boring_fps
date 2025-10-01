@@ -97,15 +97,14 @@ function BoringFPS.DefineDirectionTurnPlay()
         indexTurn = indexTurn + 1
     end
     BoringFPS_CONFIG.DirectionTurnPlayers = directionTurn
-    BoringFPS_CONFIG.LastIndexDirectionTurn = #directionTurn
-    BoringFPS.SetGlobalTable(directionTurn, "PlayersInGame")
     BoringFPS_CONFIG.Vars.NumberOfPlayers = #directionTurn
+    BoringFPS.SetGlobalTable(table.Copy(directionTurn), "PlayersInGame")
 end
 
 function BoringFPS.ResetParams()
     BoringFPS_CONFIG.CurrentPlayerTurn = nil
     BoringFPS_CONFIG.DirectionTurnPlayers = {}
-    BoringFPS_CONFIG.LastIndexDirectionTurn = nil
+    BoringFPS_CONFIG.Vars.NumberOfPlayers = nil
     BoringFPS.SetGlobalTable({}, "PlayersInGame")
     BoringFPS.SetGlobalTable({}, "PlayersAlive")
     BoringFPS.SetGlobalTable({}, "GameLogs")
