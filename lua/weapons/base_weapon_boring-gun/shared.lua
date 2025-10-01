@@ -54,6 +54,7 @@ function SWEP:SecondaryAttack()
     elseif self:CanDash() and SERVER then
         local owner = self:GetOwner()
         owner:SetVelocity( BoringFPS.GetWantedMoveDirection(owner) * 1000 )
+        owner:EmitSound("weapons/stunstick/spark" .. math.random(1, 3) .. ".wav", 75, math.random(90, 110))
         owner:SetNWInt("Dash", owner:GetNWInt("Dash", 0) - 1)
         hook.Call("OnNewDataPlayer", nil, owner, "dash_done")
     end

@@ -32,11 +32,11 @@ function BoringFPS.StartGame()
     -- Démarrer le jeu
     hook.Remove("Think", "GM:BoringFPS:Think:CanStartNewGame")
     SetGlobalBool("IsStartTimerPreGame", false)
+    SetGlobalBool("GameInProgress", true)
     SetGlobalString("CurrentGameState", "Game in progress...")
     SetGlobalInt("GlobalTurn", 1)
     SetGlobalInt("CurrentLimitTimer", BoringFPS_CONFIG.Settings.LimitTimeTurn)
     BoringFPS.StopHUDPreGame()
-    BoringFPS_CONFIG.GameInProgress = true
     BoringFPS.SpawnPlayersOnGameMap()
     BoringFPS.DefineDirectionTurnPlay()
     BoringFPS.StartConditionEndGame()
@@ -106,10 +106,10 @@ function BoringFPS.ResetParams()
     BoringFPS_CONFIG.CurrentPlayerTurn = nil
     BoringFPS_CONFIG.DirectionTurnPlayers = {}
     BoringFPS_CONFIG.LastIndexDirectionTurn = nil
-    BoringFPS_CONFIG.GameInProgress = false
     BoringFPS.SetGlobalTable({}, "PlayersInGame")
     BoringFPS.SetGlobalTable({}, "PlayersAlive")
     BoringFPS.SetGlobalTable({}, "GameLogs")
+    SetGlobalBool("GameInProgress", false)
     SetGlobalBool("EndGameEnabled", false)
     SetGlobalInt("GlobalTurn", 0)
     SetGlobalInt("CurrentIndexDirectionTurn", -1)

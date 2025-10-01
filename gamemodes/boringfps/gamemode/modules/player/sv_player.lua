@@ -8,11 +8,11 @@ local TypePlay = {
 
 function PLAYER:UpdateStepLeft(step)
     self:SetNWInt("StepLeft", step)
+    hook.Call("OnNewDataPlayer", nil, self, "movement_done")
     if (step <= 0) then
         self:SetWalkSpeed( 1 )
         self:SetRunSpeed( 1 )
         self:SetJumpPower( 0 )
-        hook.Remove("PlayerFootstep", "PlayerFootstep:CountStep:Player-" .. self:EntIndex())
         self:ChatPrint("Vous avez utilisez tout vos déplacements.")
     end
 end
@@ -27,6 +27,7 @@ function PLAYER:SetState(typeState)
 end
 
 --! Le joueur peut : tourner la caméra / dash
+-- TODO : empecher le jump boost
 function PLAYER:Wait()
     net.Start(BoringFPS_CONFIG.NetVar.StopClientTurn)
     net.Send(self)
@@ -38,7 +39,6 @@ function PLAYER:Wait()
     self:SetNWInt("StepLeft", 0)
     self:SetNWInt("Dash", WeaponGame.MaxDash)
     self:ChatPrint("Vous êtes en attente.")
-    hook.Remove("PlayerFootstep", "PlayerFootstep:CountStep:Player-" .. self:EntIndex())
 end
 
 function PLAYER:Play()
@@ -56,20 +56,12 @@ function PLAYER:Play()
     self:SetNWInt("Dash", -1)
     net.Start(BoringFPS_CONFIG.NetVar.StartClientPlay)
     net.Send(self)
-    hook.Add( "PlayerFootstep", "PlayerFootstep:CountStep:Player-" .. self:EntIndex(), function( ply )
-        if (ply == self) then
-            ply:UpdateStepLeft(ply:GetNWInt("StepLeft") - 1)
-            hook.Call("OnNewDataPlayer", nil, self, "movement_done")
-        end
-        return false
-    end )
 end
 
 function PLAYER:Free()
     self:SetWalkSpeed( 150 )
     self:SetRunSpeed( 200 )
     self:SetJumpPower( 200 )
-    hook.Remove("PlayerFootstep", "PlayerFootstep:CountStep:Player-" .. self:EntIndex())
 end
 
 function PLAYER:SaveDataStats()
@@ -259,23 +251,23 @@ end)
 -- Hooks for stats
 -- ============================
 hook.Add("PlayerDeath", "PlayerDeath:BoringFPS:Stats", function(ply, inflictor, attacker)
-    if (BoringFPS_CONFIG.GameInProgress) then
-        if (BoringFPS_CONFIG.Vars.PlayersInGame[ply:GetNWInt("NumberTurn")]) then
+    if (GetGlobalBool("GameInProgress") and BoringFPS_CONFIG.Vars.PlayersInGame[ply:GetNWInt("NumberTurn")]) then
+        if (istable(ply.BFPS_DataStats)) then
             local class = ply:GetNWString("ClassWeapon", "pistol")
             ply:SetDataPlayer("death", (ply.BFPS_DataPlayer["death"] or 0) + 1)
             ply:SetDataStats(class, "death", 1)
-            if (BoringFPS_CONFIG.Vars.PlayersInGame[attacker:GetNWInt("NumberTurn")]) then
-                local class = attacker:GetNWString("ClassWeapon", "pistol")
-                attacker:SetDataPlayer("kill", (attacker.BFPS_DataPlayer["kill"] or 0) + 1)
-                attacker:SetDataStats(class, "kill", 1)
-            end
+        end
+        if (istable(attacker.BFPS_DataStats) and BoringFPS_CONFIG.Vars.PlayersInGame[attacker:GetNWInt("NumberTurn")]) then
+            local class = attacker:GetNWString("ClassWeapon", "pistol")
+            attacker:SetDataPlayer("kill", (attacker.BFPS_DataPlayer["kill"] or 0) + 1)
+            attacker:SetDataStats(class, "kill", 1)
         end
     end
 end)
 
 hook.Add("EntityTakeDamage", "EntityTakeDamage:BoringFPS:Stats", function(target, dmginfo)
-    if (BoringFPS_CONFIG.GameInProgress) then
-        local attacker = dmginfo:GetAttacker()
+    local attacker = dmginfo:GetAttacker()
+    if (istable(attacker.BFPS_DataStats) and GetGlobalBool("GameInProgress")) then
         if (attacker:IsPlayer() and attacker != target and BoringFPS_CONFIG.Vars.PlayersInGame[attacker:GetNWInt("NumberTurn")]) then
             local damage = math.Round(dmginfo:GetDamage())
             local class = attacker:GetNWString("ClassWeapon", "pistol")
@@ -286,7 +278,7 @@ hook.Add("EntityTakeDamage", "EntityTakeDamage:BoringFPS:Stats", function(target
 end)
 
 hook.Add("OnNewDataPlayer", "OnNewDataPlayer:BoringFPS:Stats", function(ply, dataName)
-    if (BoringFPS_CONFIG.GameInProgress and BoringFPS_CONFIG.Vars.PlayersInGame[ply:GetNWInt("NumberTurn")]) then
+    if (istable(ply.BFPS_DataStats) and GetGlobalBool("GameInProgress") and BoringFPS_CONFIG.Vars.PlayersInGame[ply:GetNWInt("NumberTurn")]) then
         local class = ply:GetNWString("ClassWeapon", "pistol")
         ply:SetDataPlayer(dataName, (ply.BFPS_DataPlayer[dataName] or 0) + 1)
         ply:SetDataStats(class, dataName, 1)
@@ -308,7 +300,7 @@ concommand.Add("changeclass", function(ply, cmd, args, argStr)
 end)
 
 concommand.Add("ff", function(ply, cmd, args, argStr)
-    if (BoringFPS_CONFIG.GameInProgress and table.HasValue(BoringFPS_CONFIG.Vars.PlayersAlive, ply)) then
+    if (GetGlobalBool("GameInProgress") and table.HasValue(BoringFPS_CONFIG.Vars.PlayersAlive, ply)) then
         BoringFPS.InsertLogs(ply:GetName() .. " has forfeited.")
         ply:Kill()
     else

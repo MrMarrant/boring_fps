@@ -49,8 +49,8 @@ function BoringFPS.EndTurn()
     if (IsValid(ply)) then
         BoringFPS.InsertLogs(ply:GetName() .. "'s turn has ended!")
         BoringFPS.SetTurnToWait({ply})
-        local players = table.Copy(BoringFPS_CONFIG.DirectionTurnPlayers)
-        table.remove(players, ply:GetNWInt("NumberTurn"))
+        local players = table.Copy(BoringFPS_CONFIG.Vars.PlayersAlive)
+        table.RemoveByValue(players, ply)
         BoringFPS.ReadSound(BoringFPS_CONFIG.Sounds.NotifTurnEnd, game.GetWorld(), 0, players)
     else
         BoringFPS.InsertLogs("Turn has ended!")
@@ -82,9 +82,7 @@ function BoringFPS.NewGlobalTurn()
     local currentGlobalTurn = GetGlobalInt("GlobalTurn", 1) + 1
     SetGlobalInt("GlobalTurn", currentGlobalTurn)
     hook.Call("NewGlobalTurn")
-    if (currentGlobalTurn >= BoringFPS_CONFIG.Settings.GlobalTurnEndGame) then
-        BoringFPS.CheckEndGameEvent()
-    end
+    BoringFPS.CheckEndGameEvent()
 end
 
 function BoringFPS.GameFinish(reset)
