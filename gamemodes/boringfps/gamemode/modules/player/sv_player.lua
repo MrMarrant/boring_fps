@@ -266,10 +266,15 @@ hook.Add( "ShutDown", "BoringFPS:ShutDown:ServerShuttingDown", function()
     end
 end)
 
+hook.Add("SetupMove", "BoringFPS:SetupMove:DisableJumpBoost", function(ply, mv, cmd)
+    if GetGlobalBool("GameInProgress") and mv:KeyPressed(IN_JUMP) and ply:OnGround() then
+        local vel = mv:GetVelocity()
+        mv:SetVelocity(Vector(vel.x * 0.35, vel.y * 0.35, vel.z))
+    end
+end)
 -- ============================
 -- Concommands
 -- ============================
-
 concommand.Add("changeclass", function(ply, cmd, args, argStr)
     local weapon = BoringFPS_CONFIG.Settings.ClassWeapon[args[1]]
     if (weapon) then
