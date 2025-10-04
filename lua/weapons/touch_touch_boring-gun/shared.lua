@@ -76,7 +76,7 @@ function SWEP:SecondaryShoot()
     self:Detonate(owner)
     BoringFPS.ReadSound("weapons/physcannon/energy_sing_explosion2.wav", game.GetWorld(), 0)
     owner:ChatPrint("Vous avez fait exploser les joueurs touchés.")
-    owner:SetNWInt("Action", 0)
+    owner:SetAction(0, true)
     if (SERVER) then
         BoringFPS.SetVisibilityRender(owner, false)
         BoringFPS.SetVisibilityRender(self, false)

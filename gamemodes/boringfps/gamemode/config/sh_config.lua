@@ -54,7 +54,6 @@ BoringFPS_CONFIG.Settings.ClassWeapon = {
     ["crowbar"] = "crowbar_boring-gun",
     ["touch"] = "touch_touch_boring-gun",
     ["stalker"] = "stalker_boring-gun"
-
 }
 BoringFPS_CONFIG.Settings.HideHUD = {
 	["CHudHealth"] = true,
@@ -82,6 +81,18 @@ BoringFPS_CONFIG.Settings.ColorPlayer = {
     Color(0, 170, 255),
     Color(0, 255, 170),
 }
+
+-- Experience System
+BoringFPS_CONFIG.Settings.ExperienceGainByGame = 100 -- Experience gained by player at the end of each game
+BoringFPS_CONFIG.Settings.ExperienceBonusWinner = 25 -- Experience gained by player at the end of each game
+BoringFPS_CONFIG.Settings.ExperienceGainByKill = 10 -- Experience gained by player at the end of each game
+BoringFPS_CONFIG.Settings.DifferenceExperienceBetweenLevels = 100 -- The experience needed to level up is calculated with the formula : (DifferenceExperienceBetweenLevels / 2) * CurrentLevel * (NextLevel)
+
+-- SQL Settings
+BoringFPS_CONFIG.SQL = {}
+BoringFPS_CONFIG.SQL.TablePlayer = "boringfps_player"
+BoringFPS_CONFIG.SQL.TableClassStat = "boringfps_classstat"
+BoringFPS_CONFIG.SQL.UseDatabase = true
 
 -- Models
 BoringFPS_CONFIG.Models = {}

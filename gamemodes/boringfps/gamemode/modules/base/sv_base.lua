@@ -32,11 +32,11 @@ function BoringFPS.StartGame()
     -- Démarrer le jeu
     hook.Remove("Think", "GM:BoringFPS:Think:CanStartNewGame")
     SetGlobalBool("IsStartTimerPreGame", false)
+    SetGlobalBool("GameInProgress", true)
     SetGlobalString("CurrentGameState", "Game in progress...")
     SetGlobalInt("GlobalTurn", 1)
     SetGlobalInt("CurrentLimitTimer", BoringFPS_CONFIG.Settings.LimitTimeTurn)
     BoringFPS.StopHUDPreGame()
-    BoringFPS_CONFIG.GameInProgress = true
     BoringFPS.SpawnPlayersOnGameMap()
     BoringFPS.DefineDirectionTurnPlay()
     BoringFPS.StartConditionEndGame()
@@ -56,12 +56,14 @@ function BoringFPS.SpawnPlayersOnGameMap()
     for index, ply in ipairs(playersGet) do
         local location = spawnPoints[index]
         if location then
-            local weapon = ply:Give(BoringFPS_CONFIG.Settings.ClassWeapon[ply:GetNWString("ClassWeapon", BoringFPS_CONFIG.Settings.ListClass[1])])
+            local class = ply:GetNWString("ClassWeapon", BoringFPS_CONFIG.Settings.ListClass[1])
+            local weapon = ply:Give(BoringFPS_CONFIG.Settings.ClassWeapon[class])
             ply:SetPos(location:GetPos())
             ply:SetAngles(location:GetAngles())
             ply:SetNWEntity( "WeaponGame", weapon)
             weapon:SetClip1(weapon:GetMaxClip1()) --? We set here bc weapon doesnt load itself for some reasons
             colorPlayer[ply] = colorAvailable[index] or Color(0, 0, 0)
+            ply:SetDataStats(class, "count_select", 1)
         else
             ply:KillSilent()
             BoringFPS.EnterSpectatorMode(ply)
@@ -95,19 +97,18 @@ function BoringFPS.DefineDirectionTurnPlay()
         indexTurn = indexTurn + 1
     end
     BoringFPS_CONFIG.DirectionTurnPlayers = directionTurn
-    BoringFPS_CONFIG.LastIndexDirectionTurn = #directionTurn
-    BoringFPS.SetGlobalTable(directionTurn, "PlayersInGame")
     BoringFPS_CONFIG.Vars.NumberOfPlayers = #directionTurn
+    BoringFPS.SetGlobalTable(table.Copy(directionTurn), "PlayersInGame")
 end
 
 function BoringFPS.ResetParams()
     BoringFPS_CONFIG.CurrentPlayerTurn = nil
     BoringFPS_CONFIG.DirectionTurnPlayers = {}
-    BoringFPS_CONFIG.LastIndexDirectionTurn = nil
-    BoringFPS_CONFIG.GameInProgress = false
+    BoringFPS_CONFIG.Vars.NumberOfPlayers = nil
     BoringFPS.SetGlobalTable({}, "PlayersInGame")
     BoringFPS.SetGlobalTable({}, "PlayersAlive")
     BoringFPS.SetGlobalTable({}, "GameLogs")
+    SetGlobalBool("GameInProgress", false)
     SetGlobalBool("EndGameEnabled", false)
     SetGlobalInt("GlobalTurn", 0)
     SetGlobalInt("CurrentIndexDirectionTurn", -1)

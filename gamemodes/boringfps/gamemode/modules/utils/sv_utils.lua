@@ -89,10 +89,10 @@ function BoringFPS.KnockBack(attacker, target, strength)
     local velocityApplied = forceDir * strength + target:GetVelocity()
 
     target:SetVelocity(velocityApplied)
-    BoringFPS.AddKnockBackHook(target, velocityApplied)
+    BoringFPS.AddKnockBackHook(target, velocityApplied, attacker)
 end
 
-function BoringFPS.AddKnockBackHook(target, velocityApplied)
+function BoringFPS.AddKnockBackHook(target, velocityApplied, attacker)
     local minVelocity = BoringFPS_CONFIG.Settings.MinVelocityKnockBackDamage or 500
     if (velocityApplied:Length() < minVelocity) then return end
 
@@ -107,7 +107,7 @@ function BoringFPS.AddKnockBackHook(target, velocityApplied)
             velocityMaxReached = velLength > velocityMaxReached and velLength or velocityMaxReached
             if (tr.Hit) then
                 velLength = velocityMaxReached < minVelocityToReach and minVelocityToReach or velLength
-                BoringFPS.AppliedKnockBackDamage(target, velLength)
+                BoringFPS.AppliedKnockBackDamage(target, velLength, attacker)
             end
             if (velLength <= 10) then
                 hook.Remove("Think", "BoringFPS:KnockBackThink-" .. target:EntIndex())
@@ -116,7 +116,7 @@ function BoringFPS.AddKnockBackHook(target, velocityApplied)
     end )
 end
 
-function BoringFPS.AppliedKnockBackDamage(target, velLength)
+function BoringFPS.AppliedKnockBackDamage(target, velLength, attacker)
     target:SetVelocity( Vector(0, 0, 0) )
     local maxVelocity = BoringFPS_CONFIG.Settings.MaxVelocityKnockBackDamage or 1000
     local minVelocity = BoringFPS_CONFIG.Settings.MinVelocityKnockBackDamage or 500
@@ -126,7 +126,7 @@ function BoringFPS.AppliedKnockBackDamage(target, velLength)
     hook.Remove("Think", "BoringFPS:KnockBackThink-" .. target:EntIndex())
     timer.Simple(0.2, function() --? Avoid instant kill without force applied
         if (not IsValid(target)) then return end
-        target:TakeDamage(dmg, game.GetWorld(), game.GetWorld())
+        target:TakeDamage(dmg, attacker, attacker)
     end)
 end
 

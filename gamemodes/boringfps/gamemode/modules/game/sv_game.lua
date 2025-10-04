@@ -45,11 +45,12 @@ function BoringFPS.EndTurn()
     timer.Remove("BoringFPS:TimerTurn")
     local ply = BoringFPS_CONFIG.CurrentPlayerTurn
     hook.Call("PlayerTurnEnd", nil, ply)
+    hook.Call("OnNewDataPlayer", nil, ply, "turn_done")
     if (IsValid(ply)) then
         BoringFPS.InsertLogs(ply:GetName() .. "'s turn has ended!")
         BoringFPS.SetTurnToWait({ply})
-        local players = table.Copy(BoringFPS_CONFIG.DirectionTurnPlayers)
-        table.remove(players, ply:GetNWInt("NumberTurn"))
+        local players = table.Copy(BoringFPS_CONFIG.Vars.PlayersAlive)
+        table.RemoveByValue(players, ply)
         BoringFPS.ReadSound(BoringFPS_CONFIG.Sounds.NotifTurnEnd, game.GetWorld(), 0, players)
     else
         BoringFPS.InsertLogs("Turn has ended!")
@@ -62,7 +63,7 @@ end
 
 function BoringFPS.GetNextPlayerTurn()
     local nextIndex = GetGlobalInt("CurrentIndexDirectionTurn", 0)
-    local sizeTable = BoringFPS_CONFIG.LastIndexDirectionTurn
+    local sizeTable = BoringFPS_CONFIG.Vars.NumberOfPlayers
 
     for i = 1, sizeTable do
         nextIndex = nextIndex + 1
@@ -81,18 +82,19 @@ function BoringFPS.NewGlobalTurn()
     local currentGlobalTurn = GetGlobalInt("GlobalTurn", 1) + 1
     SetGlobalInt("GlobalTurn", currentGlobalTurn)
     hook.Call("NewGlobalTurn")
-    if (currentGlobalTurn >= BoringFPS_CONFIG.Settings.GlobalTurnEndGame) then
-        BoringFPS.CheckEndGameEvent()
-    end
+    BoringFPS.CheckEndGameEvent()
 end
 
 function BoringFPS.GameFinish(reset)
-    local winner = BoringFPS_CONFIG.Vars.PlayersAlive[1]
+    local winner = reset and nil or BoringFPS_CONFIG.Vars.PlayersAlive[1]
+    if (not reset) then
+        hook.Call("OnNewDataPlayer", nil, winner, "win")
+    end
     local name = IsValid(winner) and winner:GetName() or "MrMarrant"
     local congratMsg = reset and "DRAW" or name .. "'s has won!"
 
-    BoringFPS.InsertLogs(congratMsg)
     BoringFPS.ReadSound(BoringFPS_CONFIG.Sounds.WinGame, game.GetWorld(), 0 )
+    BoringFPS.SetExperience(winner)
     for k, survivor in ipairs(BoringFPS_CONFIG.Vars.PlayersAlive) do
         survivor:SetState("free")
     end
@@ -100,6 +102,7 @@ function BoringFPS.GameFinish(reset)
     net.WriteString(congratMsg)
     net.Broadcast()
     BoringFPS.ResetParams()
+    -- TODO : Save les données des joueurs ici aussi ?
     timer.Create("BoringFPS:TimerPostGame", BoringFPS_CONFIG.Settings.TimerPostGame, 1, function ()
         for key, value in ipairs(player.GetAll()) do
             value:UnSpectate()
@@ -111,7 +114,9 @@ function BoringFPS.GameFinish(reset)
             value:SetNWInt("Dash", -1)
             value:StripWeapons()
         end
-        BoringFPS_CONFIG.Vars.CurrentMusic:Stop()
+        if (BoringFPS_CONFIG.Vars.CurrentMusic) then
+            BoringFPS_CONFIG.Vars.CurrentMusic:Stop()
+        end
         BoringFPS.NewGame()
     end)
 end
@@ -128,10 +133,24 @@ function BoringFPS.CheckEndGameEvent()
     end
 end
 
+function BoringFPS.SetExperience(winner)
+    local players = BoringFPS_CONFIG.Vars.PlayersInGame
+    local expGain = BoringFPS_CONFIG.Settings.ExperienceGainByGame
+    local differenceExp = BoringFPS_CONFIG.Settings.DifferenceExperienceBetweenLevels
+    for key, ply in ipairs(players) do
+        if (IsValid(ply) and istable(ply.BFPS_DataPlayer)) then
+            local ammountExp = ply == winner and expGain + BoringFPS_CONFIG.Settings.ExperienceBonusWinner or expGain
+            ply:AddExperience(ammountExp)
+        end
+    end
+end
+
 function BoringFPS.StartEndGameEvent()
     SetGlobalBool("EndGameEnabled", true)
     BoringFPS.InsertLogs("Starting end game event!")
-    BoringFPS_CONFIG.Vars.CurrentMusic:FadeOut(4)
+    if (BoringFPS_CONFIG.Vars.CurrentMusic) then
+        BoringFPS_CONFIG.Vars.CurrentMusic:FadeOut(4)
+    end
     BoringFPS_CONFIG.Vars.CurrentMusic = BoringFPS.ReadSound(BoringFPS_CONFIG.Sounds.EndEventMusic, game.GetWorld(), 0, nil, 10)
     hook.Add("NewGlobalTurn", "BoringFPS:NewGlobalTurn:HitPlayers", function ()
         local playersAlive = BoringFPS_CONFIG.Vars.PlayersAlive

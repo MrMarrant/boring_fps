@@ -63,6 +63,6 @@ function SWEP:SecondaryShoot()
     else
         BoringFPS.RevealAura(2, {owner}, Color(255, 0, 0))
         BoringFPS.ReadSound(BoringFPS_CONFIG.Sounds.RevealAura, game.GetWorld(), 0 )
-        owner:SetNWInt("Action", owner:GetNWInt("Action", 0) - 1)
+        owner:SetAction(owner:GetNWInt("Action", 0) - 1, true)
     end
 end

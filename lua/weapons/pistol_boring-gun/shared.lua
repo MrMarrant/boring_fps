@@ -57,5 +57,5 @@ end
 function SWEP:SecondaryShoot()
     local owner = self:GetOwner()
     owner:SetPos(self.LocationStart)
-    owner:SetNWInt("Action", owner:GetNWInt("Action", 0) - 1)
+    owner:SetAction(owner:GetNWInt("Action", 0) - 1, true)
 end
