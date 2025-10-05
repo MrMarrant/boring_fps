@@ -1,3 +1,5 @@
+local differenceExp = BoringFPS_CONFIG.Settings.DifferenceExperienceBetweenLevels
+
 function BoringFPS.DisplayHUDPreGame()
     local timerPreGame = BoringFPS_CONFIG.Settings.TimerPreGame
     local timerStart = false
@@ -9,6 +11,7 @@ function BoringFPS.DisplayHUDPreGame()
         BoringFPS.DrawClassSelect(scrW, scrH)
         BoringFPS.DrawInfoPreGame(scrW, scrH)
         BoringFPS.DrawVersionGamemode(scrW, scrH)
+        BoringFPS.DrawLevelExperience(scrW, scrH)
         if (GetGlobalBool("IsStartTimerPreGame")) then
             ct = CurTime()
             startTimer = timerStart and startTimer or (ct + timerPreGame)
@@ -22,6 +25,28 @@ end
 
 function BoringFPS.StopHUDPreGame()
     hook.Remove( "HUDPaint", "HUDPaint:BoringFPS:HUDPreGame" )
+end
+
+function BoringFPS.DrawLevelExperience(scrW, scrH)
+    local ply = LocalPlayer()
+    local rectW, rectH = scrW * 0.10, scrH * 0.07
+    local rectX, rectY = scrW * 0.01, scrH * 0.01
+    local bgColor = Color(0, 0, 0, 200)
+    local outlineColor = Color(255, 255, 255)
+    local level = ply:GetNWInt("Level", 0)
+    local experience = ply:GetNWInt("Exp", 0)
+    local expToNextLevel = (differenceExp / 2) * level * (level + 1)
+    local expToPreviousLevel = (differenceExp / 2) * (level - 1) * level
+    local experiencePerc = math.Round((experience - expToPreviousLevel) / (expToNextLevel - expToPreviousLevel) * 100, 1)
+
+    BoringFPS.DrawRoundedOutlinedBox(0, rectX, rectY, rectW, rectH, 2, bgColor, outlineColor)
+    surface.SetFont("TabHUDSmall")
+    local lineWidth, lineHeight = surface.GetTextSize("Lv")
+    -- TODO : Changer le font
+    draw.DrawText("Lv", "TabHUDSmall", rectX + rectW * 0.1, rectY + rectH * 0.3, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)
+    draw.DrawText(level, "NickAnton", rectX + rectW * 0.08 + lineWidth, rectY + rectH * 0.22, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)
+
+    draw.DrawText(experiencePerc .. "%", "Version", rectX + rectW * 0.5 + lineWidth, rectY + rectH * 0.35, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)
 end
 
 function BoringFPS.DrawClassSelect(scrW, scrH)

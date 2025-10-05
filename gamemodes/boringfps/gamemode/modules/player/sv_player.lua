@@ -129,7 +129,7 @@ function PLAYER:SetDataPlayer(name, value)
     end
 end
 
-function PLAYER:GetDataPlayer()
+function PLAYER:GetSQLDataPlayer()
     if (self:IsBot()) then return end
     print("Getting data for player: " .. self:Nick())
     local query = [[
@@ -142,7 +142,7 @@ function PLAYER:GetDataPlayer()
     elseif istable(result) then
         self.BFPS_DataPlayer = result[1]
     else
-        if self:CreateDataPlayer() then self:GetDataPlayer() end
+        if self:CreateDataPlayer() then self:GetSQLDataPlayer() end
     end
 end
 
@@ -204,14 +204,17 @@ function PLAYER:AddExperience(amountExp)
     if (istable(self.BFPS_DataPlayer)) then
         local currentExp = self.BFPS_DataPlayer["exp"] or 0
         local currentLevel = self.BFPS_DataPlayer["level"] or 1
+        local differenceExp = BoringFPS_CONFIG.Settings.DifferenceExperienceBetweenLevels
         local newExp = currentExp + amountExp
         local nextLevel = currentLevel + 1
         local expToNextLevel = (differenceExp / 2) * currentLevel * (nextLevel)
 
         self:SetDataPlayer("exp", newExp)
+        self:SetNWInt("Exp", newExp)
         self:ChatPrint("You have gained " .. amountExp .. " experience points.")
         if (newExp >= expToNextLevel) then
             self:SetDataPlayer("level", nextLevel)
+            self:SetNWInt("Level", nextLevel)
             self:ChatPrint("Congratulations! You have leveled up to level " .. nextLevel .. "!")
         end
     end
@@ -224,8 +227,10 @@ end
 hook.Add("PlayerInitialSpawn", "PlayerInitialSpawn:BoringFPS:SetupData", function(ply)
     ply:SetNWInt("NumberTurn", -1)
     ply:SetNWInt("StepLeft", 0)
-    ply:SetAction(0)
     ply:SetNWInt("Dash", 0)
+    ply:SetNWInt("Level", 0)
+    ply:SetNWInt("Exp", 0)
+    ply:SetAction(0)
     ply:SetNWString("ClassWeapon", "pistol")
     BoringFPS.DisplayHUDPreGame(ply)
 end)
@@ -235,9 +240,11 @@ gameevent.Listen( "player_activate" )
 hook.Add("player_activate", "player_activate.BoringFPS:OnActivate", function( data )
     local ply = Player(data.userid)
     ply:SetState("free")
-    if (BoringFPS_CONFIG.SQL.UseDatabase) then
-        ply:GetDataPlayer()
+    if (BoringFPS_CONFIG.SQL.UseDatabase and not ply:IsBot()) then
+        ply:GetSQLDataPlayer()
         ply:GetDataStats()
+        ply:SetNWInt("Level", ply.BFPS_DataPlayer["level"])
+        ply:SetNWInt("Exp", ply.BFPS_DataPlayer["exp"])
     end
 end)
 
