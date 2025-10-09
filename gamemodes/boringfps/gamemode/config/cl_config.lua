@@ -1,6 +1,16 @@
 BoringFPS_CONFIG.Vars.ScrW = ScrW()
 BoringFPS_CONFIG.Vars.ScrH = ScrH()
 
+surface.CreateFont( "LevelFont", {
+    font = "Pixelify Sans",
+    size = 35
+} )
+
+surface.CreateFont( "InfoPregameFont", {
+    font = "Pixelify Sans",
+    size = 25
+} )
+
 surface.CreateFont( "HudBoringFPS", {
     font = "Anton",
     size = 40
@@ -14,11 +24,6 @@ surface.CreateFont( "NickAnton", {
 surface.CreateFont( "Version", {
     font = "Anton",
     size = 20
-} )
-
-surface.CreateFont( "StateGame", {
-    font = "Anton",
-    size = 30
 } )
 
 surface.CreateFont( "AnnouncerTurn", {

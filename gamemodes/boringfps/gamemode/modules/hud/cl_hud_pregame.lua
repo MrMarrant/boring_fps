@@ -38,15 +38,16 @@ function BoringFPS.DrawLevelExperience(scrW, scrH)
     local expToNextLevel = (differenceExp / 2) * level * (level + 1)
     local expToPreviousLevel = (differenceExp / 2) * (level - 1) * level
     local experiencePerc = math.Round((experience - expToPreviousLevel) / (expToNextLevel - expToPreviousLevel) * 100, 1)
+    local wPercent = rectW * 0.4
 
     BoringFPS.DrawRoundedOutlinedBox(0, rectX, rectY, rectW, rectH, 2, bgColor, outlineColor)
     surface.SetFont("TabHUDSmall")
     local lineWidth, lineHeight = surface.GetTextSize("Lv")
-    -- TODO : Changer le font
     draw.DrawText("Lv", "TabHUDSmall", rectX + rectW * 0.1, rectY + rectH * 0.3, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)
-    draw.DrawText(level, "NickAnton", rectX + rectW * 0.08 + lineWidth, rectY + rectH * 0.22, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)
-
-    draw.DrawText(experiencePerc .. "%", "Version", rectX + rectW * 0.5 + lineWidth, rectY + rectH * 0.35, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)
+    draw.DrawText(level, "LevelFont", rectX + rectW * 0.08 + lineWidth, rectY + rectH * 0.22, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)
+    draw.DrawText(experiencePerc .. "%", "LevelFont", rectX + rectW * 0.6 + lineWidth, rectY + rectH * 0.23, Color(255, 255, 255), TEXT_ALIGN_CENTER)
+    draw.RoundedBox(0, rectX + rectW * 0.5, rectY + rectH * 0.68, wPercent, rectH * 0.1, Color(156, 0, 0))
+    draw.RoundedBox(0, rectX + rectW * 0.5, rectY + rectH * 0.68, wPercent * (experiencePerc / 100), rectH * 0.1, Color(255, 255, 255))
 end
 
 function BoringFPS.DrawClassSelect(scrW, scrH)
@@ -62,13 +63,12 @@ function BoringFPS.DrawInfoPreGame(scrW, scrH)
     local rectW, rectH = scrW * 0.10, scrH * 0.07
     local rectX, rectY = scrW - rectW - 10, 10
     local bgColor = Color(0, 0, 0, 200)
+    local outlineColor = Color(255, 255, 255)
 
-    draw.RoundedBox(0, rectX, rectY, rectW, rectH, bgColor)
-    surface.SetDrawColor(255, 255, 255, 255)
-    surface.DrawOutlinedRect(rectX, rectY, rectW, rectH, 1)
+    BoringFPS.DrawRoundedOutlinedBox(0, rectX, rectY, rectW, rectH, 2, bgColor, outlineColor)
 
     local text = GetGlobalString("CurrentGameState", "")
-    local font = "StateGame"
+    local font = "InfoPregameFont"
     local lines = BoringFPS.WrapText(text, font, rectW - 8)
 
     surface.SetFont(font)
