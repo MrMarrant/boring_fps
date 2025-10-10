@@ -8,6 +8,8 @@ BoringFPS_CONFIG.Icons.HeartIcon = Material("boringfps/icons/heart_icon.png")
 BoringFPS_CONFIG.Icons.HeartFillIcon = Material("boringfps/icons/heart_fill_icon.png")
 BoringFPS_CONFIG.Icons.DisconnectedIcon = Material("boringfps/icons/skull_icon.png")
 BoringFPS_CONFIG.Icons.InfiniteIcon = Material("boringfps/icons/infinite_icon.png")
+BoringFPS_CONFIG.Icons.Info = Material("boringfps/icons/info.png")
+BoringFPS_CONFIG.Icons.RulesIcon = Material("boringfps/icons/rules.png")
 
 BoringFPS_CONFIG.Icons.CircleIcon = Material("boringfps/ui/circle_ui.png")
 
@@ -196,6 +198,7 @@ BoringFPS_CONFIG.NetVar.InsertLogs = "BoringFPS_CONFIG.InsertLogs"
 BoringFPS_CONFIG.NetVar.StartClientPreGame = "BoringFPS_CONFIG.StartClientPreGame"
 BoringFPS_CONFIG.NetVar.StopClientPreGame = "BoringFPS_CONFIG.StopClientPreGame"
 BoringFPS_CONFIG.NetVar.RevealAura = "BoringFPS_CONFIG.RevealAura"
+BoringFPS_CONFIG.NetVar.OpenHelpMenu = "BoringFPS_CONFIG.OpenHelpMenu"
 
 -- Base vars, i really don't recommend to edit this section
 BoringFPS_CONFIG.Vars = {}

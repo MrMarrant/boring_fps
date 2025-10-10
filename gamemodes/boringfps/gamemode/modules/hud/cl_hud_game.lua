@@ -12,7 +12,7 @@ end
 function BoringFPS.DisplayHUDGame()
     local plyList = BoringFPS_CONFIG.Vars.PlayersInGame
     hook.Add( "HUDPaint", "HUDPaint:BoringFPS:HUDGame", function()
-        if (IsValid(LocalPlayer().TabMenu)) then RemoveAvatar() return end
+        if (IsValid(LocalPlayer().TabMenu) or IsValid(LocalPlayer().HelpMenu)) then RemoveAvatar() return end
 
         local scrW, scrH = BoringFPS_CONFIG.Vars.ScrW, BoringFPS_CONFIG.Vars.ScrH
         BoringFPS.DrawListPlayerTurn(scrW, scrH, plyList)

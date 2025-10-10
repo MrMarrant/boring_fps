@@ -161,3 +161,8 @@ function BoringFPS.OnPlayerHit(target, dmginfo)
         BoringFPS.InsertLogs(target:Nick() .. " was hit by " .. attacker:Nick() .. " and received\n" .. math.Round( dmginfo:GetDamage() ) .. " damage.")
     end
 end
+
+function GM:ShowHelp( ply )
+    net.Start(BoringFPS_CONFIG.NetVar.OpenHelpMenu)
+    net.Send(ply)
+end

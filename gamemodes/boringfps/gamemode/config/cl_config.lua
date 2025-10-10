@@ -1,13 +1,23 @@
 BoringFPS_CONFIG.Vars.ScrW = ScrW()
 BoringFPS_CONFIG.Vars.ScrH = ScrH()
 
-surface.CreateFont( "LevelFont", {
-    font = "Pixelify Sans",
+surface.CreateFont( "LargeVT", {
+    font = "VT323",
+    size = 80
+} )
+
+surface.CreateFont( "DefaultVT", {
+    font = "VT323",
+    size = 40
+} )
+
+surface.CreateFont( "SmallVT", {
+    font = "VT323",
     size = 35
 } )
 
-surface.CreateFont( "InfoPregameFont", {
-    font = "Pixelify Sans",
+surface.CreateFont( "VerySmallVT", {
+    font = "VT323",
     size = 25
 } )
 
