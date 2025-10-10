@@ -19,7 +19,7 @@ function ENT:Draw()
 
     cam.Start3D2D(pos, Angle(0, -90, 82), 0.1)
         surface.SetDrawColor(255, 255, 255, 255)
-        surface.SetMaterial( BoringFPS_CONFIG.Settings.IconsClass[self:GetNWString( "classgun", "pistol" )] )
+        surface.SetMaterial( BoringFPS_CONFIG.Settings.Weapons[self:GetNWString( "classgun", "pistol" )].IconClass )
         surface.DrawTexturedRect(-size/2, -size/2, size, size)
         draw.DrawText(string.upper(self:GetNWString( "classgun", "pistol" )), "NickAnton", 0, 60, Color(255, 255, 255), TEXT_ALIGN_CENTER)
     cam.End3D2D()

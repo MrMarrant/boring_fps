@@ -26,16 +26,28 @@ SWEP.Secondary.ClipSize = -1
 SWEP.Secondary.DefaultClip = -1
 SWEP.Secondary.Automatic = false
 SWEP.Secondary.Ammo = "none"
-
-SWEP.Damage = 50
-SWEP.MaxStep = 10
-SWEP.MaxDash = 2
-SWEP.Action = 1
-SWEP.WalkSpeed = BoringFPS_CONFIG.Settings.DefaultWalkSpeed
-SWEP.RunSpeed = BoringFPS_CONFIG.Settings.DefaultRunSpeed
+SWEP.WeaponName = "base"
+SWEP.WeaponSetting = {}
+SWEP.Damage = 0
+SWEP.MaxStep = 0
+SWEP.MaxDash = 0
+SWEP.Action = 0
+SWEP.WalkSpeed = 0
+SWEP.RunSpeed = 0
 
 function SWEP:Initialize()
 	self:SetHoldType( self.HoldType )
+	self:SetWeaponStats()
+end
+
+function SWEP:SetWeaponStats()
+    self.WeaponSetting = BoringFPS_CONFIG.Settings.Weapons[self.WeaponName]
+    self.Damage = self.WeaponSetting.Damage or 10
+    self.MaxStep = self.WeaponSetting.MaxStep or 10
+    self.MaxDash = self.WeaponSetting.MaxDash or 2
+    self.Action = self.WeaponSetting.Action or 1
+    self.WalkSpeed = self.WeaponSetting.WalkSpeed
+    self.RunSpeed = self.WeaponSetting.RunSpeed
 end
 
 function SWEP:PrimaryAttack()

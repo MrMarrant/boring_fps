@@ -23,11 +23,7 @@ SWEP.Secondary.ClipSize = -1
 SWEP.Secondary.DefaultClip = -1
 SWEP.Secondary.Automatic = false
 SWEP.Secondary.Ammo = "none"
-
-SWEP.Damage = 100
-SWEP.MaxStep = 6
-SWEP.MaxDash = 1
-SWEP.Action = 1
+SWEP.WeaponName = "launcher"
 
 SWEP.VelocityRocket = 4000
 

@@ -23,13 +23,9 @@ SWEP.Secondary.ClipSize = -1
 SWEP.Secondary.DefaultClip = -1
 SWEP.Secondary.Automatic = false
 SWEP.Secondary.Ammo = "none"
+SWEP.WeaponName = "crowbar"
 
 SWEP.RangeAttack = 100
-
-SWEP.Damage = 20
-SWEP.MaxStep = 18
-SWEP.MaxDash = 2
-SWEP.Action = 2
 
 function SWEP:Shoot()
     local owner = self:GetOwner()

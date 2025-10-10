@@ -1,11 +1,3 @@
-local captionImg = {
-    ["boringfps/icons/action_icon.png"] = "Points d’action",
-    ["boringfps/icons/step_icon.png"] = "Points de mouvements",
-    ["boringfps/icons/dash_icon.png"] = "Points de dash",
-    ["boringfps/icons/weapon_icon.png"] = "Munition restante",
-    ["boringfps/icons/timer_icon.png"] = "Temps restant du tour"
-}
-
 hook.Add("SpawnMenuOpen", "BoringFPS:SpawnMenuOpen", function()
     if (LocalPlayer():HasAccess()) then return true end
 
@@ -15,6 +7,14 @@ hook.Add("SpawnMenuOpen", "BoringFPS:SpawnMenuOpen", function()
         SpawnMenu:Center()
         return true
     end
+
+    local captionImg = {
+    ["boringfps/icons/action_icon.png"] = BoringFPS.GetTranslation("action_point"),
+    ["boringfps/icons/step_icon.png"] = BoringFPS.GetTranslation("move_point"),
+    ["boringfps/icons/dash_icon.png"] = BoringFPS.GetTranslation("dash_point"),
+    ["boringfps/icons/weapon_icon.png"] = BoringFPS.GetTranslation("ammo_left"),
+    ["boringfps/icons/timer_icon.png"] = BoringFPS.GetTranslation("turn_time")
+}
 
     local frame = vgui.Create("DFrame")
     frame:SetTitle("")
@@ -39,7 +39,7 @@ hook.Add("SpawnMenuOpen", "BoringFPS:SpawnMenuOpen", function()
     end
 
     local ruleTitle = vgui.Create("DLabel", ruleComp)
-    ruleTitle:SetText("Règle du jeu")
+    ruleTitle:SetText(BoringFPS.GetTranslation("rule"))
     ruleTitle:SetFont("DermaLarge")
     ruleTitle:SetTextColor(Color(255, 255, 255))
     ruleTitle:SizeToContents()
@@ -48,7 +48,7 @@ hook.Add("SpawnMenuOpen", "BoringFPS:SpawnMenuOpen", function()
     ruleTitle:DockMargin(0, 10, 0, 0)
 
     local ruleText = vgui.Create("DLabel", ruleComp)
-    ruleText:SetText("Le but du jeu est d’être le dernier survivant de la partie en cours.\nVous jouez chacun votre tour, pendant une durée définie.\nVous pouvez réaliser des actions durant votre tour, ainsi que lorsque ce n’est pas votre tour.\nVous avez le choix entre plusieurs classes, chacune vous donnera accès à une arme unique ainsi que des caractéristiques uniques dans le salon du lobby de pregame.")
+    ruleText:SetText(BoringFPS.GetTranslation("rule_desc"))
     ruleText:SetFont("TabHUDSmall")
     ruleText:SetTextColor(Color(255, 255, 255))
     ruleText:Center()
@@ -67,14 +67,14 @@ hook.Add("SpawnMenuOpen", "BoringFPS:SpawnMenuOpen", function()
     turnComp.Paint = function(self, w, h)
         draw.RoundedBox(0, 0, 0, w, h, Color(48, 57, 47, 225))
         draw.SimpleText(
-            "Tour actuel",
+            BoringFPS.GetTranslation("turn_comp"),
             "DermaLarge",
             w / 2, h * 0.02,
             Color(255, 255, 255),
             TEXT_ALIGN_CENTER,
             TEXT_ALIGN_TOP
         )
-        local text = "- Utiliser une action\n  → Tirer\n  → Action spéciale de l’arme\n  → Recharger\n\n- Utiliser les points de déplacements"
+        local text = BoringFPS.GetTranslation("turn_indication")
         draw.DrawText(
             text,
             "TabHUDLarge",
@@ -91,14 +91,14 @@ hook.Add("SpawnMenuOpen", "BoringFPS:SpawnMenuOpen", function()
     outTurnComp.Paint = function(self, w, h)
         draw.RoundedBox(0, 0, 0, w, h, Color(43, 35, 34, 225))
         draw.SimpleText(
-            "En dehors de votre tour",
+            BoringFPS.GetTranslation("out_turn_comp"),
             "DermaLarge",
             w / 2, h * 0.02,
             Color(255, 255, 255),
             TEXT_ALIGN_CENTER,
             TEXT_ALIGN_TOP
         )
-        local text = "- Utiliser vos points de dash pour éviter\nles tirs des autres joueurs"
+        local text = BoringFPS.GetTranslation("out_of_turn_indication")
         draw.DrawText(
             text,
             "TabHUDLarge",
@@ -115,7 +115,7 @@ hook.Add("SpawnMenuOpen", "BoringFPS:SpawnMenuOpen", function()
     iconComp.Paint = function(self, w, h)
         draw.RoundedBox(0, 0, 0, w, h, Color(83, 110, 213, 225))
         draw.SimpleText(
-            "Légende",
+            BoringFPS.GetTranslation("legend"),
             "DermaLarge",
             w / 2, h * 0.02,
             Color(255, 255, 255),

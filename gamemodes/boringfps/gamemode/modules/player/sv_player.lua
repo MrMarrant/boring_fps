@@ -283,7 +283,7 @@ end)
 -- Concommands
 -- ============================
 concommand.Add("changeclass", function(ply, cmd, args, argStr)
-    local weapon = BoringFPS_CONFIG.Settings.ClassWeapon[args[1]]
+    local weapon = BoringFPS_CONFIG.Settings.Weapons[args[1]]
     if (weapon) then
         ply:SetNWString("ClassWeapon", args[1])
         ply:ChatPrint("Vous avez changé votre classe d'arme en : " .. args[1])

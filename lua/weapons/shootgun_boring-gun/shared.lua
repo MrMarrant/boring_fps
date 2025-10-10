@@ -23,11 +23,7 @@ SWEP.Secondary.ClipSize = -1
 SWEP.Secondary.DefaultClip = -1
 SWEP.Secondary.Automatic = false
 SWEP.Secondary.Ammo = "none"
-
-SWEP.Damage = 8
-SWEP.MaxStep = 8
-SWEP.MaxDash = 1
-SWEP.Action = 1
+SWEP.WeaponName = "shootgun"
 
 SWEP.Pellets = 9
 SWEP.SpreadAngle = 0.15

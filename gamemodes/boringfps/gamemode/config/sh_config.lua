@@ -39,6 +39,73 @@ BoringFPS_CONFIG.Settings.MaxDamageKnockBack = 40 -- Define the maximum damage t
 BoringFPS_CONFIG.Settings.GlobalTurnEndGame = 10 -- Define the global turn where endgame can start
 BoringFPS_CONFIG.Settings.DamageEndGame = 10 -- Define the damage to deal to player when end game event is enabled
 BoringFPS_CONFIG.Settings.DurationRevealEndGame = 3 -- Define how long players are reveal when endgame event is enabled
+BoringFPS_CONFIG.Settings.Weapons = {}
+BoringFPS_CONFIG.Settings.Weapons["pistol"] = {
+    ClassName = "pistol_boring-gun",
+    IconClass = BoringFPS_CONFIG.Icons.PistolClass,
+    MaxAmmo = 4,
+    Damage = 15,
+    MaxStep = 10,
+    MaxDash = 2,
+    Action = 2,
+    WalkSpeed = BoringFPS_CONFIG.Settings.DefaultWalkSpeed,
+    RunSpeed = BoringFPS_CONFIG.Settings.DefaultRunSpeed
+}
+BoringFPS_CONFIG.Settings.Weapons["shootgun"] = {
+    ClassName = "shootgun_boring-gun",
+    IconClass = BoringFPS_CONFIG.Icons.ShotGunClass,
+    MaxAmmo = 2,
+    Damage = 8,
+    MaxStep = 8,
+    MaxDash = 1,
+    Action = 1,
+    WalkSpeed = BoringFPS_CONFIG.Settings.DefaultWalkSpeed,
+    RunSpeed = BoringFPS_CONFIG.Settings.DefaultRunSpeed
+}
+BoringFPS_CONFIG.Settings.Weapons["launcher"] = {
+    ClassName = "launcher_boring-gun",
+    IconClass = BoringFPS_CONFIG.Icons.LauncherClass,
+    MaxAmmo = 2,
+    Damage = 100,
+    MaxStep = 6,
+    MaxDash = 1,
+    Action = 1,
+    WalkSpeed = BoringFPS_CONFIG.Settings.DefaultWalkSpeed,
+    RunSpeed = BoringFPS_CONFIG.Settings.DefaultRunSpeed
+}
+BoringFPS_CONFIG.Settings.Weapons["crowbar"] = {
+    ClassName = "crowbar_boring-gun",
+    IconClass = BoringFPS_CONFIG.Icons.CrowbarClass,
+    MaxAmmo = -1,
+    Damage = 20,
+    MaxStep = 18,
+    MaxDash = 2,
+    Action = 2,
+    WalkSpeed = BoringFPS_CONFIG.Settings.DefaultWalkSpeed,
+    RunSpeed = BoringFPS_CONFIG.Settings.DefaultRunSpeed
+}
+BoringFPS_CONFIG.Settings.Weapons["touch"] = {
+    ClassName = "touch_touch_boring-gun",
+    IconClass = BoringFPS_CONFIG.Icons.TouchClass,
+    MaxAmmo = -1,
+    Damage = 25,
+    MaxStep = 20,
+    MaxDash = 2,
+    Action = 3,
+    WalkSpeed = 400,
+    RunSpeed = 470
+}
+BoringFPS_CONFIG.Settings.Weapons["stalker"] = {
+    ClassName = "stalker_boring-gun",
+    IconClass = BoringFPS_CONFIG.Icons.StalkerClass,
+    MaxAmmo = 2,
+    Damage = 30,
+    MaxStep = 5,
+    MaxDash = 1,
+    Action = 2,
+    WalkSpeed = BoringFPS_CONFIG.Settings.DefaultWalkSpeed,
+    RunSpeed = BoringFPS_CONFIG.Settings.DefaultRunSpeed
+}
 BoringFPS_CONFIG.Settings.ListClass = {
     "pistol",
     "shootgun",
@@ -47,27 +114,11 @@ BoringFPS_CONFIG.Settings.ListClass = {
     "touch",
     "stalker"
 }
-BoringFPS_CONFIG.Settings.ClassWeapon = {
-    ["pistol"] = "pistol_boring-gun",
-    ["shootgun"] = "shootgun_boring-gun",
-    ["launcher"] = "launcher_boring-gun",
-    ["crowbar"] = "crowbar_boring-gun",
-    ["touch"] = "touch_touch_boring-gun",
-    ["stalker"] = "stalker_boring-gun"
-}
 BoringFPS_CONFIG.Settings.HideHUD = {
 	["CHudHealth"] = true,
 	["CHudBattery"] = true,
 	["CHudChat"] = true,
     ["CHudDeathNotice"] = true
-}
-BoringFPS_CONFIG.Settings.IconsClass = {
-    ["pistol"] = BoringFPS_CONFIG.Icons.PistolClass,
-    ["shootgun"] = BoringFPS_CONFIG.Icons.ShotGunClass,
-    ["launcher"] = BoringFPS_CONFIG.Icons.LauncherClass,
-    ["crowbar"] = BoringFPS_CONFIG.Icons.CrowbarClass,
-    ["touch"] = BoringFPS_CONFIG.Icons.TouchClass,
-    ["stalker"] = BoringFPS_CONFIG.Icons.StalkerClass
 }
 BoringFPS_CONFIG.Settings.ColorPlayer = {
     Color(255, 85, 85),

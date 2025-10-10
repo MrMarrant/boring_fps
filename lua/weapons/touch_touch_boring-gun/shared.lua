@@ -23,16 +23,10 @@ SWEP.Secondary.ClipSize = -1
 SWEP.Secondary.DefaultClip = -1
 SWEP.Secondary.Automatic = false
 SWEP.Secondary.Ammo = "none"
+SWEP.WeaponName = "touch"
 
 SWEP.RangeAttack = 100
 SWEP.PlayersHit = {}
-
-SWEP.Damage = 25
-SWEP.MaxStep = 20
-SWEP.MaxDash = 2
-SWEP.Action = 3
-SWEP.WalkSpeed = 400
-SWEP.RunSpeed = 470
 
 function SWEP:Initialize()
 	self:SetHoldType( self.HoldType )

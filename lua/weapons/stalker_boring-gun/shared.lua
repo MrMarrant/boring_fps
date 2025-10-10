@@ -23,13 +23,9 @@ SWEP.Secondary.ClipSize = -1
 SWEP.Secondary.DefaultClip = -1
 SWEP.Secondary.Automatic = false
 SWEP.Secondary.Ammo = "none"
+SWEP.WeaponName = "stalker"
 
 SWEP.DurationRevealAura = 1
-
-SWEP.Damage = 30
-SWEP.MaxStep = 5
-SWEP.MaxDash = 1
-SWEP.Action = 2
 
 function SWEP:Shoot()
     local owner = self:GetOwner()
