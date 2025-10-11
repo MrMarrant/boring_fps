@@ -5,7 +5,7 @@ function BoringFPS.WrapText(text, font, maxWidth)
     for word in string.gmatch(text, "%S+") do
         local testLine = (currentLine == "") and word or (currentLine .. " " .. word)
         local w = surface.GetTextSize(testLine)
-        
+
         if w > maxWidth then
             table.insert(lines, currentLine)
             currentLine = word

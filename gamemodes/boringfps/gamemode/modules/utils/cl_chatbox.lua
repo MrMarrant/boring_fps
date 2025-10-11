@@ -174,5 +174,6 @@ hook.Add( "OnPauseMenuShow", "OnPauseMenuShow:BoringFPS:HideChatBox", function()
     CloseChat()
     if (IsValid(ply.HelpMenu)) then
         ply.HelpMenu:Remove()
+        ply.HelpMenu = nil
     end
 end )
