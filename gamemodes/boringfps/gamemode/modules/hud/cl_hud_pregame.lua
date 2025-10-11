@@ -5,7 +5,7 @@ function BoringFPS.DisplayHUDPreGame()
     local timerStart = false
     local startTimer
     hook.Add( "HUDPaint", "HUDPaint:BoringFPS:HUDPreGame", function()
-        if (IsValid(LocalPlayer().TabMenu)) then return end
+        if (IsValid(LocalPlayer().TabMenu) or IsValid(LocalPlayer().HelpMenu)) then return end
 
         local scrW, scrH = BoringFPS_CONFIG.Vars.ScrW, BoringFPS_CONFIG.Vars.ScrH
         BoringFPS.DrawClassSelect(scrW, scrH)
@@ -43,11 +43,11 @@ function BoringFPS.DrawLevelExperience(scrW, scrH)
     BoringFPS.DrawRoundedOutlinedBox(0, rectX, rectY, rectW, rectH, 2, bgColor, outlineColor)
     surface.SetFont("TabHUDSmall")
     local lineWidth, lineHeight = surface.GetTextSize("Lv")
-    draw.DrawText("Lv", "TabHUDSmall", rectX + rectW * 0.1, rectY + rectH * 0.3, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)
-    draw.DrawText(level, "LevelFont", rectX + rectW * 0.08 + lineWidth, rectY + rectH * 0.22, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)
-    draw.DrawText(experiencePerc .. "%", "LevelFont", rectX + rectW * 0.6 + lineWidth, rectY + rectH * 0.23, Color(255, 255, 255), TEXT_ALIGN_CENTER)
-    draw.RoundedBox(0, rectX + rectW * 0.5, rectY + rectH * 0.68, wPercent, rectH * 0.1, Color(156, 0, 0))
-    draw.RoundedBox(0, rectX + rectW * 0.5, rectY + rectH * 0.68, wPercent * (experiencePerc / 100), rectH * 0.1, Color(255, 255, 255))
+    draw.DrawText("Lv", "TabHUDSmall", rectX + rectW * 0.1, rectY + rectH * 0.35, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)
+    draw.DrawText(level, "DefaultVT", rectX + rectW * 0.05 + lineWidth, rectY + rectH * 0.2, Color(255, 255, 255, 255), TEXT_ALIGN_LEFT)
+    draw.DrawText(experiencePerc .. "%", "SmallVT", rectX + rectW * 0.6 + lineWidth, rectY + rectH * 0.15, Color(255, 255, 255), TEXT_ALIGN_CENTER)
+    draw.RoundedBox(0, rectX + rectW * 0.5, rectY + rectH * 0.65, wPercent, rectH * 0.1, Color(156, 0, 0))
+    draw.RoundedBox(0, rectX + rectW * 0.5, rectY + rectH * 0.65, wPercent * (experiencePerc / 100), rectH * 0.1, Color(255, 255, 255))
 end
 
 function BoringFPS.DrawClassSelect(scrW, scrH)
@@ -68,7 +68,7 @@ function BoringFPS.DrawInfoPreGame(scrW, scrH)
     BoringFPS.DrawRoundedOutlinedBox(0, rectX, rectY, rectW, rectH, 2, bgColor, outlineColor)
 
     local text = GetGlobalString("CurrentGameState", "")
-    local font = "InfoPregameFont"
+    local font = "VerySmallVT"
     local lines = BoringFPS.WrapText(text, font, rectW - 8)
 
     surface.SetFont(font)

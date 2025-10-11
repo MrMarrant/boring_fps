@@ -170,5 +170,10 @@ end)
 * Close chatbox when pause menu is open
 --]]
 hook.Add( "OnPauseMenuShow", "OnPauseMenuShow:BoringFPS:HideChatBox", function()
+    local ply = LocalPlayer()
     CloseChat()
+    if (IsValid(ply.HelpMenu)) then
+        ply.HelpMenu:Remove()
+        ply.HelpMenu = nil
+    end
 end )

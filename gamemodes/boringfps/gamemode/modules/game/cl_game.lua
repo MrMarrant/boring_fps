@@ -37,3 +37,7 @@ end )
 hook.Add( "HUDDrawTargetID", "BoringFPS:HUDDrawTargetID", function()
 	return false
 end )
+
+hook.Add("SpawnMenuOpen", "BoringFPS:SpawnMenuOpen", function()
+    return LocalPlayer():HasAccess()
+end)

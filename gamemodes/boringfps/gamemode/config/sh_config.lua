@@ -8,6 +8,8 @@ BoringFPS_CONFIG.Icons.HeartIcon = Material("boringfps/icons/heart_icon.png")
 BoringFPS_CONFIG.Icons.HeartFillIcon = Material("boringfps/icons/heart_fill_icon.png")
 BoringFPS_CONFIG.Icons.DisconnectedIcon = Material("boringfps/icons/skull_icon.png")
 BoringFPS_CONFIG.Icons.InfiniteIcon = Material("boringfps/icons/infinite_icon.png")
+BoringFPS_CONFIG.Icons.Info = Material("boringfps/icons/info.png")
+BoringFPS_CONFIG.Icons.RulesIcon = Material("boringfps/icons/rules.png")
 
 BoringFPS_CONFIG.Icons.CircleIcon = Material("boringfps/ui/circle_ui.png")
 
@@ -42,6 +44,7 @@ BoringFPS_CONFIG.Settings.DurationRevealEndGame = 3 -- Define how long players a
 BoringFPS_CONFIG.Settings.Weapons = {}
 BoringFPS_CONFIG.Settings.Weapons["pistol"] = {
     ClassName = "pistol_boring-gun",
+    Name = "Pistol",
     IconClass = BoringFPS_CONFIG.Icons.PistolClass,
     MaxAmmo = 4,
     Damage = 15,
@@ -49,10 +52,12 @@ BoringFPS_CONFIG.Settings.Weapons["pistol"] = {
     MaxDash = 2,
     Action = 2,
     WalkSpeed = BoringFPS_CONFIG.Settings.DefaultWalkSpeed,
-    RunSpeed = BoringFPS_CONFIG.Settings.DefaultRunSpeed
+    RunSpeed = BoringFPS_CONFIG.Settings.DefaultRunSpeed,
+    Description = "pistol_description"
 }
 BoringFPS_CONFIG.Settings.Weapons["shootgun"] = {
     ClassName = "shootgun_boring-gun",
+    Name = "Shotgun",
     IconClass = BoringFPS_CONFIG.Icons.ShotGunClass,
     MaxAmmo = 2,
     Damage = 8,
@@ -60,10 +65,12 @@ BoringFPS_CONFIG.Settings.Weapons["shootgun"] = {
     MaxDash = 1,
     Action = 1,
     WalkSpeed = BoringFPS_CONFIG.Settings.DefaultWalkSpeed,
-    RunSpeed = BoringFPS_CONFIG.Settings.DefaultRunSpeed
+    RunSpeed = BoringFPS_CONFIG.Settings.DefaultRunSpeed,
+    Description = "shotgun_description"
 }
 BoringFPS_CONFIG.Settings.Weapons["launcher"] = {
     ClassName = "launcher_boring-gun",
+    Name = "Launcher",
     IconClass = BoringFPS_CONFIG.Icons.LauncherClass,
     MaxAmmo = 2,
     Damage = 100,
@@ -71,10 +78,12 @@ BoringFPS_CONFIG.Settings.Weapons["launcher"] = {
     MaxDash = 1,
     Action = 1,
     WalkSpeed = BoringFPS_CONFIG.Settings.DefaultWalkSpeed,
-    RunSpeed = BoringFPS_CONFIG.Settings.DefaultRunSpeed
+    RunSpeed = BoringFPS_CONFIG.Settings.DefaultRunSpeed,
+    Description = "launcher_description"
 }
 BoringFPS_CONFIG.Settings.Weapons["crowbar"] = {
     ClassName = "crowbar_boring-gun",
+    Name = "Crowbar",
     IconClass = BoringFPS_CONFIG.Icons.CrowbarClass,
     MaxAmmo = -1,
     Damage = 20,
@@ -82,10 +91,12 @@ BoringFPS_CONFIG.Settings.Weapons["crowbar"] = {
     MaxDash = 2,
     Action = 2,
     WalkSpeed = BoringFPS_CONFIG.Settings.DefaultWalkSpeed,
-    RunSpeed = BoringFPS_CONFIG.Settings.DefaultRunSpeed
+    RunSpeed = BoringFPS_CONFIG.Settings.DefaultRunSpeed,
+    Description = "crowbar_description"
 }
 BoringFPS_CONFIG.Settings.Weapons["touch"] = {
     ClassName = "touch_touch_boring-gun",
+    Name = "Touch",
     IconClass = BoringFPS_CONFIG.Icons.TouchClass,
     MaxAmmo = -1,
     Damage = 25,
@@ -93,10 +104,12 @@ BoringFPS_CONFIG.Settings.Weapons["touch"] = {
     MaxDash = 2,
     Action = 3,
     WalkSpeed = 400,
-    RunSpeed = 470
+    RunSpeed = 470,
+    Description = "touch_description"
 }
 BoringFPS_CONFIG.Settings.Weapons["stalker"] = {
     ClassName = "stalker_boring-gun",
+    Name = "Stalker",
     IconClass = BoringFPS_CONFIG.Icons.StalkerClass,
     MaxAmmo = 2,
     Damage = 30,
@@ -104,7 +117,8 @@ BoringFPS_CONFIG.Settings.Weapons["stalker"] = {
     MaxDash = 1,
     Action = 2,
     WalkSpeed = BoringFPS_CONFIG.Settings.DefaultWalkSpeed,
-    RunSpeed = BoringFPS_CONFIG.Settings.DefaultRunSpeed
+    RunSpeed = BoringFPS_CONFIG.Settings.DefaultRunSpeed,
+    Description = "stalker_description"
 }
 BoringFPS_CONFIG.Settings.ListClass = {
     "pistol",
@@ -196,6 +210,7 @@ BoringFPS_CONFIG.NetVar.InsertLogs = "BoringFPS_CONFIG.InsertLogs"
 BoringFPS_CONFIG.NetVar.StartClientPreGame = "BoringFPS_CONFIG.StartClientPreGame"
 BoringFPS_CONFIG.NetVar.StopClientPreGame = "BoringFPS_CONFIG.StopClientPreGame"
 BoringFPS_CONFIG.NetVar.RevealAura = "BoringFPS_CONFIG.RevealAura"
+BoringFPS_CONFIG.NetVar.OpenHelpMenu = "BoringFPS_CONFIG.OpenHelpMenu"
 
 -- Base vars, i really don't recommend to edit this section
 BoringFPS_CONFIG.Vars = {}
