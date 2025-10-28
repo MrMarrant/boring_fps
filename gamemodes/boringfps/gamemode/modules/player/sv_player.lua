@@ -223,7 +223,6 @@ end
 -- ============================
 -- HOOKS
 -- ============================
-
 hook.Add("PlayerInitialSpawn", "PlayerInitialSpawn:BoringFPS:SetupData", function(ply)
     ply:SetNWInt("NumberTurn", -1)
     ply:SetNWInt("StepLeft", 0)
@@ -279,6 +278,7 @@ hook.Add("SetupMove", "BoringFPS:SetupMove:DisableJumpBoost", function(ply, mv, 
         mv:SetVelocity(Vector(vel.x * 0.35, vel.y * 0.35, vel.z))
     end
 end)
+
 -- ============================
 -- Concommands
 -- ============================
