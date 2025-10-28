@@ -1,20 +1,18 @@
-local function CreateHatPlayer(ply)
-    local index = math.floor(1 / 10) * 10
-    local modelPath = BoringFPS_CONFIG.Models.HatModels[index]
-    local model
+local function CreateHatPlayer(ply, level)
+    local modelPath = BoringFPS_CONFIG.Models.HatModels[level]
+    local bodygroup = BoringFPS_CONFIG.Models.BodyGroupHat[level]
     if (ply.BFPS_HatModel) then
         if (ply.BFPS_HatModel:GetModel() != modelPath) then
-            ply.BFPS_HatModel:Remove()
-            ply.BFPS_HatModel = ClientsideModel(modelPath)
-            model = ply.BFPS_HatModel
-        else
-            model = ply.BFPS_HatModel
+            ply.BFPS_HatModel:SetModel( modelPath )
+            ply.BFPS_HatModel:SetBodyGroups(bodygroup)
         end
     else
         ply.BFPS_HatModel = ClientsideModel(modelPath)
         model = ply.BFPS_HatModel
+        model:SetBodyGroups(bodygroup)
+        model:SetNoDraw( true )
     end
-    return model
+    return ply.BFPS_HatModel
 end
 
 -- Net Receive
@@ -62,31 +60,31 @@ hook.Add("SpawnMenuOpen", "BoringFPS:SpawnMenuOpen", function()
 end)
 
 hook.Add( "PostPlayerDraw" , "BoringFPS:PostPlayerDraw:DrawHatLevel" , function( ply )
-	if not IsValid(ply) or not ply:Alive() then return end
+	if IsValid(ply) and ply:Alive() and not ply:IsBot() then
+        local level = math.floor(ply:GetNWInt("Level", 0) / 10) * 10
+        local model = CreateHatPlayer(ply, level)
+        local attach_id = ply:LookupAttachment('eyes')
+        if not attach_id then return end
+                
+        local attach = ply:GetAttachment(attach_id)
+                
+        if not attach then return end
+                
+        local pos = attach.Pos
+        local ang = attach.Ang
 
-    local model = CreateHatPlayer(ply)
-	local attach_id = ply:LookupAttachment('eyes')
-	if not attach_id then return end
-			
-	local attach = ply:GetAttachment(attach_id)
-			
-	if not attach then return end
-			
-	local pos = attach.Pos
-	local ang = attach.Ang
+        pos = pos + (ang:Forward() * -3.5)
+        pos.z = pos.z + 2
 
-	pos = pos + (ang:Forward() * -4.5)
-	pos.z = pos.z + 1.7
-	ang:RotateAroundAxis(ang:Right(), 20)
-		
-	model:SetPos(pos)
-	model:SetAngles(ang)
+        model:SetPos(pos)
+        model:SetAngles(ang)
+        model:SetRenderOrigin(pos)
+        model:SetRenderAngles(ang)
+        model:SetupBones()
+        model:DrawModel()
+        model:SetRenderOrigin()
+        model:SetRenderAngles()
 
-	model:SetRenderOrigin(pos)
-	model:SetRenderAngles(ang)
-	model:SetupBones()
-	model:DrawModel()
-	model:SetRenderOrigin()
-	model:SetRenderAngles()
-
+        model:DrawModel()
+    end
 end )

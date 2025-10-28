@@ -177,11 +177,19 @@ BoringFPS_CONFIG.Models.Rocket = Model("models/props_c17/doll01.mdl")
 BoringFPS_CONFIG.Models.SelectionClass = Model("models/props_borealis/bluebarrel001.mdl") --? Default model of the entity if none was set from hammer param
 BoringFPS_CONFIG.Models.HatModels = {
     [0]  = "models/hats/hat_new/hat_new.mdl",
-    [10] = "models/props_junk/TrafficCone001a.mdl",
-    [20] = "models/props_c17/pottery06a.mdl",
-    [30] = "models/props_c17/clock01.mdl",
+    [10] = "models/hats/hat_10/hat_10.mdl",
+    [20] = "models/hats/hat_10/hat_10.mdl",
+    [30] = "models/hats/hat_10/hat_10.mdl",
     [40] = "models/props_c17/furniturecouch001a.mdl",
     [55] = "models/props_debris/wood_board04a.mdl"
+}
+BoringFPS_CONFIG.Models.BodyGroupHat = {
+    [0]  = "000",
+    [10] = "000",
+    [20] = "010",
+    [30] = "011",
+    [40] = "000",
+    [55] = "000"
 }
 
 -- Sounds
