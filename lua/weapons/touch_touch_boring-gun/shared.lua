@@ -28,8 +28,7 @@ SWEP.WeaponName = "touch"
 SWEP.RangeAttack = 100
 SWEP.PlayersHit = {}
 
-function SWEP:Initialize()
-	self:SetHoldType( self.HoldType )
+function SWEP:InitializeWeapon()
     hook.Add("PlayerTurnEnd", "BoringFPS:PlayerTurnEnd_Touch_"..self:EntIndex(), function(ply)
         if IsValid(ply) and ply == self:GetOwner() then
             BoringFPS.SetVisibilityRender(ply, true)

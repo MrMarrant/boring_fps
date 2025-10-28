@@ -27,8 +27,7 @@ SWEP.WeaponName = "pistol"
 
 SWEP.LocationStart = Vector(0,0,0)
 
-function SWEP:Initialize()
-	self:SetHoldType( self.HoldType )
+function SWEP:InitializeWeapon()
     hook.Add("PlayerTurnStart", "BoringFPS:PlayerTurnStart_Pistol_"..self:EntIndex(), function(ply)
         if IsValid(ply) and ply == self:GetOwner() then
             self.LocationStart = ply:GetPos()

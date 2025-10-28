@@ -38,6 +38,10 @@ SWEP.RunSpeed = 0
 function SWEP:Initialize()
 	self:SetHoldType( self.HoldType )
 	self:SetWeaponStats()
+	self:InitializeWeapon()
+end
+
+function SWEP:InitializeWeapon()
 end
 
 function SWEP:SetWeaponStats()
