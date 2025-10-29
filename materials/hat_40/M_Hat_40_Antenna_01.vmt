@@ -1,0 +1,6 @@
+"VertexlitGeneric"
+{
+	$basetexture "hat_new/M_Hat_New_01"
+	$phong 1
+	$nocull 1
+}

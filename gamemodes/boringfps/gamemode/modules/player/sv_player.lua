@@ -204,6 +204,9 @@ function PLAYER:AddExperience(amountExp)
     if (istable(self.BFPS_DataPlayer)) then
         local currentExp = self.BFPS_DataPlayer["exp"] or 0
         local currentLevel = self.BFPS_DataPlayer["level"] or 1
+        local maxLevel = BoringFPS_CONFIG.Settings.MaxLevel
+        if (currentLevel >= maxLevel) then return end
+
         local differenceExp = BoringFPS_CONFIG.Settings.DifferenceExperienceBetweenLevels
         local newExp = currentExp + amountExp
         local nextLevel = currentLevel + 1
@@ -216,6 +219,10 @@ function PLAYER:AddExperience(amountExp)
             self:SetDataPlayer("level", nextLevel)
             self:SetNWInt("Level", nextLevel)
             self:ChatPrint("Congratulations! You have leveled up to level " .. nextLevel .. "!")
+            if (nextLevel >= maxLevel) then
+                self:SetDataPlayer("exp", 0)
+                self:SetNWInt("Exp", 0)
+            end
         end
     end
 end

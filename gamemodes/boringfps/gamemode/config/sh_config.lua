@@ -152,6 +152,7 @@ BoringFPS_CONFIG.Settings.ExperienceGainByGame = 100 -- Experience gained by pla
 BoringFPS_CONFIG.Settings.ExperienceBonusWinner = 25 -- Experience gained by player at the end of each game
 BoringFPS_CONFIG.Settings.ExperienceGainByKill = 10 -- Experience gained by player at the end of each game
 BoringFPS_CONFIG.Settings.DifferenceExperienceBetweenLevels = 100 -- The experience needed to level up is calculated with the formula : (DifferenceExperienceBetweenLevels / 2) * CurrentLevel * (NextLevel)
+BoringFPS_CONFIG.Settings.MaxLevel = 70 -- Maximum level a player can reach
 
 -- SQL Settings
 BoringFPS_CONFIG.SQL = {}
@@ -180,8 +181,10 @@ BoringFPS_CONFIG.Models.HatModels = {
     [10] = "models/hats/hat_10/hat_10.mdl",
     [20] = "models/hats/hat_10/hat_10.mdl",
     [30] = "models/hats/hat_10/hat_10.mdl",
-    [40] = "models/props_c17/furniturecouch001a.mdl",
-    [55] = "models/props_debris/wood_board04a.mdl"
+    [40] = "models/hats/hat_40/hat_40.mdl",
+    [50] = "models/hats/hat_40/hat_40.mdl",
+    [60] = "models/hats/hat_40/hat_40.mdl",
+    [70] = "models/hats/hat_70/hat_70.mdl"
 }
 BoringFPS_CONFIG.Models.BodyGroupHat = {
     [0]  = "000",
@@ -189,7 +192,9 @@ BoringFPS_CONFIG.Models.BodyGroupHat = {
     [20] = "010",
     [30] = "011",
     [40] = "000",
-    [55] = "000"
+    [50] = "010",
+    [60] = "011",
+    [70] = "000"
 }
 
 -- Sounds
