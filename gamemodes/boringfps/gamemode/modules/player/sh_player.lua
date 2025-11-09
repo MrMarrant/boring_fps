@@ -15,6 +15,11 @@ function PLAYER:SetAction(action, use)
     end
 end
 
+function PLAYER:CanGetData()
+    if (not self:IsBot() or (self:IsBot() and BoringFPS_CONFIG.Settings.BotEnable)) then return true end
+    return false
+end
+
 hook.Add( "PlayerFootstep", "BoringFPS:PlayerFootstep:CountStep", function( ply )
     if (GetGlobalBool("GameInProgress") and BoringFPS_CONFIG.Vars.PlayersInGame[ply:GetNWInt("NumberTurn")]) then
         local stepLeft = ply:GetNWInt("StepLeft", 0)

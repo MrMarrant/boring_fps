@@ -60,7 +60,7 @@ hook.Add("SpawnMenuOpen", "BoringFPS:SpawnMenuOpen", function()
 end)
 
 hook.Add( "PostPlayerDraw" , "BoringFPS:PostPlayerDraw:DrawHatLevel" , function( ply )
-	if IsValid(ply) and ply:Alive() and not ply:IsBot() then
+	if IsValid(ply) and ply:Alive() and ply:CanGetData() then
         local level = math.floor(ply:GetNWInt("Level", 0) / 10) * 10
         local model = CreateHatPlayer(ply, level)
         local attach_id = ply:LookupAttachment('eyes')
