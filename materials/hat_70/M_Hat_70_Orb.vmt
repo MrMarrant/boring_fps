@@ -1,0 +1,7 @@
+"VertexlitGeneric"
+{
+	$basetexture "hat_new/M_Hat_New_02"
+	$emissiveblendbasetexture "hat_new/M_Hat_New_02"
+	$emissiveblendenabled 1
+	$emissiveblendstrength "1"
+}

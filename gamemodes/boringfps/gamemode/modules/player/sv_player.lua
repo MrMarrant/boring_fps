@@ -130,7 +130,7 @@ function PLAYER:SetDataPlayer(name, value)
 end
 
 function PLAYER:GetSQLDataPlayer()
-    if (self:IsBot()) then return end
+    if (not self:CanGetData()) then return end
     print("Getting data for player: " .. self:Nick())
     local query = [[
         SELECT * FROM ]] .. BoringFPS_CONFIG.SQL.TablePlayer .. [[ WHERE id = ']] .. self:SteamID64() .. [[';
@@ -147,7 +147,7 @@ function PLAYER:GetSQLDataPlayer()
 end
 
 function PLAYER:GetDataStats()
-    if (self:IsBot()) then return end
+    if (not self:CanGetData()) then return end
     print("Getting data for stats: " .. self:Nick())
     local query = [[
         SELECT * FROM ]] .. BoringFPS_CONFIG.SQL.TableClassStat .. [[ WHERE steamID = ']] .. self:SteamID64() .. [[';
@@ -201,9 +201,12 @@ function PLAYER:CreateDataPlayer()
 end
 
 function PLAYER:AddExperience(amountExp)
-    if (istable(self.BFPS_DataPlayer)) then
-        local currentExp = self.BFPS_DataPlayer["exp"] or 0
-        local currentLevel = self.BFPS_DataPlayer["level"] or 1
+    if (istable(self.BFPS_DataPlayer) and self:CanGetData()) then
+        local currentExp = tonumber(self.BFPS_DataPlayer["exp"]) or 0
+        local currentLevel = tonumber(self.BFPS_DataPlayer["level"]) or 1
+        local maxLevel = BoringFPS_CONFIG.Settings.MaxLevel
+        if (currentLevel >= maxLevel) then return end
+
         local differenceExp = BoringFPS_CONFIG.Settings.DifferenceExperienceBetweenLevels
         local newExp = currentExp + amountExp
         local nextLevel = currentLevel + 1
@@ -216,6 +219,10 @@ function PLAYER:AddExperience(amountExp)
             self:SetDataPlayer("level", nextLevel)
             self:SetNWInt("Level", nextLevel)
             self:ChatPrint("Congratulations! You have leveled up to level " .. nextLevel .. "!")
+            if (nextLevel >= maxLevel) then
+                self:SetDataPlayer("exp", 0)
+                self:SetNWInt("Exp", 0)
+            end
         end
     end
 end
@@ -223,7 +230,6 @@ end
 -- ============================
 -- HOOKS
 -- ============================
-
 hook.Add("PlayerInitialSpawn", "PlayerInitialSpawn:BoringFPS:SetupData", function(ply)
     ply:SetNWInt("NumberTurn", -1)
     ply:SetNWInt("StepLeft", 0)
@@ -240,7 +246,7 @@ gameevent.Listen( "player_activate" )
 hook.Add("player_activate", "player_activate.BoringFPS:OnActivate", function( data )
     local ply = Player(data.userid)
     ply:SetState("free")
-    if (BoringFPS_CONFIG.SQL.UseDatabase and not ply:IsBot()) then
+    if (BoringFPS_CONFIG.SQL.UseDatabase and ply:CanGetData()) then
         ply:GetSQLDataPlayer()
         ply:GetDataStats()
         ply:SetNWInt("Level", ply.BFPS_DataPlayer["level"])
@@ -279,6 +285,7 @@ hook.Add("SetupMove", "BoringFPS:SetupMove:DisableJumpBoost", function(ply, mv, 
         mv:SetVelocity(Vector(vel.x * 0.35, vel.y * 0.35, vel.z))
     end
 end)
+
 -- ============================
 -- Concommands
 -- ============================

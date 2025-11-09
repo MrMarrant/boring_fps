@@ -152,6 +152,8 @@ BoringFPS_CONFIG.Settings.ExperienceGainByGame = 100 -- Experience gained by pla
 BoringFPS_CONFIG.Settings.ExperienceBonusWinner = 25 -- Experience gained by player at the end of each game
 BoringFPS_CONFIG.Settings.ExperienceGainByKill = 10 -- Experience gained by player at the end of each game
 BoringFPS_CONFIG.Settings.DifferenceExperienceBetweenLevels = 100 -- The experience needed to level up is calculated with the formula : (DifferenceExperienceBetweenLevels / 2) * CurrentLevel * (NextLevel)
+BoringFPS_CONFIG.Settings.MaxLevel = 70 -- Maximum level a player can reach
+BoringFPS_CONFIG.Settings.BotEnable = false -- Define if bot can gain exp & level
 
 -- SQL Settings
 BoringFPS_CONFIG.SQL = {}
@@ -162,19 +164,39 @@ BoringFPS_CONFIG.SQL.UseDatabase = true
 -- Models
 BoringFPS_CONFIG.Models = {}
 BoringFPS_CONFIG.Models.Characters = {
-    "models/player/breen.mdl",
-    "models/player/barney.mdl",
-    "models/player/Group01/male_07.mdl",
-    "models/player/gman_high.mdl",
-    "models/player/alyx.mdl",
-    "models/player/combine_super_soldier.mdl",
-    "models/player/police.mdl",
-    "models/player/monk.mdl",
-    "models/player/corpse1.mdl",
-    "models/player/soldier_stripped.mdl"
+    Model("models/player/breen.mdl"),
+    Model("models/player/barney.mdl"),
+    Model("models/player/Group01/male_07.mdl"),
+    Model("models/player/gman_high.mdl"),
+    Model("models/player/alyx.mdl"),
+    Model("models/player/combine_super_soldier.mdl"),
+    Model("models/player/police.mdl"),
+    Model("models/player/monk.mdl"),
+    Model("models/player/corpse1.mdl"),
+    Model("models/player/soldier_stripped.mdl")
 }
 BoringFPS_CONFIG.Models.Rocket = Model("models/props_c17/doll01.mdl")
 BoringFPS_CONFIG.Models.SelectionClass = Model("models/props_borealis/bluebarrel001.mdl") --? Default model of the entity if none was set from hammer param
+BoringFPS_CONFIG.Models.HatModels = {
+    [0]  = Model("models/hats/hat_new/hat_new.mdl"),
+    [10] = Model("models/hats/hat_10/hat_10.mdl"),
+    [20] = Model("models/hats/hat_10/hat_10.mdl"),
+    [30] = Model("models/hats/hat_10/hat_10.mdl"),
+    [40] = Model("models/hats/hat_40/hat_40.mdl"),
+    [50] = Model("models/hats/hat_40/hat_40.mdl"),
+    [60] = Model("models/hats/hat_40/hat_40.mdl"),
+    [70] = Model("models/hats/hat_70/hat_70.mdl")
+}
+BoringFPS_CONFIG.Models.BodyGroupHat = {
+    [0]  = "000",
+    [10] = "000",
+    [20] = "010",
+    [30] = "011",
+    [40] = "000",
+    [50] = "010",
+    [60] = "011",
+    [70] = "000"
+}
 
 -- Sounds
 BoringFPS_CONFIG.Sounds = {}
