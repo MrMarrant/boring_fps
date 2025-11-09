@@ -128,7 +128,7 @@ function BoringFPS.CheckEndGameEvent()
     local playersInGame = BoringFPS_CONFIG.Vars.NumberOfPlayers
     local currentTurn = GetGlobalInt("GlobalTurn", 0)
 
-    if ((playersAlive <= math.ceil(playersInGame / 2)) and currentTurn >= BoringFPS_CONFIG.Settings.GlobalTurnEndGame) then
+    if (playersInGame and (playersAlive <= math.ceil(playersInGame / 2)) and currentTurn >= BoringFPS_CONFIG.Settings.GlobalTurnEndGame) then
         BoringFPS.StartEndGameEvent()
     end
 end
