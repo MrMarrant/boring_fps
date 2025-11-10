@@ -98,7 +98,7 @@ end)
 hook.Add("EntityTakeDamage", "EntityTakeDamage:BoringFPS:Stats", function(target, dmginfo)
     local attacker = dmginfo:GetAttacker()
     if (istable(attacker.BFPS_DataStats) and GetGlobalBool("GameInProgress")) then
-        if (attacker:IsPlayer() and attacker != target and BoringFPS_CONFIG.Vars.PlayersInGame[attacker:GetNWInt("NumberTurn")]) then
+        if (attacker:IsPlayer() and attacker ~= target and BoringFPS_CONFIG.Vars.PlayersInGame[attacker:GetNWInt("NumberTurn")]) then
             local damage = math.Round(dmginfo:GetDamage())
             local class = attacker:GetNWString("ClassWeapon", "pistol")
             attacker:SetDataPlayer("damage", (attacker.BFPS_DataPlayer["damage"] or 0) + damage)

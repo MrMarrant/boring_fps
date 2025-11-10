@@ -39,7 +39,7 @@ function SWEP:Shoot()
     owner:EmitSound("weapons/crossbow/fire1.wav")
     local trace = ents.FindAlongRay(start, start + dir * range) 
     for key, ply in ipairs(trace) do
-        if (ply:IsPlayer() and ply != owner and table.HasValue(BoringFPS_CONFIG.Vars.PlayersAlive, ply)) then
+        if (ply:IsPlayer() and ply ~= owner and table.HasValue(BoringFPS_CONFIG.Vars.PlayersAlive, ply)) then
             local dmginfo = DamageInfo()
             dmginfo:SetDamage(self.Damage)
             dmginfo:SetDamageType(DMG_BULLET)

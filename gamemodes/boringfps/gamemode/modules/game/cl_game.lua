@@ -2,13 +2,13 @@ local function CreateHatPlayer(ply, level)
     local modelPath = BoringFPS_CONFIG.Models.HatModels[level]
     local bodygroup = BoringFPS_CONFIG.Models.BodyGroupHat[level]
     if (ply.BFPS_HatModel) then
-        if (ply.BFPS_HatModel:GetModel() != modelPath) then
+        if (ply.BFPS_HatModel:GetModel() ~= modelPath) then
             ply.BFPS_HatModel:SetModel( modelPath )
             ply.BFPS_HatModel:SetBodyGroups(bodygroup)
         end
     else
         ply.BFPS_HatModel = ClientsideModel(modelPath)
-        model = ply.BFPS_HatModel
+        local model = ply.BFPS_HatModel
         model:SetBodyGroups(bodygroup)
         model:SetNoDraw( true )
     end

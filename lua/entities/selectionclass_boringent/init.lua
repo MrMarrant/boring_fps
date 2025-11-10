@@ -1,4 +1,4 @@
-if (engine.ActiveGamemode() != "boringfps") then return end
+if (engine.ActiveGamemode() ~= "boringfps") then return end
 
 AddCSLuaFile("cl_init.lua")
 AddCSLuaFile("shared.lua")

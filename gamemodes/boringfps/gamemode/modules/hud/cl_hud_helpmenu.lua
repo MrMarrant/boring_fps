@@ -372,7 +372,7 @@ local function OpenBoringFPSMenu(scrW, scrH)
             local lines = BoringFPS.WrapText(text, font, w - 8)
             local yLine = h * 0.38 - (#lines * 40) / 2
             for i, line in ipairs(lines) do
-                draw.DrawText(line, font, w * 0.5, yLine + (i - 1) * 50, self.Hovered and Color(170, 0, 0) or Color(255, 255, 255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+                draw.DrawText(line, font, w * 0.5, yLine + (i - 1) * 50, self.Hovered and Color(170, 0, 0) or Color(255, 255, 255), TEXT_ALIGN_CENTER)
             end
         end
 
