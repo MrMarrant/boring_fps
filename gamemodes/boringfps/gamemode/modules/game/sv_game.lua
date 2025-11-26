@@ -165,6 +165,14 @@ function BoringFPS.StartEndGameEvent()
     end)
 end
 
+function BoringFPS.SlomwMotion(duration, timeScale)
+    timeScale = timeScale or 0.1
+    game.SetTimeScale(timeScale)
+    timer.Create("BoringFPS:ResetTimeScale", duration * timeScale, 1, function()
+        game.SetTimeScale(1)
+    end)
+end
+
 hook.Add( "EntityTakeDamage", "BoringFPS:EntityTakeDamage:ShootGunKnockBack", function( target, dmginfo )
     if (IsValid(dmginfo:GetInflictor()) and dmginfo:GetInflictor():GetClass() == "shootgun_boring-gun") then
         local damage = dmginfo:GetDamage()

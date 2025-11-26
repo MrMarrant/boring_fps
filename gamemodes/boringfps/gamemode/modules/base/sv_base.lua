@@ -137,9 +137,12 @@ function BoringFPS.OnPlayerLeave(ply, inflictor, attacker)
             BoringFPS.EnterSpectatorMode(ply)
         end
         if (IsValid(attacker)) then
-            BoringFPS.InsertLogs(ply:Nick() .. " was killed by " .. attacker:Nick() .. ".")
-        else
-            BoringFPS.InsertLogs(ply:Nick() .. " has died.")
+            if (attacker:IsPlayer()) then
+                BoringFPS.InsertLogs(ply:Nick() .. " was killed by " .. attacker:Nick() .. ".")
+            else
+                BoringFPS.InsertLogs(ply:Nick() .. " has died.")
+            end
+            BoringFPS.SlomwMotion(1, 0.1)
         end
         if (ply == BoringFPS_CONFIG.CurrentPlayerTurn) then
             BoringFPS.EndTurn()
