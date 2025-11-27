@@ -44,7 +44,8 @@ local EN = {
     turn_ended = "%s's turn has ended.",
     turn_end = "Turn has ended!",
     start_end_game_event = "Starting end game event!",
-    endgame_hit = "%s received %d damage\n from end game event!"
+    endgame_hit = "%s received %d damage\n from end game event!",
+    turn = "Turn %d"
 }
 
 BoringFPS.AddLanguage("en", EN)

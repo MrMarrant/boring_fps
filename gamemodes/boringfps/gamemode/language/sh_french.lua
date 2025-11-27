@@ -44,7 +44,8 @@ local FR = {
     turn_ended = "Le tour de %s est terminé.",
     turn_end = "Le tour est terminé !",
     start_end_game_event = "Début de l'événement de fin de partie !",
-    endgame_hit = "%s a subi %d points de dégâts\n lors de l'événement de fin de partie !"
+    endgame_hit = "%s a subi %d points de dégâts\n lors de l'événement de fin de partie !",
+    turn = "Tour %d"
 }
 
 BoringFPS.AddLanguage("fr", FR)

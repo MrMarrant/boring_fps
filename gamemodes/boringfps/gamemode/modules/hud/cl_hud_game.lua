@@ -39,7 +39,7 @@ end
 
 function BoringFPS.DrawGlobalTurn(scrW, scrH)
     local colorTxt = Color(255, 255, 255)
-    draw.SimpleText("Tour : " .. GetGlobalInt("GlobalTurn", 1), "NickAnton", scrW * 0.82, scrH * 0.08, colorTxt, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+    draw.SimpleText(BoringFPS.GetTranslation("turn", GetGlobalInt("GlobalTurn", 1)), "NickAnton", scrW * 0.82, scrH * 0.08, colorTxt, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
 end
 
 function BoringFPS.DrawPlayerTurn(ply, index, scrH, scrW)
