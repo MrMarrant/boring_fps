@@ -65,6 +65,7 @@ function BoringFPS.SpawnPlayersOnGameMap()
             colorPlayer[ply] = colorAvailable[index] or Color(0, 0, 0)
             ply:SetDataStats(class, "count_select", 1)
         else
+            ply:ChatPrint(BoringFPS.GetTranslation("not_enough_spawns"))
             ply:KillSilent()
             BoringFPS.EnterSpectatorMode(ply)
         end
@@ -138,9 +139,9 @@ function BoringFPS.OnPlayerLeave(ply, inflictor, attacker)
         end
         if (IsValid(attacker)) then
             if (attacker:IsPlayer()) then
-                BoringFPS.InsertLogs(ply:Nick() .. " was killed by " .. attacker:Nick() .. ".")
+                BoringFPS.InsertLogs(BoringFPS.GetTranslation("player_killed", ply:Nick(), attacker:Nick()))
             else
-                BoringFPS.InsertLogs(ply:Nick() .. " has died.")
+                BoringFPS.InsertLogs(BoringFPS.GetTranslation("player_died", ply:Nick()))
             end
             BoringFPS.SlomwMotion(1, 0.1)
         end
@@ -161,7 +162,7 @@ end
 function BoringFPS.OnPlayerHit(target, dmginfo)
     local attacker = dmginfo:GetAttacker()
     if (IsValid(attacker) and attacker:IsPlayer() and table.HasValue(BoringFPS_CONFIG.Vars.PlayersAlive, target) ) then
-        BoringFPS.InsertLogs(target:Nick() .. " was hit by " .. attacker:Nick() .. " and received\n" .. math.Round( dmginfo:GetDamage() ) .. " damage.")
+        BoringFPS.InsertLogs(BoringFPS.GetTranslation("on_hit", target:Nick(), attacker:Nick(), math.Round( dmginfo:GetDamage())))
     end
 end
 

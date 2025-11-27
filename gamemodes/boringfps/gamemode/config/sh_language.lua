@@ -13,10 +13,10 @@ end
 * Returns the element to be translated according to the server language.
 * @string name Element to translate.
 --]]
-function BoringFPS.GetTranslation(name)
+function BoringFPS.GetTranslation(name, ...)
     local langUsed = BoringFPS_CONFIG.LangServer
     if not BoringFPS_LANG[langUsed] then
         langUsed = "en" -- Default lang is EN.
     end
-    return string.format( BoringFPS_LANG[langUsed][ name ] or "Not Found" )
+    return string.format(BoringFPS_LANG[langUsed][ name ] or "Not Found", ...)
 end

@@ -28,7 +28,7 @@ function BoringFPS.SetTurnToPlay(index)
     hook.Call("PlayerTurnStart", nil, ply)
     SetGlobalInt("CurrentIndexDirectionTurn", index)
     BoringFPS_CONFIG.CurrentPlayerTurn = ply
-    BoringFPS.InsertLogs(ply:GetName() .. "'s turn to play!")
+    BoringFPS.InsertLogs(BoringFPS.GetTranslation("turn_to_play", ply:GetName()))
     ply:SetState("play")
     BoringFPS.StartTimerTurn()
 end
@@ -47,13 +47,13 @@ function BoringFPS.EndTurn()
     hook.Call("PlayerTurnEnd", nil, ply)
     hook.Call("OnNewDataPlayer", nil, ply, "turn_done")
     if (IsValid(ply)) then
-        BoringFPS.InsertLogs(ply:GetName() .. "'s turn has ended!")
+        BoringFPS.InsertLogs(BoringFPS.GetTranslation("turn_ended", ply:GetName()))
         BoringFPS.SetTurnToWait({ply})
         local players = table.Copy(BoringFPS_CONFIG.Vars.PlayersAlive)
         table.RemoveByValue(players, ply)
         BoringFPS.ReadSound(BoringFPS_CONFIG.Sounds.NotifTurnEnd, game.GetWorld(), 0, players)
     else
-        BoringFPS.InsertLogs("Turn has ended!")
+        BoringFPS.InsertLogs(BoringFPS.GetTranslation("turn_end"))
         BoringFPS.ReadSound(BoringFPS_CONFIG.Sounds.NotifTurnEnd, game.GetWorld(), 0)
     end
     timer.Create("BoringFPS:NextTurn", BoringFPS_CONFIG.Settings.TimerBetweenTurns, 1, function()
@@ -147,7 +147,7 @@ end
 
 function BoringFPS.StartEndGameEvent()
     SetGlobalBool("EndGameEnabled", true)
-    BoringFPS.InsertLogs("Starting end game event!")
+    BoringFPS.InsertLogs(BoringFPS.GetTranslation("start_end_game_event"))
     if (BoringFPS_CONFIG.Vars.CurrentMusic) then
         BoringFPS_CONFIG.Vars.CurrentMusic:FadeOut(4)
     end
@@ -157,7 +157,7 @@ function BoringFPS.StartEndGameEvent()
         local defaultLimitTimer = BoringFPS_CONFIG.Settings.LimitTimeTurn
         local damageTurn = BoringFPS_CONFIG.Settings.DamageEndGame
         for key, survivor in ipairs(playersAlive) do
-            BoringFPS.InsertLogs(survivor:Nick() .. " received " .. math.Round(damageTurn) .. " damage\n from end game event!")
+            BoringFPS.InsertLogs(BoringFPS.GetTranslation("endgame_hit", survivor:Nick(), math.Round(damageTurn)))
             survivor:TakeDamage(damageTurn, game.GetWorld(), game.GetWorld())
         end
         BoringFPS.RevealAura(BoringFPS_CONFIG.Settings.DurationRevealEndGame, playersAlive, Color(153, 0, 0))

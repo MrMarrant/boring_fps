@@ -13,7 +13,7 @@ function PLAYER:UpdateStepLeft(step)
         self:SetWalkSpeed( 1 )
         self:SetRunSpeed( 1 )
         self:SetJumpPower( 0 )
-        self:ChatPrint("Vous avez utilisez tout vos déplacements.")
+        self:ChatPrint(BoringFPS.GetTranslation("move_point_empty"))
     end
 end
 
@@ -38,7 +38,7 @@ function PLAYER:Wait()
     self:SetAction(0)
     self:SetNWInt("StepLeft", 0)
     self:SetNWInt("Dash", WeaponGame.MaxDash)
-    self:ChatPrint("Vous êtes en attente.")
+    self:ChatPrint(BoringFPS.GetTranslation("wait_state"))
 end
 
 function PLAYER:Play()
@@ -49,7 +49,7 @@ function PLAYER:Play()
     self:SetWalkSpeed( WeaponGame.WalkSpeed )
     self:SetRunSpeed( WeaponGame.RunSpeed )
     self:SetJumpPower( 200 )
-    self:ChatPrint("Vous êtes en train de jouer.")
+    self:ChatPrint(BoringFPS.GetTranslation("play_state"))
 
     self:SetNWInt("StepLeft", WeaponGame.MaxStep)
     self:SetAction(WeaponGame.Action)
@@ -214,11 +214,11 @@ function PLAYER:AddExperience(amountExp)
 
         self:SetDataPlayer("exp", newExp)
         self:SetNWInt("Exp", newExp)
-        self:ChatPrint("You have gained " .. amountExp .. " experience points.")
+        self:ChatPrint(BoringFPS.GetTranslation("exp_gained", amountExp))
         if (newExp >= expToNextLevel) then
             self:SetDataPlayer("level", nextLevel)
             self:SetNWInt("Level", nextLevel)
-            self:ChatPrint("Congratulations! You have leveled up to level " .. nextLevel .. "!")
+            self:ChatPrint(BoringFPS.GetTranslation("level_up", nextLevel))
             if (nextLevel >= maxLevel) then
                 self:SetDataPlayer("exp", 0)
                 self:SetNWInt("Exp", 0)
@@ -270,7 +270,7 @@ hook.Add("PlayerDisconnected", "PlayerDisconnected:BoringFPS:OnDisconnect", func
     end
 end)
 
-hook.Add( "ShutDown", "BoringFPS:ShutDown:ServerShuttingDown", function()
+hook.Add("ShutDown", "BoringFPS:ShutDown:ServerShuttingDown", function()
     if (BoringFPS_CONFIG.SQL.UseDatabase) then
         for key, ply in ipairs(player.GetAll()) do
             ply:SaveDataPlayer()
@@ -293,17 +293,17 @@ concommand.Add("changeclass", function(ply, cmd, args, argStr)
     local weapon = BoringFPS_CONFIG.Settings.Weapons[args[1]]
     if (weapon) then
         ply:SetNWString("ClassWeapon", args[1])
-        ply:ChatPrint("Vous avez changé votre classe d'arme en : " .. args[1])
+        ply:ChatPrint(BoringFPS.GetTranslation("change_class", args[1]))
     else
-        ply:ChatPrint("Classe d'arme invalide.")
+        ply:ChatPrint(BoringFPS.GetTranslation("invalid_weapon"))
     end
 end)
 
 concommand.Add("ff", function(ply, cmd, args, argStr)
     if (GetGlobalBool("GameInProgress") and table.HasValue(BoringFPS_CONFIG.Vars.PlayersAlive, ply)) then
-        BoringFPS.InsertLogs(ply:GetName() .. " has forfeited.")
+        BoringFPS.InsertLogs(BoringFPS.GetTranslation("ff_activated", ply:GetName()))
         ply:Kill()
     else
-        ply:ChatPrint("Les conditions ne sont pas remplies ...")
+        ply:ChatPrint(BoringFPS.GetTranslation("ff_disabled"))
     end
 end)
