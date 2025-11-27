@@ -1,8 +1,8 @@
 local FR = {
-    help = "Help",
-    help_desc = "This is the help page of Boring FPS. Here you can find information about the game, its rules, and how to play.",
-    start_game = "Start Game",
-    not_enough_spawns = "Not enough spawn points for all players. You have been put into spectator mode.",
+    help = "Aide",
+    help_desc = "Voici la page d'aide de Boring FPS. Vous trouverez ici des informations sur le jeu, ses règles et comment y jouer.",
+    start_game = "Démarrer le jeu",
+    not_enough_spawns = "Il n'y a pas assez de points d'apparition pour tous les joueurs. Vous avez été mis en mode spectateur.",
 
     -- Rules
     rule = "Règle du jeu",
@@ -25,26 +25,26 @@ local FR = {
     stalker_description = "Une arme pouvant tirer sur les joueurs à travers n'importe quel murs.\nDe plus vous pouvez révéler la positions de tout les autres joueurs pendant une courte durée via le clic droit. Cependant se faisant, vous révélez votre position aussi.",
     pistol_description = "Un simple pistolet, pouvant doubler les dégâts en visant la tête.\nDe plus, vous pouvez revenir à votre position de début de votre tour via le clic droit.",
     shotgun_description = "Une arme puissante à courte portée infligeant un recul important au joueur touché.\nSi un joueur subissant un recul touche un mur, il subira des dégâts supplémentaires.",
-    invalid_weapon = "Invalid class weapon.",
-    change_class = "You have changed your class weapon to: %s",
-    touch_explode = "You have exploded the players you touched.",
+    invalid_weapon = "Arme de classe non valide.",
+    change_class = "Vous avez changé votre classe d'arme par : %s",
+    touch_explode = "Vous avez fait exploser les joueurs que vous avez touchés.",
 
     -- Game
-    move_point_empty = "You have used all your movement points.",
-    wait_state = "You are in a waiting state.",
-    play_state = "You are currently playing.",
-    ff_disabled = "The conditions are not met ...",
-    ff_activated = "%s has forfeited.",
-    exp_gained = "You have gained %d experience points.",
-    level_up = "Congratulations! You have reached level %d !",
-    player_killed = "%s was killed by %s.",
-    player_died = "%s has died.",
-    on_hit = "%s was hit by %s and received\n %d damage.",
-    turn_to_play = "%s's turn to play!",
-    turn_ended = "%s's turn has ended.",
-    turn_end = "Turn has ended!",
-    start_end_game_event = "Starting end game event!",
-    endgame_hit = "%s received %d damage\n from end game event!"
+    move_point_empty = "Vous avez utilisé tous vos points de mouvement.",
+    wait_state = "Vous êtes en attente.",
+    play_state = "Vous êtes en train de jouer.",
+    ff_disabled = "Les conditions ne sont pas remplies...",
+    ff_activated = "%s a abandonné. ",
+    exp_gained = "Vous avez gagné %d points d'expérience.",
+    level_up = "Félicitations ! Vous avez atteint le niveau %d!",
+    player_killed = "%s a été tué par %s.",
+    player_died = "%s est mort.",
+    on_hit = "%s a été touché par %s et a subi\n %d points de dégâts.",
+    turn_to_play = "C'est au tour de %s de jouer !",
+    turn_ended = "Le tour de %s est terminé.",
+    turn_end = "Le tour est terminé !",
+    start_end_game_event = "Début de l'événement de fin de partie !",
+    endgame_hit = "%s a subi %d points de dégâts\n lors de l'événement de fin de partie !"
 }
 
 BoringFPS.AddLanguage("fr", FR)
