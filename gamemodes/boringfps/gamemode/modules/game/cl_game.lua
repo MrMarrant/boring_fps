@@ -15,6 +15,45 @@ local function CreateHatPlayer(ply, level)
     return ply.BFPS_HatModel
 end
 
+local function DisplayVoteMap(maps)
+    local timeLeft = BoringFPS_CONFIG.Settings.TimerForVote
+    local selectedMap = nil
+    local w, h = BoringFPS_CONFIG.Vars.ScrW, BoringFPS_CONFIG.Vars.ScrH
+
+    local frame = vgui.Create("DFrame")
+    frame:SetSize(w * 0.2, h * 0.4)
+    frame:SetPos(w * 0.05, h * 0.1)
+    frame:SetTitle("Vote for next map")
+    frame:MakePopup()
+    frame:ShowCloseButton(false)
+
+    local list = vgui.Create("DListView", frame)
+    list:Dock(FILL)
+    list:AddColumn("Maps BFPS")
+
+    for _, map in ipairs(maps) do
+        list:AddLine(map)
+    end
+
+    list.OnRowSelected = function(_, _, row)
+        if (row:GetColumnText(1) == selectedMap) then return end
+
+        selectedMap = row:GetColumnText(1)
+        net.Start(BoringFPS_CONFIG.NetVar.VoteMap)
+        net.WriteString(selectedMap)
+        net.SendToServer()
+    end
+
+    timer.Create("MapVoteTimer", 1, 10, function()
+        timeLeft = timeLeft - 1
+        frame:SetTitle("Time left - " .. timeLeft .. " sec")
+
+        if timeLeft <= 0 then
+            frame:Close()
+        end
+    end)
+end
+
 -- Net Receive
 net.Receive(BoringFPS_CONFIG.NetVar.StartClientHUDGame, function()
     BoringFPS.DisplayHUDGame()
@@ -41,6 +80,11 @@ end)
 
 net.Receive(BoringFPS_CONFIG.NetVar.StopClientTurn, function()
     BoringFPS.StopHudTurn()
+end)
+
+net.Receive(BoringFPS_CONFIG.NetVar.ChangeMap, function()
+    local maps = net.ReadTable()
+    DisplayVoteMap(maps)
 end)
 
 -- Hide Base HUD

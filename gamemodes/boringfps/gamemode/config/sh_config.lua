@@ -41,6 +41,10 @@ BoringFPS_CONFIG.Settings.MaxDamageKnockBack = 40 -- Define the maximum damage t
 BoringFPS_CONFIG.Settings.GlobalTurnEndGame = 10 -- Define the global turn where endgame can start
 BoringFPS_CONFIG.Settings.DamageEndGame = 10 -- Define the damage to deal to player when end game event is enabled
 BoringFPS_CONFIG.Settings.DurationRevealEndGame = 3 -- Define how long players are reveal when endgame event is enabled
+BoringFPS_CONFIG.Settings.RoundsBeforeChangeMap = 3 -- Define how many rounds before changing map
+BoringFPS_CONFIG.Settings.TimerForVote = 10 -- Define how much time players have to vote for next map
+
+-- Weapons Settings
 BoringFPS_CONFIG.Settings.Weapons = {}
 BoringFPS_CONFIG.Settings.Weapons["pistol"] = {
     ClassName = "pistol_boring-gun",
@@ -151,7 +155,7 @@ BoringFPS_CONFIG.Settings.ColorPlayer = {
 BoringFPS_CONFIG.Settings.ExperienceGainByGame = 100 -- Experience gained by player at the end of each game
 BoringFPS_CONFIG.Settings.ExperienceBonusWinner = 25 -- Experience gained by player at the end of each game
 BoringFPS_CONFIG.Settings.ExperienceGainByKill = 10 -- Experience gained by player at the end of each game
-BoringFPS_CONFIG.Settings.DifferenceExperienceBetweenLevels = 100 -- The experience needed to level up is calculated with the formula : (DifferenceExperienceBetweenLevels / 2) * CurrentLevel * (NextLevel)
+BoringFPS_CONFIG.Settings.DifferenceExperienceBetweenLevels = 100 -- The experience needed to level up is calculated with the formula : (DifferenceExperienceBetweenLevels / 2) * CurrentLevel * (CurrentLevel + 1)
 BoringFPS_CONFIG.Settings.MaxLevel = 70 -- Maximum level a player can reach
 BoringFPS_CONFIG.Settings.BotEnable = false -- Define if bot can gain exp & level
 
@@ -159,7 +163,7 @@ BoringFPS_CONFIG.Settings.BotEnable = false -- Define if bot can gain exp & leve
 BoringFPS_CONFIG.SQL = {}
 BoringFPS_CONFIG.SQL.TablePlayer = "boringfps_player"
 BoringFPS_CONFIG.SQL.TableClassStat = "boringfps_classstat"
-BoringFPS_CONFIG.SQL.UseDatabase = true
+BoringFPS_CONFIG.SQL.UseDatabase = true -- Set to false if you don't want use database
 
 -- Models
 BoringFPS_CONFIG.Models = {}
@@ -233,6 +237,8 @@ BoringFPS_CONFIG.NetVar.StartClientPreGame = "BoringFPS_CONFIG.StartClientPreGam
 BoringFPS_CONFIG.NetVar.StopClientPreGame = "BoringFPS_CONFIG.StopClientPreGame"
 BoringFPS_CONFIG.NetVar.RevealAura = "BoringFPS_CONFIG.RevealAura"
 BoringFPS_CONFIG.NetVar.OpenHelpMenu = "BoringFPS_CONFIG.OpenHelpMenu"
+BoringFPS_CONFIG.NetVar.ChangeMap = "BoringFPS_CONFIG.ChangeMap"
+BoringFPS_CONFIG.NetVar.VoteMap = "BoringFPS_CONFIG.VoteMap"
 
 -- Base vars, i really don't recommend to edit this section
 BoringFPS_CONFIG.Vars = {}
@@ -241,3 +247,6 @@ BoringFPS_CONFIG.Vars.GameLogs = {}
 BoringFPS_CONFIG.Vars.PlayersAlive = {}
 BoringFPS_CONFIG.Vars.ColorBox = {}
 BoringFPS_CONFIG.Vars.NumberOfPlayers = 0
+BoringFPS_CONFIG.Vars.CurrentRound = 0
+BoringFPS_CONFIG.Vars.VoteMap = {}
+BoringFPS_CONFIG.Vars.PlayersVoteMap = {}

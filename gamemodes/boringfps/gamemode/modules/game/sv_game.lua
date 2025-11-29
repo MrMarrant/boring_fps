@@ -93,6 +93,7 @@ function BoringFPS.GameFinish(reset)
     local name = IsValid(winner) and winner:GetName() or "MrMarrant"
     local congratMsg = reset and "DRAW" or name .. "'s has won!"
 
+    BoringFPS_CONFIG.Vars.CurrentRound = BoringFPS_CONFIG.Vars.CurrentRound + 1
     BoringFPS.ReadSound(BoringFPS_CONFIG.Sounds.WinGame, game.GetWorld(), 0 )
     BoringFPS.SetExperience(winner)
     for k, survivor in ipairs(BoringFPS_CONFIG.Vars.PlayersAlive) do
@@ -117,7 +118,11 @@ function BoringFPS.GameFinish(reset)
         if (BoringFPS_CONFIG.Vars.CurrentMusic) then
             BoringFPS_CONFIG.Vars.CurrentMusic:Stop()
         end
-        BoringFPS.NewGame()
+        if (BoringFPS_CONFIG.Vars.CurrentRound >= BoringFPS_CONFIG.Settings.RoundsBeforeChangeMap) then
+            BoringFPS.ChangeToNextMap()
+        else
+            BoringFPS.NewGame()
+        end
     end)
 end
 
@@ -173,6 +178,77 @@ function BoringFPS.SlomwMotion(duration, timeScale)
     end)
 end
 
+function BoringFPS.ChangeToNextMap()
+    local maps = file.Find("maps/bfps*.bsp", "GAME")
+    local cleaned = {}
+
+    for _, map in ipairs(maps) do
+        cleaned[#cleaned+1] = string.gsub(map, "%.bsp$", "")
+    end
+    maps = cleaned
+
+    if (#maps <= 1) then ErrorNoHalt("Your server has only one map available for change!")
+        BoringFPS.NewGame()
+    else
+        PrintTable(maps)
+        net.Start(BoringFPS_CONFIG.NetVar.ChangeMap)
+        net.WriteTable(maps)
+        net.Broadcast()
+        BoringFPS.LoadNextMap()
+    end
+end
+
+function BoringFPS.LoadNextMap()
+    timer.Create("BoringFPS:LoadNextMap", 10, 1, function()
+        local winningMaps = {}
+        local winningMap
+        local maxVotes = 0
+        local voteMap = BoringFPS_CONFIG.Vars.VoteMap
+        for map, votes in pairs(voteMap) do
+            if (votes > maxVotes) then
+                maxVotes = votes
+                winningMaps = {map}
+            elseif (votes == maxVotes) then
+                table.insert(winningMaps, map)
+            end
+        end
+        if (#winningMaps == 0 or (#winningMaps == 1 and winningMaps[1] == game.GetMap())) then
+            PrintMessage(HUD_PRINTCENTER, "[BoringFPS] No votes or same map selected, extended current map.")
+            BoringFPS.NewGame()
+        else
+            if (#winningMaps > 1) then
+                winningMap = winningMaps[math.random(#winningMaps)]
+                if (#winningMaps == 0 or (winningMaps == 1 and winningMaps[1] == game.GetMap())) then
+                    PrintMessage(HUD_PRINTCENTER, "[BoringFPS] Same map selected, extended current map.")
+                    BoringFPS.NewGame()
+                    return
+                end
+            else
+                winningMap = winningMaps[1]
+            end
+            PrintMessage(HUD_PRINTCENTER, "[BoringFPS] Next map will be: " .. winningMap .. " with " .. maxVotes .. " votes!")
+            timer.Create("BoringFPS:DelayChangeLevel", 5, 1, function()
+                RunConsoleCommand("changelevel", winningMap)
+            end)
+        end
+    end)
+    BoringFPS_CONFIG.Vars.VoteMap = {}
+    BoringFPS_CONFIG.Vars.PlayersVoteMap = {}
+end
+
+function BoringFPS.ReceiveVoteMap(selectedMap, ply)
+    local previousVote = BoringFPS_CONFIG.Vars.PlayersVoteMap[ply]
+    if (previousVote == selectedMap) then return end
+
+    if (previousVote) then
+        BoringFPS_CONFIG.Vars.VoteMap[previousVote] = BoringFPS_CONFIG.Vars.VoteMap[previousVote] - 1
+    end
+    BoringFPS_CONFIG.Vars.PlayersVoteMap[ply] = selectedMap
+    if (selectedMap != "") then
+        BoringFPS_CONFIG.Vars.VoteMap[selectedMap] = BoringFPS_CONFIG.Vars.VoteMap[selectedMap] and BoringFPS_CONFIG.Vars.VoteMap[selectedMap] + 1 or 1
+    end
+end
+
 hook.Add( "EntityTakeDamage", "BoringFPS:EntityTakeDamage:ShootGunKnockBack", function( target, dmginfo )
     if (IsValid(dmginfo:GetInflictor()) and dmginfo:GetInflictor():GetClass() == "shootgun_boring-gun") then
         local damage = dmginfo:GetDamage()
@@ -193,4 +269,9 @@ hook.Add("PlayerSelectSpawn", "BoringFPS:PlayerSelectSpawn:SelectSpawn", functio
     end
 
 	return spawnSelect
+end)
+
+net.Receive(BoringFPS_CONFIG.NetVar.VoteMap, function(_, ply)
+    local selectedMap = net.ReadString()
+    BoringFPS.ReceiveVoteMap(selectedMap, ply)
 end)
