@@ -73,6 +73,15 @@ function BoringFPS.ShuffleTable(t)
     return t
 end
 
+function BoringFPS.GetSpawnPoints()
+    local spawnPoints = ents.FindByName("spawn_game")
+    if (#spawnPoints == 0) then
+        spawnPoints = ents.FindByClass("info_player_start")
+    end
+    spawnPoints = BoringFPS.ShuffleTable(spawnPoints)
+    return spawnPoints
+end
+
 function BoringFPS.InsertLogs(txt)
     table.insert(BoringFPS_CONFIG.Vars.GameLogs, 1, txt)
     net.Start(BoringFPS_CONFIG.NetVar.InsertLogs)

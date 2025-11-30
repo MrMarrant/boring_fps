@@ -48,7 +48,7 @@ function BoringFPS.StartGame()
 end
 
 function BoringFPS.SpawnPlayersOnGameMap()
-    local spawnPoints = BoringFPS.ShuffleTable(ents.FindByName("spawn_game"))
+    local spawnPoints = BoringFPS.GetSpawnPoints()
     local playersGet = table.ShuffleSequential( player.GetAll() )
     local colorAvailable = BoringFPS_CONFIG.Settings.ColorPlayer
     local colorPlayer = {}
