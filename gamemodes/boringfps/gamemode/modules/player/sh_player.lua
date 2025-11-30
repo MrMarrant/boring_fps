@@ -4,10 +4,30 @@ function PLAYER:CanUseAction()
     return (self:GetNWString("State", "free") == "play" and self:GetNWInt("Action", 0) > 0)
 end
 
-function PLAYER:SetVisibilityRender(isVisible)
-    local renderMode = isVisible and RENDERMODE_TRANSCOLOR or RENDERMODE_TRANSALPHA
-    local renderColor = isVisible and Color(255, 255, 255, 255) or Color(0, 0, 0, 0)
-
-    self:SetRenderMode(renderMode)
-    self:SetColor(renderColor)
+function PLAYER:HasAccess()
+    return (self:IsAdmin() or self:IsSuperAdmin())
 end
+
+function PLAYER:SetAction(action, use)
+    self:SetNWInt("Action", action)
+    if (use) then
+        hook.Call("OnNewDataPlayer", nil, self, "action_done")
+    end
+end
+
+function PLAYER:CanGetData()
+    if (not self:IsBot() or (self:IsBot() and BoringFPS_CONFIG.Settings.BotEnable)) then return true end
+    return false
+end
+
+hook.Add( "PlayerFootstep", "BoringFPS:PlayerFootstep:CountStep", function( ply )
+    if (GetGlobalBool("GameInProgress") and BoringFPS_CONFIG.Vars.PlayersInGame[ply:GetNWInt("NumberTurn")]) then
+        local stepLeft = ply:GetNWInt("StepLeft", 0)
+        if (ply:GetNWString("State", "free") == "play" and stepLeft > 0 and SERVER) then
+            ply:UpdateStepLeft(stepLeft - 1)
+        elseif (ply:GetNWString("State", "free") == "wait" or stepLeft <= 0) then
+            return true
+        end
+    end
+    return false
+end )

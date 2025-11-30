@@ -73,6 +73,15 @@ function BoringFPS.ShuffleTable(t)
     return t
 end
 
+function BoringFPS.GetSpawnPoints()
+    local spawnPoints = ents.FindByName("spawn_game")
+    if (#spawnPoints == 0) then
+        spawnPoints = ents.FindByClass("info_player_start")
+    end
+    spawnPoints = BoringFPS.ShuffleTable(spawnPoints)
+    return spawnPoints
+end
+
 function BoringFPS.InsertLogs(txt)
     table.insert(BoringFPS_CONFIG.Vars.GameLogs, 1, txt)
     net.Start(BoringFPS_CONFIG.NetVar.InsertLogs)
@@ -85,20 +94,14 @@ end
 
 function BoringFPS.KnockBack(attacker, target, strength)
     strength = strength or 300
-    local forceDir
+    local forceDir = (target:GetPos() - attacker:GetPos()):GetNormalized()
+    local velocityApplied = forceDir * strength + target:GetVelocity()
 
-    if attacker:IsPlayer() then
-        forceDir = (target:GetPos() - attacker:GetPos()):GetNormalized()
-    else
-        forceDir = dmginfo:GetDamageForce():GetNormalized()
-    end
-
-    local velocityApplied = forceDir * strength
     target:SetVelocity(velocityApplied)
-    BoringFPS.AddKnockBackHook(target, velocityApplied)
+    BoringFPS.AddKnockBackHook(target, velocityApplied, attacker)
 end
 
-function BoringFPS.AddKnockBackHook(target, velocityApplied)
+function BoringFPS.AddKnockBackHook(target, velocityApplied, attacker)
     local minVelocity = BoringFPS_CONFIG.Settings.MinVelocityKnockBackDamage or 500
     if (velocityApplied:Length() < minVelocity) then return end
 
@@ -113,7 +116,7 @@ function BoringFPS.AddKnockBackHook(target, velocityApplied)
             velocityMaxReached = velLength > velocityMaxReached and velLength or velocityMaxReached
             if (tr.Hit) then
                 velLength = velocityMaxReached < minVelocityToReach and minVelocityToReach or velLength
-                BoringFPS.AppliedKnockBackDamage(target, velLength)
+                BoringFPS.AppliedKnockBackDamage(target, velLength, attacker)
             end
             if (velLength <= 10) then
                 hook.Remove("Think", "BoringFPS:KnockBackThink-" .. target:EntIndex())
@@ -122,15 +125,18 @@ function BoringFPS.AddKnockBackHook(target, velocityApplied)
     end )
 end
 
-function BoringFPS.AppliedKnockBackDamage(target, velLength)
+function BoringFPS.AppliedKnockBackDamage(target, velLength, attacker)
     target:SetVelocity( Vector(0, 0, 0) )
     local maxVelocity = BoringFPS_CONFIG.Settings.MaxVelocityKnockBackDamage or 1000
     local minVelocity = BoringFPS_CONFIG.Settings.MinVelocityKnockBackDamage or 500
     local t = (math.Clamp(velLength, minVelocity, maxVelocity) - minVelocity) / (maxVelocity - minVelocity)
     local dmg = Lerp(t, BoringFPS_CONFIG.Settings.MinDamageKnockBack, BoringFPS_CONFIG.Settings.MaxDamageKnockBack)
 
-    target:TakeDamage(dmg, game.GetWorld(), game.GetWorld())
     hook.Remove("Think", "BoringFPS:KnockBackThink-" .. target:EntIndex())
+    timer.Simple(0.2, function() --? Avoid instant kill without force applied
+        if (not IsValid(target)) then return end
+        target:TakeDamage(dmg, attacker, attacker)
+    end)
 end
 
 function BoringFPS.CollideEvent(target, velocity)
@@ -145,6 +151,54 @@ function BoringFPS.CollideEvent(target, velocity)
     })
 
     return tr
+end
+
+function BoringFPS.SetVisibilityRender(ent, isVisible)
+    local renderMode = isVisible and RENDERMODE_TRANSCOLOR or RENDERMODE_TRANSALPHA
+    local renderColor = isVisible and Color(255, 255, 255, 255) or Color(0, 0, 0, 0)
+
+    ent:SetRenderMode(renderMode)
+    ent:SetColor(renderColor)
+end
+
+function BoringFPS.RevealAura(duration, tableEnt, colorAura, ply)
+    colorAura = colorAura or Color( 255, 0, 0 )
+    net.Start(BoringFPS_CONFIG.NetVar.RevealAura)
+    net.WriteFloat(duration)
+    net.WriteTable(tableEnt)
+    net.WriteColor(colorAura)
+
+    if (IsValid(ply)) then
+        net.Send(ply)
+    else
+        net.Broadcast()
+    end
+end
+
+function BoringFPS.IsLocationFree(pos, ply)
+    -- Default hull
+    local hullMin = Vector(-16, -16, 0)
+    local hullMax = Vector(16, 16, 72)
+
+    if IsValid(ply) then
+        hullMin, hullMax = ply:GetHull()
+    end
+
+    local tr = util.TraceHull({
+        start = pos,
+        endpos = pos + Vector(0, 0, hullMax.z),
+        mins = hullMin,
+        maxs = hullMax,
+        ignoreworld = true,
+        filter = function(ent)
+            if not IsValid(ent) then return false end
+            if (ent == ply) then return false end
+            if ent:GetMoveType() == MOVETYPE_NOCLIP then return false end
+            return true
+        end
+    })
+
+    return not tr.Hit
 end
 
 

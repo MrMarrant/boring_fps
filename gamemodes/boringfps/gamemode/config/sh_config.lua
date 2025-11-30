@@ -8,15 +8,25 @@ BoringFPS_CONFIG.Icons.HeartIcon = Material("boringfps/icons/heart_icon.png")
 BoringFPS_CONFIG.Icons.HeartFillIcon = Material("boringfps/icons/heart_fill_icon.png")
 BoringFPS_CONFIG.Icons.DisconnectedIcon = Material("boringfps/icons/skull_icon.png")
 BoringFPS_CONFIG.Icons.InfiniteIcon = Material("boringfps/icons/infinite_icon.png")
+BoringFPS_CONFIG.Icons.Info = Material("boringfps/icons/info.png")
+BoringFPS_CONFIG.Icons.RulesIcon = Material("boringfps/icons/rules.png")
+
 BoringFPS_CONFIG.Icons.CircleIcon = Material("boringfps/ui/circle_ui.png")
+
+BoringFPS_CONFIG.Icons.PistolClass = Material("boringfps/class/pistol.png")
+BoringFPS_CONFIG.Icons.ShotGunClass = Material("boringfps/class/shotgun.png")
+BoringFPS_CONFIG.Icons.LauncherClass = Material("boringfps/class/rocket-launcher.png")
+BoringFPS_CONFIG.Icons.CrowbarClass = Material("boringfps/class/crowbar.png")
+BoringFPS_CONFIG.Icons.TouchClass = Material("boringfps/class/touch.png")
+BoringFPS_CONFIG.Icons.StalkerClass = Material("boringfps/class/stalker.png")
 
 -- Game settings, edit as you wish
 BoringFPS_CONFIG.Settings = {}
 BoringFPS_CONFIG.Settings.TimerPreGame = 5 -- Time in seconds before the game starts
 BoringFPS_CONFIG.Settings.TimerPostGame = 5 -- Duration before game restart
-BoringFPS_CONFIG.Settings.TimerDelayNextGame = 10 -- Duration before next game starts
+BoringFPS_CONFIG.Settings.TimerDelayNextGame = 20 -- Duration before next game starts
 BoringFPS_CONFIG.Settings.BaseHP = 100 -- Default health points for players
-BoringFPS_CONFIG.Settings.MinPlayerRequired = 2 -- Minimum players required to start a game
+BoringFPS_CONFIG.Settings.MinPlayerRequired = 3 -- Minimum players required to start a game
 BoringFPS_CONFIG.Settings.LimitTimeTurn = 10 -- Time limit for each player's turn
 BoringFPS_CONFIG.Settings.TimerBetweenTurns = 1 -- Time limit between each player's turn
 BoringFPS_CONFIG.Settings.DefaultMaxStep = 10 -- Default steps a player can do during his turn
@@ -24,63 +34,178 @@ BoringFPS_CONFIG.Settings.DefaultWalkSpeed = 250 -- Default walk speed for playe
 BoringFPS_CONFIG.Settings.DefaultRunSpeed = 320 -- Default run speed for players
 BoringFPS_CONFIG.Settings.DurationAnnouncerTurn = 3 -- Define how much time announcer turn stay on screen
 BoringFPS_CONFIG.Settings.MessageLifetimeChatBox = 8 -- Define how much time messages chatbox history are displayed.
-BoringFPS_CONFIG.Settings.MinVelocityKnockBackDamage = 500 -- Define the minimum velocity for knockback damage
-BoringFPS_CONFIG.Settings.MaxVelocityKnockBackDamage = 1000 -- Define the maximum velocity for knockback damage
-BoringFPS_CONFIG.Settings.MinDamageKnockBack = 10 -- Define the minimum damage that can be applied from knockback
-BoringFPS_CONFIG.Settings.MaxDamageKnockBack = 30 -- Define the maximum damage that can be applied from knockback
-BoringFPS_CONFIG.Settings.ListClass = {
-    "pistol",
-    "shootgun",
-    "launcher",
-    "crowbar",
-    "touch",
-    "stalker"
-}
-BoringFPS_CONFIG.Settings.ClassWeapon = {
-    ["pistol"] = "pistol_boring-gun",
-    ["shootgun"] = "shootgun_boring-gun",
-    ["launcher"] = "launcher_boring-gun",
-    ["crowbar"] = "crowbar_boring-gun",
-    ["touch"] = "touch_touch_boring-gun",
-    ["stalker"] = "stalker_boring-gun"
+BoringFPS_CONFIG.Settings.MinVelocityKnockBackDamage = 100 -- Define the minimum velocity for knockback damage
+BoringFPS_CONFIG.Settings.MaxVelocityKnockBackDamage = 350 -- Define the maximum velocity for knockback damage
+BoringFPS_CONFIG.Settings.MinDamageKnockBack = 5 -- Define the minimum damage that can be applied from knockback
+BoringFPS_CONFIG.Settings.MaxDamageKnockBack = 40 -- Define the maximum damage that can be applied from knockback
+BoringFPS_CONFIG.Settings.GlobalTurnEndGame = 10 -- Define the global turn where endgame can start
+BoringFPS_CONFIG.Settings.DamageEndGame = 10 -- Define the damage to deal to player when end game event is enabled
+BoringFPS_CONFIG.Settings.DurationRevealEndGame = 3 -- Define how long players are reveal when endgame event is enabled
+BoringFPS_CONFIG.Settings.RoundsBeforeChangeMap = 3 -- Define how many rounds before changing map
+BoringFPS_CONFIG.Settings.TimerForVote = 10 -- Define how much time players have to vote for next map
 
+-- Weapons Settings
+BoringFPS_CONFIG.Settings.Weapons = {}
+BoringFPS_CONFIG.Settings.Weapons["pistol"] = {
+    ClassName = "pistol_boring-gun",
+    Name = "Pistol",
+    IconClass = BoringFPS_CONFIG.Icons.PistolClass,
+    MaxAmmo = 4,
+    Damage = 15,
+    MaxStep = 10,
+    MaxDash = 2,
+    Action = 2,
+    WalkSpeed = BoringFPS_CONFIG.Settings.DefaultWalkSpeed,
+    RunSpeed = BoringFPS_CONFIG.Settings.DefaultRunSpeed,
+    Description = "pistol_description"
 }
+BoringFPS_CONFIG.Settings.Weapons["shootgun"] = {
+    ClassName = "shootgun_boring-gun",
+    Name = "Shotgun",
+    IconClass = BoringFPS_CONFIG.Icons.ShotGunClass,
+    MaxAmmo = 2,
+    Damage = 8,
+    MaxStep = 8,
+    MaxDash = 1,
+    Action = 1,
+    WalkSpeed = BoringFPS_CONFIG.Settings.DefaultWalkSpeed,
+    RunSpeed = BoringFPS_CONFIG.Settings.DefaultRunSpeed,
+    Description = "shotgun_description"
+}
+BoringFPS_CONFIG.Settings.Weapons["launcher"] = {
+    ClassName = "launcher_boring-gun",
+    Name = "Launcher",
+    IconClass = BoringFPS_CONFIG.Icons.LauncherClass,
+    MaxAmmo = 2,
+    Damage = 100,
+    MaxStep = 6,
+    MaxDash = 1,
+    Action = 1,
+    WalkSpeed = BoringFPS_CONFIG.Settings.DefaultWalkSpeed,
+    RunSpeed = BoringFPS_CONFIG.Settings.DefaultRunSpeed,
+    Description = "launcher_description"
+}
+BoringFPS_CONFIG.Settings.Weapons["crowbar"] = {
+    ClassName = "crowbar_boring-gun",
+    Name = "Crowbar",
+    IconClass = BoringFPS_CONFIG.Icons.CrowbarClass,
+    MaxAmmo = -1,
+    Damage = 20,
+    MaxStep = 18,
+    MaxDash = 2,
+    Action = 2,
+    WalkSpeed = BoringFPS_CONFIG.Settings.DefaultWalkSpeed,
+    RunSpeed = BoringFPS_CONFIG.Settings.DefaultRunSpeed,
+    Description = "crowbar_description"
+}
+BoringFPS_CONFIG.Settings.Weapons["touch"] = {
+    ClassName = "touch_touch_boring-gun",
+    Name = "Touch",
+    IconClass = BoringFPS_CONFIG.Icons.TouchClass,
+    MaxAmmo = -1,
+    Damage = 25,
+    MaxStep = 20,
+    MaxDash = 2,
+    Action = 3,
+    WalkSpeed = 400,
+    RunSpeed = 470,
+    Description = "touch_description"
+}
+BoringFPS_CONFIG.Settings.Weapons["stalker"] = {
+    ClassName = "stalker_boring-gun",
+    Name = "Stalker",
+    IconClass = BoringFPS_CONFIG.Icons.StalkerClass,
+    MaxAmmo = 2,
+    Damage = 30,
+    MaxStep = 5,
+    MaxDash = 1,
+    Action = 2,
+    WalkSpeed = BoringFPS_CONFIG.Settings.DefaultWalkSpeed,
+    RunSpeed = BoringFPS_CONFIG.Settings.DefaultRunSpeed,
+    Description = "stalker_description"
+}
+
 BoringFPS_CONFIG.Settings.HideHUD = {
 	["CHudHealth"] = true,
 	["CHudBattery"] = true,
 	["CHudChat"] = true,
     ["CHudDeathNotice"] = true
 }
-BoringFPS_CONFIG.Settings.IconsClass = {
-    ["pistol"] = BoringFPS_CONFIG.Icons.WeaponIcon,
-    ["shootgun"] = BoringFPS_CONFIG.Icons.ActionIcon,
-    ["launcher"] = BoringFPS_CONFIG.Icons.StepIcon,
-    ["crowbar"] = BoringFPS_CONFIG.Icons.DashIcon,
-    ["touch"] = BoringFPS_CONFIG.Icons.HeartFillIcon,
-    ["stalker"] = BoringFPS_CONFIG.Icons.InfiniteIcon
+BoringFPS_CONFIG.Settings.ColorPlayer = {
+    Color(255, 85, 85),
+    Color(85, 255, 85),
+    Color(85, 85, 255),
+    Color(255, 255, 85),
+    Color(255, 85, 255),
+    Color(85, 255, 255),
+    Color(255, 170, 0),
+    Color(170, 0, 255),
+    Color(0, 170, 255),
+    Color(0, 255, 170),
 }
+
+-- Experience System
+BoringFPS_CONFIG.Settings.ExperienceGainByGame = 100 -- Experience gained by player at the end of each game
+BoringFPS_CONFIG.Settings.ExperienceBonusWinner = 25 -- Experience gained by player at the end of each game
+BoringFPS_CONFIG.Settings.ExperienceGainByKill = 10 -- Experience gained by player at the end of each game
+BoringFPS_CONFIG.Settings.DifferenceExperienceBetweenLevels = 100 -- The experience needed to level up is calculated with the formula : (DifferenceExperienceBetweenLevels / 2) * CurrentLevel * (CurrentLevel + 1)
+BoringFPS_CONFIG.Settings.MaxLevel = 70 -- Maximum level a player can reach
+BoringFPS_CONFIG.Settings.BotEnable = false -- Define if bot can gain exp & level
+
+-- SQL Settings
+BoringFPS_CONFIG.SQL = {}
+BoringFPS_CONFIG.SQL.TablePlayer = "boringfps_player"
+BoringFPS_CONFIG.SQL.TableClassStat = "boringfps_classstat"
+BoringFPS_CONFIG.SQL.UseDatabase = true -- Set to false if you don't want use database
 
 -- Models
 BoringFPS_CONFIG.Models = {}
 BoringFPS_CONFIG.Models.Characters = {
-    "models/alyx.mdl",
-    "models/Eli.mdl",
-    "models/gman_high.mdl",
-    "models/Kleiner.mdl",
-    "models/monk.mdl",
-    "models/vortigaunt.mdl",
-    "models/Humans/Group02/male_07.mdl"
+    Model("models/player/breen.mdl"),
+    Model("models/player/barney.mdl"),
+    Model("models/player/Group01/male_07.mdl"),
+    Model("models/player/gman_high.mdl"),
+    Model("models/player/alyx.mdl"),
+    Model("models/player/combine_super_soldier.mdl"),
+    Model("models/player/police.mdl"),
+    Model("models/player/monk.mdl"),
+    Model("models/player/corpse1.mdl"),
+    Model("models/player/soldier_stripped.mdl")
 }
 BoringFPS_CONFIG.Models.Rocket = Model("models/props_c17/doll01.mdl")
 BoringFPS_CONFIG.Models.SelectionClass = Model("models/props_borealis/bluebarrel001.mdl") --? Default model of the entity if none was set from hammer param
+BoringFPS_CONFIG.Models.HatModels = {
+    [0]  = Model("models/hats/hat_new/hat_new.mdl"),
+    [10] = Model("models/hats/hat_10/hat_10.mdl"),
+    [20] = Model("models/hats/hat_10/hat_10.mdl"),
+    [30] = Model("models/hats/hat_10/hat_10.mdl"),
+    [40] = Model("models/hats/hat_40/hat_40.mdl"),
+    [50] = Model("models/hats/hat_40/hat_40.mdl"),
+    [60] = Model("models/hats/hat_40/hat_40.mdl"),
+    [70] = Model("models/hats/hat_70/hat_70.mdl")
+}
+BoringFPS_CONFIG.Models.BodyGroupHat = {
+    [0]  = "000",
+    [10] = "000",
+    [20] = "010",
+    [30] = "011",
+    [40] = "000",
+    [50] = "010",
+    [60] = "011",
+    [70] = "000"
+}
 
 -- Sounds
 BoringFPS_CONFIG.Sounds = {}
 BoringFPS_CONFIG.Sounds.TurnStart = Sound("boring_fps/sfx/turn/turn_start.mp3")
 BoringFPS_CONFIG.Sounds.TurnEnd = Sound("boring_fps/sfx/turn/turn_end.mp3")
+BoringFPS_CONFIG.Sounds.NotifTurnEnd = Sound("boring_fps/sfx/turn/notif_turn_end.mp3")
 BoringFPS_CONFIG.Sounds.WinGame = Sound("boring_fps/sfx/turn/win_game.mp3")
 BoringFPS_CONFIG.Sounds.OnUse = Sound("boring_fps/sfx/ui/on_use.mp3")
 BoringFPS_CONFIG.Sounds.RevealAura = Sound("boring_fps/sfx/game/reveal_aura.mp3")
+BoringFPS_CONFIG.Sounds.Detonate = Sound("boring_fps/sfx/game/detonate.mp3")
+BoringFPS_CONFIG.Sounds.DeathSound = Sound("boring_fps/sfx/ded.mp3")
+BoringFPS_CONFIG.Sounds.EndEventMusic = Sound("boring_fps/music/end_music.wav")
 BoringFPS_CONFIG.Sounds.GameMusic = {
     "boring_fps/music/theme_boringfps_1.wav",
     "boring_fps/music/theme_boringfps_2.wav",
@@ -88,12 +213,14 @@ BoringFPS_CONFIG.Sounds.GameMusic = {
     "boring_fps/music/theme_boringfps_4.wav"
 }
 
+-- Links
+BoringFPS_CONFIG.Links = {}
+BoringFPS_CONFIG.Links.PatchNote = "https://pastebin.com/raw/TfVkDPqP"
+
 -- NET VAR
 BoringFPS_CONFIG.NetVar = {}
 BoringFPS_CONFIG.NetVar.StartClientPlay = "BoringFPS_CONFIG.StartClientPlay"
 BoringFPS_CONFIG.NetVar.StopClientTurn = "BoringFPS_CONFIG.StopClientTurn"
-BoringFPS_CONFIG.NetVar.PlayClientSound = "BoringFPS_CONFIG.PlayClientSound"
-BoringFPS_CONFIG.NetVar.StopPlayClientSound = "BoringFPS_CONFIG.StopPlayClientSound"
 BoringFPS_CONFIG.NetVar.StartClientWait = "BoringFPS_CONFIG.StartClientWait"
 BoringFPS_CONFIG.NetVar.StartClientHUDGame = "BoringFPS_CONFIG.StartClientHUDGame"
 BoringFPS_CONFIG.NetVar.EndGame = "BoringFPS_CONFIG.StopClientHUDGame"
@@ -101,9 +228,18 @@ BoringFPS_CONFIG.NetVar.SetGlobalTable = "BoringFPS_CONFIG.SetGlobalTable"
 BoringFPS_CONFIG.NetVar.InsertLogs = "BoringFPS_CONFIG.InsertLogs"
 BoringFPS_CONFIG.NetVar.StartClientPreGame = "BoringFPS_CONFIG.StartClientPreGame"
 BoringFPS_CONFIG.NetVar.StopClientPreGame = "BoringFPS_CONFIG.StopClientPreGame"
+BoringFPS_CONFIG.NetVar.RevealAura = "BoringFPS_CONFIG.RevealAura"
+BoringFPS_CONFIG.NetVar.OpenHelpMenu = "BoringFPS_CONFIG.OpenHelpMenu"
+BoringFPS_CONFIG.NetVar.ChangeMap = "BoringFPS_CONFIG.ChangeMap"
+BoringFPS_CONFIG.NetVar.VoteMap = "BoringFPS_CONFIG.VoteMap"
 
 -- Base vars, i really don't recommend to edit this section
 BoringFPS_CONFIG.Vars = {}
 BoringFPS_CONFIG.Vars.PlayersInGame = {}
 BoringFPS_CONFIG.Vars.GameLogs = {}
 BoringFPS_CONFIG.Vars.PlayersAlive = {}
+BoringFPS_CONFIG.Vars.ColorBox = {}
+BoringFPS_CONFIG.Vars.NumberOfPlayers = 0
+BoringFPS_CONFIG.Vars.CurrentRound = 0
+BoringFPS_CONFIG.Vars.VoteMap = {}
+BoringFPS_CONFIG.Vars.PlayersVoteMap = {}

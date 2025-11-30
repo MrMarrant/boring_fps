@@ -8,12 +8,11 @@ SWEP.SlotPos = 1
 SWEP.Spawnable = true
 
 SWEP.Category = "Boring gun"
-SWEP.ViewModel = Model( "models/weapons/v_crowbar.mdl" )
+SWEP.ViewModel = Model( "models/weapons/c_crowbar.mdl" )
 SWEP.WorldModel = Model( "models/weapons/w_crowbar.mdl" )
 
 SWEP.ViewModelFOV = 65
 SWEP.HoldType = "melee"
-SWEP.UseHands = true
 
 SWEP.Primary.ClipSize = 0
 SWEP.Primary.DefaultClip = 0
@@ -24,18 +23,14 @@ SWEP.Secondary.ClipSize = -1
 SWEP.Secondary.DefaultClip = -1
 SWEP.Secondary.Automatic = false
 SWEP.Secondary.Ammo = "none"
+SWEP.WeaponName = "crowbar"
 
 SWEP.RangeAttack = 100
 
-SWEP.Damage = 30
-SWEP.MaxStep = 18
-SWEP.MaxDash = 2
-SWEP.Action = 2
-
-
-
 function SWEP:Shoot()
     local owner = self:GetOwner()
+    self:SendWeaponAnim( ACT_VM_MISSCENTER )
+    owner:SetAnimation( PLAYER_ATTACK1 )
     if not IsValid(owner) or CLIENT then return end
 
     local dir = owner:GetAimVector()

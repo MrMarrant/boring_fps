@@ -8,12 +8,11 @@ SWEP.SlotPos = 1
 SWEP.Spawnable = true
 
 SWEP.Category = "Boring gun"
-SWEP.ViewModel = Model( "models/weapons/v_pistol.mdl" )
+SWEP.ViewModel = Model( "models/weapons/c_pistol.mdl" )
 SWEP.WorldModel = Model( "models/weapons/w_pistol.mdl" )
 
 SWEP.ViewModelFOV = 65
 SWEP.HoldType = "pistol"
-SWEP.UseHands = true
 
 SWEP.Primary.ClipSize = 4
 SWEP.Primary.DefaultClip = 4
@@ -24,16 +23,11 @@ SWEP.Secondary.ClipSize = -1
 SWEP.Secondary.DefaultClip = -1
 SWEP.Secondary.Automatic = false
 SWEP.Secondary.Ammo = "none"
-
-SWEP.Damage = 15
-SWEP.MaxStep = 7
-SWEP.MaxDash = 2
-SWEP.Action = 2
+SWEP.WeaponName = "pistol"
 
 SWEP.LocationStart = Vector(0,0,0)
 
-function SWEP:Initialize()
-	self:SetHoldType( self.HoldType )
+function SWEP:InitializeWeapon()
     hook.Add("PlayerTurnStart", "BoringFPS:PlayerTurnStart_Pistol_"..self:EntIndex(), function(ply)
         if IsValid(ply) and ply == self:GetOwner() then
             self.LocationStart = ply:GetPos()
@@ -51,11 +45,12 @@ function SWEP:Shoot()
 
     owner:LagCompensation(true)
     self:ShootBullet(self.Damage, 1, 0)
+    if SERVER then owner:EmitSound("weapons/pistol/pistol_fire2.wav", 75, math.random(95, 105)) end
     owner:LagCompensation(false)
 end
 
 function SWEP:SecondaryShoot()
     local owner = self:GetOwner()
     owner:SetPos(self.LocationStart)
-    owner:SetNWInt("Action", owner:GetNWInt("Action", 0) - 1)
+    owner:SetAction(owner:GetNWInt("Action", 0) - 1, true)
 end

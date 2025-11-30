@@ -8,12 +8,11 @@ SWEP.SlotPos = 1
 SWEP.Spawnable = true
 
 SWEP.Category = "Boring gun"
-SWEP.ViewModel = Model( "models/weapons/v_rpg.mdl" )
+SWEP.ViewModel = Model( "models/weapons/c_rpg.mdl" )
 SWEP.WorldModel = Model( "models/weapons/w_rocket_launcher.mdl" )
 
 SWEP.ViewModelFOV = 65
 SWEP.HoldType = "rpg"
-SWEP.UseHands = true
 
 SWEP.Primary.ClipSize = 2
 SWEP.Primary.DefaultClip = 2
@@ -24,18 +23,15 @@ SWEP.Secondary.ClipSize = -1
 SWEP.Secondary.DefaultClip = -1
 SWEP.Secondary.Automatic = false
 SWEP.Secondary.Ammo = "none"
-
-SWEP.Damage = 100
-SWEP.MaxStep = 6
-SWEP.MaxDash = 1
-SWEP.Action = 1
+SWEP.WeaponName = "launcher"
 
 SWEP.VelocityRocket = 4000
 
 function SWEP:Shoot()
-    if CLIENT then return end
-
     local owner = self:GetOwner()
+    owner:SetAnimation( PLAYER_ATTACK1 )
+    if not IsValid(owner) or CLIENT then return end
+
     if not IsValid(owner) then return end
 
     local rocket = ents.Create("rocket_boring-gun")

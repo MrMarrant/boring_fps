@@ -1,171 +1,103 @@
-local captionImg = {
-    ["boringfps/icons/action_icon.png"] = "Points d’action",
-    ["boringfps/icons/step_icon.png"] = "Points de mouvements",
-    ["boringfps/icons/dash_icon.png"] = "Points de dash",
-    ["boringfps/icons/weapon_icon.png"] = "Munition restante",
-    ["boringfps/icons/timer_icon.png"] = "Temps restant du tour"
-}
+-- Vars
+local plyListW, plyListH = 0.2, 0.95     -- Size box
+local patchW, patchH = 0.58, 0.8     -- Size box
+local cornerRadius = 12          -- Roundness level
+local margin = 50                -- Internal margin
+local avatarSize = 40              -- Icon size
 
-hook.Add("ScoreboardShow", "BoringFPS:CustomScoreboard", function()
-    if IsValid(g_Scoreboard) then
-        g_Scoreboard:SetVisible(true)
-        g_Scoreboard:MakePopup()
-        g_Scoreboard:Center()
-        return true
+local function CreatePatchContainer(frame, scrW, scrH, x, y)
+    local sizePatchW = scrW * patchW
+    local sizePatchH = scrH * patchH
+    local html = vgui.Create("DHTML", frame)
+    html:SetPos(x, y)
+    html:SetSize(sizePatchW, sizePatchH)
+    html:SetHTML(BoringFPS_CONFIG.Vars.LastPatch or "")
+end
+
+local function CreatePlayerListContainer(frame, scrW, scrH, x, y)
+    local sizeplyListW = scrW * plyListW
+    local sizeplyListH = scrH * plyListH
+
+    local BannerImg = vgui.Create("DImage", frame)
+    BannerImg:SetPos(scrW * 0.82, scrH * 0.02)
+    BannerImg:SetSize(300, 150)
+    BannerImg:SetImage("boringfps/icons/boringpfs_banner.png")
+
+    local DScrollPanel = vgui.Create( "DScrollPanel", frame )
+    DScrollPanel:SetPos(x, y)
+    DScrollPanel:SetSize(sizeplyListW, sizeplyListH)
+    local ScrollBar = DScrollPanel:GetVBar()
+    ScrollBar:SetWide(3)
+    ScrollBar.btnGrip.Paint = function(self, w, h)
+        draw.RoundedBox(0, 0, 0, w, h, Color(0, 93, 129, 156))
     end
 
+    for key, ply in ipairs(player.GetAll()) do
+        local DPanel = vgui.Create( "DPanel", DScrollPanel)
+        DPanel:SetSize( 0, 70 )
+        DPanel:Dock( TOP )
+        DPanel:DockMargin( 20, 20, 20, 10 )
+
+        local avatar = vgui.Create("AvatarImage", DPanel)
+        avatar:SetPlayer(ply, 64)
+        avatar:SetSize(avatarSize, avatarSize)
+        avatar:SetPos(5, DPanel:GetTall() * 0.5 - avatarSize / 2)
+
+        local wAvatar, hAvatar = avatar:GetSize()
+        DPanel.Paint = function(self, w, h)
+            local ping = ply:Ping()
+            draw.RoundedBox(0, 0, 0, w, h, Color(248, 248, 248))
+            draw.SimpleText(BoringFPS.TruncatedText(ply:Nick(), "NickAnton", w * 0.5), "NickAnton", wAvatar + w * 0.05, h / 2, Color(3, 3, 3), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+            draw.SimpleText(ping, "NickAnton", wAvatar + w * 0.6, h / 2, ping > 100 and Color(109, 0, 0) or Color(0, 97, 40), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+        end
+    end
+end
+
+local function CreateScoreBoardHUD()
+    local scrW, scrH = BoringFPS_CONFIG.Vars.ScrW, BoringFPS_CONFIG.Vars.ScrH
+    local plyListX = scrW * 0.02
+    local plyListY = scrH * 0.02
+    local patchX = scrW * 0.4
+    local patchY = scrH * 0.18
     local frame = vgui.Create("DFrame")
+
     frame:SetTitle("")
     frame:ShowCloseButton(false)
     frame:SetDraggable(false)
     frame:SetSizable(false)
     frame:SetDeleteOnClose(false)
-    frame:SetSize(BoringFPS_CONFIG.Vars.ScrW * 0.8, BoringFPS_CONFIG.Vars.ScrH * 0.7)
+    frame:SetSize(scrW, scrH)
     frame:Center()
     frame:MakePopup()
     frame.Paint = function(self, w, h)
-        draw.RoundedBox(8, 0, 0, w, h, Color(0, 0, 0, 0))
+        surface.SetDrawColor(0, 0, 0, 100)
+        surface.DrawRect(0, 0, w, h)
+        BoringFPS.DrawRoundedOutlinedBox(cornerRadius, plyListX, plyListY, scrW * plyListW, scrH * plyListH, 2, Color(0, 0, 0, 150), color_white)
+        BoringFPS.DrawRoundedOutlinedBox(cornerRadius, patchX, patchY, scrW * patchW, scrH * patchH, 2, Color(0, 0, 0, 206), color_white)
     end
 
-    g_Scoreboard = frame
+    CreatePatchContainer(frame, scrW, scrH, patchX, patchY)
+    CreatePlayerListContainer(frame, scrW, scrH, plyListX, plyListY)
+    LocalPlayer().TabMenu = frame
+end
 
-    local ruleComp = vgui.Create("DPanel", frame)
-    ruleComp:SetSize(frame:GetWide(), frame:GetTall() * 0.3)
-    ruleComp:SetPos(0, 0)
-    ruleComp.Paint = function(self, w, h)
-        draw.RoundedBox(0, 0, 0, w, h, Color(35, 31, 32, 225))
+hook.Add("ScoreboardShow", "BoringFPS:CustomScoreboard", function()
+    local lply = LocalPlayer()
+    if IsValid(lply.TabMenu) then
+        lply.TabMenu:SetVisible(true)
+        lply.TabMenu:MakePopup()
+        lply.TabMenu:Center()
+        return true
     end
 
-    local ruleTitle = vgui.Create("DLabel", ruleComp)
-    ruleTitle:SetText("Règle du jeu")
-    ruleTitle:SetFont("DermaLarge")
-    ruleTitle:SetTextColor(Color(255, 255, 255))
-    ruleTitle:SizeToContents()
-    ruleTitle:SetContentAlignment(8)
-    ruleTitle:Dock(TOP)
-    ruleTitle:DockMargin(0, 10, 0, 0)
-
-    local ruleText = vgui.Create("DLabel", ruleComp)
-    ruleText:SetText("Le but du jeu est d’être le dernier survivant de la partie en cours.\nVous jouez chacun votre tour, pendant une durée définie.\nVous pouvez réaliser des actions durant votre tour, ainsi que lorsque ce n’est pas votre tour.\nVous avez le choix entre plusieurs classes, chacune vous donnera accès à une arme unique ainsi que des caractéristiques uniques dans le salon du lobby de pregame.")
-    ruleText:SetFont("TabHUDSmall")
-    ruleText:SetTextColor(Color(255, 255, 255))
-    ruleText:Center()
-    ruleText:DockMargin(10, 0, 30, 0)
-    ruleText:DockPadding(40, 0, 20, 0)
-    ruleText:SetWrap(true)
-    ruleText:Dock(FILL)
-
-    local bottomHeight = frame:GetTall() * 0.7
-    local panelWidth = frame:GetWide() / 3
-
-    -- turnComp
-    local turnComp = vgui.Create("DPanel", frame)
-    turnComp:SetSize(panelWidth, bottomHeight)
-    turnComp:SetPos(0, frame:GetTall() * 0.3)
-    turnComp.Paint = function(self, w, h)
-        draw.RoundedBox(0, 0, 0, w, h, Color(48, 57, 47, 225))
-
-        draw.SimpleText(
-            "Tour actuel",
-            "DermaLarge",
-            w / 2, h * 0.02,
-            Color(255, 255, 255),
-            TEXT_ALIGN_CENTER,
-            TEXT_ALIGN_TOP
-        )
-        local text = "- Utiliser une action\n  → Tirer\n  → Action spéciale de l’arme\n  → Recharger\n\n- Utiliser les points de déplacements"
-        draw.DrawText(
-            text,
-            "TabHUDLarge",
-            w * 0.01, h * 0.15,
-            Color(255, 255, 255),
-            TEXT_ALIGN_LEFT
-        )
-    end
-
-    -- outTurnComp
-    local outTurnComp = vgui.Create("DPanel", frame)
-    outTurnComp:SetSize(panelWidth, bottomHeight)
-    outTurnComp:SetPos(panelWidth, frame:GetTall() * 0.3)
-    outTurnComp.Paint = function(self, w, h)
-        draw.RoundedBox(0, 0, 0, w, h, Color(43, 35, 34, 225))
-        draw.SimpleText(
-            "En dehors de votre tour",
-            "DermaLarge",
-            w / 2, h * 0.02,
-            Color(255, 255, 255),
-            TEXT_ALIGN_CENTER,
-            TEXT_ALIGN_TOP
-        )
-        local text = "- Utiliser vos points de dash pour éviter\nles tirs des autres joueurs"
-        draw.DrawText(
-            text,
-            "TabHUDLarge",
-            w * 0.01, h * 0.15,
-            Color(255, 255, 255),
-            TEXT_ALIGN_LEFT
-        )
-    end
-
-    -- iconComp
-    local iconComp = vgui.Create("DPanel", frame)
-    iconComp:SetSize(panelWidth, bottomHeight)
-    iconComp:SetPos(panelWidth * 2, frame:GetTall() * 0.3)
-    iconComp.Paint = function(self, w, h)
-        draw.RoundedBox(0, 0, 0, w, h, Color(83, 110, 213, 225))
-        draw.SimpleText(
-            "Légende",
-            "DermaLarge",
-            w / 2, h * 0.02,
-            Color(255, 255, 255),
-            TEXT_ALIGN_CENTER,
-            TEXT_ALIGN_TOP
-        )
-    end
-
-    local itemHeight = 40
-    local spacingY = 40
-    local itemCount = #captionImg
-    local imgSize = 40
-    local fontLeg = "DermaDefaultBold"
-    local totalHeight = (itemHeight * itemCount) + (spacingY * (itemCount - 1))
-
-    local iconList = vgui.Create("DIconLayout", iconComp)
-    iconList:SetSize(iconComp:GetWide(), totalHeight)
-    iconList:SetPos(0, (iconComp:GetTall() - totalHeight) * 0.15)
-    iconList:SetSpaceY(spacingY)
-    iconList:SetSpaceX(0)
-
-    for imgPath, text in pairs(captionImg) do
-        local item = iconList:Add("DPanel")
-        item:SetSize(iconList:GetWide(), itemHeight)
-        item.Paint = function(self, w, h)
-            surface.SetDrawColor(0, 0, 0, 0)
-            surface.DrawRect(0, 0, w, h)
-        end
-
-        surface.SetFont(fontLeg)
-        local textW = surface.GetTextSize(text)
-        local totalW = imgSize + 10 + textW
-
-        local img = vgui.Create("DImage", item)
-        img:SetSize(imgSize, imgSize)
-        img:SetImage(imgPath)
-        img:SetPos((item:GetWide() - totalW) / 2, (itemHeight - imgSize) / 2)
-
-        local lbl = vgui.Create("DLabel", item)
-        lbl:SetText(text)
-        lbl:SetFont(fontLeg)
-        lbl:SetTextColor(Color(255, 255, 255))
-        lbl:SizeToContents()
-        lbl:SetPos(img:GetX() + imgSize + 10, (itemHeight - lbl:GetTall()) / 2)
-    end
-
+    CreateScoreBoardHUD()
     return true
 end)
 
 hook.Add("ScoreboardHide", "BoringFPS:CustomScoreboardHide", function()
-    if IsValid(g_Scoreboard) then
-        g_Scoreboard:SetVisible(false)
+    local lply = LocalPlayer()
+    if (IsValid(lply.TabMenu)) then
+        lply.TabMenu:Remove()
+        lply.TabMenu = nil
     end
 end)

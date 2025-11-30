@@ -1,12 +1,29 @@
 -- TODO : Revoir le responsive sur petit écran, nottament la taille des éléments
+local function RemoveAvatar()
+    local ply = LocalPlayer()
+    if (table.IsEmpty(ply.ListAvatar)) then return end
+    for _, avatar in ipairs(ply.ListAvatar) do
+        if IsValid(avatar) then
+            avatar:Remove()
+        end
+    end
+end
+
 function BoringFPS.DisplayHUDGame()
     local plyList = BoringFPS_CONFIG.Vars.PlayersInGame
     hook.Add( "HUDPaint", "HUDPaint:BoringFPS:HUDGame", function()
-        local scrW, scrH = BoringFPS_CONFIG.Vars.ScrW, BoringFPS_CONFIG.Vars.ScrH
+        if (IsValid(LocalPlayer().TabMenu) or IsValid(LocalPlayer().HelpMenu)) then RemoveAvatar() return end
 
+        local scrW, scrH = BoringFPS_CONFIG.Vars.ScrW, BoringFPS_CONFIG.Vars.ScrH
         BoringFPS.DrawListPlayerTurn(scrW, scrH, plyList)
         BoringFPS.DrawHealth(scrW * 0.45, scrH * 0.9)
         BoringFPS.DrawLogs(scrW, scrH)
+        BoringFPS.DrawGlobalTurn(scrW, scrH)
+        BoringFPS.DrawVersionGamemode(scrW, scrH)
+        if (GetGlobalBool("EndGameEnabled", false)) then
+            local cycle = BoringFPS.Oscillate(1.5, 5, 8)
+            BoringFPS.DrawRoundedOutlinedBox(0, 0, 0, scrW, scrH, cycle, Color(0, 0, 0, 0), Color(63, 0, 0))
+        end
     end)
 end
 
@@ -18,6 +35,11 @@ function BoringFPS.DrawListPlayerTurn(scrW, scrH, plyList)
             BoringFPS.DrawEmptyPlayer(index, scrH, scrW)
         end
     end
+end
+
+function BoringFPS.DrawGlobalTurn(scrW, scrH)
+    local colorTxt = Color(255, 255, 255)
+    draw.SimpleText(BoringFPS.GetTranslation("turn", GetGlobalInt("GlobalTurn", 1)), "NickAnton", scrW * 0.82, scrH * 0.08, colorTxt, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
 end
 
 function BoringFPS.DrawPlayerTurn(ply, index, scrH, scrW)
@@ -54,21 +76,8 @@ function BoringFPS.DrawPlayerTurn(ply, index, scrH, scrW)
     local maxWidthName = baseWidth * 0.7 - (nameX - startX) - 5
     local maxWidth = baseWidth - (nameX - startX) - 5
 
-    local playerName = ply:Nick()
-    surface.SetFont("NickAnton")
-    local textW, _ = surface.GetTextSize(playerName)
+    local playerName = BoringFPS.TruncatedText(ply:Nick(), "NickAnton", maxWidth)
 
-    if textW > maxWidthName then
-        local truncated = playerName
-        while string.len(truncated) > 0 do
-            truncated = string.sub(truncated, 1, -2)
-            local newW, _ = surface.GetTextSize(truncated .. "…")
-            if newW <= maxWidthName then
-                playerName = truncated .. "…"
-                break
-            end
-        end
-    end
     draw.SimpleText(playerName, "NickAnton", nameX, posY + baseHeight / 2, colorTxt, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
     nameX = nameX + maxWidth - baseWidth * 0.3
     surface.SetDrawColor(255, 255, 255, 255)
@@ -98,26 +107,15 @@ end
 
 function BoringFPS.StopHudGame()
     hook.Remove( "HUDPaint", "HUDPaint:BoringFPS:HUDGame" )
-    local ply = LocalPlayer()
-    for _, avatar in ipairs(ply.ListAvatar) do
-        if IsValid(avatar) then
-            avatar:Remove()
-        end
-    end
+    RemoveAvatar()
 end
 
 function BoringFPS.DisplayHUDPlay()
-    local timeLimit = BoringFPS_CONFIG.Settings.LimitTimeTurn
+    local timeLimit = GetGlobalInt("CurrentLimitTimer", BoringFPS_CONFIG.Settings.LimitTimeTurn)
     local startTime = CurTime() + timeLimit
-    local ply = LocalPlayer()
-    local weapon = ply:GetNWEntity("WeaponGame", nil)
-    local stepMax = weapon and weapon.MaxStep or 0
-    local actionMax = weapon and weapon.Action or 0
 
     hook.Add( "HUDPaint", "HUDPaint:BoringFPS:HUDTurn", function()
-        BoringFPS.DrawTimerLeft(BoringFPS_CONFIG.Vars.ScrW, BoringFPS_CONFIG.Vars.ScrH, math.Round(startTime - CurTime()) + 1)
-        BoringFPS.DrawStepLeftHUD(BoringFPS_CONFIG.Vars.ScrW * 0.8, BoringFPS_CONFIG.Vars.ScrH * 0.9, ply:GetNWInt("StepLeft", 0), stepMax)
-        BoringFPS.DrawActionLeft(BoringFPS_CONFIG.Vars.ScrW * 0.8, BoringFPS_CONFIG.Vars.ScrH * 0.95, ply:GetNWInt("Action", 0), actionMax)
+        BoringFPS.DrawTimerLeft(BoringFPS_CONFIG.Vars.ScrW, BoringFPS_CONFIG.Vars.ScrH, math.Round(startTime - CurTime()))
     end )
 end
 
@@ -130,16 +128,6 @@ function BoringFPS.DisplayAnnouncerTurn(text)
     timer.Create("BoringFPS:TimerAnnouncerTurn", BoringFPS_CONFIG.Settings.DurationAnnouncerTurn, 1, function()
         hook.Remove( "HUDPaint", "HUDPaint:BoringFPS:HUDAnnouncerTurn" )
     end)
-end
-
-function BoringFPS.DisplayHUDWait()
-    local ply = LocalPlayer()
-    local weapon = ply:GetNWEntity("WeaponGame", nil)
-    local dashMax = weapon and weapon.MaxDash or 0
-
-    hook.Add( "HUDPaint", "HUDPaint:BoringFPS:HUDTurn", function()
-        BoringFPS.DrawDashHud(BoringFPS_CONFIG.Vars.ScrW * 0.8, BoringFPS_CONFIG.Vars.ScrH * 0.9, ply:GetNWInt("Dash", 0), dashMax)
-    end )
 end
 
 function BoringFPS.StopHudTurn()

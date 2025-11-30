@@ -1,11 +1,11 @@
-if (engine.ActiveGamemode() != "boringfps") then return end
+if (engine.ActiveGamemode() ~= "boringfps") then return end
 
 AddCSLuaFile("cl_init.lua")
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 
 function ENT:Initialize()
-	self:SetModel("models/props_borealis/bluebarrel001.mdl")
+	self:SetModel("models/selector_class/selector_class.mdl")
 	self:RebuildPhysics()
 end
 

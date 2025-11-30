@@ -9,6 +9,7 @@ function BoringFPS.NewGame()
             if BoringFPS.IsConditionMetNewGame() then
                 BoringFPS.StartTimerPreGame()
             else
+                SetGlobalBool("IsStartTimerPreGame", false)
                 timer.Remove("BoringFPS:PreGameTimer")
                 timer.Remove("BoringFPS:CountdownTimer")
             end
@@ -29,40 +30,49 @@ end
 
 function BoringFPS.StartGame()
     -- Démarrer le jeu
-    hook.Remove( "Think", "GM:BoringFPS:Think:CanStartNewGame" )
+    hook.Remove("Think", "GM:BoringFPS:Think:CanStartNewGame")
     SetGlobalBool("IsStartTimerPreGame", false)
+    SetGlobalBool("GameInProgress", true)
     SetGlobalString("CurrentGameState", "Game in progress...")
+    SetGlobalInt("GlobalTurn", 1)
+    SetGlobalInt("CurrentLimitTimer", BoringFPS_CONFIG.Settings.LimitTimeTurn)
     BoringFPS.StopHUDPreGame()
-    BoringFPS_CONFIG.GameInProgress = true
-    BoringFPS.StartConditionEndGame(false)
     BoringFPS.SpawnPlayersOnGameMap()
     BoringFPS.DefineDirectionTurnPlay()
-    timer.Simple(0.1, function() --? Weapon is null client side, so we are forced to wait until it's valid
-    -- TODO : J'ai mis ça en place pour récupérer correctement les valeurs max (step, action, dash) des armes pour les HUD
-    -- TODO : mais peut être il faudrait mieux set des variables cotés serveur (NW) et les récup coté client, ça éviterait d'utiliser ce timer.
-        BoringFPS.SetTurnToWait(BoringFPS_CONFIG.Vars.PlayersInGame)
-        BoringFPS.SetTurnToPlay(1)
-        BoringFPS_CONFIG.Vars.CurrentMusic = table.Random(BoringFPS_CONFIG.Sounds.GameMusic)
-        BoringFPS.PlaySound(BoringFPS_CONFIG.Vars.CurrentMusic, true)
-        net.Start(BoringFPS_CONFIG.NetVar.StartClientHUDGame)
-        net.Broadcast()
-    end)
+    BoringFPS.StartConditionEndGame()
+    BoringFPS.SetTurnToWait(BoringFPS_CONFIG.Vars.PlayersInGame, true)
+    BoringFPS.SetTurnToPlay(1)
+    BoringFPS_CONFIG.Vars.CurrentMusic = BoringFPS.ReadSound(table.Random(BoringFPS_CONFIG.Sounds.GameMusic), game.GetWorld(), 0)
+    net.Start(BoringFPS_CONFIG.NetVar.StartClientHUDGame)
+    net.Broadcast()
 end
 
 function BoringFPS.SpawnPlayersOnGameMap()
-    local spawnPoints = BoringFPS.ShuffleTable(ents.FindByName("spawn_game"))
-    local players = player.GetAll()
-    BoringFPS.SetGlobalTable(players, "PlayersAlive")
-    for index, ply in ipairs(players) do
-        local weapon = ply:Give(BoringFPS_CONFIG.Settings.ClassWeapon[ply:GetNWString("ClassWeapon", BoringFPS_CONFIG.Settings.ListClass[1])])
-        ply:SetNWEntity( "WeaponGame", weapon)
-        weapon:SetClip1(weapon:GetMaxClip1()) --? We set here bc weapon doesnt load itself for some reasons
+    local spawnPoints = BoringFPS.GetSpawnPoints()
+    local playersGet = table.ShuffleSequential( player.GetAll() )
+    local colorAvailable = BoringFPS_CONFIG.Settings.ColorPlayer
+    local colorPlayer = {}
+
+    for index, ply in ipairs(playersGet) do
         local location = spawnPoints[index]
         if location then
+            local class = ply:GetNWString("ClassWeapon", next(BoringFPS_CONFIG.Settings.Weapons))
+            local weapon = ply:Give(BoringFPS_CONFIG.Settings.Weapons[class].ClassName)
             ply:SetPos(location:GetPos())
             ply:SetAngles(location:GetAngles())
+            ply:SetNWEntity( "WeaponGame", weapon)
+            weapon:SetClip1(weapon:GetMaxClip1()) --? We set here bc weapon doesnt load itself for some reasons
+            colorPlayer[ply] = colorAvailable[index] or Color(0, 0, 0)
+            ply:SetDataStats(class, "count_select", 1)
+        else
+            ply:ChatPrint(BoringFPS.GetTranslation("not_enough_spawns"))
+            ply:KillSilent()
+            BoringFPS.EnterSpectatorMode(ply)
         end
     end
+    local players = table.Count(playersGet) > #spawnPoints and BoringFPS.TableShrink(playersGet, table.Count(playersGet) - #spawnPoints) or playersGet
+    BoringFPS.SetGlobalTable(players, "PlayersAlive")
+    BoringFPS.SetGlobalTable(colorPlayer, "ColorBox")
 end
 
 function BoringFPS.IsConditionMetNewGame()
@@ -88,19 +98,22 @@ function BoringFPS.DefineDirectionTurnPlay()
         indexTurn = indexTurn + 1
     end
     BoringFPS_CONFIG.DirectionTurnPlayers = directionTurn
-    BoringFPS_CONFIG.LastIndexDirectionTurn = #directionTurn
-    BoringFPS.SetGlobalTable(directionTurn, "PlayersInGame")
+    BoringFPS_CONFIG.Vars.NumberOfPlayers = #directionTurn
+    BoringFPS.SetGlobalTable(table.Copy(directionTurn), "PlayersInGame")
 end
 
 function BoringFPS.ResetParams()
     BoringFPS_CONFIG.CurrentPlayerTurn = nil
     BoringFPS_CONFIG.DirectionTurnPlayers = {}
-    BoringFPS_CONFIG.LastIndexDirectionTurn = nil
-    BoringFPS_CONFIG.GameInProgress = false
+    BoringFPS_CONFIG.Vars.NumberOfPlayers = nil
     BoringFPS.SetGlobalTable({}, "PlayersInGame")
     BoringFPS.SetGlobalTable({}, "PlayersAlive")
     BoringFPS.SetGlobalTable({}, "GameLogs")
+    SetGlobalBool("GameInProgress", false)
+    SetGlobalBool("EndGameEnabled", false)
+    SetGlobalInt("GlobalTurn", 0)
     SetGlobalInt("CurrentIndexDirectionTurn", -1)
+    hook.Remove("NewGlobalTurn", "BoringFPS:NewGlobalTurn:HitPlayers")
     hook.Remove("PlayerDeath", "PlayerDeath:BoringFPS:ConditionEndGame")
     hook.Remove("PlayerDisconnected", "PlayerDisconnected:BoringFPS:ConditionEndGame")
     hook.Remove("EntityTakeDamage", "EntityTakeDamage:BoringFPS:NotifyPlayerHit")
@@ -120,28 +133,40 @@ function BoringFPS.OnPlayerLeave(ply, inflictor, attacker)
     if (BoringFPS_CONFIG.DirectionTurnPlayers[ply:GetNWInt("NumberTurn")]) then
         BoringFPS_CONFIG.DirectionTurnPlayers[ply:GetNWInt("NumberTurn")] = nil
         table.remove(BoringFPS_CONFIG.Vars.PlayersAlive, table.KeyFromValue(BoringFPS_CONFIG.Vars.PlayersAlive, ply))
+        BoringFPS.SetGlobalTable(BoringFPS_CONFIG.Vars.PlayersAlive, "PlayersAlive")
         if (ply:IsConnected()) then
             BoringFPS.EnterSpectatorMode(ply)
         end
         if (IsValid(attacker)) then
-            BoringFPS.InsertLogs(ply:Nick() .. " was killed by " .. attacker:Nick() .. ".")
-        else
-            BoringFPS.InsertLogs(ply:Nick() .. " has died.")
+            if (attacker:IsPlayer()) then
+                BoringFPS.InsertLogs(BoringFPS.GetTranslation("player_killed", ply:Nick(), attacker:Nick()))
+            else
+                BoringFPS.InsertLogs(BoringFPS.GetTranslation("player_died", ply:Nick()))
+            end
+            BoringFPS.SlomwMotion(1, 0.1)
         end
-        ply:EmitSound("boring_fps/sfx/ded.mp3", 90, math.random(90, 110))
+        if (ply == BoringFPS_CONFIG.CurrentPlayerTurn) then
+            BoringFPS.EndTurn()
+        end
+        BoringFPS.ReadSound( BoringFPS_CONFIG.Sounds.DeathSound, ply, 120 )
         net.Start(BoringFPS_CONFIG.NetVar.StopClientTurn)
         net.Send(ply)
+
+        BoringFPS.CheckEndGameEvent()
     end
     if (table.Count(BoringFPS_CONFIG.Vars.PlayersAlive) <= 1) then
-        BoringFPS.EndGame(false)
+        BoringFPS.GameFinish(false)
     end
 end
 
 function BoringFPS.OnPlayerHit(target, dmginfo)
     local attacker = dmginfo:GetAttacker()
     if (IsValid(attacker) and attacker:IsPlayer() and table.HasValue(BoringFPS_CONFIG.Vars.PlayersAlive, target) ) then
-        BoringFPS.InsertLogs(target:Nick() .. " was hit by " .. attacker:Nick() .. " and received\n" .. math.Round( dmginfo:GetDamage() ) .. " damage.")
-    else
-        BoringFPS.InsertLogs(target:Nick() .. " received " .. math.Round( dmginfo:GetDamage() ) .. " damage.")
+        BoringFPS.InsertLogs(BoringFPS.GetTranslation("on_hit", target:Nick(), attacker:Nick(), math.Round( dmginfo:GetDamage())))
     end
+end
+
+function GM:ShowHelp( ply )
+    net.Start(BoringFPS_CONFIG.NetVar.OpenHelpMenu)
+    net.Send(ply)
 end

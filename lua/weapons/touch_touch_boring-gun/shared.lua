@@ -8,12 +8,11 @@ SWEP.SlotPos = 1
 SWEP.Spawnable = true
 
 SWEP.Category = "Boring gun"
-SWEP.ViewModel = Model( "" )
+SWEP.ViewModel = ""
 SWEP.WorldModel = Model( "models/maxofs2d/camera.mdl" )
 
 SWEP.ViewModelFOV = 65
 SWEP.HoldType = "camera"
-SWEP.UseHands = true
 
 SWEP.Primary.ClipSize = 0
 SWEP.Primary.DefaultClip = 0
@@ -24,43 +23,21 @@ SWEP.Secondary.ClipSize = -1
 SWEP.Secondary.DefaultClip = -1
 SWEP.Secondary.Automatic = false
 SWEP.Secondary.Ammo = "none"
+SWEP.WeaponName = "touch"
 
 SWEP.RangeAttack = 100
 SWEP.PlayersHit = {}
 
-SWEP.Damage = 30 
--- TODO : Définir les dégats en fonction du nombre de joueurs ? 
--- TODO : OU Le joueur doit toucher un nombre max de joueur ?
-SWEP.MaxStep = 25
-SWEP.MaxDash = 2
-SWEP.Action = 99
-SWEP.WalkSpeed = 400
-SWEP.RunSpeed = 470
-
-function SWEP:Initialize()
-	self:SetHoldType( self.HoldType )
-    self.Action = #BoringFPS_CONFIG.Vars.PlayersAlive - 1
-    hook.Add("PlayerTurnStart", "BoringFPS:PlayerTurnStart_Touch_"..self:EntIndex(), function(ply)
-        if IsValid(ply) and ply == self:GetOwner() then
-            self.Action = #BoringFPS_CONFIG.Vars.PlayersAlive - 1
-        end
-    end)
+function SWEP:InitializeWeapon()
     hook.Add("PlayerTurnEnd", "BoringFPS:PlayerTurnEnd_Touch_"..self:EntIndex(), function(ply)
         if IsValid(ply) and ply == self:GetOwner() then
-            ply:SetVisibilityRender(true)
+            BoringFPS.SetVisibilityRender(ply, true)
+            BoringFPS.SetVisibilityRender(self, true)
         end
-    end)
-    hook.Add("PlayerDeath", "BoringFPS:CheckTouchDeath_"..self:EntIndex(),function(ply)
-        self:OnPlayerLeave(ply)
-    end)
-    hook.Add("PlayerDisconnect", "BoringFPS:CheckTouchDisconnect_"..self:EntIndex(), function(ply)
-        self:OnPlayerLeave(ply)
     end)
 end
 
 function SWEP:Shoot()
-    if CLIENT then return end
-
     local owner = self:GetOwner()
     if not IsValid(owner) then return end
 
@@ -72,17 +49,31 @@ function SWEP:Shoot()
     traceData.filter = owner
 
     local trace = util.TraceLine(traceData)
+    local sfx
 
     if trace.Hit and IsValid(trace.Entity) and trace.Entity:IsPlayer() and not self.PlayersHit[trace.Entity] then
         self.PlayersHit[trace.Entity] = true
-        -- TODO : Faire un affichage dès joueurs déjà touché ?
-        if (self:TouchComplete(1)) then
-            owner:SetVisibilityRender(false)
-        else
-            owner:EmitSound("physics/flesh/flesh_squishy_impact_hard1.wav")
-        end
+        sfx = "physics/flesh/flesh_squishy_impact_hard1.wav"
     else
-        owner:EmitSound("npc/zombie/claw_miss1.wav")
+        sfx = "npc/zombie/claw_miss1.wav"
+    end
+    if (SERVER) then owner:EmitSound(sfx) end
+end
+
+function SWEP:SecondaryShoot()
+
+    local owner = self:GetOwner()
+    owner:EmitSound(BoringFPS_CONFIG.Sounds.Detonate)
+    if not IsValid(owner) or table.IsEmpty(self.PlayersHit) then return end
+
+    self:Detonate(owner)
+    BoringFPS.ReadSound("weapons/physcannon/energy_sing_explosion2.wav", game.GetWorld(), 0)
+    owner:SetAction(0, true)
+    if (SERVER) then
+        BoringFPS.SetVisibilityRender(owner, false)
+        BoringFPS.SetVisibilityRender(self, false)
+    else
+        owner:ChatPrint(BoringFPS.GetTranslation("touch_explode"))
     end
 end
 
@@ -93,34 +84,15 @@ function SWEP:CanFire()
     return (self:GetOwner():CanUseAction())
 end
 
-function SWEP:TouchComplete(decrement)
-    local owner = self:GetOwner()
-    if (table.Count(self.PlayersHit) >= #BoringFPS_CONFIG.Vars.PlayersAlive - decrement) then
+function SWEP:OnRemove()
+    hook.Remove("PlayerTurnEnd", "BoringFPS:PlayerTurnEnd_Touch_"..self:EntIndex())
+end
+
+function SWEP:Detonate(owner)
+    if SERVER then
         for ply, k in pairs(self.PlayersHit) do
             ply:TakeDamage(self.Damage, owner, self)
         end
-        self.PlayersHit = {}
-        owner:SetNWInt("Action", 0)
-        BoringFPS.PlaySound("weapons/physcannon/energy_sing_explosion2.wav")
-        owner:ChatPrint("Vous avez touchés tout les joueurs.")
-        return true
     end
-    return false
-end
-
-function SWEP:OnRemove()
-    hook.Remove("PlayerTurnStart", "BoringFPS:PlayerTurnStart_Touch_"..self:EntIndex())
-    hook.Remove("PlayerTurnEnd", "BoringFPS:PlayerTurnEnd_Touch_"..self:EntIndex())
-    hook.Remove("PlayerDeath", "BoringFPS:CheckTouchDeath_"..self:EntIndex())
-    hook.Remove("PlayerDisconnect", "BoringFPS:CheckTouchDisconnect_"..self:EntIndex())
-end
-
-function SWEP:OnPlayerLeave(ply)
-    print("OnPlayerLeave touch")
-    if IsValid(ply) then
-        self.PlayersHit[ply] = nil
-        if (table.HasValue(BoringFPS_CONFIG.Vars.PlayersInGame, ply)) then
-            self:TouchComplete(2)
-        end
-    end
+    self.PlayersHit = {}
 end

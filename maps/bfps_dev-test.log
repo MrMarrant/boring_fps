@@ -1,0 +1,432 @@
+
+
+
+materialPath: D:\SteamLibrary\steamapps\common\GarrysMod\garrysmod\materials
+Loading D:\SteamLibrary\steamapps\common\GarrysMod\garrysmod\addons\fps_boardgame\maps\bfps_dev-test.vmf
+fixing up env_cubemap materials on brush sides...
+ProcessBlock_Thread: 0...1...2...3...4...5...6...7...8...9...10 (0)
+ProcessBlock_Thread: 0...1...2...3...4...5...6...7...8...9...10 (0)
+Processing areas...done (0)
+Building Faces...done (0)
+FixTjuncs...
+PruneNodes...
+WriteBSP...
+done (0)
+writing D:\SteamLibrary\steamapps\common\GarrysMod\garrysmod\addons\fps_boardgame\maps\bfps_dev-test.prt...
+Building visibility clusters...
+done (0)
+Creating default LDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day01_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+*** Error: Skybox vtf files for skybox/sky_day01_01 weren't compiled with the same size texture and/or same flags!
+Can't load skybox file skybox/sky_day01_01 to build the default cubemap!
+Finding displacement neighbors...
+Finding lightmap sample positions...
+Displacement Alpha : 0...1...2...3...4...5...6...7...8...9...10
+Building Physics collision data...
+done (0) (11861 bytes)
+Placing detail props : 0...1...2...3...4...5...6...7...8...9...10
+Compacting texture/material tables...
+Reduced 13 texinfos to 7
+Reduced 5 texdatas to 5 (110 bytes to 110)
+Writing D:\SteamLibrary\steamapps\common\GarrysMod\garrysmod\addons\fps_boardgame\maps\bfps_dev-test.bsp
+0 seconds elapsed
+
+
+
+6 threads
+reading d:\steamlibrary\steamapps\common\garrysmod\garrysmod\addons\fps_boardgame\maps\bfps_dev-test.bsp
+reading d:\steamlibrary\steamapps\common\garrysmod\garrysmod\addons\fps_boardgame\maps\bfps_dev-test.prt
+  26 portalclusters
+  29 numportals
+BasePortalVis:       0...1...2...3...4...5...6...7...8...9...10 (0)
+PortalFlow:          0...1...2...3...4...5...6...7...8...9...10 (0)
+Optimized: 0 visible clusters (0.00%)
+Total clusters visible: 292
+Average clusters visible: 11
+Building PAS...
+Average clusters audible: 22
+visdatasize:427  compressed from 416
+writing d:\steamlibrary\steamapps\common\garrysmod\garrysmod\addons\fps_boardgame\maps\bfps_dev-test.bsp
+0 seconds elapsed
+
+
+
+[Reading texlights from 'lights.rad']
+[51 texlights parsed from 'lights.rad']
+Loading d:\steamlibrary\steamapps\common\garrysmod\garrysmod\addons\fps_boardgame\maps\bfps_dev-test.bsp
+BuildFacelights:     0...1...2...3...4...5...6...7...8...9...10 (0)
+BuildVisLeafs:       0...1...2...3...4...5...6...7...8...9...10 (0)
+transfers 354119, max 222
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+Build Patch/Sample Hash Table(s).....Done<0.0007 sec>
+FinalLightFace:      0...1...2...3...4...5...6...7...8...9...10 (0)
+FinalLightFace Done
+0 of 0 (0% of) surface lights went in leaf ambient cubes.
+ThreadComputeLeafAmbient: 0...1...2...3...4...5...6...7...8...9...10 (0)
+Writing leaf ambient...done
+Ready to Finish
+
+Object names       Objects/Maxobjs  Memory / Maxmem  Fullness 
+------------       ---------------  ---------------  -------- 
+models                   1/4096           48/196608   ( 0.0%) 
+brushes                 31/65535         372/786420   ( 0.0%) 
+brushsides             186/655350       1488/5242800  ( 0.0%) 
+planes                  96/65536        1920/1310720  ( 0.1%) 
+vertexes               213/65536        2556/786432   ( 0.3%) 
+nodes                   77/65536        2464/2097152  ( 0.1%) 
+texinfos                 7/16384         504/1179648  ( 0.0%) 
+texdata                  5/8192          160/262144   ( 0.1%) 
+dispinfos                0/0               0/0        ( 0.0%) 
+disp_verts               0/0               0/0        ( 0.0%) 
+disp_tris                0/0               0/0        ( 0.0%) 
+disp_multiblend          0/0               0/0        ( 0.0%) 
+disp_lmsamples           0/0               0/0        ( 0.0%) 
+faces                  145/65536        8120/3670016  ( 0.2%) 
+hdr faces                0/65536           0/3670016  ( 0.0%) 
+origfaces               74/65536        4144/3670016  ( 0.1%) 
+leaves                  79/65536        2528/2097152  ( 0.1%) 
+leaffaces              147/65536         294/131072   ( 0.2%) 
+leafbrushes             44/65536          88/131072   ( 0.1%) 
+areas                    3/1024           24/8192     ( 0.3%) 
+surfedges              974/512000       3896/2048000  ( 0.2%) 
+edges                  584/256000       2336/1024000  ( 0.2%) 
+LDR worldlights          3/8192          264/720896   ( 0.0%) 
+HDR worldlights          0/8192            0/720896   ( 0.0%) 
+leafwaterdata            0/32768           0/393216   ( 0.0%) 
+waterstrips             23/32768         230/327680   ( 0.1%) 
+waterverts               0/65536           0/786432   ( 0.0%) 
+waterindices           366/65536         732/131072   ( 0.6%) 
+cubemapsamples           0/1024            0/16384    ( 0.0%) 
+overlays                 0/8192            0/2883584  ( 0.0%) 
+LDR lightdata         [variable]       84780/0        ( 0.0%) 
+HDR lightdata         [variable]           0/0        ( 0.0%) 
+visdata               [variable]         427/16777216 ( 0.0%) 
+entdata               [variable]        3933/393216   ( 1.0%) 
+LDR ambient table       79/65536         316/262144   ( 0.1%) 
+HDR ambient table       79/65536         316/262144   ( 0.1%) 
+LDR leaf ambient       399/65536       11172/1835008  ( 0.6%) 
+HDR leaf ambient        79/65536        2212/1835008  ( 0.1%) 
+occluders                0/0               0/0        ( 0.0%) 
+occluder polygons        0/0               0/0        ( 0.0%) 
+occluder vert ind        0/0               0/0        ( 0.0%) 
+detail props          [variable]           1/12       ( 8.3%) 
+static props          [variable]           1/12       ( 8.3%) 
+pakfile               [variable]       24882/0        ( 0.0%) 
+physics               [variable]       11861/4194304  ( 0.3%) 
+physics terrain       [variable]           2/1048576  ( 0.0%) 
+
+Level flags = 0
+
+Total triangle count: 388
+Writing d:\steamlibrary\steamapps\common\garrysmod\garrysmod\addons\fps_boardgame\maps\bfps_dev-test.bsp
+0 seconds elapsed
+
+
+
+
+[Reading texlights from 'lights.rad']
+[51 texlights parsed from 'lights.rad']
+Loading d:\steamlibrary\steamapps\common\garrysmod\garrysmod\addons\fps_boardgame\maps\bfps_dev-test.bsp
+BuildFacelights:     0...1...2...3...4...5...6...7...8...9...10 (0)
+BuildVisLeafs:       0...1...2...3...4...5...6...7...8...9...10 (0)
+transfers 354119, max 222
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+Build Patch/Sample Hash Table(s).....Done<0.0007 sec>
+FinalLightFace:      0...1...2...3...4...5...6...7...8...9...10 (0)
+FinalLightFace Done
+0 of 0 (0% of) surface lights went in leaf ambient cubes.
+ThreadComputeLeafAmbient: 0...1...2...3...4...5...6...7...8...9...10 (1)
+Writing leaf ambient...done
+Ready to Finish
+
+Object names       Objects/Maxobjs  Memory / Maxmem  Fullness 
+------------       ---------------  ---------------  -------- 
+models                   1/4096           48/196608   ( 0.0%) 
+brushes                 31/65535         372/786420   ( 0.0%) 
+brushsides             186/655350       1488/5242800  ( 0.0%) 
+planes                  96/65536        1920/1310720  ( 0.1%) 
+vertexes               213/65536        2556/786432   ( 0.3%) 
+nodes                   77/65536        2464/2097152  ( 0.1%) 
+texinfos                 7/16384         504/1179648  ( 0.0%) 
+texdata                  5/8192          160/262144   ( 0.1%) 
+dispinfos                0/0               0/0        ( 0.0%) 
+disp_verts               0/0               0/0        ( 0.0%) 
+disp_tris                0/0               0/0        ( 0.0%) 
+disp_multiblend          0/0               0/0        ( 0.0%) 
+disp_lmsamples           0/0               0/0        ( 0.0%) 
+faces                  145/65536        8120/3670016  ( 0.2%) 
+hdr faces              145/65536        8120/3670016  ( 0.2%) 
+origfaces               74/65536        4144/3670016  ( 0.1%) 
+leaves                  79/65536        2528/2097152  ( 0.1%) 
+leaffaces              147/65536         294/131072   ( 0.2%) 
+leafbrushes             44/65536          88/131072   ( 0.1%) 
+areas                    3/1024           24/8192     ( 0.3%) 
+surfedges              974/512000       3896/2048000  ( 0.2%) 
+edges                  584/256000       2336/1024000  ( 0.2%) 
+LDR worldlights          3/8192          264/720896   ( 0.0%) 
+HDR worldlights          3/8192          264/720896   ( 0.0%) 
+leafwaterdata            0/32768           0/393216   ( 0.0%) 
+waterstrips             23/32768         230/327680   ( 0.1%) 
+waterverts               0/65536           0/786432   ( 0.0%) 
+waterindices           366/65536         732/131072   ( 0.6%) 
+cubemapsamples           0/1024            0/16384    ( 0.0%) 
+overlays                 0/8192            0/2883584  ( 0.0%) 
+LDR lightdata         [variable]       84780/0        ( 0.0%) 
+HDR lightdata         [variable]       84780/0        ( 0.0%) 
+visdata               [variable]         427/16777216 ( 0.0%) 
+entdata               [variable]        3933/393216   ( 1.0%) 
+LDR ambient table       79/65536         316/262144   ( 0.1%) 
+HDR ambient table       79/65536         316/262144   ( 0.1%) 
+LDR leaf ambient       399/65536       11172/1835008  ( 0.6%) 
+HDR leaf ambient       399/65536       11172/1835008  ( 0.6%) 
+occluders                0/0               0/0        ( 0.0%) 
+occluder polygons        0/0               0/0        ( 0.0%) 
+occluder vert ind        0/0               0/0        ( 0.0%) 
+detail props          [variable]           1/12       ( 8.3%) 
+static props          [variable]           1/12       ( 8.3%) 
+pakfile               [variable]       24882/0        ( 0.0%) 
+physics               [variable]       11861/4194304  ( 0.3%) 
+physics terrain       [variable]           2/1048576  ( 0.0%) 
+
+Level flags = 0
+
+Total triangle count: 388
+Writing d:\steamlibrary\steamapps\common\garrysmod\garrysmod\addons\fps_boardgame\maps\bfps_dev-test.bsp
+0 seconds elapsed
+
+
+
+
+materialPath: D:\SteamLibrary\steamapps\common\GarrysMod\garrysmod\materials
+Loading D:\SteamLibrary\steamapps\common\GarrysMod\garrysmod\addons\fps_boardgame\maps\bfps_dev-test.vmf
+fixing up env_cubemap materials on brush sides...
+ProcessBlock_Thread: 0...1...2...3...4...5...6...7...8...9...10 (0)
+ProcessBlock_Thread: 0...1...2...3...4...5...6...7...8...9...10 (0)
+Processing areas...done (0)
+Building Faces...done (0)
+FixTjuncs...
+PruneNodes...
+WriteBSP...
+done (0)
+writing D:\SteamLibrary\steamapps\common\GarrysMod\garrysmod\addons\fps_boardgame\maps\bfps_dev-test.prt...
+Building visibility clusters...
+done (0)
+Creating default LDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day01_01*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+*** Error: Skybox vtf files for skybox/sky_day01_01 weren't compiled with the same size texture and/or same flags!
+Can't load skybox file skybox/sky_day01_01 to build the default cubemap!
+Finding displacement neighbors...
+Finding lightmap sample positions...
+Displacement Alpha : 0...1...2...3...4...5...6...7...8...9...10
+Building Physics collision data...
+done (0) (12354 bytes)
+Placing detail props : 0...1...2...3...4...5...6...7...8...9...10
+Compacting texture/material tables...
+Reduced 21 texinfos to 10
+Reduced 8 texdatas to 8 (164 bytes to 164)
+Writing D:\SteamLibrary\steamapps\common\GarrysMod\garrysmod\addons\fps_boardgame\maps\bfps_dev-test.bsp
+0 seconds elapsed
+
+
+
+6 threads
+reading d:\steamlibrary\steamapps\common\garrysmod\garrysmod\addons\fps_boardgame\maps\bfps_dev-test.bsp
+reading d:\steamlibrary\steamapps\common\garrysmod\garrysmod\addons\fps_boardgame\maps\bfps_dev-test.prt
+  29 portalclusters
+  33 numportals
+BasePortalVis:       0...1...2...3...4...5...6...7...8...9...10 (0)
+PortalFlow:          0...1...2...3...4...5...6...7...8...9...10 (0)
+Optimized: 0 visible clusters (0.00%)
+Total clusters visible: 307
+Average clusters visible: 10
+Building PAS...
+Average clusters audible: 20
+visdatasize:472  compressed from 464
+writing d:\steamlibrary\steamapps\common\garrysmod\garrysmod\addons\fps_boardgame\maps\bfps_dev-test.bsp
+0 seconds elapsed
+
+
+
+[Reading texlights from 'lights.rad']
+[51 texlights parsed from 'lights.rad']
+Loading d:\steamlibrary\steamapps\common\garrysmod\garrysmod\addons\fps_boardgame\maps\bfps_dev-test.bsp
+BuildFacelights:     0...1...2...3...4...5...6...7...8...9...10 (0)
+BuildVisLeafs:       0...1...2...3...4...5...6...7...8...9...10 (0)
+transfers 339245, max 228
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+Build Patch/Sample Hash Table(s).....Done<0.0006 sec>
+FinalLightFace:      0...1...2...3...4...5...6...7...8...9...10 (0)
+FinalLightFace Done
+0 of 0 (0% of) surface lights went in leaf ambient cubes.
+ThreadComputeLeafAmbient: 0...1...2...3...4...5...6...7...8...9...10 (0)
+Writing leaf ambient...done
+Ready to Finish
+
+Object names       Objects/Maxobjs  Memory / Maxmem  Fullness 
+------------       ---------------  ---------------  -------- 
+models                   1/4096           48/196608   ( 0.0%) 
+brushes                 32/65535         384/786420   ( 0.0%) 
+brushsides             192/655350       1536/5242800  ( 0.0%) 
+planes                  98/65536        1960/1310720  ( 0.1%) 
+vertexes               231/65536        2772/786432   ( 0.4%) 
+nodes                   83/65536        2656/2097152  ( 0.1%) 
+texinfos                10/16384         720/1179648  ( 0.1%) 
+texdata                  8/8192          256/262144   ( 0.1%) 
+dispinfos                0/0               0/0        ( 0.0%) 
+disp_verts               0/0               0/0        ( 0.0%) 
+disp_tris                0/0               0/0        ( 0.0%) 
+disp_multiblend          0/0               0/0        ( 0.0%) 
+disp_lmsamples           0/0               0/0        ( 0.0%) 
+faces                  157/65536        8792/3670016  ( 0.2%) 
+hdr faces                0/65536           0/3670016  ( 0.0%) 
+origfaces               75/65536        4200/3670016  ( 0.1%) 
+leaves                  85/65536        2720/2097152  ( 0.1%) 
+leaffaces              159/65536         318/131072   ( 0.2%) 
+leafbrushes             49/65536          98/131072   ( 0.1%) 
+areas                    3/1024           24/8192     ( 0.3%) 
+surfedges             1026/512000       4104/2048000  ( 0.2%) 
+edges                  615/256000       2460/1024000  ( 0.2%) 
+LDR worldlights          3/8192          264/720896   ( 0.0%) 
+HDR worldlights          0/8192            0/720896   ( 0.0%) 
+leafwaterdata            0/32768           0/393216   ( 0.0%) 
+waterstrips             23/32768         230/327680   ( 0.1%) 
+waterverts               0/65536           0/786432   ( 0.0%) 
+waterindices           366/65536         732/131072   ( 0.6%) 
+cubemapsamples           0/1024            0/16384    ( 0.0%) 
+overlays                 0/8192            0/2883584  ( 0.0%) 
+LDR lightdata         [variable]       91616/0        ( 0.0%) 
+HDR lightdata         [variable]           0/0        ( 0.0%) 
+visdata               [variable]         472/16777216 ( 0.0%) 
+entdata               [variable]        4150/4194304  ( 0.1%) 
+LDR ambient table       85/65536         340/262144   ( 0.1%) 
+HDR ambient table       85/65536         340/262144   ( 0.1%) 
+LDR leaf ambient       402/65536       11256/1835008  ( 0.6%) 
+HDR leaf ambient        85/65536        2380/1835008  ( 0.1%) 
+occluders                0/0               0/0        ( 0.0%) 
+occluder polygons        0/0               0/0        ( 0.0%) 
+occluder vert ind        0/0               0/0        ( 0.0%) 
+detail props          [variable]          12/0        ( 0.0%) 
+static props          [variable]          12/0        ( 0.0%) 
+static prop count        0/16384           0/0        ( 0.0%) 
+pakfile               [variable]       24882/0        ( 0.0%) 
+physics               [variable]       12354/4194304  ( 0.3%) 
+physics terrain       [variable]           2/1048576  ( 0.0%) 
+
+Level flags = 0
+
+Total triangle count: 412
+Writing d:\steamlibrary\steamapps\common\garrysmod\garrysmod\addons\fps_boardgame\maps\bfps_dev-test.bsp
+0 seconds elapsed
+
+
+
+
+[Reading texlights from 'lights.rad']
+[51 texlights parsed from 'lights.rad']
+Loading d:\steamlibrary\steamapps\common\garrysmod\garrysmod\addons\fps_boardgame\maps\bfps_dev-test.bsp
+BuildFacelights:     0...1...2...3...4...5...6...7...8...9...10 (0)
+BuildVisLeafs:       0...1...2...3...4...5...6...7...8...9...10 (0)
+transfers 339245, max 228
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+Build Patch/Sample Hash Table(s).....Done<0.0009 sec>
+FinalLightFace:      0...1...2...3...4...5...6...7...8...9...10 (0)
+FinalLightFace Done
+0 of 0 (0% of) surface lights went in leaf ambient cubes.
+ThreadComputeLeafAmbient: 0...1...2...3...4...5...6...7...8...9...10 (1)
+Writing leaf ambient...done
+Ready to Finish
+
+Object names       Objects/Maxobjs  Memory / Maxmem  Fullness 
+------------       ---------------  ---------------  -------- 
+models                   1/4096           48/196608   ( 0.0%) 
+brushes                 32/65535         384/786420   ( 0.0%) 
+brushsides             192/655350       1536/5242800  ( 0.0%) 
+planes                  98/65536        1960/1310720  ( 0.1%) 
+vertexes               231/65536        2772/786432   ( 0.4%) 
+nodes                   83/65536        2656/2097152  ( 0.1%) 
+texinfos                10/16384         720/1179648  ( 0.1%) 
+texdata                  8/8192          256/262144   ( 0.1%) 
+dispinfos                0/0               0/0        ( 0.0%) 
+disp_verts               0/0               0/0        ( 0.0%) 
+disp_tris                0/0               0/0        ( 0.0%) 
+disp_multiblend          0/0               0/0        ( 0.0%) 
+disp_lmsamples           0/0               0/0        ( 0.0%) 
+faces                  157/65536        8792/3670016  ( 0.2%) 
+hdr faces              157/65536        8792/3670016  ( 0.2%) 
+origfaces               75/65536        4200/3670016  ( 0.1%) 
+leaves                  85/65536        2720/2097152  ( 0.1%) 
+leaffaces              159/65536         318/131072   ( 0.2%) 
+leafbrushes             49/65536          98/131072   ( 0.1%) 
+areas                    3/1024           24/8192     ( 0.3%) 
+surfedges             1026/512000       4104/2048000  ( 0.2%) 
+edges                  615/256000       2460/1024000  ( 0.2%) 
+LDR worldlights          3/8192          264/720896   ( 0.0%) 
+HDR worldlights          3/8192          264/720896   ( 0.0%) 
+leafwaterdata            0/32768           0/393216   ( 0.0%) 
+waterstrips             23/32768         230/327680   ( 0.1%) 
+waterverts               0/65536           0/786432   ( 0.0%) 
+waterindices           366/65536         732/131072   ( 0.6%) 
+cubemapsamples           0/1024            0/16384    ( 0.0%) 
+overlays                 0/8192            0/2883584  ( 0.0%) 
+LDR lightdata         [variable]       91616/0        ( 0.0%) 
+HDR lightdata         [variable]       91616/0        ( 0.0%) 
+visdata               [variable]         472/16777216 ( 0.0%) 
+entdata               [variable]        4150/4194304  ( 0.1%) 
+LDR ambient table       85/65536         340/262144   ( 0.1%) 
+HDR ambient table       85/65536         340/262144   ( 0.1%) 
+LDR leaf ambient       402/65536       11256/1835008  ( 0.6%) 
+HDR leaf ambient       402/65536       11256/1835008  ( 0.6%) 
+occluders                0/0               0/0        ( 0.0%) 
+occluder polygons        0/0               0/0        ( 0.0%) 
+occluder vert ind        0/0               0/0        ( 0.0%) 
+detail props          [variable]          12/0        ( 0.0%) 
+static props          [variable]          12/0        ( 0.0%) 
+static prop count        0/16384           0/0        ( 0.0%) 
+pakfile               [variable]       24882/0        ( 0.0%) 
+physics               [variable]       12354/4194304  ( 0.3%) 
+physics terrain       [variable]           2/1048576  ( 0.0%) 
+
+Level flags = 0
+
+Total triangle count: 412
+Writing d:\steamlibrary\steamapps\common\garrysmod\garrysmod\addons\fps_boardgame\maps\bfps_dev-test.bsp
+0 seconds elapsed
+

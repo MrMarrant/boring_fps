@@ -1,0 +1,6 @@
+"VertexlitGeneric"
+{
+	$basetexture "hat_40/M_Hat_40_Antenna_02"
+	$phong 1
+	$nocull 1
+}

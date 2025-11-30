@@ -1,11 +1,17 @@
+local differenceExp = BoringFPS_CONFIG.Settings.DifferenceExperienceBetweenLevels
+
 function BoringFPS.DisplayHUDPreGame()
     local timerPreGame = BoringFPS_CONFIG.Settings.TimerPreGame
     local timerStart = false
     local startTimer
     hook.Add( "HUDPaint", "HUDPaint:BoringFPS:HUDPreGame", function()
+        if (IsValid(LocalPlayer().TabMenu) or IsValid(LocalPlayer().HelpMenu)) then return end
+
         local scrW, scrH = BoringFPS_CONFIG.Vars.ScrW, BoringFPS_CONFIG.Vars.ScrH
         BoringFPS.DrawClassSelect(scrW, scrH)
         BoringFPS.DrawInfoPreGame(scrW, scrH)
+        BoringFPS.DrawVersionGamemode(scrW, scrH)
+        BoringFPS.DrawLevelExperience(scrW, scrH)
         if (GetGlobalBool("IsStartTimerPreGame")) then
             ct = CurTime()
             startTimer = timerStart and startTimer or (ct + timerPreGame)
@@ -21,46 +27,56 @@ function BoringFPS.StopHUDPreGame()
     hook.Remove( "HUDPaint", "HUDPaint:BoringFPS:HUDPreGame" )
 end
 
+function BoringFPS.DrawLevelExperience(scrW, scrH)
+    local ply = LocalPlayer()
+    local rectW, rectH = scrW * 0.10, scrH * 0.07
+    local rectX, rectY = scrW * 0.01, scrH * 0.01
+    local bgColor = Color(0, 0, 0, 200)
+    local outlineColor = Color(255, 255, 255)
+    local level = ply:GetNWInt("Level", 0)
+    local experience = ply:GetNWInt("Exp", 0)
+    local expToNextLevel = (differenceExp / 2) * level * (level + 1)
+    local expToPreviousLevel = (differenceExp / 2) * (level - 1) * level
+    local experiencePerc = math.Round((experience - expToPreviousLevel) / (expToNextLevel - expToPreviousLevel) * 100, 1)
+    local wPercent = rectW * 0.4
+
+    BoringFPS.DrawRoundedOutlinedBox(0, rectX, rectY, rectW, rectH, 2, bgColor, outlineColor)
+    surface.SetFont("TabHUDSmall")
+    local lineWidth, lineHeight = surface.GetTextSize("Lv")
+    draw.DrawText("Lv", "TabHUDSmall", rectX + rectW * 0.1, rectY + rectH * 0.35, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)
+    draw.DrawText(level, "DefaultVT", rectX + rectW * 0.05 + lineWidth, rectY + rectH * 0.2, Color(255, 255, 255, 255), TEXT_ALIGN_LEFT)
+    draw.DrawText(experiencePerc .. "%", "SmallVT", rectX + rectW * 0.6 + lineWidth, rectY + rectH * 0.15, Color(255, 255, 255), TEXT_ALIGN_CENTER)
+    draw.RoundedBox(0, rectX + rectW * 0.5, rectY + rectH * 0.65, wPercent, rectH * 0.1, Color(156, 0, 0))
+    draw.RoundedBox(0, rectX + rectW * 0.5, rectY + rectH * 0.65, wPercent * (experiencePerc / 100), rectH * 0.1, Color(255, 255, 255))
+end
+
 function BoringFPS.DrawClassSelect(scrW, scrH)
     surface.SetDrawColor(255, 255, 255)
     surface.DrawRect(scrW * 0.87, scrH * 0.75, scrW * 0.1, scrH * 0.2)
     surface.SetDrawColor(0, 0, 0)
     surface.DrawRect(scrW * 0.875, scrH * 0.76, scrW * 0.09, scrH * 0.15)
-    BoringFPS.DrawIconHud(BoringFPS_CONFIG.Settings.IconsClass[LocalPlayer():GetNWString("ClassWeapon")], scrW * 0.896, scrH * 0.795, Color(255, 255, 255), scrW * 0.05, scrW * 0.05)
+    BoringFPS.DrawIconHud(BoringFPS_CONFIG.Settings.Weapons[LocalPlayer():GetNWString("ClassWeapon")].IconClass, scrW * 0.896, scrH * 0.795, Color(255, 255, 255), scrW * 0.05, scrW * 0.05)
     draw.DrawText("Current Class", "NickAnton", scrW * 0.92, scrH * 0.91, Color(0, 0, 0), TEXT_ALIGN_CENTER)
 end
 
 function BoringFPS.DrawInfoPreGame(scrW, scrH)
-    -- Dimensions rectangle
     local rectW, rectH = scrW * 0.10, scrH * 0.07
-    local rectX, rectY = scrW - rectW - 10, 10 -- marge de 10px du bord
+    local rectX, rectY = scrW - rectW - 10, 10
+    local bgColor = Color(0, 0, 0, 200)
+    local outlineColor = Color(255, 255, 255)
 
-    -- Couleur de fond (noir avec 10% d'opacité)
-    local bgColor = Color(0, 0, 0, 200) -- 25/255 ≈ 10%
+    BoringFPS.DrawRoundedOutlinedBox(0, rectX, rectY, rectW, rectH, 2, bgColor, outlineColor)
 
-    -- Dessiner le fond
-    draw.RoundedBox(0, rectX, rectY, rectW, rectH, bgColor)
-
-    -- Dessiner la bordure blanche
-    surface.SetDrawColor(255, 255, 255, 255)
-    surface.DrawOutlinedRect(rectX, rectY, rectW, rectH, 1)
-
-    -- Texte à afficher
     local text = GetGlobalString("CurrentGameState", "")
-    local font = "StateGame"
+    local font = "VerySmallVT"
+    local lines = BoringFPS.WrapText(text, font, rectW - 8)
 
-    -- Découper le texte en lignes si trop large
-    local lines = BoringFPS.WrapText(text, font, rectW - 8) -- -8 pour marges intérieures
-
-    -- Calcul de la hauteur totale du texte
     surface.SetFont(font)
-    local _, lineHeight = surface.GetTextSize("Ay") -- hauteur approx d'une ligne
-    local totalTextHeight = #lines * lineHeight
 
-    -- Point de départ pour centrer verticalement
+    local _, lineHeight = surface.GetTextSize("Ay")
+    local totalTextHeight = #lines * lineHeight
     local startY = rectY + (rectH / 2) - (totalTextHeight / 2)
 
-    -- Dessiner chaque ligne centrée
     for i, line in ipairs(lines) do
         local y = startY + (i - 1) * lineHeight
         draw.DrawText(line, font, rectX + rectW / 2, y, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)
