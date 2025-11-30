@@ -179,7 +179,7 @@ function BoringFPS.SlomwMotion(duration, timeScale)
 end
 
 function BoringFPS.ChangeToNextMap()
-    local maps = file.Find("maps/bfps*.bsp", "GAME")
+    local maps = file.Find("maps/*.bsp", "GAME")
     local cleaned = {}
 
     for _, map in ipairs(maps) do
