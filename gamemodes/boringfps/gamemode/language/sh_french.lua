@@ -17,6 +17,18 @@ local FR = {
     dash_point = "Points de dash",
     ammo_left = "Munition restante",
     turn_time = "Temps restant du tour",
+    
+    -- Helper Class
+    description_class = "Description",
+    stats_class = "Stats",
+    action_class = "Points d’action",
+    move_class = "Points de mouvements",
+    dash_class = "Points de dash",
+    ammos_class = "Munitions max",
+    walkspeed_class = "Vitesse de déplacement",
+
+    -- HUD
+    select_class = "Sélectionnez votre classe",
 
     -- Weapons
     launcher_description = "Le Launcher est une classe lourde, vous tirer des roquettes explosives qui infligent des dégâts de zone. en fonction de la distance parcourue (plus la roquette parcourt une longue distance, moins elle inflige de dégâts).\n\nLe Launcher est lent et possède peu de points d’action, mais compense cela avec des dégâts élevés, de plus en tirant, vous subissez un recul important vous faisant reculer de plusieurs mètres.",

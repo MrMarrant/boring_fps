@@ -18,6 +18,18 @@ local EN = {
     ammo_left = "Ammo remaining",
     turn_time = "Time remaining in turn",
 
+    -- Helper Class
+    description_class = "Description",
+    stats_class = "Stats",
+    action_class = "Action points",
+    move_class = "Movement points",
+    dash_class = "Dash points",
+    ammos_class = "Max Ammos",
+    walkspeed_class = "Walk Speed",
+
+    -- HUD
+    select_class = "Select Your Class",
+
     -- Weapons
     launcher_description = "The Launcher is a heavy class that fires explosive rockets that inflict area damage. The damage depends on the distance traveled (the longer the rocket travels, the less damage it inflicts).\n\nThe Launcher is slow and has few action points, but compensates for this with high damage. Furthermore, when firing, you suffer significant recoil, causing you to be knocked back several meters.",
     crowbar_description = "A simple crowbar, you have a lot of movement and dash points.\n\nYou can attack in close combat with your crowbar, inflicting moderate damage at short range.",

@@ -124,14 +124,7 @@ BoringFPS_CONFIG.Settings.Weapons["stalker"] = {
     RunSpeed = BoringFPS_CONFIG.Settings.DefaultRunSpeed,
     Description = "stalker_description"
 }
-BoringFPS_CONFIG.Settings.ListClass = {
-    "pistol",
-    "shootgun",
-    "launcher",
-    "crowbar",
-    "touch",
-    "stalker"
-}
+
 BoringFPS_CONFIG.Settings.HideHUD = {
 	["CHudHealth"] = true,
 	["CHudBattery"] = true,

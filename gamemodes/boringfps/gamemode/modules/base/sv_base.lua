@@ -56,7 +56,7 @@ function BoringFPS.SpawnPlayersOnGameMap()
     for index, ply in ipairs(playersGet) do
         local location = spawnPoints[index]
         if location then
-            local class = ply:GetNWString("ClassWeapon", BoringFPS_CONFIG.Settings.ListClass[1])
+            local class = ply:GetNWString("ClassWeapon", next(BoringFPS_CONFIG.Settings.Weapons))
             local weapon = ply:Give(BoringFPS_CONFIG.Settings.Weapons[class].ClassName)
             ply:SetPos(location:GetPos())
             ply:SetAngles(location:GetAngles())

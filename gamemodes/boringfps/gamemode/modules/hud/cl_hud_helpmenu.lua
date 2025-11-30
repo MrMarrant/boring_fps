@@ -74,7 +74,7 @@ local function OpenHelperClassMenu(main, pFrame, scrW, scrH)
         local currentDescription = BoringFPS.GetTranslation(listWeapon[helper.SelectedWeapon].Description)
         BoringFPS.DrawRoundedOutlinedBox(0, 0, h * 0.1, w, h * 0.9, 1 , Color(35, 31, 32), Color(223, 222, 206))
         draw.RoundedBox(0, 0, 0, w * 0.15, h * 0.1, Color(223, 222, 206))
-        draw.SimpleText("Description", "SmallVT", w * 0.075, h * 0.04, Color(0, 0, 0), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+        draw.SimpleText(BoringFPS.GetTranslation("description_class"), "SmallVT", w * 0.075, h * 0.04, Color(0, 0, 0), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
         local lines = BoringFPS.WrapText(currentDescription, "SmallVT", w * 0.95)
         local y = h * 0.08
         local yLine = h * 0.1
@@ -98,26 +98,26 @@ local function OpenHelperClassMenu(main, pFrame, scrW, scrH)
         BoringFPS.DrawRoundedOutlinedBox(0, 0, h * 0.4, w, h * 0.1, 1 , Color(35, 31, 32), Color(223, 222, 206))
         BoringFPS.DrawRoundedOutlinedBox(0, 0, h * 0.5, w, h * 0.1, 1 , Color(35, 31, 32), Color(223, 222, 206))
         draw.RoundedBox(0, 0, 0, w * 0.15, h * 0.1, Color(223, 222, 206))
-        draw.SimpleText("Stats", "SmallVT", w * 0.075, h * 0.04, Color(0, 0, 0), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+        draw.SimpleText(BoringFPS.GetTranslation("stats_class"), "SmallVT", w * 0.075, h * 0.04, Color(0, 0, 0), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 
         BoringFPS.DrawIconHud(BoringFPS_CONFIG.Icons.ActionIcon, w * 0.02, h * 0.13, Color(255, 255, 255), w * 0.04, w * 0.04)
-        draw.SimpleText("Points d'action", "SmallVT", w * 0.1, h * 0.14, Color(255, 255, 255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+        draw.SimpleText(BoringFPS.GetTranslation("action_class"), "SmallVT", w * 0.1, h * 0.14, Color(255, 255, 255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
         draw.SimpleText(weapon.Action, "SmallVT", w * 0.7, h * 0.14, Color(255, 255, 255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
 
         BoringFPS.DrawIconHud(BoringFPS_CONFIG.Icons.StepIcon, w * 0.02, h * 0.23, Color(255, 255, 255), w * 0.04, w * 0.04)
-        draw.SimpleText("Points de mouvement", "SmallVT", w * 0.1, h * 0.24, Color(255, 255, 255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+        draw.SimpleText(BoringFPS.GetTranslation("move_class"), "SmallVT", w * 0.1, h * 0.24, Color(255, 255, 255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
         draw.SimpleText(weapon.MaxStep, "SmallVT", w * 0.7, h * 0.24, Color(255, 255, 255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
 
         BoringFPS.DrawIconHud(BoringFPS_CONFIG.Icons.DashIcon, w * 0.02, h * 0.33, Color(255, 255, 255), w * 0.04, w * 0.04)
-        draw.SimpleText("Points de dash", "SmallVT", w * 0.1, h * 0.34, Color(255, 255, 255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+        draw.SimpleText(BoringFPS.GetTranslation("dash_class"), "SmallVT", w * 0.1, h * 0.34, Color(255, 255, 255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
         draw.SimpleText(weapon.MaxDash, "SmallVT", w * 0.7, h * 0.34, Color(255, 255, 255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
 
         BoringFPS.DrawIconHud(BoringFPS_CONFIG.Icons.WeaponIcon, w * 0.02, h * 0.43, Color(255, 255, 255), w * 0.04, w * 0.04)
-        draw.SimpleText("Munitions max", "SmallVT", w * 0.1, h * 0.44, Color(255, 255, 255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+        draw.SimpleText(BoringFPS.GetTranslation("ammos_class"), "SmallVT", w * 0.1, h * 0.44, Color(255, 255, 255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
         draw.SimpleText(weapon.MaxAmmo == -1 and "∞" or weapon.MaxAmmo, "SmallVT", w * 0.7, h * 0.44, Color(255, 255, 255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
 
         BoringFPS.DrawIconHud(BoringFPS_CONFIG.Icons.StepIcon, w * 0.02, h * 0.53, Color(255, 255, 255), w * 0.04, w * 0.04)
-        draw.SimpleText("Vitesse de déplacement", "SmallVT", w * 0.1, h * 0.54, Color(255, 255, 255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+        draw.SimpleText(BoringFPS.GetTranslation("walkspeed_class"), "SmallVT", w * 0.1, h * 0.54, Color(255, 255, 255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
         draw.SimpleText(weapon.WalkSpeed .. " u/s", "SmallVT", w * 0.7, h * 0.54, Color(255, 255, 255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
     end
 
@@ -304,6 +304,77 @@ local function OpenRulesMenu(main, pFrame, scrW, scrH)
     end
 end
 
+local function OpenSelectClassMenu(main, pFrame, scrW, scrH)
+    local listWeapon = BoringFPS_CONFIG.Settings.Weapons
+    local currentClass = LocalPlayer():GetNWString("ClassWeapon", next(BoringFPS_CONFIG.Settings.Weapons))
+
+    local wGM, hGM = scrW * 0.3, scrH * 0.1
+    local xGM, yGM = scrW * 0.5 - wGM / 2, scrH * 0.05
+    local startX = scrW * 0.1
+    local startY = scrH * 0.3
+    local curX = startX
+    local curY = startY
+    local spacingX = scrW * 0.05
+    local spacingY = scrH * 0.25
+    local btnWidth = scrW * 0.12
+    local btnHeight = scrW * 0.12
+
+    local selector = vgui.Create("DFrame", main)
+    selector:SetSize(scrW, scrH)
+    selector:Center()
+    selector:SetTitle("")
+    selector:MakePopup()
+    selector:SetDraggable(false)
+    selector:ShowCloseButton(false)
+    selector.Paint = function(self, w, h)
+        draw.RoundedBox(0, 0, 0, w, h, Color(25, 25, 25, 100))
+        BoringFPS.DrawRoundedOutlinedBox(0, xGM, yGM, wGM, hGM, 3 , Color(35, 31, 32), Color(223, 222, 206))
+        draw.SimpleText(BoringFPS.GetTranslation("select_class"), "LargeVT", xGM + wGM * 0.5, yGM + hGM * 0.35, Color(255, 255, 255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+    end
+
+    local btnQuit = vgui.Create("DButton", selector)
+    btnQuit:SetSize(scrW * 0.05, scrH * 0.05)
+    btnQuit:SetPos(scrW * 0.93, scrH * 0.02)
+    btnQuit:SetText("X")
+    btnQuit:SetFont("DermaLarge")
+    btnQuit.Paint = function(self, w, h)
+        draw.RoundedBox(0, 0, 0, w, h, Color(35, 31, 32))
+        draw.RoundedBox(0, 0, 0, w, h * 0.1, Color(223, 222, 206))
+    end
+    btnQuit.DoClick = function()
+        selector:Remove()
+        pFrame:SetVisible(true)
+    end
+
+    for class, weapon in pairs(listWeapon) do
+        if curX + btnWidth > selector:GetWide() - 20 then
+            curX = startX
+            curY = curY + spacingY
+        end
+
+        local btn = vgui.Create("DButton", selector)
+        btn:SetSize(btnWidth, btnHeight)
+        btn:SetPos(curX, curY)
+        btn:SetText("")
+
+        btn.Paint = function(self, w, h)
+            BoringFPS.DrawRoundedOutlinedBox(0, 0, 0, w, h, 4 , Color(35, 31, 32), Color(223, 222, 206))
+            BoringFPS.DrawIconHud(weapon.IconClass, w * 0.1, h * 0.1, Color(255, 255, 255), w * 0.8, w * 0.8)
+            local colorTxt = currentClass == class and Color(206, 252, 0) or Color(255, 255, 255)
+            colorTxt = self.Hovered and Color(170, 0, 0) or colorTxt
+            draw.SimpleText(class, "DefaultVT", w / 2, h * 0.9, colorTxt, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+        end
+
+        btn.DoClick = function()
+            RunConsoleCommand("changeclass", class)
+            currentClass = class
+        end
+
+        curX = curX + btnWidth + spacingX
+    end
+    
+end
+
 local function OpenBoringFPSMenu(scrW, scrH)
     local lply = LocalPlayer()
     local wGM, hGM = scrW * 0.3, scrH * 0.15
@@ -379,8 +450,9 @@ local function OpenBoringFPSMenu(scrW, scrH)
         return btn
     end
 
-    local rulesButton = CreateStyledButton(frame, "Rules", scrW * 0.3, scrH * 0.4, BoringFPS_CONFIG.Icons.RulesIcon)
-    local classHelperButton = CreateStyledButton(frame, "Class Helper", scrW * 0.55, scrH * 0.4, BoringFPS_CONFIG.Icons.Info)
+    local rulesButton = CreateStyledButton(frame, "Rules", scrW * 0.23, scrH * 0.4, BoringFPS_CONFIG.Icons.RulesIcon)
+    local classHelperButton = CreateStyledButton(frame, "Class Helper", scrW * 0.43, scrH * 0.4, BoringFPS_CONFIG.Icons.Info)
+    local selectClassButton = CreateStyledButton(frame, "Select Class", scrW * 0.63, scrH * 0.4, BoringFPS_CONFIG.Icons.WeaponIcon)
 
     rulesButton.DoClick = function()
         frame:SetVisible(false)
@@ -390,6 +462,11 @@ local function OpenBoringFPSMenu(scrW, scrH)
     classHelperButton.DoClick = function()
         frame:SetVisible(false)
         OpenHelperClassMenu(main, frame, scrW, scrH)
+    end
+
+    selectClassButton.DoClick = function()
+        frame:SetVisible(false)
+        OpenSelectClassMenu(main, frame, scrW, scrH)
     end
 end
 

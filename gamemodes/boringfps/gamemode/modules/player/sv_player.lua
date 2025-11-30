@@ -169,7 +169,7 @@ end
 
 function PLAYER:CreateDataStats()
     local sucess = true
-    for key, class in ipairs(BoringFPS_CONFIG.Settings.ListClass) do
+    for class, elem in pairs(BoringFPS_CONFIG.Settings.Weapons) do
         local query = [[
         INSERT INTO ]].. BoringFPS_CONFIG.SQL.TableClassStat .. [[ (
             steamID, class_type, death, kill, damage, count_select, win
