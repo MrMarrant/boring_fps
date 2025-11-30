@@ -2,7 +2,7 @@ versioninfo
 {
 	"editorversion" "400"
 	"editorbuild" "8870"
-	"mapversion" "9"
+	"mapversion" "19"
 	"formatversion" "100"
 	"prefab" "0"
 }
@@ -14,7 +14,7 @@ viewsettings
 	"bSnapToGrid" "1"
 	"bShowGrid" "1"
 	"bShowLogicalGrid" "0"
-	"nGridSpacing" "8"
+	"nGridSpacing" "1"
 }
 palette_plus
 {
@@ -89,7 +89,7 @@ bgimages_plus
 world
 {
 	"id" "1"
-	"mapversion" "9"
+	"mapversion" "19"
 	"classname" "worldspawn"
 	"comment" "Decompiled by BSPSource v1.4.2 from zs_backrooms | Decompiled by BSPSource v1.4.2 from hub_backrrooms_v1 | Decompiled by BSPSource v1.4.7 from hub_backrooms"
 	"detailmaterial" "detail/detailsprites"
@@ -55475,7 +55475,7 @@ entity
 				"v" "-1008 6040.69 610.49"
 				"v" "-1019.32 6052 610.491"
 				"v" "-1024 6052 616.498"
-				"v" "-1008 6036.01 616.501"
+				"v" "-1008 6036 616.501"
 			}
 			"material" "DE_TRAIN/TRAIN_METALCEILING_02"
 			"uaxis" "[0 1 0 -48] 0.25"
@@ -55544,7 +55544,7 @@ entity
 			{
 				"v" "-1019.32 6052 610.492"
 				"v" "-1008 6040.68 610.49"
-				"v" "-1008 6051.99 608"
+				"v" "-1008 6052 608"
 			}
 			"material" "DE_TRAIN/TRAIN_METALCEILING_02"
 			"uaxis" "[1 0 0 -32] 0.25"
@@ -55561,7 +55561,7 @@ entity
 			{
 				"v" "-1008 6063.31 610.49"
 				"v" "-1019.32 6052 610.491"
-				"v" "-1008.01 6051.99 608"
+				"v" "-1008.01 6052 608"
 			}
 			"material" "DE_TRAIN/TRAIN_METALCEILING_02"
 			"uaxis" "[1 0 0 -32] 0.25"
@@ -55662,7 +55662,7 @@ entity
 			"plane" "(-1008.01 6036.01 616.502) (-996.688 6051.99 622.511) (-992.002 6052 616.5)"
 			vertices_plus
 			{
-				"v" "-1008 6036.01 616.489"
+				"v" "-1008 6036 616.489"
 				"v" "-1008 6040.68 622.503"
 				"v" "-996.686 6052 622.512"
 				"v" "-992 6052 616.502"
@@ -55680,9 +55680,9 @@ entity
 			"plane" "(-1008 6040.69 622.51) (-1008.01 6036.01 616.502) (-1024 6052 616.5)"
 			vertices_plus
 			{
-				"v" "-1008 6036.01 616.499"
+				"v" "-1008 6036 616.499"
 				"v" "-1024 6052 616.498"
-				"v" "-1019.32 6051.99 622.504"
+				"v" "-1019.32 6052 622.504"
 				"v" "-1008 6040.68 622.503"
 			}
 			"material" "DE_TRAIN/TRAIN_METALCEILING_02"
@@ -55736,7 +55736,7 @@ entity
 			{
 				"v" "-996.689 6052 610.493"
 				"v" "-1008 6040.69 610.488"
-				"v" "-1008 6036.01 616.489"
+				"v" "-1008 6036 616.489"
 				"v" "-992 6052 616.502"
 			}
 			"material" "DE_TRAIN/TRAIN_METALCEILING_02"
@@ -72041,7 +72041,7 @@ entity
 				"v" "-426.937 4321 344"
 				"v" "-464.484 4288.06 344"
 				"v" "-464.482 4288.06 520"
-				"v" "-426.933 4320.99 520"
+				"v" "-426.933 4321 520"
 			}
 			"material" "CUSTOM/ZSBACKROOMS/BACKROOM"
 			"uaxis" "[0.7518 0.6593 0 -120] 0.25"
@@ -72076,7 +72076,7 @@ entity
 			{
 				"v" "-477.896 4359.23 344"
 				"v" "-426.936 4321 344"
-				"v" "-426.933 4320.99 520"
+				"v" "-426.933 4321 520"
 				"v" "-477.897 4359.23 520"
 			}
 			"material" "TOOLS/TOOLSNODRAW"
@@ -76994,7 +76994,7 @@ entity
 			"plane" "(-426.934 4320.99 344) (-477.902 4359.23 536) (-426.934 4320.99 536)"
 			vertices_plus
 			{
-				"v" "-426.936 4320.99 536"
+				"v" "-426.936 4321 536"
 				"v" "-426.936 4321 344"
 				"v" "-477.901 4359.23 344"
 				"v" "-477.9 4359.23 536"
@@ -77014,8 +77014,8 @@ entity
 			{
 				"v" "-404.851 4365.78 536"
 				"v" "-404.851 4365.78 344"
-				"v" "-426.937 4320.99 344"
-				"v" "-426.937 4320.99 536"
+				"v" "-426.937 4321 344"
+				"v" "-426.937 4321 536"
 			}
 			"material" "CUSTOM/ZSBACKROOMS/BACKROOM"
 			"uaxis" "[0.4423 0.8969 0 -209] 0.25"
@@ -77068,7 +77068,7 @@ entity
 			{
 				"v" "-466.665 4382.34 344"
 				"v" "-477.902 4359.23 344"
-				"v" "-426.941 4320.99 344"
+				"v" "-426.941 4321 344"
 				"v" "-404.854 4365.78 344"
 			}
 			"material" "TOOLS/TOOLSNODRAW"
@@ -77084,7 +77084,7 @@ entity
 			"plane" "(-426.93 4320.99 536) (-466.666 4382.34 536) (-404.844 4365.78 536)"
 			vertices_plus
 			{
-				"v" "-426.937 4320.99 536"
+				"v" "-426.937 4321 536"
 				"v" "-477.902 4359.23 536"
 				"v" "-466.667 4382.34 536"
 				"v" "-404.852 4365.78 536"
@@ -86495,36 +86495,6 @@ entity
 }
 entity
 {
-	"id" "1099939"
-	"classname" "info_target"
-	"angles" "0 0 0"
-	"targetname" "spawn_game"
-	"origin" "-1438.51 6553.29 496"
-	editor
-	{
-		"color" "220 30 220"
-		"visgroupshown" "1"
-		"visgroupautoshown" "1"
-		"logicalpos" "[0 1000]"
-	}
-}
-entity
-{
-	"id" "1099941"
-	"classname" "info_target"
-	"angles" "0 0 0"
-	"targetname" "spawn_game"
-	"origin" "-881.151 6602.66 272"
-	editor
-	{
-		"color" "220 30 220"
-		"visgroupshown" "1"
-		"visgroupautoshown" "1"
-		"logicalpos" "[0 1000]"
-	}
-}
-entity
-{
 	"id" "1099943"
 	"classname" "info_target"
 	"angles" "0 0 0"
@@ -86542,7 +86512,7 @@ entity
 {
 	"id" "1099945"
 	"classname" "info_target"
-	"angles" "0 0 0"
+	"angles" "0 180 0"
 	"targetname" "spawn_game"
 	"origin" "-1360.43 3466.78 407.728"
 	editor
@@ -86557,7 +86527,7 @@ entity
 {
 	"id" "1099947"
 	"classname" "info_target"
-	"angles" "0 0 0"
+	"angles" "0 -90 0"
 	"targetname" "spawn_game"
 	"origin" "165.131 2190.05 355.602"
 	editor
@@ -86572,7 +86542,7 @@ entity
 {
 	"id" "1099949"
 	"classname" "info_target"
-	"angles" "0 0 0"
+	"angles" "0 180 0"
 	"targetname" "spawn_game"
 	"origin" "-260.538 2861.91 608.761"
 	editor
@@ -87813,13 +87783,496 @@ entity
 		"logicalpos" "[13500 9500]"
 	}
 }
+entity
+{
+	"id" "1100025"
+	"classname" "info_target"
+	"angles" "0 0 0"
+	"targetname" "spawn_game"
+	"origin" "591.376 4664.47 303.704"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 1000]"
+	}
+}
+entity
+{
+	"id" "1100029"
+	"classname" "info_target"
+	"angles" "0 -180 0"
+	"targetname" "spawn_game"
+	"origin" "-502.505 4366.93 428.489"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 1000]"
+	}
+}
+entity
+{
+	"id" "1100537"
+	"classname" "prop_static"
+	"angles" "-90 0 0"
+	"DisableBoneFollowers" "0"
+	"disablereceiveshadows" "0"
+	"disableselfshadowing" "0"
+	"disableshadows" "0"
+	"disablevertexlighting" "0"
+	"enablelightbounce" "0"
+	"ExplodeDamage" "0"
+	"ExplodeRadius" "0"
+	"fademaxdist" "0"
+	"fademindist" "-1"
+	"fadescale" "1"
+	"generatelightmaps" "0"
+	"gmod_allowphysgun" "1"
+	"HoldAnimation" "0"
+	"ignorenormals" "0"
+	"lightmapresolutionx" "32"
+	"lightmapresolutiony" "32"
+	"MaxAnimTime" "10"
+	"maxdxlevel" "0"
+	"MinAnimTime" "5"
+	"mindxlevel" "0"
+	"model" "models/props/cs_italy/it_mkt_table2.mdl"
+	"modelscale" "1.0"
+	"PerformanceMode" "0"
+	"pressuredelay" "0"
+	"RandomAnimation" "0"
+	"renderamt" "255"
+	"rendercolor" "255 255 255"
+	"renderfx" "0"
+	"rendermode" "0"
+	"screenspacefade" "0"
+	"SetBodyGroup" "0"
+	"skin" "0"
+	"solid" "6"
+	"spawnflags" "0"
+	"StartDisabled" "0"
+	"origin" "-312 5688 288"
+	editor
+	{
+		"color" "255 255 0"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[6000 -768]"
+	}
+}
+entity
+{
+	"id" "1100547"
+	"classname" "prop_static"
+	"angles" "0 345 0"
+	"DisableBoneFollowers" "0"
+	"disablereceiveshadows" "0"
+	"disableselfshadowing" "0"
+	"disableshadows" "0"
+	"disablevertexlighting" "0"
+	"enablelightbounce" "0"
+	"ExplodeDamage" "0"
+	"ExplodeRadius" "0"
+	"fademaxdist" "0"
+	"fademindist" "-1"
+	"fadescale" "1"
+	"generatelightmaps" "0"
+	"gmod_allowphysgun" "1"
+	"HoldAnimation" "0"
+	"ignorenormals" "0"
+	"lightmapresolutionx" "32"
+	"lightmapresolutiony" "32"
+	"MaxAnimTime" "10"
+	"maxdxlevel" "0"
+	"MinAnimTime" "5"
+	"mindxlevel" "0"
+	"model" "models/props/cs_italy/it_mkt_table2.mdl"
+	"modelscale" "1.0"
+	"PerformanceMode" "0"
+	"pressuredelay" "0"
+	"RandomAnimation" "0"
+	"renderamt" "255"
+	"rendercolor" "255 255 255"
+	"renderfx" "0"
+	"rendermode" "0"
+	"screenspacefade" "0"
+	"SetBodyGroup" "0"
+	"skin" "0"
+	"solid" "6"
+	"spawnflags" "0"
+	"StartDisabled" "0"
+	"origin" "-287.858 5725.82 264.281"
+	editor
+	{
+		"color" "255 255 0"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[6000 -768]"
+	}
+}
+entity
+{
+	"id" "1100556"
+	"classname" "prop_static"
+	"angles" "0 180 180"
+	"DisableBoneFollowers" "0"
+	"disablereceiveshadows" "0"
+	"disableselfshadowing" "0"
+	"disableshadows" "0"
+	"disablevertexlighting" "0"
+	"enablelightbounce" "0"
+	"ExplodeDamage" "0"
+	"ExplodeRadius" "0"
+	"fademaxdist" "0"
+	"fademindist" "-1"
+	"fadescale" "1"
+	"generatelightmaps" "0"
+	"gmod_allowphysgun" "1"
+	"HoldAnimation" "0"
+	"ignorenormals" "0"
+	"lightmapresolutionx" "32"
+	"lightmapresolutiony" "32"
+	"MaxAnimTime" "10"
+	"maxdxlevel" "0"
+	"MinAnimTime" "5"
+	"mindxlevel" "0"
+	"model" "models/props/cs_italy/it_mkt_table2.mdl"
+	"modelscale" "1.0"
+	"PerformanceMode" "0"
+	"pressuredelay" "0"
+	"RandomAnimation" "0"
+	"renderamt" "255"
+	"rendercolor" "255 255 255"
+	"renderfx" "0"
+	"rendermode" "0"
+	"screenspacefade" "0"
+	"SetBodyGroup" "0"
+	"skin" "0"
+	"solid" "6"
+	"spawnflags" "0"
+	"StartDisabled" "0"
+	"origin" "-288 5720 335.999"
+	editor
+	{
+		"color" "255 255 0"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[6000 -768]"
+	}
+}
+entity
+{
+	"id" "1100579"
+	"classname" "prop_static"
+	"angles" "0 210 -135"
+	"disableselfshadowing" "0"
+	"disableshadows" "0"
+	"disablevertexlighting" "0"
+	"enablelightbounce" "0"
+	"fademaxdist" "0"
+	"fademindist" "-1"
+	"fadescale" "1"
+	"generatelightmaps" "0"
+	"ignorenormals" "0"
+	"lightmapresolutionx" "32"
+	"lightmapresolutiony" "32"
+	"maxdxlevel" "0"
+	"mindxlevel" "0"
+	"model" "models/props/cs_italy/it_mkt_table2.mdl"
+	"screenspacefade" "0"
+	"skin" "0"
+	"solid" "6"
+	"origin" "-349 5770 328.098"
+	editor
+	{
+		"color" "255 255 0"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[6000 -768]"
+	}
+}
+entity
+{
+	"id" "1100595"
+	"classname" "prop_dynamic"
+	"angles" "0 180 0"
+	"DisableBoneFollowers" "0"
+	"disablereceiveshadows" "0"
+	"disableshadows" "0"
+	"ExplodeDamage" "0"
+	"ExplodeRadius" "0"
+	"fademaxdist" "0"
+	"fademindist" "-1"
+	"fadescale" "1"
+	"gmod_allowphysgun" "1"
+	"HoldAnimation" "0"
+	"MaxAnimTime" "10"
+	"maxdxlevel" "0"
+	"MinAnimTime" "5"
+	"mindxlevel" "0"
+	"model" "models/props_c17/furniturechair001a.mdl"
+	"modelscale" "1.0"
+	"PerformanceMode" "0"
+	"pressuredelay" "0"
+	"RandomAnimation" "0"
+	"renderamt" "255"
+	"rendercolor" "255 255 255"
+	"renderfx" "0"
+	"rendermode" "0"
+	"SetBodyGroup" "0"
+	"skin" "0"
+	"solid" "6"
+	"spawnflags" "0"
+	"StartDisabled" "0"
+	"origin" "-280 5744 322"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[6000 10500]"
+	}
+}
+entity
+{
+	"id" "1100610"
+	"classname" "prop_dynamic"
+	"angles" "0 300 0"
+	"DisableBoneFollowers" "0"
+	"disablereceiveshadows" "0"
+	"disableshadows" "0"
+	"ExplodeDamage" "0"
+	"ExplodeRadius" "0"
+	"fademaxdist" "0"
+	"fademindist" "-1"
+	"fadescale" "1"
+	"gmod_allowphysgun" "1"
+	"HoldAnimation" "0"
+	"MaxAnimTime" "10"
+	"maxdxlevel" "0"
+	"MinAnimTime" "5"
+	"mindxlevel" "0"
+	"model" "models/props_c17/furniturechair001a.mdl"
+	"modelscale" "1.0"
+	"PerformanceMode" "0"
+	"pressuredelay" "0"
+	"RandomAnimation" "0"
+	"renderamt" "255"
+	"rendercolor" "255 255 255"
+	"renderfx" "0"
+	"rendermode" "0"
+	"SetBodyGroup" "0"
+	"skin" "0"
+	"solid" "6"
+	"spawnflags" "0"
+	"StartDisabled" "0"
+	"origin" "-302 5696 323.097"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[6000 10500]"
+	}
+}
+entity
+{
+	"id" "1100702"
+	"classname" "prop_static"
+	"angles" "4.86467 95.4136 -116.21"
+	"disableselfshadowing" "0"
+	"disableshadows" "0"
+	"disablevertexlighting" "0"
+	"enablelightbounce" "0"
+	"fademaxdist" "0"
+	"fademindist" "-1"
+	"fadescale" "1"
+	"generatelightmaps" "0"
+	"ignorenormals" "0"
+	"lightmapresolutionx" "32"
+	"lightmapresolutiony" "32"
+	"maxdxlevel" "0"
+	"mindxlevel" "0"
+	"model" "models/props/cs_italy/it_mkt_table2.mdl"
+	"screenspacefade" "0"
+	"skin" "0"
+	"solid" "6"
+	"origin" "-221.857 5759.07 325.319"
+	editor
+	{
+		"color" "255 255 0"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[6000 -768]"
+	}
+}
+entity
+{
+	"id" "1100738"
+	"classname" "prop_dynamic"
+	"angles" "0 165 -180"
+	"DisableBoneFollowers" "0"
+	"disablereceiveshadows" "0"
+	"disableshadows" "0"
+	"ExplodeDamage" "0"
+	"ExplodeRadius" "0"
+	"fademaxdist" "0"
+	"fademindist" "-1"
+	"fadescale" "1"
+	"gmod_allowphysgun" "1"
+	"HoldAnimation" "0"
+	"MaxAnimTime" "10"
+	"maxdxlevel" "0"
+	"MinAnimTime" "5"
+	"mindxlevel" "0"
+	"model" "models/props_c17/furniturechair001a.mdl"
+	"modelscale" "1.0"
+	"PerformanceMode" "0"
+	"pressuredelay" "0"
+	"RandomAnimation" "0"
+	"renderamt" "255"
+	"rendercolor" "255 255 255"
+	"renderfx" "0"
+	"rendermode" "0"
+	"SetBodyGroup" "0"
+	"skin" "0"
+	"solid" "6"
+	"spawnflags" "0"
+	"StartDisabled" "0"
+	"origin" "-298.644 5693.29 314.999"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[6000 10500]"
+	}
+}
+entity
+{
+	"id" "1100754"
+	"classname" "prop_static"
+	"angles" "0 180 -105"
+	"disableselfshadowing" "0"
+	"disableshadows" "0"
+	"disablevertexlighting" "0"
+	"enablelightbounce" "0"
+	"fademaxdist" "0"
+	"fademindist" "-1"
+	"fadescale" "1"
+	"generatelightmaps" "0"
+	"ignorenormals" "0"
+	"lightmapresolutionx" "32"
+	"lightmapresolutiony" "32"
+	"maxdxlevel" "0"
+	"mindxlevel" "0"
+	"model" "models/props/cs_italy/it_mkt_table2.mdl"
+	"screenspacefade" "0"
+	"skin" "0"
+	"solid" "6"
+	"origin" "-303 5811 326.623"
+	editor
+	{
+		"color" "255 255 0"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[6000 -768]"
+	}
+}
+entity
+{
+	"id" "1100770"
+	"classname" "prop_dynamic"
+	"angles" "0 300 0"
+	"DisableBoneFollowers" "0"
+	"disablereceiveshadows" "0"
+	"disableshadows" "0"
+	"ExplodeDamage" "0"
+	"ExplodeRadius" "0"
+	"fademaxdist" "0"
+	"fademindist" "-1"
+	"fadescale" "1"
+	"gmod_allowphysgun" "1"
+	"HoldAnimation" "0"
+	"MaxAnimTime" "10"
+	"maxdxlevel" "0"
+	"MinAnimTime" "5"
+	"mindxlevel" "0"
+	"model" "models/props_c17/furniturechair001a.mdl"
+	"modelscale" "1.0"
+	"PerformanceMode" "0"
+	"pressuredelay" "0"
+	"RandomAnimation" "0"
+	"renderamt" "255"
+	"rendercolor" "255 255 255"
+	"renderfx" "0"
+	"rendermode" "0"
+	"SetBodyGroup" "0"
+	"skin" "0"
+	"solid" "6"
+	"spawnflags" "0"
+	"StartDisabled" "0"
+	"origin" "-368.374 5677.75 284.145"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[6000 10500]"
+	}
+}
+entity
+{
+	"id" "1100774"
+	"classname" "prop_dynamic"
+	"angles" "0 225 0"
+	"DisableBoneFollowers" "0"
+	"disablereceiveshadows" "0"
+	"disableshadows" "0"
+	"ExplodeDamage" "0"
+	"ExplodeRadius" "0"
+	"fademaxdist" "0"
+	"fademindist" "-1"
+	"fadescale" "1"
+	"gmod_allowphysgun" "1"
+	"HoldAnimation" "0"
+	"MaxAnimTime" "10"
+	"maxdxlevel" "0"
+	"MinAnimTime" "5"
+	"mindxlevel" "0"
+	"model" "models/props_c17/furniturechair001a.mdl"
+	"modelscale" "1.0"
+	"PerformanceMode" "0"
+	"pressuredelay" "0"
+	"RandomAnimation" "0"
+	"renderamt" "255"
+	"rendercolor" "255 255 255"
+	"renderfx" "0"
+	"rendermode" "0"
+	"SetBodyGroup" "0"
+	"skin" "0"
+	"solid" "6"
+	"spawnflags" "0"
+	"StartDisabled" "0"
+	"origin" "-289.104 5724.13 324"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[6000 10500]"
+	}
+}
 cameras
 {
 	"activecamera" "0"
 	camera
 	{
-		"position" "[580.086 1407.62 329.546]"
-		"look" "[815.457 1530.66 309.111]"
+		"position" "[-272.593 5690.74 348.117]"
+		"look" "[-315.227 5852.11 140.523]"
 	}
 	camera
 	{

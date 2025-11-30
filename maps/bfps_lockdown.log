@@ -1137,3 +1137,453 @@ Total triangle count: 10956
 Writing d:\steamlibrary\steamapps\common\garrysmod\garrysmod\addons\fps_boardgame\maps\bfps_lockdown.bsp
 6 seconds elapsed
 
+
+
+
+materialPath: D:\SteamLibrary\steamapps\common\GarrysMod\garrysmod\materials
+Loading D:\SteamLibrary\steamapps\common\GarrysMod\garrysmod\addons\fps_boardgame\maps\bfps_lockdown.vmf
+fixing up env_cubemap materials on brush sides...
+ProcessBlock_Thread: 0...1...2...3...4...5...6...7...8...9...10 (1)
+ProcessBlock_Thread: 0...1...2...3...4...5...6...7...8...9...10 (0)
+Processing areas...done (0)
+Building Faces...done (0)
+Chop Details...done (0)
+Find Visible Detail Sides...
+Merged 128 detail faces...done (0)
+Merging details...done (0)
+FixTjuncs...
+PruneNodes...
+WriteBSP...
+done (0)
+writing D:\SteamLibrary\steamapps\common\GarrysMod\garrysmod\addons\fps_boardgame\maps\bfps_lockdown.prt...
+Building visibility clusters...
+done (0)
+Creating default LDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_09*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+*** Error: Skybox vtf files for skybox/sky_day02_09 weren't compiled with the same size texture and/or same flags!
+Can't load skybox file skybox/sky_day02_09 to build the default cubemap!
+Finding displacement neighbors...
+Finding lightmap sample positions...
+Displacement Alpha : 0...1...2...3...4...5...6...7...8...9...10
+Building Physics collision data...
+done (0) (508344 bytes)
+Placing detail props : 0...1...2...3...4...5...6...7...8...9...10
+Compacting texture/material tables...
+Reduced 2179 texinfos to 874
+Reduced 281 texdatas to 201 (13678 bytes to 9858)
+Writing D:\SteamLibrary\steamapps\common\GarrysMod\garrysmod\addons\fps_boardgame\maps\bfps_lockdown.bsp
+3 seconds elapsed
+
+
+
+6 threads
+reading d:\steamlibrary\steamapps\common\garrysmod\garrysmod\addons\fps_boardgame\maps\bfps_lockdown.bsp
+reading d:\steamlibrary\steamapps\common\garrysmod\garrysmod\addons\fps_boardgame\maps\bfps_lockdown.prt
+ 683 portalclusters
+2023 numportals
+BasePortalVis:       0...1...2...3...4...5...6...7...8...9...10 (0)
+PortalFlow:          0...1...2...3...4...5...6...7...8...9...10 (4)
+Optimized: 1209 visible clusters (1.11%)
+Total clusters visible: 108767
+Average clusters visible: 159
+Building PAS...
+Average clusters audible: 509
+visdatasize:92922  compressed from 120208
+writing d:\steamlibrary\steamapps\common\garrysmod\garrysmod\addons\fps_boardgame\maps\bfps_lockdown.bsp
+4 seconds elapsed
+
+
+
+[Reading texlights from 'lights.rad']
+[51 texlights parsed from 'lights.rad']
+Loading d:\steamlibrary\steamapps\common\garrysmod\garrysmod\addons\fps_boardgame\maps\bfps_lockdown.bsp
+BuildFacelights:     0...1...2...3...4...5...6...7...8...9...10 (4)
+BuildVisLeafs:       0...1...2...3...4...5...6...7...8...9...10 (5)
+transfers 5817584, max 587
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+Build Patch/Sample Hash Table(s).....Done<0.0069 sec>
+FinalLightFace:      0...1...2...3...4...5...6...7...8...9...10 (1)
+FinalLightFace Done
+0 of 0 (0% of) surface lights went in leaf ambient cubes.
+ThreadComputeLeafAmbient: 0...1...2...3...4...5...6...7...8...9...10 (1)
+Writing leaf ambient...done
+Ready to Finish
+
+Object names       Objects/Maxobjs  Memory / Maxmem  Fullness 
+------------       ---------------  ---------------  -------- 
+models                  33/4096         1584/196608   ( 0.8%) 
+brushes               1396/65535       16752/786420   ( 2.1%) 
+brushsides            9954/655350      79632/5242800  ( 1.5%) 
+planes                4832/65536       96640/1310720  ( 7.4%) 
+vertexes              6695/65536       80340/786432   (10.2%) 
+nodes                 1724/65536       55168/2097152  ( 2.6%) 
+texinfos               874/16384       62928/1179648  ( 5.3%) 
+texdata                201/8192         6432/262144   ( 2.5%) 
+dispinfos               25/0            4400/0        ( 0.0%) 
+disp_verts             625/0           12500/0        ( 0.0%) 
+disp_tris              800/0            1600/0        ( 0.0%) 
+disp_multiblend          0/0               0/0        ( 0.0%) 
+disp_lmsamples        6000/0            6000/0        ( 0.0%) 
+faces                 3876/65536      217056/3670016  ( 5.9%) 
+hdr faces                0/65536           0/3670016  ( 0.0%) 
+origfaces             2916/65536      163296/3670016  ( 4.4%) 
+leaves                1758/65536       56256/2097152  ( 2.7%) 
+leaffaces             4962/65536        9924/131072   ( 7.6%) 
+leafbrushes           2575/65536        5150/131072   ( 3.9%) 
+areas                    4/1024           32/8192     ( 0.4%) 
+surfedges            30306/512000     121224/2048000  ( 5.9%) 
+edges                19147/256000      76588/1024000  ( 7.5%) 
+LDR worldlights         44/8192         3872/720896   ( 0.5%) 
+HDR worldlights          0/8192            0/720896   ( 0.0%) 
+leafwaterdata            0/32768           0/393216   ( 0.0%) 
+waterstrips            419/32768        4190/327680   ( 1.3%) 
+waterverts               0/65536           0/786432   ( 0.0%) 
+waterindices          7815/65536       15630/131072   (11.9%) 
+cubemapsamples          85/1024         1360/16384    ( 8.3%) 
+overlays                 0/8192            0/2883584  ( 0.0%) 
+LDR lightdata         [variable]     2821812/0        ( 0.0%) 
+HDR lightdata         [variable]           0/0        ( 0.0%) 
+visdata               [variable]       92922/16777216 ( 0.6%) 
+entdata               [variable]       89929/4194304  ( 2.1%) 
+LDR ambient table     1758/65536        7032/262144   ( 2.7%) 
+HDR ambient table     1758/65536        7032/262144   ( 2.7%) 
+LDR leaf ambient      4702/65536      131656/1835008  ( 7.2%) 
+HDR leaf ambient      1758/65536       49224/1835008  ( 2.7%) 
+occluders                0/0               0/0        ( 0.0%) 
+occluder polygons        0/0               0/0        ( 0.0%) 
+occluder vert ind        0/0               0/0        ( 0.0%) 
+detail props          [variable]          12/0        ( 0.0%) 
+static props          [variable]       18730/0        ( 0.0%) 
+static prop count      173/16384           0/0        ( 1.1%) 
+pakfile               [variable]      809995/0        ( 0.0%) 
+physics               [variable]      508344/4194304  (12.1%) 
+physics terrain       [variable]        5275/1048576  ( 0.5%) 
+
+Level flags = 0
+
+Total triangle count: 10956
+Writing d:\steamlibrary\steamapps\common\garrysmod\garrysmod\addons\fps_boardgame\maps\bfps_lockdown.bsp
+12 seconds elapsed
+
+
+
+
+[Reading texlights from 'lights.rad']
+[51 texlights parsed from 'lights.rad']
+Loading d:\steamlibrary\steamapps\common\garrysmod\garrysmod\addons\fps_boardgame\maps\bfps_lockdown.bsp
+BuildFacelights:     0...1...2...3...4...5...6...7...8...9...10 (2)
+BuildVisLeafs:       0...1...2...3...4...5...6...7...8...9...10 (3)
+transfers 5817584, max 587
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (1)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+Build Patch/Sample Hash Table(s).....Done<0.0072 sec>
+FinalLightFace:      0...1...2...3...4...5...6...7...8...9...10 (1)
+FinalLightFace Done
+0 of 0 (0% of) surface lights went in leaf ambient cubes.
+ThreadComputeLeafAmbient: 0...1...2...3...4...5...6...7...8...9...10 (1)
+Writing leaf ambient...done
+Ready to Finish
+
+Object names       Objects/Maxobjs  Memory / Maxmem  Fullness 
+------------       ---------------  ---------------  -------- 
+models                  33/4096         1584/196608   ( 0.8%) 
+brushes               1396/65535       16752/786420   ( 2.1%) 
+brushsides            9954/655350      79632/5242800  ( 1.5%) 
+planes                4832/65536       96640/1310720  ( 7.4%) 
+vertexes              6695/65536       80340/786432   (10.2%) 
+nodes                 1724/65536       55168/2097152  ( 2.6%) 
+texinfos               874/16384       62928/1179648  ( 5.3%) 
+texdata                201/8192         6432/262144   ( 2.5%) 
+dispinfos               25/0            4400/0        ( 0.0%) 
+disp_verts             625/0           12500/0        ( 0.0%) 
+disp_tris              800/0            1600/0        ( 0.0%) 
+disp_multiblend          0/0               0/0        ( 0.0%) 
+disp_lmsamples        6000/0            6000/0        ( 0.0%) 
+faces                 3876/65536      217056/3670016  ( 5.9%) 
+hdr faces             3876/65536      217056/3670016  ( 5.9%) 
+origfaces             2916/65536      163296/3670016  ( 4.4%) 
+leaves                1758/65536       56256/2097152  ( 2.7%) 
+leaffaces             4962/65536        9924/131072   ( 7.6%) 
+leafbrushes           2575/65536        5150/131072   ( 3.9%) 
+areas                    4/1024           32/8192     ( 0.4%) 
+surfedges            30306/512000     121224/2048000  ( 5.9%) 
+edges                19147/256000      76588/1024000  ( 7.5%) 
+LDR worldlights         44/8192         3872/720896   ( 0.5%) 
+HDR worldlights         44/8192         3872/720896   ( 0.5%) 
+leafwaterdata            0/32768           0/393216   ( 0.0%) 
+waterstrips            419/32768        4190/327680   ( 1.3%) 
+waterverts               0/65536           0/786432   ( 0.0%) 
+waterindices          7815/65536       15630/131072   (11.9%) 
+cubemapsamples          85/1024         1360/16384    ( 8.3%) 
+overlays                 0/8192            0/2883584  ( 0.0%) 
+LDR lightdata         [variable]     2821812/0        ( 0.0%) 
+HDR lightdata         [variable]     2821812/0        ( 0.0%) 
+visdata               [variable]       92922/16777216 ( 0.6%) 
+entdata               [variable]       89929/4194304  ( 2.1%) 
+LDR ambient table     1758/65536        7032/262144   ( 2.7%) 
+HDR ambient table     1758/65536        7032/262144   ( 2.7%) 
+LDR leaf ambient      4702/65536      131656/1835008  ( 7.2%) 
+HDR leaf ambient      4702/65536      131656/1835008  ( 7.2%) 
+occluders                0/0               0/0        ( 0.0%) 
+occluder polygons        0/0               0/0        ( 0.0%) 
+occluder vert ind        0/0               0/0        ( 0.0%) 
+detail props          [variable]          12/0        ( 0.0%) 
+static props          [variable]       18730/0        ( 0.0%) 
+static prop count      173/16384           0/0        ( 1.1%) 
+pakfile               [variable]      809995/0        ( 0.0%) 
+physics               [variable]      508344/4194304  (12.1%) 
+physics terrain       [variable]        5275/1048576  ( 0.5%) 
+
+Level flags = 0
+
+Total triangle count: 10956
+Writing d:\steamlibrary\steamapps\common\garrysmod\garrysmod\addons\fps_boardgame\maps\bfps_lockdown.bsp
+9 seconds elapsed
+
+
+
+
+materialPath: D:\SteamLibrary\steamapps\common\GarrysMod\garrysmod\materials
+Loading D:\SteamLibrary\steamapps\common\GarrysMod\garrysmod\addons\fps_boardgame\maps\bfps_lockdown.vmf
+fixing up env_cubemap materials on brush sides...
+ProcessBlock_Thread: 0...1...2...3...4...5...6...7...8...9...10 (0)
+ProcessBlock_Thread: 0...1...2...3...4...5...6...7...8...9...10 (0)
+Processing areas...done (0)
+Building Faces...done (0)
+Chop Details...done (0)
+Find Visible Detail Sides...
+Merged 128 detail faces...done (0)
+Merging details...done (0)
+FixTjuncs...
+PruneNodes...
+WriteBSP...
+done (0)
+writing D:\SteamLibrary\steamapps\common\GarrysMod\garrysmod\addons\fps_boardgame\maps\bfps_lockdown.prt...
+Building visibility clusters...
+done (0)
+Creating default LDR cubemaps for env_cubemap using skybox materials:
+   skybox/sky_day02_09*.vmt
+ ! Run buildcubemaps in the engine to get the correct cube maps.
+*** Error: Skybox vtf files for skybox/sky_day02_09 weren't compiled with the same size texture and/or same flags!
+Can't load skybox file skybox/sky_day02_09 to build the default cubemap!
+Finding displacement neighbors...
+Finding lightmap sample positions...
+Displacement Alpha : 0...1...2...3...4...5...6...7...8...9...10
+Building Physics collision data...
+done (1) (508344 bytes)
+Placing detail props : 0...1...2...3...4...5...6...7...8...9...10
+Compacting texture/material tables...
+Reduced 2179 texinfos to 874
+Reduced 281 texdatas to 201 (13678 bytes to 9858)
+Writing D:\SteamLibrary\steamapps\common\GarrysMod\garrysmod\addons\fps_boardgame\maps\bfps_lockdown.bsp
+4 seconds elapsed
+
+
+
+6 threads
+reading d:\steamlibrary\steamapps\common\garrysmod\garrysmod\addons\fps_boardgame\maps\bfps_lockdown.bsp
+reading d:\steamlibrary\steamapps\common\garrysmod\garrysmod\addons\fps_boardgame\maps\bfps_lockdown.prt
+ 683 portalclusters
+2023 numportals
+BasePortalVis:       0...1...2...3...4...5...6...7...8...9...10 (0)
+PortalFlow:          0...1...2...3...4...5...6...7...8...9...10 (5)
+Optimized: 1205 visible clusters (1.11%)
+Total clusters visible: 108763
+Average clusters visible: 159
+Building PAS...
+Average clusters audible: 509
+visdatasize:92922  compressed from 120208
+writing d:\steamlibrary\steamapps\common\garrysmod\garrysmod\addons\fps_boardgame\maps\bfps_lockdown.bsp
+5 seconds elapsed
+
+
+
+[Reading texlights from 'lights.rad']
+[51 texlights parsed from 'lights.rad']
+Loading d:\steamlibrary\steamapps\common\garrysmod\garrysmod\addons\fps_boardgame\maps\bfps_lockdown.bsp
+BuildFacelights:     0...1...2...3...4...5...6...7...8...9...10 (3)
+BuildVisLeafs:       0...1...2...3...4...5...6...7...8...9...10 (3)
+transfers 5817584, max 587
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+Build Patch/Sample Hash Table(s).....Done<0.0081 sec>
+FinalLightFace:      0...1...2...3...4...5...6...7...8...9...10 (2)
+FinalLightFace Done
+0 of 0 (0% of) surface lights went in leaf ambient cubes.
+ThreadComputeLeafAmbient: 0...1...2...3...4...5...6...7...8...9...10 (1)
+Writing leaf ambient...done
+Ready to Finish
+
+Object names       Objects/Maxobjs  Memory / Maxmem  Fullness 
+------------       ---------------  ---------------  -------- 
+models                  33/4096         1584/196608   ( 0.8%) 
+brushes               1396/65535       16752/786420   ( 2.1%) 
+brushsides            9954/655350      79632/5242800  ( 1.5%) 
+planes                4832/65536       96640/1310720  ( 7.4%) 
+vertexes              6695/65536       80340/786432   (10.2%) 
+nodes                 1724/65536       55168/2097152  ( 2.6%) 
+texinfos               874/16384       62928/1179648  ( 5.3%) 
+texdata                201/8192         6432/262144   ( 2.5%) 
+dispinfos               25/0            4400/0        ( 0.0%) 
+disp_verts             625/0           12500/0        ( 0.0%) 
+disp_tris              800/0            1600/0        ( 0.0%) 
+disp_multiblend          0/0               0/0        ( 0.0%) 
+disp_lmsamples        6000/0            6000/0        ( 0.0%) 
+faces                 3876/65536      217056/3670016  ( 5.9%) 
+hdr faces                0/65536           0/3670016  ( 0.0%) 
+origfaces             2916/65536      163296/3670016  ( 4.4%) 
+leaves                1758/65536       56256/2097152  ( 2.7%) 
+leaffaces             4962/65536        9924/131072   ( 7.6%) 
+leafbrushes           2575/65536        5150/131072   ( 3.9%) 
+areas                    4/1024           32/8192     ( 0.4%) 
+surfedges            30306/512000     121224/2048000  ( 5.9%) 
+edges                19147/256000      76588/1024000  ( 7.5%) 
+LDR worldlights         44/8192         3872/720896   ( 0.5%) 
+HDR worldlights          0/8192            0/720896   ( 0.0%) 
+leafwaterdata            0/32768           0/393216   ( 0.0%) 
+waterstrips            419/32768        4190/327680   ( 1.3%) 
+waterverts               0/65536           0/786432   ( 0.0%) 
+waterindices          7815/65536       15630/131072   (11.9%) 
+cubemapsamples          85/1024         1360/16384    ( 8.3%) 
+overlays                 0/8192            0/2883584  ( 0.0%) 
+LDR lightdata         [variable]     2821812/0        ( 0.0%) 
+HDR lightdata         [variable]           0/0        ( 0.0%) 
+visdata               [variable]       92922/16777216 ( 0.6%) 
+entdata               [variable]       89937/4194304  ( 2.1%) 
+LDR ambient table     1758/65536        7032/262144   ( 2.7%) 
+HDR ambient table     1758/65536        7032/262144   ( 2.7%) 
+LDR leaf ambient      4702/65536      131656/1835008  ( 7.2%) 
+HDR leaf ambient      1758/65536       49224/1835008  ( 2.7%) 
+occluders                0/0               0/0        ( 0.0%) 
+occluder polygons        0/0               0/0        ( 0.0%) 
+occluder vert ind        0/0               0/0        ( 0.0%) 
+detail props          [variable]          12/0        ( 0.0%) 
+static props          [variable]       18730/0        ( 0.0%) 
+static prop count      173/16384           0/0        ( 1.1%) 
+pakfile               [variable]      809995/0        ( 0.0%) 
+physics               [variable]      508344/4194304  (12.1%) 
+physics terrain       [variable]        5275/1048576  ( 0.5%) 
+
+Level flags = 0
+
+Total triangle count: 10956
+Writing d:\steamlibrary\steamapps\common\garrysmod\garrysmod\addons\fps_boardgame\maps\bfps_lockdown.bsp
+9 seconds elapsed
+
+
+
+
+[Reading texlights from 'lights.rad']
+[51 texlights parsed from 'lights.rad']
+Loading d:\steamlibrary\steamapps\common\garrysmod\garrysmod\addons\fps_boardgame\maps\bfps_lockdown.bsp
+BuildFacelights:     0...1...2...3...4...5...6...7...8...9...10 (4)
+BuildVisLeafs:       0...1...2...3...4...5...6...7...8...9...10 (3)
+transfers 5817584, max 587
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (1)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+GatherLight:         0...1...2...3...4...5...6...7...8...9...10 (0)
+Build Patch/Sample Hash Table(s).....Done<0.0080 sec>
+FinalLightFace:      0...1...2...3...4...5...6...7...8...9...10 (1)
+FinalLightFace Done
+0 of 0 (0% of) surface lights went in leaf ambient cubes.
+ThreadComputeLeafAmbient: 0...1...2...3...4...5...6...7...8...9...10 (1)
+Writing leaf ambient...done
+Ready to Finish
+
+Object names       Objects/Maxobjs  Memory / Maxmem  Fullness 
+------------       ---------------  ---------------  -------- 
+models                  33/4096         1584/196608   ( 0.8%) 
+brushes               1396/65535       16752/786420   ( 2.1%) 
+brushsides            9954/655350      79632/5242800  ( 1.5%) 
+planes                4832/65536       96640/1310720  ( 7.4%) 
+vertexes              6695/65536       80340/786432   (10.2%) 
+nodes                 1724/65536       55168/2097152  ( 2.6%) 
+texinfos               874/16384       62928/1179648  ( 5.3%) 
+texdata                201/8192         6432/262144   ( 2.5%) 
+dispinfos               25/0            4400/0        ( 0.0%) 
+disp_verts             625/0           12500/0        ( 0.0%) 
+disp_tris              800/0            1600/0        ( 0.0%) 
+disp_multiblend          0/0               0/0        ( 0.0%) 
+disp_lmsamples        6000/0            6000/0        ( 0.0%) 
+faces                 3876/65536      217056/3670016  ( 5.9%) 
+hdr faces             3876/65536      217056/3670016  ( 5.9%) 
+origfaces             2916/65536      163296/3670016  ( 4.4%) 
+leaves                1758/65536       56256/2097152  ( 2.7%) 
+leaffaces             4962/65536        9924/131072   ( 7.6%) 
+leafbrushes           2575/65536        5150/131072   ( 3.9%) 
+areas                    4/1024           32/8192     ( 0.4%) 
+surfedges            30306/512000     121224/2048000  ( 5.9%) 
+edges                19147/256000      76588/1024000  ( 7.5%) 
+LDR worldlights         44/8192         3872/720896   ( 0.5%) 
+HDR worldlights         44/8192         3872/720896   ( 0.5%) 
+leafwaterdata            0/32768           0/393216   ( 0.0%) 
+waterstrips            419/32768        4190/327680   ( 1.3%) 
+waterverts               0/65536           0/786432   ( 0.0%) 
+waterindices          7815/65536       15630/131072   (11.9%) 
+cubemapsamples          85/1024         1360/16384    ( 8.3%) 
+overlays                 0/8192            0/2883584  ( 0.0%) 
+LDR lightdata         [variable]     2821812/0        ( 0.0%) 
+HDR lightdata         [variable]     2821812/0        ( 0.0%) 
+visdata               [variable]       92922/16777216 ( 0.6%) 
+entdata               [variable]       89937/4194304  ( 2.1%) 
+LDR ambient table     1758/65536        7032/262144   ( 2.7%) 
+HDR ambient table     1758/65536        7032/262144   ( 2.7%) 
+LDR leaf ambient      4702/65536      131656/1835008  ( 7.2%) 
+HDR leaf ambient      4702/65536      131656/1835008  ( 7.2%) 
+occluders                0/0               0/0        ( 0.0%) 
+occluder polygons        0/0               0/0        ( 0.0%) 
+occluder vert ind        0/0               0/0        ( 0.0%) 
+detail props          [variable]          12/0        ( 0.0%) 
+static props          [variable]       18730/0        ( 0.0%) 
+static prop count      173/16384           0/0        ( 1.1%) 
+pakfile               [variable]      809995/0        ( 0.0%) 
+physics               [variable]      508344/4194304  (12.1%) 
+physics terrain       [variable]        5275/1048576  ( 0.5%) 
+
+Level flags = 0
+
+Total triangle count: 10956
+Writing d:\steamlibrary\steamapps\common\garrysmod\garrysmod\addons\fps_boardgame\maps\bfps_lockdown.bsp
+10 seconds elapsed
+
