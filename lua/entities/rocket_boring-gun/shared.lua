@@ -11,6 +11,6 @@ ENT.DamageForce = 10
 ENT.MaxDamage = 100
 ENT.DistanceMax = 1000
 ENT.DistanceMin = 200
-ENT.SelfDamageMultiplier = 1.2 -- Owner will take only splash dammage -> (Dammage * SplashDamageMultiplier * SelfDamageMultiplier)
+ENT.SelfDamageMultiplier = 0.5 -- Owner will take only splash dammage -> (Dammage * SplashDamageMultiplier * SelfDamageMultiplier)
 ENT.SplashDamageMultiplier = 0.5
 ENT.MinDamageMultiplier = 0.3

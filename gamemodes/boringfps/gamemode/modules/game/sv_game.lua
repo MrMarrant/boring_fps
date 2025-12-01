@@ -114,6 +114,7 @@ function BoringFPS.GameFinish(reset)
             value:SetNWEntity( "WeaponGame", nil )
             value:SetNWInt("Dash", -1)
             value:StripWeapons()
+            BoringFPS.SetVisibilityRender(value, true)
         end
         if (BoringFPS_CONFIG.Vars.CurrentMusic) then
             BoringFPS_CONFIG.Vars.CurrentMusic:Stop()

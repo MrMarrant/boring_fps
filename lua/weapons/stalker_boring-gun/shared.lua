@@ -25,7 +25,7 @@ SWEP.Secondary.Automatic = false
 SWEP.Secondary.Ammo = "none"
 SWEP.WeaponName = "stalker"
 
-SWEP.DurationRevealAura = 1
+SWEP.DurationRevealAura = 2.5
 
 function SWEP:Shoot()
     local owner = self:GetOwner()

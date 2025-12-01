@@ -17,7 +17,14 @@ function ENT:RebuildPhysics()
 	self:SetMoveType(MOVETYPE_VPHYSICS)
 	self:SetSolid(SOLID_VPHYSICS)
 	self:SetUseType(SIMPLE_USE)
-	self:PhysWake()
+    self:SetCollisionGroup(COLLISION_GROUP_PROJECTILE)
+    local phys = self:GetPhysicsObject()
+    if IsValid(phys) then
+        phys:EnableGravity(false)
+        phys:EnableDrag(false)
+        phys:SetMass(2)
+        phys:Wake()
+    end
 end
 
 function ENT:PhysicsCollide( data, physobj )

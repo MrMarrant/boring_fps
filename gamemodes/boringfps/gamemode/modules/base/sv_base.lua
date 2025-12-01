@@ -54,7 +54,7 @@ function BoringFPS.SpawnPlayersOnGameMap()
     local healthPlayer = BoringFPS_CONFIG.Settings.BaseHP
     local colorPlayer = {}
 
-    for index, ply in ipairs(playersGet) do
+    for index, ply in pairs(playersGet) do
         local location = spawnPoints[index]
         if location then
             local class = ply:GetNWString("ClassWeapon", next(BoringFPS_CONFIG.Settings.Weapons))

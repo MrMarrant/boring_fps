@@ -66,15 +66,17 @@ function SWEP:SecondaryShoot()
     owner:EmitSound(BoringFPS_CONFIG.Sounds.Detonate)
     if not IsValid(owner) or table.IsEmpty(self.PlayersHit) then return end
 
-    self:Detonate(owner)
-    BoringFPS.ReadSound("weapons/physcannon/energy_sing_explosion2.wav", game.GetWorld(), 0)
-    owner:SetAction(0, true)
     if (SERVER) then
-        BoringFPS.SetVisibilityRender(owner, false)
-        BoringFPS.SetVisibilityRender(self, false)
+        if (#self.PlayersHit >= #BoringFPS_CONFIG.Vars.PlayersAlive) then
+            BoringFPS.SetVisibilityRender(owner, false)
+            BoringFPS.SetVisibilityRender(self, false)
+        end
     else
         owner:ChatPrint(BoringFPS.GetTranslation("touch_explode"))
     end
+    self:Detonate(owner)
+    BoringFPS.ReadSound("weapons/physcannon/energy_sing_explosion2.wav", game.GetWorld(), 0)
+    owner:SetAction(0, true)
 end
 
 function SWEP:Reload()

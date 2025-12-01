@@ -51,6 +51,9 @@ end
 
 function SWEP:SecondaryShoot()
     local owner = self:GetOwner()
+    if (SERVER) then
+        owner:EmitSound(BoringFPS_CONFIG.Sounds.PistolTP, 100, math.random(95, 105))
+    end
     owner:SetPos(self.LocationStart)
     owner:SetAction(owner:GetNWInt("Action", 0) - 1, true)
 end
