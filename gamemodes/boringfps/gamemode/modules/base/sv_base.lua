@@ -51,6 +51,7 @@ function BoringFPS.SpawnPlayersOnGameMap()
     local spawnPoints = BoringFPS.GetSpawnPoints()
     local playersGet = table.ShuffleSequential( player.GetAll() )
     local colorAvailable = BoringFPS_CONFIG.Settings.ColorPlayer
+    local healthPlayer = BoringFPS_CONFIG.Settings.BaseHP
     local colorPlayer = {}
 
     for index, ply in ipairs(playersGet) do
@@ -61,6 +62,8 @@ function BoringFPS.SpawnPlayersOnGameMap()
             ply:SetPos(location:GetPos())
             ply:SetAngles(location:GetAngles())
             ply:SetNWEntity( "WeaponGame", weapon)
+            ply:SetHealth(healthPlayer)
+            ply:SetMaxHealth(healthPlayer)
             weapon:SetClip1(weapon:GetMaxClip1()) --? We set here bc weapon doesnt load itself for some reasons
             colorPlayer[ply] = colorAvailable[index] or Color(0, 0, 0)
             ply:SetDataStats(class, "count_select", 1)

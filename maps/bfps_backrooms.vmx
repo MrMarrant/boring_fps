@@ -2,7 +2,7 @@ versioninfo
 {
 	"editorversion" "400"
 	"editorbuild" "8870"
-	"mapversion" "19"
+	"mapversion" "26"
 	"formatversion" "100"
 	"prefab" "0"
 }
@@ -89,7 +89,7 @@ bgimages_plus
 world
 {
 	"id" "1"
-	"mapversion" "19"
+	"mapversion" "26"
 	"classname" "worldspawn"
 	"comment" "Decompiled by BSPSource v1.4.2 from zs_backrooms | Decompiled by BSPSource v1.4.2 from hub_backrrooms_v1 | Decompiled by BSPSource v1.4.7 from hub_backrooms"
 	"detailmaterial" "detail/detailsprites"
@@ -86499,7 +86499,7 @@ entity
 	"classname" "info_target"
 	"angles" "0 0 0"
 	"targetname" "spawn_game"
-	"origin" "627.01 4476.01 287.11"
+	"origin" "627.01 4468 298"
 	editor
 	{
 		"color" "220 30 220"
@@ -86514,7 +86514,7 @@ entity
 	"classname" "info_target"
 	"angles" "0 180 0"
 	"targetname" "spawn_game"
-	"origin" "-1360.43 3466.78 407.728"
+	"origin" "-1360.43 3466.78 412"
 	editor
 	{
 		"color" "220 30 220"
@@ -86529,7 +86529,7 @@ entity
 	"classname" "info_target"
 	"angles" "0 -90 0"
 	"targetname" "spawn_game"
-	"origin" "165.131 2190.05 355.602"
+	"origin" "165.131 2190.05 362"
 	editor
 	{
 		"color" "220 30 220"
@@ -86544,7 +86544,7 @@ entity
 	"classname" "info_target"
 	"angles" "0 180 0"
 	"targetname" "spawn_game"
-	"origin" "-260.538 2861.91 608.761"
+	"origin" "-288 2896 612"
 	editor
 	{
 		"color" "220 30 220"
@@ -87789,7 +87789,7 @@ entity
 	"classname" "info_target"
 	"angles" "0 0 0"
 	"targetname" "spawn_game"
-	"origin" "591.376 4664.47 303.704"
+	"origin" "591.376 4664.47 311"
 	editor
 	{
 		"color" "220 30 220"
@@ -87804,7 +87804,7 @@ entity
 	"classname" "info_target"
 	"angles" "0 -180 0"
 	"targetname" "spawn_game"
-	"origin" "-502.505 4366.93 428.489"
+	"origin" "-502.505 4375 434"
 	editor
 	{
 		"color" "220 30 220"
@@ -88257,7 +88257,7 @@ entity
 	"solid" "6"
 	"spawnflags" "0"
 	"StartDisabled" "0"
-	"origin" "-289.104 5724.13 324"
+	"origin" "-289.104 5724.13 322"
 	editor
 	{
 		"color" "220 30 220"
@@ -88271,8 +88271,8 @@ cameras
 	"activecamera" "0"
 	camera
 	{
-		"position" "[-272.593 5690.74 348.117]"
-		"look" "[-315.227 5852.11 140.523]"
+		"position" "[681.647 4487.94 364.161]"
+		"look" "[529.448 4508.25 146.494]"
 	}
 	camera
 	{

@@ -2,16 +2,231 @@
 {
     "base"          "sandbox"
     "title"         "Boring FPS"
-    "version"       "0.0.1"
+    "version"       "0.3.1"
     "category"      "pvp"
     "menusystem"    "1"
     "maps"          "^bfps_"
     //"workshopid"    ""
 
     "author_name"   "MrMarrant"
-    "author_email"  ""
-    "author_url"    ""
-
-    "icon"  ""
-    "info"  ""
+    "author_url"    "https://mrmarrant.fr"
+    "settings"
+    {
+        1
+        {
+            "name"      "bfps_timer_pregame"
+            "text"      "Timer Pregame"
+            "help"      "Time in seconds before the game starts"
+            "type"      "Numeric"
+            "default"   "5"
+        }
+        2
+        {
+            "name"      "bfps_timer_postgame"
+            "text"      "Timer Postgame"
+            "help"      "Duration before game restart"
+            "type"      "Numeric"
+            "default"   "5"
+        }
+        3
+        {
+            "name"      "bfps_timer_delay_nextgame"
+            "text"      "Delay Before Next Game"
+            "help"      "Duration before next game starts"
+            "type"      "Numeric"
+            "default"   "20"
+        }
+        4
+        {
+            "name"      "bfps_base_hp"
+            "text"      "Base HP"
+            "help"      "Default health points for players"
+            "type"      "Numeric"
+            "default"   "100"
+        }
+        5
+        {
+            "name"      "bfps_min_player_required"
+            "text"      "Minimum Players Required"
+            "help"      "Minimum players required to start a game"
+            "type"      "Numeric"
+            "default"   "3"
+        }
+        6
+        {
+            "name"      "bfps_limit_time_turn"
+            "text"      "Turn Time Limit"
+            "help"      "Time limit for each player's turn"
+            "type"      "Numeric"
+            "default"   "10"
+        }
+        7
+        {
+            "name"      "bfps_timer_between_turns"
+            "text"      "Time Between Turns"
+            "help"      "Time limit between each player's turn"
+            "type"      "Numeric"
+            "default"   "1"
+        }
+        8
+        {
+            "name"      "bfps_default_max_step"
+            "text"      "Default Max Step"
+            "help"      "Default steps a player can do during his turn"
+            "type"      "Numeric"
+            "default"   "10"
+        }
+        9
+        {
+            "name"      "bfps_default_walk_speed"
+            "text"      "Default Walk Speed"
+            "help"      "Default walk speed for players"
+            "type"      "Numeric"
+            "default"   "250"
+        }
+        10
+        {
+            "name"      "bfps_default_run_speed"
+            "text"      "Default Run Speed"
+            "help"      "Default run speed for players"
+            "type"      "Numeric"
+            "default"   "320"
+        }
+        11
+        {
+            "name"      "bfps_duration_announcer_turn"
+            "text"      "Announcer Turn Duration"
+            "help"      "Define how much time announcer turn stay on screen"
+            "type"      "Numeric"
+            "default"   "3"
+        }
+        12
+        {
+            "name"      "bfps_message_lifetime_chatbox"
+            "text"      "Chatbox Message Lifetime"
+            "help"      "Define how much time messages chatbox history are displayed."
+            "type"      "Numeric"
+            "default"   "8"
+        }
+        13
+        {
+            "name"      "bfps_min_velocity_knockback_damage"
+            "text"      "Min Knockback Damage Velocity"
+            "help"      "Define the minimum velocity for knockback damage"
+            "type"      "Numeric"
+            "default"   "100"
+        }
+        14
+        {
+            "name"      "bfps_max_velocity_knockback_damage"
+            "text"      "Max Knockback Damage Velocity"
+            "help"      "Define the maximum velocity for knockback damage"
+            "type"      "Numeric"
+            "default"   "350"
+        }
+        15
+        {
+            "name"      "bfps_min_damage_knockback"
+            "text"      "Min Knockback Damage"
+            "help"      "Define the minimum damage that can be applied from knockback"
+            "type"      "Numeric"
+            "default"   "5"
+        }
+        16
+        {
+            "name"      "bfps_max_damage_knockback"
+            "text"      "Max Knockback Damage"
+            "help"      "Define the maximum damage that can be applied from knockback"
+            "type"      "Numeric"
+            "default"   "40"
+        }
+        17
+        {
+            "name"      "bfps_global_turn_endgame"
+            "text"      "Global Turn Before Endgame"
+            "help"      "Define the global turn where endgame can start"
+            "type"      "Numeric"
+            "default"   "10"
+        }
+        18
+        {
+            "name"      "bfps_damage_endgame"
+            "text"      "Endgame Damage"
+            "help"      "Define the damage to deal to player when endgame event is enabled"
+            "type"      "Numeric"
+            "default"   "10"
+        }
+        19
+        {
+            "name"      "bfps_duration_reveal_endgame"
+            "text"      "Endgame Reveal Duration"
+            "help"      "Define how long players are reveal when endgame event is enabled"
+            "type"      "Numeric"
+            "default"   "3"
+        }
+        20
+        {
+            "name"      "bfps_rounds_before_change_map"
+            "text"      "Rounds Before Map Change"
+            "help"      "Define how many rounds before changing map"
+            "type"      "Numeric"
+            "default"   "3"
+        }
+        21
+        {
+            "name"      "bfps_timer_for_vote"
+            "text"      "Vote Timer"
+            "help"      "Define how much time players have to vote for next map"
+            "type"      "Numeric"
+            "default"   "10"
+        }
+        22
+        {
+            "name"      "bfps_experience_gain_by_game"
+            "text"      "Experience Gain Per Game"
+            "help"      "Experience gained by player at the end of each game"
+            "type"      "Numeric"
+            "default"   "100"
+        }
+        23
+        {
+            "name"      "bfps_experience_bonus_winner"
+            "text"      "Winner Experience Bonus"
+            "help"      "Experience bonus gained by the winner at the end of each game"
+            "type"      "Numeric"
+            "default"   "25"
+        }
+        24
+        {
+            "name"      "bfps_experience_gain_by_kill"
+            "text"      "Experience Gain Per Kill"
+            "help"      "Experience gained by player per kill"
+            "type"      "Numeric"
+            "default"   "10"
+        }
+        25
+        {
+            "name"      "bfps_difference_experience_between_levels"
+            "text"      "Experience Difference Between Levels"
+            "help"      "The experience needed to level up is calculated with the formula : (DifferenceExperienceBetweenLevels / 2) * CurrentLevel * (CurrentLevel + 1)"
+            "type"      "Numeric"
+            "default"   "100"
+        }
+        26
+        {
+            "name"      "bfps_max_level"
+            "text"      "Maximum Level"
+            "help"      "Maximum level a player can reach"
+            "type"      "Numeric"
+            "default"   "70"
+        }
+        27
+        {
+            "name"      "bfps_bot_enable_experience"
+            "text"      "Bot Experience Enabled"
+            "help"      "Set to 1 if you want bots to gain exp & level"
+            "type"      "CheckBox"
+            "default"   "0"
+        }
+    }
 }
