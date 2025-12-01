@@ -4,6 +4,10 @@ local FR = {
     start_game = "Démarrer le jeu",
     not_enough_spawns = "Il n'y a pas assez de points d'apparition pour tous les joueurs. Vous avez été mis en mode spectateur.",
 
+    -- Help Menu
+    class_helper = "Guide Classe",
+    help_select_class = "Sélection Classe",
+
     -- Rules
     rule = "Règle du jeu",
     rule_desc = "Le but du jeu est d’être le dernier survivant de la partie en cours.\nVous jouez chacun votre tour, pendant une durée définie.\nVous pouvez réaliser des actions durant votre tour, ainsi que lorsque ce n’est pas votre tour.\nVous avez le choix entre plusieurs classes, chacune vous donnera accès à une arme unique ainsi que des caractéristiques uniques dans le salon du lobby de pregame.",
@@ -28,7 +32,7 @@ local FR = {
     walkspeed_class = "Vitesse de déplacement",
 
     -- HUD
-    select_class = "Sélectionnez votre classe",
+    select_class = "Sélectionnez une classe",
 
     -- Weapons
     launcher_description = "Le Launcher est une classe lourde, vous tirer des roquettes explosives qui infligent des dégâts de zone. en fonction de la distance parcourue (plus la roquette parcourt une longue distance, moins elle inflige de dégâts).\n\nLe Launcher est lent et possède peu de points d’action, mais compense cela avec des dégâts élevés, de plus en tirant, vous subissez un recul important vous faisant reculer de plusieurs mètres.",

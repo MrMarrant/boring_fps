@@ -3,7 +3,7 @@ BoringFPS_CONFIG.Vars.ScrH = ScrH()
 
 surface.CreateFont( "LargeVT", {
     font = "VT323",
-    size = 80
+    size = 70
 } )
 
 surface.CreateFont( "DefaultVT", {

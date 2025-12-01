@@ -4,6 +4,10 @@ local EN = {
     start_game = "Start Game",
     not_enough_spawns = "Not enough spawn points for all players. You have been put into spectator mode.",
 
+    -- Help Menu
+    class_helper = "Class Helper",
+    help_select_class = "Select Class",
+
     -- Rules
     rule = "Game rules",
     rule_desc = "The goal of the game is to be the last survivor in the current game.\nYou take turns playing for a set amount of time.\nYou can perform actions during your turn, as well as when it is not your turn.\nYou can choose from several classes, each of which gives you access to a unique weapon and unique characteristics in the pregame lobby.",

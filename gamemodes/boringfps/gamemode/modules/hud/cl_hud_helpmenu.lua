@@ -450,9 +450,9 @@ local function OpenBoringFPSMenu(scrW, scrH)
         return btn
     end
 
-    local rulesButton = CreateStyledButton(frame, "Rules", scrW * 0.23, scrH * 0.4, BoringFPS_CONFIG.Icons.RulesIcon)
-    local classHelperButton = CreateStyledButton(frame, "Class Helper", scrW * 0.43, scrH * 0.4, BoringFPS_CONFIG.Icons.Info)
-    local selectClassButton = CreateStyledButton(frame, "Select Class", scrW * 0.63, scrH * 0.4, BoringFPS_CONFIG.Icons.WeaponIcon)
+    local rulesButton = CreateStyledButton(frame, BoringFPS.GetTranslation("rule"), scrW * 0.23, scrH * 0.4, BoringFPS_CONFIG.Icons.RulesIcon)
+    local classHelperButton = CreateStyledButton(frame, BoringFPS.GetTranslation("class_helper"), scrW * 0.43, scrH * 0.4, BoringFPS_CONFIG.Icons.Info)
+    local selectClassButton = CreateStyledButton(frame, BoringFPS.GetTranslation("help_select_class"), scrW * 0.63, scrH * 0.4, BoringFPS_CONFIG.Icons.WeaponIcon)
 
     rulesButton.DoClick = function()
         frame:SetVisible(false)
