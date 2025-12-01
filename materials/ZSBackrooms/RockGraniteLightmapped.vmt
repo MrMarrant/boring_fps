@@ -1,0 +1,10 @@
+LightmappedGeneric
+{
+	$basetexture "models/props_wasteland/rockgranite02a"
+	$surfaceprop "boulder"
+	
+	$detail "detail\noise_detail_01"
+	$detailscale "[ 4 4 ]"
+	$detailblendfactor ".5"
+	$detailblendmode 0
+}

@@ -1,0 +1,7 @@
+"LightMappedGeneric"
+{
+	"$basetexture"	"Custom/ZSBackrooms/Custommonitorscreen1"
+	"$surfaceprop"	"cardboard"
+	"$envmap" "env_cubemap"
+	"$envmaptint" "[ .4 .4 .4]"
+}

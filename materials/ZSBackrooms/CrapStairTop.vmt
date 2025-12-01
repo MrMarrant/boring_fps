@@ -1,0 +1,9 @@
+LightmappedGeneric
+{
+$baseTexture "Custom/ZSBackrooms/CrapStairTop"
+$surfaceprop wood
+$detail "detail/noise_detail_01"
+$detailscale "[ 4 4 ]"
+$detailblendfactor ".2"
+$detailblendmode 0
+}

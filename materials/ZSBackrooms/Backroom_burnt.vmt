@@ -1,0 +1,9 @@
+WorldVertexTransition
+{
+	$basetexture "Custom/ZSBackrooms/Backroom_burnt"
+	$basetexture2 "plaster/plasterwall009d"
+	$blendmodulatetexture "Custom/ZSBackrooms/backroommask"
+
+	$surfaceprop cardboard
+	$surfaceprop2 concrete
+}

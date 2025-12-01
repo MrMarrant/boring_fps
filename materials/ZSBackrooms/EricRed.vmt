@@ -1,0 +1,5 @@
+Lightmappedgeneric
+{
+	$basetexture "Models/props_c17/awning002a"
+	$surfaceprop "cardboard"
+}

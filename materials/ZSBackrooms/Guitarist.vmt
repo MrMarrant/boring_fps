@@ -1,0 +1,10 @@
+"LightMappedGeneric"
+{
+	"$basetexture"	"Custom/ZSBackrooms/Guitarist"
+	"$translucent"	"1"
+	
+	$detail "detail/noise_detail_01"
+	$detailscale "[ 1 1 ]"
+	$detailblendfactor ".15"
+	$detailblendmode 0
+}

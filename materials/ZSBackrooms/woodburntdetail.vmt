@@ -1,0 +1,13 @@
+//Lightmappedgeneric
+Unlitgeneric
+{
+	$color "{168 121 88}"
+	$basetexture "Custom/ZSBackrooms/burntwood_swiss"
+//	$translucent 1
+	$alphatest 1
+	$nocull 1
+	%compilepassbullets 1
+	%compilenonsolid 1
+
+	$surfaceprop wood
+}

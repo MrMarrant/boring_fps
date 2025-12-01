@@ -1,0 +1,10 @@
+lightmappedgeneric
+{
+$baseTexture "Custom/ZSBackrooms/Backroomtiles"
+$surfaceprop tile
+$bumpmap "Custom/ZSBackrooms/Backroomtiles_nrm"
+
+$envmap env_cubemap
+$normalmapalphaenvmapmask 1
+$envmaptint "[ .25 .25 .25 ]"
+}

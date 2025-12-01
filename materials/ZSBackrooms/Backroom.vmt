@@ -1,0 +1,11 @@
+WorldVertexTransition
+{
+	$basetexture "Custom/ZSBackrooms/Backroom"
+	$bumpmap "Custom/ZSBackrooms/Backroom_nrm"
+	$basetexture2 "plaster/plasterwall009d"
+	//$bumpmap2 "tools/toolsblack" needs to be something else
+	$blendmodulatetexture "Custom/ZSBackrooms/backroommask"
+
+	$surfaceprop cardboard
+	$surfaceprop2 concrete
+}

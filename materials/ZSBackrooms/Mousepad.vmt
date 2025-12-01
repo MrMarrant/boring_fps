@@ -1,0 +1,9 @@
+LightmappedGeneric
+{
+$baseTexture "Custom/ZSBackrooms/Mousepad"
+$surfaceprop rubber
+$detail "detail/noise_detail_01"
+$detailscale "[ 1 1 ]"
+$detailblendfactor ".5"
+$detailblendmode 0
+}

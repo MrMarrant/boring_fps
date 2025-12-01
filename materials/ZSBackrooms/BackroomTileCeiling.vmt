@@ -1,0 +1,13 @@
+lightmappedgeneric
+{
+$basetexture "lights/white"
+//$baseTexture "plaster/plasterwall008a"
+$color "{ 176 175 168 }"
+$surfaceprop tile
+
+//$normalmapalphaenvmapmask 1
+$bumpmap "metal/metalceiling005a_normal"
+
+$envmap env_cubemap
+$envmaptint "[ .25 .25 .25 ]"
+}

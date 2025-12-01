@@ -1,0 +1,9 @@
+LightMappedGeneric
+{
+	$basetexture "Custom/ZSBackrooms/Backroom_white"
+	$bumpmap "Custom/ZSBackrooms/Backroom_nrm"
+	"$envmap" "env_cubemap"
+	$envmaptint "[ .25 .25 .25 ]"
+	//$surfaceprop cardboard
+	$surfaceprop plastic
+}
