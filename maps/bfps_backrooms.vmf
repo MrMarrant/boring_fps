@@ -2,7 +2,7 @@ versioninfo
 {
 	"editorversion" "400"
 	"editorbuild" "8870"
-	"mapversion" "26"
+	"mapversion" "27"
 	"formatversion" "100"
 	"prefab" "0"
 }
@@ -89,7 +89,7 @@ bgimages_plus
 world
 {
 	"id" "1"
-	"mapversion" "26"
+	"mapversion" "27"
 	"classname" "worldspawn"
 	"comment" "Decompiled by BSPSource v1.4.2 from zs_backrooms | Decompiled by BSPSource v1.4.2 from hub_backrrooms_v1 | Decompiled by BSPSource v1.4.7 from hub_backrooms"
 	"detailmaterial" "detail/detailsprites"
