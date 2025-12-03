@@ -1,9 +1,6 @@
 local differenceExp = BoringFPS_CONFIG.Settings.DifferenceExperienceBetweenLevels
 
 function BoringFPS.DisplayHUDPreGame()
-    local timerPreGame = BoringFPS_CONFIG.Settings.TimerPreGame
-    local timerStart = false
-    local startTimer
     hook.Add( "HUDPaint", "HUDPaint:BoringFPS:HUDPreGame", function()
         if (IsValid(LocalPlayer().TabMenu) or IsValid(LocalPlayer().HelpMenu)) then return end
 
@@ -12,19 +9,12 @@ function BoringFPS.DisplayHUDPreGame()
         BoringFPS.DrawInfoPreGame(scrW, scrH)
         BoringFPS.DrawVersionGamemode(scrW, scrH)
         BoringFPS.DrawLevelExperience(scrW, scrH)
-        if (GetGlobalBool("IsStartTimerPreGame")) then
-            ct = CurTime()
-            startTimer = timerStart and startTimer or (ct + timerPreGame)
-            timerStart = true
-            BoringFPS.DrawTimerLeft(scrW, scrH, math.Round(startTimer - ct))
-        else
-            timerStart = false --? Pas ouf mais flemme
-        end
     end)
 end
 
 function BoringFPS.StopHUDPreGame()
     hook.Remove( "HUDPaint", "HUDPaint:BoringFPS:HUDPreGame" )
+    hook.Remove( "HUDPaint", "HUDPaint:BoringFPS:Countdown" )
 end
 
 function BoringFPS.DrawLevelExperience(scrW, scrH)
@@ -83,10 +73,32 @@ function BoringFPS.DrawInfoPreGame(scrW, scrH)
     end
 end
 
+function BoringFPS.CountDown()
+    local ct = CurTime()
+    local startTimer = ct + 3.5
+    local scrW, scrH = BoringFPS_CONFIG.Vars.ScrW, BoringFPS_CONFIG.Vars.ScrH
+
+    LocalPlayer():EmitSound(BoringFPS_CONFIG.Sounds.CountdownStart)
+
+    hook.Add( "HUDPaint", "HUDPaint:BoringFPS:CountDown", function()
+        local timerRemaining = startTimer - CurTime()
+        local timeLeft = math.Round(timerRemaining)
+        draw.SimpleText(timeLeft, "AnnouncerTurn", scrW * 0.5, scrH * 0.5, Color(255, 255, 255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+        draw.RoundedBox(0, 0, 0, scrW, scrH, Color(255, 255, 255, 255 * (1 - timerRemaining / 3.5)))
+        if timerRemaining <= 0 then
+            hook.Remove( "HUDPaint", "HUDPaint:BoringFPS:CountDown" )
+        end
+    end)
+end
+
 net.Receive(BoringFPS_CONFIG.NetVar.StartClientPreGame, function()
     BoringFPS.DisplayHUDPreGame()
 end)
 
 net.Receive(BoringFPS_CONFIG.NetVar.StopClientPreGame, function()
     BoringFPS.StopHUDPreGame()
+end)
+
+net.Receive(BoringFPS_CONFIG.NetVar.StartCountDown, function()
+    BoringFPS.CountDown()
 end)

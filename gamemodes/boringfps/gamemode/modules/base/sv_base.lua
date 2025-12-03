@@ -9,9 +9,9 @@ function BoringFPS.NewGame()
             if BoringFPS.IsConditionMetNewGame() then
                 BoringFPS.StartTimerPreGame()
             else
-                SetGlobalBool("IsStartTimerPreGame", false)
                 timer.Remove("BoringFPS:PreGameTimer")
                 timer.Remove("BoringFPS:CountdownTimer")
+                timer.Remove("BoringFPS:PreGameCountDown")
             end
         end )
     end)
@@ -21,9 +21,12 @@ function BoringFPS.StartTimerPreGame()
     -- Démarrer le timer avant le début du jeu
     if (not timer.Exists("BoringFPS:PreGameTimer")) then
         SetGlobalString("CurrentGameState", "Game will start soon...")
-        SetGlobalBool("IsStartTimerPreGame", true)
         timer.Create( "BoringFPS:PreGameTimer", BoringFPS_CONFIG.Settings.TimerPreGame, 1, function()
             BoringFPS.StartGame()
+        end )
+        timer.Create( "BoringFPS:PreGameCountDown", BoringFPS_CONFIG.Settings.TimerPreGame - 3.5, 1, function()
+            net.Start(BoringFPS_CONFIG.NetVar.StartCountDown)
+            net.Broadcast()
         end )
     end
 end
@@ -31,7 +34,6 @@ end
 function BoringFPS.StartGame()
     -- Démarrer le jeu
     hook.Remove("Think", "GM:BoringFPS:Think:CanStartNewGame")
-    SetGlobalBool("IsStartTimerPreGame", false)
     SetGlobalBool("GameInProgress", true)
     SetGlobalString("CurrentGameState", "Game in progress...")
     SetGlobalInt("GlobalTurn", 1)

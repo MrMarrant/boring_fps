@@ -238,6 +238,7 @@ BoringFPS_CONFIG.Sounds.Detonate = Sound("boring_fps/sfx/game/detonate.mp3")
 BoringFPS_CONFIG.Sounds.DeathSound = Sound("boring_fps/sfx/ded.mp3")
 BoringFPS_CONFIG.Sounds.EndEventMusic = Sound("boring_fps/music/end_music.wav")
 BoringFPS_CONFIG.Sounds.PistolTP = Sound("boring_fps/sfx/game/pistol_tp.mp3")
+BoringFPS_CONFIG.Sounds.CountdownStart = Sound("boring_fps/sfx/game/countdown_start.mp3")
 BoringFPS_CONFIG.Sounds.GameMusic = {
     "boring_fps/music/theme_boringfps_1.wav",
     "boring_fps/music/theme_boringfps_2.wav",
@@ -264,6 +265,7 @@ BoringFPS_CONFIG.NetVar.RevealAura = "BoringFPS_CONFIG.RevealAura"
 BoringFPS_CONFIG.NetVar.OpenHelpMenu = "BoringFPS_CONFIG.OpenHelpMenu"
 BoringFPS_CONFIG.NetVar.ChangeMap = "BoringFPS_CONFIG.ChangeMap"
 BoringFPS_CONFIG.NetVar.VoteMap = "BoringFPS_CONFIG.VoteMap"
+BoringFPS_CONFIG.NetVar.StartCountDown = "BoringFPS_CONFIG.StartCountDown"
 
 -- Base vars, i really don't recommend to edit this section
 BoringFPS_CONFIG.Vars = {}
