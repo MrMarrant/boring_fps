@@ -18,7 +18,7 @@ surface.CreateFont( "SmallVT", {
 
 surface.CreateFont( "VerySmallVT", {
     font = "VT323",
-    size = 25
+    size = 21
 } )
 
 surface.CreateFont( "HudBoringFPS", {

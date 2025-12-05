@@ -33,11 +33,14 @@ local EN = {
 
     -- HUD
     select_class = "Select Your Class",
+    wait_join = "Waiting for players to join...",
+    game_starting_in = "Game will start soon...",
+    starting_new_game_in = "Starting a new game in %d seconds...",
 
     -- Weapons
     launcher_description = "The Launcher is a heavy class that fires explosive rockets that inflict area damage. The damage depends on the distance traveled (the longer the rocket travels, the less damage it inflicts).\n\nThe Launcher is slow and has few action points, but compensates for this with high damage. Furthermore, when firing, you suffer significant recoil, causing you to be knocked back several meters.",
     crowbar_description = "A simple crowbar, you have a lot of movement and dash points.\n\nYou can attack in close combat with your crowbar, inflicting moderate damage at short range.",
-    touch_description = "The goal of this class is to touch as many players as possible with your weapon.\nIf you have touched at least one player, you can right-click to explode each player you have touched.\nYou have an indicator on the HUD for each player you have touched.\nOnce exploded, you become invisible until the end of your turn.",
+    touch_description = "The goal of this class is to touch as many players as possible with your weapon.\nIf you have touched at least one player, you can right-click to explode each player you have touched.\nYou have an indicator on the HUD for each player you have touched.\nOnce exploded,if you have touch every players still alive, you become invisible until the end of your turn.",
     stalker_description = "A weapon that can shoot players through any walls.\nIn addition, you can reveal the positions of all other players for a short time by right-clicking. However, doing so will also reveal your position.",
     pistol_description = "A simple pistol that can double damage when aiming at the head.\nAdditionally, you can return to your starting position at the beginning of your turn by right-clicking.",
     shotgun_description = "A powerful short-range weapon that causes significant recoil to the player hit.\nIf a player suffering recoil hits a wall, they will take additional damage.",
