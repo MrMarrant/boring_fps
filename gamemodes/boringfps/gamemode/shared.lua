@@ -18,7 +18,7 @@ BoringFPS_CONFIG.LangServer = GetConVar("gmod_language"):GetString()
 cvars.AddChangeCallback("gmod_language", function(convar_name, value_old, value_new)
 	BoringFPS_CONFIG.LangServer = value_new
 end)
-BoringFPS.Version = "v0.3.1"
+BoringFPS.Version = "v1.0.0"
 
 local root = GM.FolderName
 local prefixOrder = {

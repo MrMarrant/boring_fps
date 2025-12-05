@@ -2,7 +2,7 @@
 {
     "base"          "sandbox"
     "title"         "Boring FPS"
-    "version"       "0.3.1"
+    "version"       "1.0.0"
     "category"      "pvp"
     "menusystem"    "1"
     "maps"          "^bfps_"
