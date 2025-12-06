@@ -35,9 +35,9 @@ The official Boring FPS Gamemode on Garry's Mod.
 
  # 🖇️ Links
  
- [Wiki](https://www.boringfps.eu)
+ [Wiki](https://www.boringfps.xyz)
  
- [Workshop]()
+ [Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=3618730173)
 
  # 🛠️ Features
     - Class selection with unique weapons and abilities
