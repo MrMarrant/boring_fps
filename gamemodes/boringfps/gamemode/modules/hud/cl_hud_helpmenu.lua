@@ -422,10 +422,12 @@ local function OpenBoringFPSMenu(scrW, scrH)
         lply.HelpMenu = nil
     end
 
-    local function CreateStyledButton(parent, text, x, y, icon)
+    local function CreateStyledButton(parent, text, x, y, icon, sizeX, sizeY)
         local font = "LargeVT"
         local btn = vgui.Create("DButton", parent)
-        btn:SetSize(scrW * 0.15, scrW * 0.15)
+        sizeX = sizeX or scrW * 0.15
+        sizeY = sizeY or scrW * 0.15
+        btn:SetSize(sizeX, sizeY)
         btn:SetPos(x, y)
         btn:SetText("")
         btn.Hovered = false
@@ -438,7 +440,7 @@ local function OpenBoringFPSMenu(scrW, scrH)
         end
 
         btn.Paint = function(self, w, h)
-            BoringFPS.DrawRoundedOutlinedBox(0, 0, 0, w, h, 4 , Color(35, 31, 32), Color(223, 222, 206))
+            BoringFPS.DrawRoundedOutlinedBox(0, 0, 0, w, h, 4 , Color(35, 31, 32), self.Hovered and Color(163, 163, 163) or Color(223, 222, 206))
             BoringFPS.DrawIconHud(icon, w * 0.1, h * 0.1, Color(255, 255, 255, 3), w * 0.8, w * 0.8)
             local lines = BoringFPS.WrapText(text, font, w - 8)
             local yLine = h * 0.38 - (#lines * 40) / 2
@@ -453,6 +455,7 @@ local function OpenBoringFPSMenu(scrW, scrH)
     local rulesButton = CreateStyledButton(frame, BoringFPS.GetTranslation("rule"), scrW * 0.23, scrH * 0.4, BoringFPS_CONFIG.Icons.RulesIcon)
     local classHelperButton = CreateStyledButton(frame, BoringFPS.GetTranslation("class_helper"), scrW * 0.43, scrH * 0.4, BoringFPS_CONFIG.Icons.Info)
     local selectClassButton = CreateStyledButton(frame, BoringFPS.GetTranslation("help_select_class"), scrW * 0.63, scrH * 0.4, BoringFPS_CONFIG.Icons.WeaponIcon)
+    local wikiButton = CreateStyledButton(frame, "", scrW * 0.945, scrH * 0.9, BoringFPS_CONFIG.Icons.WikiIcon, scrW * 0.05, scrW * 0.05)
 
     rulesButton.DoClick = function()
         frame:SetVisible(false)
@@ -467,6 +470,10 @@ local function OpenBoringFPSMenu(scrW, scrH)
     selectClassButton.DoClick = function()
         frame:SetVisible(false)
         OpenSelectClassMenu(main, frame, scrW, scrH)
+    end
+    
+    wikiButton.DoClick = function()
+        gui.OpenURL(BoringFPS_CONFIG.Settings.WikiURL)
     end
 end
 

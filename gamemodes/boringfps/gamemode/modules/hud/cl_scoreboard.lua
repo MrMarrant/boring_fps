@@ -19,8 +19,8 @@ local function CreatePlayerListContainer(frame, scrW, scrH, x, y)
     local sizeplyListH = scrH * plyListH
 
     local BannerImg = vgui.Create("DImage", frame)
-    BannerImg:SetPos(scrW * 0.82, scrH * 0.02)
-    BannerImg:SetSize(300, 150)
+    BannerImg:SetPos(scrW * 0.72, scrH * 0.02)
+    BannerImg:SetSize(500, 150)
     BannerImg:SetImage("boringfps/icons/boringpfs_banner.png")
 
     local DScrollPanel = vgui.Create( "DScrollPanel", frame )

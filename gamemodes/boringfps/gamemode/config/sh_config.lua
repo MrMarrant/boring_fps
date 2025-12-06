@@ -36,6 +36,7 @@ BoringFPS_CONFIG.Icons = {}
 BoringFPS_CONFIG.Icons.StepIcon = Material("boringfps/icons/step_icon.png")
 BoringFPS_CONFIG.Icons.ActionIcon = Material("boringfps/icons/action_icon.png")
 BoringFPS_CONFIG.Icons.WeaponIcon = Material("boringfps/icons/weapon_icon.png")
+BoringFPS_CONFIG.Icons.WikiIcon = Material("boringfps/icons/wiki_icon.png")
 BoringFPS_CONFIG.Icons.DashIcon = Material("boringfps/icons/dash_icon.png")
 BoringFPS_CONFIG.Icons.HeartIcon = Material("boringfps/icons/heart_icon.png")
 BoringFPS_CONFIG.Icons.HeartFillIcon = Material("boringfps/icons/heart_fill_icon.png")
@@ -182,6 +183,8 @@ BoringFPS_CONFIG.Settings.ColorPlayer = {
     Color(0, 170, 255),
     Color(0, 255, 170),
 }
+
+BoringFPS_CONFIG.Settings.WikiURL = "https://www.boringfps.xyz"
 
 -- SQL Settings
 BoringFPS_CONFIG.SQL = {}
