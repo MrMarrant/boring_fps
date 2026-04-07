@@ -12,6 +12,7 @@ function PLAYER:UpdateStepLeft(step)
     if (step <= 0) then
         self:SetWalkSpeed( 1 )
         self:SetRunSpeed( 1 )
+        self:SetSlowWalkSpeed(1)
         self:SetJumpPower( 0 )
         self:ChatPrint(BoringFPS.GetTranslation("move_point_empty"))
     end
@@ -34,6 +35,7 @@ function PLAYER:Wait()
     local WeaponGame = self:GetNWEntity("WeaponGame")
     self:SetWalkSpeed( 1 )
     self:SetRunSpeed( 1 )
+    self:SetSlowWalkSpeed(1)
     self:SetJumpPower( 0 )
     self:SetAction(0)
     self:SetNWInt("StepLeft", 0)
@@ -47,6 +49,7 @@ function PLAYER:Play()
     local WeaponGame = self:GetNWEntity("WeaponGame")
 
     self:SetWalkSpeed( WeaponGame.WalkSpeed )
+    self:SetSlowWalkSpeed(WeaponGame.WalkSpeed * 0.5)
     self:SetRunSpeed( WeaponGame.RunSpeed )
     self:SetJumpPower( 200 )
     self:ChatPrint(BoringFPS.GetTranslation("play_state"))
@@ -61,6 +64,7 @@ end
 function PLAYER:Free()
     self:SetWalkSpeed( 150 )
     self:SetRunSpeed( 200 )
+    self:SetSlowWalkSpeed(100)
     self:SetJumpPower( 200 )
 end
 

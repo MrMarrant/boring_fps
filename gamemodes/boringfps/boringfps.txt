@@ -2,11 +2,11 @@
 {
     "base"          "sandbox"
     "title"         "Boring FPS"
-    "version"       "1.0.0"
+    "version"       "1.0.2"
     "category"      "pvp"
     "menusystem"    "1"
     "maps"          "^bfps_"
-    //"workshopid"    ""
+    "workshopid"    "3618730173"
 
     "author_name"   "MrMarrant"
     "author_url"    "https://mrmarrant.fr"
