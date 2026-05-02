@@ -3,9 +3,7 @@ GM.Author = "MrMarrant"
 GM.Email = "N/A"
 GM.Website = "https://mrmarrant.fr"
 
-DeriveGamemode("sandbox")
-DEFINE_BASECLASS("gamemode_sandbox")
-GM.Sandbox = BaseClass
+DeriveGamemode("base")
 
 -- Functions
 BoringFPS = BoringFPS or {}
@@ -18,7 +16,7 @@ BoringFPS_CONFIG.LangServer = GetConVar("gmod_language"):GetString()
 cvars.AddChangeCallback("gmod_language", function(convar_name, value_old, value_new)
 	BoringFPS_CONFIG.LangServer = value_new
 end)
-BoringFPS.Version = "v1.0.2"
+BoringFPS.Version = "v1.0.3"
 
 local root = GM.FolderName
 local prefixOrder = {

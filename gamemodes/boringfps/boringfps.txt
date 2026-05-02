@@ -1,8 +1,8 @@
-"scparena"
+"boringfps"
 {
-    "base"          "sandbox"
+    "base"          "base"
     "title"         "Boring FPS"
-    "version"       "1.0.2"
+    "version"       "1.0.3"
     "category"      "pvp"
     "menusystem"    "1"
     "maps"          "^bfps_"
